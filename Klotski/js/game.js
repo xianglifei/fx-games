@@ -220,7 +220,7 @@
 
     state.animating = animate;
     if (animate) {
-      // 摆盘动画：棋子从中心飞入（致敬计客华容道的摆放引导）
+      // 摆盘动画：棋子从中心飞入
       let started = false;
       const flyIn = () => {
         if (started) return;
