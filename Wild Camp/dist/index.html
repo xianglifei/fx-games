@@ -20,6 +20,7 @@
   --app-w:clamp(280px, min(92vw, calc(100vh - 250px)), 540px);  /* 顶栏与棋盘统一宽度 */
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+[hidden]{display:none !important;}
 html,body{margin:0;padding:0;}
 body{
   font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
@@ -182,6 +183,16 @@ h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
 .rules-body ul{margin:4px 0;padding-left:20px;}
 .rules-body .bad{color:#c0392b;}
 .rules-body .good{color:#1f7a3d;}
+.rules-body .tip{font-size:12px;color:#b09468;margin:8px 0 0;}
+.rules-link{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;
+  margin-top:14px;padding:10px 14px;font-size:13px;color:#8a6a4a;font-weight:600;
+  background:rgba(255,255,255,.6);border:1px dashed #e0c996;border-radius:12px;
+  cursor:pointer;font-family:inherit;text-align:left;transition:background .15s;
+}
+.rules-link:hover{background:rgba(255,255,255,.9);}
+.rules-link:active{transform:scale(.98);}
+.rules-link .note{font-size:11px;color:#b09468;font-weight:400;}
 .reset-link{display:block;margin-top:16px;font-size:12px;color:#b04a2f;text-align:center;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;}
 
 /* ---------- 彩带 ---------- */
@@ -273,46 +284,36 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
 <!-- 规则弹窗 -->
 <div class="mask" id="rules-mask">
   <div class="card">
-    <h2>📖 游戏规则</h2>
-    <div class="rules-body">
+    <h2 id="rules-title">📖 游戏规则</h2>
+    <div class="rules-body" id="rules-main">
       <h3>🎯 目标</h3>
-      <p>在草地上摆放帐篷，让每棵树都配上一顶帐篷。行列边缘的数字是推理线索。每关<b>唯一解</b>，不需要靠猜。</p>
-      <p>每关配发的棋子是固定的（见棋子栏"剩余"数）：入门 / 进阶全是单帐篷，挑战 / 大师 / 传奇会配发双帐篷。<b>把配发的棋子全部摆上</b>并满足规则即过关。每个难度 <b>150 关</b>，五个难度共 <b>750 关</b>。每个难度是一片独立的营地风景：入门「森林营地」→ 进阶「白桦林间」→ 挑战「金色草原」→ 大师「荒漠绿洲」→ 传奇「星夜营地」。</p>
+      <p>在草地上摆放帐篷，让<b>每棵树都配上一顶帐篷</b>；把棋子栏配发的棋子<b>全部摆上</b>即过关。行列边缘的数字是推理线索，每关<b>唯一解</b>，全程不需要靠猜。</p>
       <h3>三条硬规则</h3>
       <ul>
         <li><b>R1</b> 每棵树恰好配一顶帐篷，帐篷必须放在树<b>上 / 下 / 左 / 右</b>紧邻的格子（斜对角不算相邻）。</li>
         <li><b>R2</b> 任意两顶帐篷<b>不能相邻</b>——上下左右、四个斜角都不行。</li>
         <li><b>R3</b> 棋盘边缘的数字 = 该行 / 该列的帐篷总数。</li>
       </ul>
-      <h3>由规则可知</h3>
-      <ul>
-        <li>帐篷总数 = 树的总数。</li>
-        <li>不挨着任何树的格子一定是草地。</li>
-        <li>某行 / 列数字已达标 → 其余格子都能排除。</li>
-      </ul>
-      <h3>Double 帐篷（挑战 / 大师 / 传奇难度）</h3>
-      <ul>
-        <li>一顶双帐篷占<b>两个共边相邻的格子</b>（1×2 形状）。</li>
-        <li>仍只对应<b>一棵树</b>：其中一格紧挨它的树，另一格也必须紧挨某棵树。</li>
-        <li>双帐篷和其他帐篷之间照样不能相邻（含斜角）。</li>
-        <li class="bad">❌ 双帐篷不能配两棵树；❌ 占两格不等于不受"不相邻"限制。</li>
-      </ul>
       <h3>🕹️ 操作</h3>
       <ul>
-        <li><b>点格子</b>放帐篷，<b>再点一次</b>已放的帐篷就收回。</li>
-        <li>选「双帐篷」后<b>先点一格、再点相邻一格</b>放下一顶；棋子在下方棋子栏切换。</li>
-        <li>违反规则的摆放会被<b>自动弹回</b>并说明原因。</li>
+        <li><b>点格子</b>放帐篷，<b>再点一次</b>收回；选「双帐篷」后<b>先点一格、再点相邻一格</b>放下。</li>
+        <li>违规的摆放会被<b>自动弹回</b>并说明原因。</li>
         <li>卡住了点 💡 提示，会自动帮你摆对一顶帐篷。</li>
       </ul>
-      <h3>💡 解题技巧</h3>
+      <button class="rules-link" id="btn-double-rules">⛺ Double 帐篷怎么玩<span class="note">挑战 / 大师 / 传奇才用得到</span></button>
+    </div>
+    <div class="rules-body" id="rules-double" hidden>
       <ul>
-        <li>从树多、数字大的行 / 列入手。</li>
-        <li>某棵树四周只剩一个可放位 → 那格必是帐篷。</li>
-        <li>用假设 + 反证试探分支：因为解唯一，猜错后面必然矛盾。</li>
+        <li>一顶双帐篷占<b>两个共边相邻的格子</b>（1×2 形状），仍只对应<b>一棵树</b>：其中一格紧挨它的树，另一格也必须紧挨某棵树。</li>
+        <li>和其他帐篷一样，四周不能有相邻的帐篷（含斜角）。</li>
+        <li class="bad">❌ 一顶双帐篷不能配两棵树。</li>
       </ul>
+      <p class="tip">这种棋子只在挑战 / 大师 / 传奇难度出现，入门 / 进阶全是单帐篷。</p>
+      <button class="rules-link" id="btn-back-rules">← 返回游戏规则</button>
     </div>
     <button class="btn primary" id="btn-close-rules" style="margin-top:14px">开始露营！</button>
-    <button class="reset-link" id="btn-reset">重置全部进度</button>
+    <!-- 功能保留在代码层面，界面暂不露出：去掉 hidden 即可恢复 -->
+    <button class="reset-link" id="btn-reset" hidden>重置全部进度</button>
   </div>
 </div>
 
@@ -868,7 +869,7 @@ const Sound = (()=>{
 const TIERS = { easy:'入门', normal:'进阶', hard:'挑战', master:'大师', legend:'传奇' };
 const MAX_LEVEL = 150;   // 每个难度 150 关，五个难度共 750 关
 const SAVE_KEY = 'wild-camp-web-v1';
-let save = { v:1, sound:true, tier:'easy', seenRules:false, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
+let save = { v:1, sound:true, tier:'easy', seenRules:false, seenDoubleRules:false, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
 try {
   const raw = localStorage.getItem(SAVE_KEY);
   if (raw){ const s=JSON.parse(raw); if(s && s.v===1) save=s; }
@@ -1193,6 +1194,12 @@ function loadLevel(animateTrees=true){
   resetBoard();
   renderTrees(animateTrees);
   updateHud();
+  // 第一次拿到带双帐篷的关卡时，把 Double 规则二级页弹出来讲一次
+  if (pz.doubles>0 && !save.seenDoubleRules){
+    save.seenDoubleRules=true; persist();
+    showRulesView('double');
+    $('rules-mask').classList.add('show');
+  }
 }
 
 /* ============ 按钮绑定 ============ */
@@ -1209,12 +1216,22 @@ document.querySelectorAll('.tier-chip').forEach(b=>{
 });
 $('btn-hint').addEventListener('click', useHint);
 $('btn-restart').addEventListener('click', resetBoard);
-$('btn-rules').addEventListener('click', ()=>$('rules-mask').classList.add('show'));
+$('btn-rules').addEventListener('click', ()=>{ showRulesView('main'); $('rules-mask').classList.add('show'); });
+// 规则弹窗的两个视图：主页（目标/硬规则/操作）和 Double 帐篷二级页
+function showRulesView(v){
+  const dbl = v==='double';
+  $('rules-main').hidden = dbl;
+  $('rules-double').hidden = !dbl;
+  $('rules-title').textContent = dbl ? '⛺ Double 帐篷' : '📖 游戏规则';
+}
 function closeRules(){
   $('rules-mask').classList.remove('show');
+  showRulesView('main');
   if (!save.seenRules){ save.seenRules=true; persist(); }
 }
 $('btn-close-rules').addEventListener('click', closeRules);
+$('btn-double-rules').addEventListener('click', ()=>showRulesView('double'));
+$('btn-back-rules').addEventListener('click', ()=>showRulesView('main'));
 $('btn-sound').addEventListener('click', ()=>{
   Sound.enabled=!Sound.enabled;
   save.sound=Sound.enabled; persist();
