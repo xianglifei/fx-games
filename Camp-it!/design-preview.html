@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>露营谜题 · 素材备选设计预览</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:#f7f1e6;color:#4a3626;padding:28px 20px 60px;
+  }
+  .banner{
+    max-width:1060px;margin:0 auto 8px;background:linear-gradient(145deg,#d2a371,#b07f4e);
+    border-radius:18px;padding:20px 26px;color:#fff7ec;
+    box-shadow:0 10px 26px rgba(60,42,26,.3), inset 0 2px 4px rgba(255,255,255,.35);
+  }
+  .banner h1{font-size:22px;margin-bottom:6px;}
+  .banner p{font-size:13.5px;line-height:1.7;opacity:.95;}
+  .banner b{color:#ffd23f;}
+  .wrap{max-width:1060px;margin:0 auto;}
+  h2.sec{
+    margin:34px 0 6px;font-size:19px;color:#6b4a2a;display:flex;align-items:center;gap:10px;
+  }
+  h2.sec::after{content:"";flex:1;height:2px;background:rgba(107,74,42,.15);border-radius:2px;}
+  .sec-tip{font-size:12.5px;color:#9a7a58;margin-bottom:14px;}
+  .cards{display:flex;flex-wrap:wrap;gap:18px;}
+  .card{
+    background:#fffdf8;border-radius:16px;padding:16px 18px 18px;width:100%;
+    box-shadow:0 4px 14px rgba(60,42,26,.12);border:2px solid rgba(178,127,78,.14);
+  }
+  .card.treecard{width:calc(50% - 9px);min-width:430px;}
+  .card.tentcard{width:100%;}
+  .ttl{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .badge{
+    background:linear-gradient(#ff8c42,#e5742e);color:#fff;font-weight:800;font-size:13px;
+    border-radius:999px;padding:4px 12px;box-shadow:0 2px 6px rgba(229,116,46,.4);white-space:nowrap;
+  }
+  .ttl .name{font-weight:700;font-size:15.5px;color:#4a3626;}
+  .ttl .note{font-size:12px;color:#9a7a58;margin-left:auto;text-align:right;}
+  .stage{
+    display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap;
+    background:repeating-linear-gradient(45deg,#faf6ee,#faf6ee 12px,#f4eee1 12px,#f4eee1 24px);
+    border-radius:12px;padding:18px 20px 14px;
+  }
+  .fig{display:flex;flex-direction:column;align-items:center;gap:7px;}
+  .fig .lab{font-size:11.5px;color:#9a7a58;font-weight:600;}
+  .fig svg{filter:drop-shadow(0 3px 3px rgba(0,0,0,.2));}
+  /* 草地格子，复刻游戏 .cell */
+  .grass{
+    background:#6fae54;border-radius:6px;position:relative;overflow:hidden;flex:none;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);
+  }
+  .grass.alt{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05);}
+  .grass svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));}
+  /* 迷你棋盘 */
+  .boarddemo{
+    margin-top:14px;border-radius:12px;padding:10px;background:linear-gradient(145deg,#d2a371,#b07f4e);
+    box-shadow:0 6px 16px rgba(60,42,26,.22), inset 0 2px 4px rgba(255,255,255,.3);
+    display:flex;justify-content:center;
+  }
+  .minigrid{position:relative;background:#6fae54;border-radius:8px;overflow:hidden;
+    box-shadow:inset 0 0 0 2px rgba(0,0,0,.09);}
+  .minigrid .cell{
+    position:absolute;background:#6fae54;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);
+  }
+  .minigrid .cell.alt{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05);}
+  .minigrid .placed{position:absolute;display:flex;align-items:center;justify-content:center;}
+  .minigrid .placed svg{width:88%;height:88%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));}
+  footer{
+    max-width:1060px;margin:40px auto 0;background:#fffdf8;border-radius:14px;padding:16px 22px;
+    box-shadow:0 4px 14px rgba(60,42,26,.12);font-size:13.5px;line-height:1.8;color:#6b4a2a;
+  }
+  footer b{color:#e5742e;}
+  @media (max-width:980px){.card.treecard{width:100%;min-width:0;}}
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>🏕️ 素材备选设计预览（仅供挑选，游戏未做任何改动）</h1>
+  <p>下面所有树和帐篷都是<b>候选方案</b>，游戏里的现有素材保持不变。每个帐篷系列都包含<b>单帐 / 横双帐 / 竖双帐</b>三件套，并放在复刻游戏参数的草地棋盘上展示。看中哪个组合，直接回我编号即可，比如：「树3、树5 + 帐4，双帐就用4的」。</p>
+</div>
+
+<div class="wrap">
+  <h2 class="sec">🌲 树（6 款）</h2>
+  <div class="sec-tip">每款展示三种尺寸：大图看细节、52px 是游戏内棋盘格实际大小、36px 检验缩小后是否依然清晰。</div>
+  <div class="cards" id="tree-cards"></div>
+
+  <h2 class="sec">⛺ 帐篷（6 个系列）</h2>
+  <div class="sec-tip">上排大图：单帐 / 横双帐（占两格横排）/ 竖双帐（占两格竖排）；下方是放进真实棋盘的效果。</div>
+  <div class="cards" id="tent-cards"></div>
+</div>
+
+<footer>
+  💡 <b>怎么选：</b>直接回复编号组合即可（例如「树2 + 帐5」）。树和帐篷可以任意混搭，也可以只换其中一样；双帐的横竖两版会跟随所选系列自动配套。选定后我再统一改 <b>index.html</b>，改动只涉及 4 个 SVG 常量，玩法逻辑零影响。
+</footer>
+
+<script>
+/* ============ 树素材（viewBox 0 0 100 100） ============ */
+const TREES = [
+{ id:"树1", name:"现行方案 · 三层松树（基准对比）", note:"游戏当前使用的素材",
+svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="90" rx="24" ry="5" fill="rgba(0,0,0,.18)"/>
+  <rect x="45" y="70" width="10" height="18" rx="3" fill="#8a5a33"/>
+  <polygon points="50,38 86,88 14,88" fill="#1f6e3c"/>
+  <polygon points="50,20 80,66 20,66" fill="#2a854b"/>
+  <polygon points="50,4 72,46 28,46" fill="#38a05c"/>
+</svg>`},
+
+{ id:"树2", name:"圆冠橡树", note:"蓬松圆形树冠，三层绿渐变+高光",
+svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="91" rx="26" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M45 92 L47 56 L53 56 L55 92 Z" fill="#8a5a33"/>
+  <circle cx="28" cy="47" r="16" fill="#2f7d49"/>
+  <circle cx="72" cy="47" r="16" fill="#2f7d49"/>
+  <circle cx="50" cy="52" r="17" fill="#338a50"/>
+  <circle cx="50" cy="33" r="20" fill="#3f9e5f"/>
+  <circle cx="41" cy="25" r="6.5" fill="#58bb77"/>
+  <circle cx="59" cy="30" r="4.5" fill="#58bb77"/>
+</svg>`},
+
+{ id:"树3", name:"塔形云杉", note:"四层窄塔轮廓，比现行的三层更挺拔",
+svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="90" rx="24" ry="5" fill="rgba(0,0,0,.18)"/>
+  <rect x="45" y="80" width="10" height="10" rx="2" fill="#7a4a26"/>
+  <polygon points="50,50 86,84 14,84" fill="#206e3e"/>
+  <polygon points="50,34 79,64 21,64" fill="#2a854b"/>
+  <polygon points="50,19 72,46 28,46" fill="#339755"/>
+  <polygon points="50,6 66,30 34,30" fill="#41a862"/>
+</svg>`},
+
+{ id:"树4", name:"白桦", note:"白色带纹树干 + 黄绿圆冠，色彩更清爽",
+svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="90" rx="25" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M45 90 Q48 66 46 46 L54 46 Q52 66 55 90 Z" fill="#eee8d8"/>
+  <rect x="47.6" y="80" width="4" height="2.2" rx="1" fill="#43423a"/>
+  <rect x="48.6" y="70" width="3.4" height="2" rx="1" fill="#43423a"/>
+  <rect x="47.2" y="59" width="3.6" height="2" rx="1" fill="#43423a"/>
+  <circle cx="31" cy="43" r="15" fill="#83b043"/>
+  <circle cx="69" cy="43" r="15" fill="#83b043"/>
+  <circle cx="50" cy="47" r="15" fill="#8fbc4e"/>
+  <circle cx="50" cy="28" r="18" fill="#9dc95c"/>
+  <circle cx="42" cy="21" r="6" fill="#b7dd7d"/>
+  <circle cx="60" cy="26" r="4" fill="#b7dd7d"/>
+</svg>`},
+
+{ id:"树5", name:"椰子棕榈", note:"弯曲树干+五片棕榈叶，度假营地风",
+svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="52" cy="91" rx="22" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M46 45 Q28 33 10 40 Q26 43 46 53 Z" fill="#2f8f4e"/>
+  <path d="M46 45 Q68 34 86 42 Q66 45 46 53 Z" fill="#27793f"/>
+  <path d="M46 45 Q34 24 16 24 Q34 30 46 51 Z" fill="#3ba35c"/>
+  <path d="M46 45 Q62 22 80 25 Q60 32 46 51 Z" fill="#3ba35c"/>
+  <path d="M46 45 Q44 22 54 12 Q56 30 48 47 Z" fill="#47b46c"/>
+  <path d="M46 92 C48 74 48 60 42 46 L50 43 C56 58 56 74 58 92 Z" fill="#a26b36"/>
+  <path d="M47.5 76 Q52 74.5 56.5 76" stroke="#7d4f22" stroke-width="1.6" fill="none"/>
+  <path d="M48 66 Q52 64.7 55.6 66" stroke="#7d4f22" stroke-width="1.5" fill="none"/>
+  <circle cx="43" cy="49" r="4" fill="#6b4226"/>
+  <circle cx="51" cy="48" r="4" fill="#7d4f2e"/>
+</svg>`},
+
+{ id:"树6", name:"秋日枫树", note:"橙红圆形树冠+飘落枫叶，暖色系",
+svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="91" rx="26" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M45 92 L47 58 L53 58 L55 92 Z" fill="#7d4a26"/>
+  <circle cx="29" cy="46" r="15" fill="#c9662a"/>
+  <circle cx="71" cy="46" r="15" fill="#c9662a"/>
+  <circle cx="50" cy="51" r="16" fill="#d97a2e"/>
+  <circle cx="50" cy="32" r="19" fill="#e8963c"/>
+  <circle cx="42" cy="24" r="6" fill="#f4b45e"/>
+  <path d="M83 60 c4 2 5 6 2 9 c-4 -2 -5 -6 -2 -9" fill="#d97a2e"/>
+  <path d="M22 82 c4 2 5 6 2 9 c-4 -2 -5 -6 -2 -9" fill="#c9662a"/>
+</svg>`},
+];
+
+/* ============ 帐篷素材：s=单帐(100x100) h=横双帐(200x100) v=竖双帐(100x200) ============ */
+const TENTS = [
+{ id:"帐1", name:"现行方案 · 橙色三角帐（基准对比）", note:"游戏当前使用的素材",
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="87" rx="30" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="16" x2="50" y2="4" stroke="#7c4a21" stroke-width="3"/>
+  <polygon points="50,4 66,9 50,14" fill="#ffd23f"/>
+  <polygon points="50,16 92,86 8,86" fill="#ff8c42"/>
+  <polygon points="50,16 92,86 50,86" fill="#e5742e"/>
+  <polygon points="50,44 68,86 32,86" fill="#5b3d26"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="100" y1="14" x2="100" y2="2" stroke="#7c4a21" stroke-width="3"/>
+  <polygon points="100,2 118,8 100,13" fill="#ffd23f"/>
+  <polygon points="100,14 196,88 4,88" fill="#ff8c42"/>
+  <polygon points="100,14 196,88 100,88" fill="#e5742e"/>
+  <polygon points="100,40 130,88 70,88" fill="#5b3d26"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="188" rx="34" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="14" x2="50" y2="2" stroke="#7c4a21" stroke-width="3"/>
+  <polygon points="50,2 68,8 50,13" fill="#ffd23f"/>
+  <polygon points="50,14 92,188 8,188" fill="#ff8c42"/>
+  <polygon points="50,14 92,188 50,188" fill="#e5742e"/>
+  <polygon points="50,90 74,188 26,188" fill="#5b3d26"/>
+</svg>`},
+
+{ id:"帐2", name:"湖蓝圆顶帐", note:"现代露营 dome 帐，双色调+风绳地钉",
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="88" rx="31" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="14" y1="54" x2="7" y2="88" stroke="#35606e" stroke-width="2"/>
+  <line x1="86" y1="54" x2="93" y2="88" stroke="#35606e" stroke-width="2"/>
+  <rect x="4.5" y="86" width="5" height="3" rx="1" fill="#35606e"/>
+  <rect x="90.5" y="86" width="5" height="3" rx="1" fill="#35606e"/>
+  <path d="M10 88 C10 46 27 29 50 29 C73 29 90 46 90 88 Z" fill="#3f9db3"/>
+  <path d="M10 88 C10 46 27 29 50 29 L50 88 Z" fill="#54b1c5"/>
+  <path d="M50 29 C41 48 37 67 37 88" stroke="rgba(0,0,0,.14)" stroke-width="2" fill="none"/>
+  <path d="M50 29 C59 48 63 67 63 88" stroke="rgba(0,0,0,.14)" stroke-width="2" fill="none"/>
+  <path d="M38 88 C38 63 44 55 50 55 C56 55 62 63 62 88 Z" fill="#1d4f61"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="78" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="22" y1="50" x2="8" y2="88" stroke="#35606e" stroke-width="2"/>
+  <line x1="178" y1="50" x2="192" y2="88" stroke="#35606e" stroke-width="2"/>
+  <rect x="5.5" y="86" width="5" height="3" rx="1" fill="#35606e"/>
+  <rect x="189.5" y="86" width="5" height="3" rx="1" fill="#35606e"/>
+  <path d="M8 88 C8 36 55 20 100 20 C145 20 192 36 192 88 Z" fill="#3f9db3"/>
+  <path d="M8 88 C8 36 55 20 100 20 L100 88 Z" fill="#54b1c5"/>
+  <path d="M100 20 C78 44 68 66 66 88" stroke="rgba(0,0,0,.14)" stroke-width="2" fill="none"/>
+  <path d="M100 20 C122 44 132 66 134 88" stroke="rgba(0,0,0,.14)" stroke-width="2" fill="none"/>
+  <path d="M84 88 C84 58 92 50 100 50 C108 50 116 58 116 88 Z" fill="#1d4f61"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="190" rx="28" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="21" y1="112" x2="9" y2="190" stroke="#35606e" stroke-width="2"/>
+  <line x1="79" y1="112" x2="91" y2="190" stroke="#35606e" stroke-width="2"/>
+  <rect x="6.5" y="188" width="5" height="3" rx="1" fill="#35606e"/>
+  <rect x="88.5" y="188" width="5" height="3" rx="1" fill="#35606e"/>
+  <path d="M20 190 L20 84 C20 42 32 24 50 24 C68 24 80 42 80 84 L80 190 Z" fill="#3f9db3"/>
+  <path d="M20 190 L20 84 C20 42 32 24 50 24 L50 190 Z" fill="#54b1c5"/>
+  <line x1="20" y1="84" x2="80" y2="84" stroke="rgba(0,0,0,.14)" stroke-width="2"/>
+  <path d="M50 24 C44 44 41 64 41 84" stroke="rgba(0,0,0,.14)" stroke-width="2" fill="none"/>
+  <path d="M50 24 C56 44 59 64 59 84" stroke="rgba(0,0,0,.14)" stroke-width="2" fill="none"/>
+  <path d="M38 190 C38 156 44 148 50 148 C56 148 62 156 62 190 Z" fill="#1d4f61"/>
+</svg>`},
+
+{ id:"帐3", name:"复古条纹帆布帐", note:"奶油底+陶土色竖条纹，木杆尖顶",
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="88" rx="32" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="18" x2="50" y2="7" stroke="#7c4a21" stroke-width="3"/>
+  <defs><clipPath id="a3s"><polygon points="50,18 92,88 8,88"/></clipPath></defs>
+  <polygon points="50,18 92,88 8,88" fill="#f4e4c1"/>
+  <g clip-path="url(#a3s)">
+    <rect x="14" y="10" width="9" height="90" fill="#cf7b4e"/>
+    <rect x="32" y="10" width="9" height="90" fill="#cf7b4e"/>
+    <rect x="59" y="10" width="9" height="90" fill="#cf7b4e"/>
+    <rect x="77" y="10" width="9" height="90" fill="#cf7b4e"/>
+  </g>
+  <polygon points="50,18 92,88 8,88" fill="none" stroke="#b8663f" stroke-width="2.5"/>
+  <line x1="16" y1="70" x2="6" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <line x1="84" y1="70" x2="94" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <polygon points="50,44 65,88 35,88" fill="#6b4a2e"/>
+  <polygon points="50,44 65,88 50,88" fill="#7d5836"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="82" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="100" y1="14" x2="100" y2="3" stroke="#7c4a21" stroke-width="3"/>
+  <defs><clipPath id="a3h"><polygon points="100,14 196,88 4,88"/></clipPath></defs>
+  <polygon points="100,14 196,88 4,88" fill="#f4e4c1"/>
+  <g clip-path="url(#a3h)">
+    <rect x="30" y="8" width="10" height="95" fill="#cf7b4e"/>
+    <rect x="52" y="8" width="10" height="95" fill="#cf7b4e"/>
+    <rect x="138" y="8" width="10" height="95" fill="#cf7b4e"/>
+    <rect x="160" y="8" width="10" height="95" fill="#cf7b4e"/>
+  </g>
+  <polygon points="100,14 196,88 4,88" fill="none" stroke="#b8663f" stroke-width="2.5"/>
+  <line x1="16" y1="72" x2="5" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <line x1="184" y1="72" x2="195" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <polygon points="100,44 122,88 78,88" fill="#6b4a2e"/>
+  <polygon points="100,44 122,88 100,88" fill="#7d5836"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="192" rx="30" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="12" x2="50" y2="2" stroke="#7c4a21" stroke-width="3"/>
+  <defs><clipPath id="a3v"><polygon points="50,12 92,192 8,192"/></clipPath></defs>
+  <polygon points="50,12 92,192 8,192" fill="#f4e4c1"/>
+  <g clip-path="url(#a3v)">
+    <rect x="18" y="6" width="8" height="195" fill="#cf7b4e"/>
+    <rect x="36" y="6" width="8" height="195" fill="#cf7b4e"/>
+    <rect x="56" y="6" width="8" height="195" fill="#cf7b4e"/>
+    <rect x="74" y="6" width="8" height="195" fill="#cf7b4e"/>
+  </g>
+  <polygon points="50,12 92,192 8,192" fill="none" stroke="#b8663f" stroke-width="2.5"/>
+  <polygon points="50,120 72,192 28,192" fill="#6b4a2e"/>
+  <polygon points="50,120 72,192 50,192" fill="#7d5836"/>
+</svg>`},
+
+{ id:"帐4", name:"藏青金字塔帐", note:"中央旗杆+菱形徽章+金色风绳",
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="88" rx="32" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="24" x2="12" y2="90" stroke="#d8c9a8" stroke-width="1.6"/>
+  <line x1="50" y1="24" x2="88" y2="90" stroke="#d8c9a8" stroke-width="1.6"/>
+  <rect x="10" y="88" width="4.5" height="3" rx="1" fill="#7c6a4a"/>
+  <rect x="85.5" y="88" width="4.5" height="3" rx="1" fill="#7c6a4a"/>
+  <line x1="50" y1="16" x2="50" y2="6" stroke="#7c4a21" stroke-width="3"/>
+  <circle cx="50" cy="5" r="3" fill="#ffd23f"/>
+  <polygon points="50,16 94,88 6,88" fill="#4a6fa5"/>
+  <polygon points="50,16 94,88 50,88" fill="#3d5d8f"/>
+  <polygon points="50,46 63,88 37,88" fill="#22344e"/>
+  <polygon points="66,56 71,63 66,70 61,63" fill="#ffd23f"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="82" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="100" y1="22" x2="14" y2="90" stroke="#d8c9a8" stroke-width="1.6"/>
+  <line x1="100" y1="22" x2="186" y2="90" stroke="#d8c9a8" stroke-width="1.6"/>
+  <rect x="12" y="88" width="4.5" height="3" rx="1" fill="#7c6a4a"/>
+  <rect x="183.5" y="88" width="4.5" height="3" rx="1" fill="#7c6a4a"/>
+  <line x1="100" y1="14" x2="100" y2="4" stroke="#7c4a21" stroke-width="3"/>
+  <circle cx="100" cy="3" r="3" fill="#ffd23f"/>
+  <polygon points="100,14 196,88 4,88" fill="#4a6fa5"/>
+  <polygon points="100,14 196,88 100,88" fill="#3d5d8f"/>
+  <polygon points="100,46 124,88 76,88" fill="#22344e"/>
+  <polygon points="134,56 139,63 134,70 129,63" fill="#ffd23f"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="192" rx="30" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="20" x2="16" y2="194" stroke="#d8c9a8" stroke-width="1.6"/>
+  <line x1="50" y1="20" x2="84" y2="194" stroke="#d8c9a8" stroke-width="1.6"/>
+  <rect x="14" y="192" width="4.5" height="3" rx="1" fill="#7c6a4a"/>
+  <rect x="81.5" y="192" width="4.5" height="3" rx="1" fill="#7c6a4a"/>
+  <line x1="50" y1="12" x2="50" y2="3" stroke="#7c4a21" stroke-width="3"/>
+  <circle cx="50" cy="2.5" r="3" fill="#ffd23f"/>
+  <polygon points="50,12 92,192 8,192" fill="#4a6fa5"/>
+  <polygon points="50,12 92,192 50,192" fill="#3d5d8f"/>
+  <polygon points="50,116 68,192 32,192" fill="#22344e"/>
+  <polygon points="58,128 62.5,134 58,140 53.5,134" fill="#ffd23f"/>
+</svg>`},
+
+{ id:"帐5", name:"草原 tipi 帐", note:"交叉木杆+陶土色纹带+顶部排烟口",
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="89" rx="24" ry="5" fill="rgba(0,0,0,.18)"/>
+  <line x1="36" y1="88" x2="60" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <line x1="64" y1="88" x2="40" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <path d="M50 20 C42 38 35 62 31 88 L69 88 C65 62 58 38 50 20 Z" fill="#ecdcb8"/>
+  <path d="M36 64 Q50 58.5 64 64 L63 71 Q50 65.5 37 71 Z" fill="#cf7b4e"/>
+  <path d="M41 42 Q50 38.5 59 42 L58.3 47 Q50 43.5 41.7 47 Z" fill="#cf7b4e"/>
+  <polygon points="50,20 41,29 47.5,31" fill="#b8663f"/>
+  <polygon points="50,20 59,29 52.5,31" fill="#b8663f"/>
+  <polygon points="50,52 58,88 42,88" fill="#6b4a2e"/>
+  <line x1="50" y1="52" x2="50" y2="88" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="89" rx="66" ry="5" fill="rgba(0,0,0,.18)"/>
+  <line x1="70" y1="88" x2="112" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <line x1="130" y1="88" x2="88" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <path d="M100 18 C78 40 58 66 46 88 L154 88 C142 66 122 40 100 18 Z" fill="#ecdcb8"/>
+  <path d="M66 64 Q100 56 134 64 L133 71 Q100 63 67 71 Z" fill="#cf7b4e"/>
+  <path d="M80 42 Q100 37 120 42 L119 47 Q100 42 81 47 Z" fill="#cf7b4e"/>
+  <polygon points="100,18 89,28 96,30.5" fill="#b8663f"/>
+  <polygon points="100,18 111,28 104,30.5" fill="#b8663f"/>
+  <polygon points="100,52 114,88 86,88" fill="#6b4a2e"/>
+  <line x1="100" y1="52" x2="100" y2="88" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="190" rx="25" ry="5" fill="rgba(0,0,0,.18)"/>
+  <line x1="40" y1="190" x2="55" y2="8" stroke="#8a6a4a" stroke-width="2.4"/>
+  <line x1="60" y1="190" x2="45" y2="8" stroke="#8a6a4a" stroke-width="2.4"/>
+  <path d="M50 18 C43 60 37 125 33 190 L67 190 C63 125 57 60 50 18 Z" fill="#ecdcb8"/>
+  <path d="M41 90 Q50 85 59 90 L58.4 96 Q50 91 41.6 96 Z" fill="#cf7b4e"/>
+  <path d="M38 130 Q50 125 62 130 L61.3 136 Q50 131 38.7 136 Z" fill="#cf7b4e"/>
+  <polygon points="50,18 42,27 47.5,29" fill="#b8663f"/>
+  <polygon points="50,18 58,27 52.5,29" fill="#b8663f"/>
+  <polygon points="50,140 58,190 42,190" fill="#6b4a2e"/>
+  <line x1="50" y1="140" x2="50" y2="190" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>
+</svg>`},
+
+{ id:"帐6", name:"营地小木屋帐", note:"奶油墙面+森林绿屋顶+白框窗户，屋顶小旗",
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="89" rx="30" ry="5.5" fill="rgba(0,0,0,.18)"/>
+  <rect x="17" y="52" width="66" height="35" fill="#f1e6c8"/>
+  <rect x="17" y="83" width="66" height="4" fill="#d9c9a4"/>
+  <polygon points="7,57 50,26 93,57" fill="#557a46"/>
+  <line x1="50" y1="26" x2="50" y2="16" stroke="#7c4a21" stroke-width="2.5"/>
+  <polygon points="50,16 63,20 50,24" fill="#e05c4a"/>
+  <rect x="24" y="61" width="12" height="11" rx="1.5" fill="#bfe3ef" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="30" y1="61" x2="30" y2="72" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="24" y1="66.5" x2="36" y2="66.5" stroke="#fffdf8" stroke-width="1.5"/>
+  <rect x="64" y="61" width="12" height="11" rx="1.5" fill="#bfe3ef" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="70" y1="61" x2="70" y2="72" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="64" y1="66.5" x2="76" y2="66.5" stroke="#fffdf8" stroke-width="1.5"/>
+  <rect x="42" y="60" width="16" height="27" rx="1.5" fill="#7c4a21"/>
+  <circle cx="54.5" cy="74" r="1.4" fill="#ffd23f"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="91" rx="76" ry="5.5" fill="rgba(0,0,0,.18)"/>
+  <rect x="26" y="62" width="148" height="28" fill="#f1e6c8"/>
+  <rect x="26" y="86" width="148" height="4" fill="#d9c9a4"/>
+  <polygon points="14,64 100,34 186,64" fill="#557a46"/>
+  <line x1="100" y1="34" x2="100" y2="24" stroke="#7c4a21" stroke-width="2.5"/>
+  <polygon points="100,24 113,28 100,32" fill="#e05c4a"/>
+  <rect x="44" y="70" width="16" height="13" rx="1.5" fill="#bfe3ef" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="52" y1="70" x2="52" y2="83" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="44" y1="76.5" x2="60" y2="76.5" stroke="#fffdf8" stroke-width="1.5"/>
+  <rect x="140" y="70" width="16" height="13" rx="1.5" fill="#bfe3ef" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="148" y1="70" x2="148" y2="83" stroke="#fffdf8" stroke-width="1.5"/>
+  <line x1="140" y1="76.5" x2="156" y2="76.5" stroke="#fffdf8" stroke-width="1.5"/>
+  <rect x="88" y="70" width="24" height="20" rx="1.5" fill="#7c4a21"/>
+  <circle cx="107.5" cy="80" r="1.4" fill="#ffd23f"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="191" rx="33" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="18" x2="50" y2="8" stroke="#7c4a21" stroke-width="2.5"/>
+  <polygon points="50,8 63,12 50,16" fill="#e05c4a"/>
+  <polygon points="50,18 92,190 8,190" fill="#557a46"/>
+  <polygon points="50,18 92,190 50,190" fill="#4a6a3d"/>
+  <polygon points="50,58 76,190 24,190" fill="#f1e6c8"/>
+  <polygon points="50,58 76,190 50,190" fill="#e6d8b4"/>
+  <rect x="45.5" y="96" width="9" height="9" rx="1.2" fill="#bfe3ef" stroke="#fffdf8" stroke-width="1.4"/>
+  <line x1="50" y1="96" x2="50" y2="105" stroke="#fffdf8" stroke-width="1.4"/>
+  <line x1="45.5" y1="100.5" x2="54.5" y2="100.5" stroke="#fffdf8" stroke-width="1.4"/>
+  <polygon points="50,128 63,190 37,190" fill="#7c4a21"/>
+  <circle cx="58" cy="160" r="1.5" fill="#ffd23f"/>
+</svg>`},
+];
+
+/* ============ 渲染 ============ */
+const CELL = 52;
+function svgEl(svgStr, w, h){
+  const d = document.createElement("div");
+  d.innerHTML = svgStr;
+  const s = d.firstChild;
+  s.style.width = w + "px"; s.style.height = h + "px";
+  return s;
+}
+function grassTile(svgStr, size){
+  const g = document.createElement("div");
+  g.className = "grass" + (Math.random() < .5 ? "" : " alt");
+  g.style.width = size + "px"; g.style.height = size + "px";
+  g.innerHTML = svgStr;
+  const s = g.firstChild;
+  s.removeAttribute("style");
+  return g;
+}
+
+/* 树卡片 */
+const tc = document.getElementById("tree-cards");
+TREES.forEach(t => {
+  const card = document.createElement("div");
+  card.className = "card treecard";
+  card.innerHTML = `<div class="ttl"><span class="badge">${t.id}</span><span class="name">${t.name}</span><span class="note">${t.note}</span></div>`;
+  const stage = document.createElement("div"); stage.className = "stage";
+  stage.appendChild(Object.assign(document.createElement("div"), {className:"fig"}))
+    .appendChild(wrap(svgEl(t.svg, 110, 110), "大图 110px"));
+  const row = document.createElement("div");
+  row.style.cssText = "display:flex;gap:10px;align-items:flex-end;";
+  row.appendChild(wrap(grassTile(t.svg, CELL), "棋盘 52px"));
+  row.appendChild(wrap(grassTile(t.svg, 36), "缩小 36px"));
+  const f2 = document.createElement("div"); f2.className = "fig"; f2.appendChild(row);
+  stage.appendChild(f2);
+  card.appendChild(stage);
+  tc.appendChild(card);
+});
+function wrap(el, label){
+  const f = document.createElement("div"); f.className = "fig";
+  f.appendChild(el);
+  const l = document.createElement("div"); l.className = "lab"; l.textContent = label;
+  f.appendChild(l);
+  return f;
+}
+
+/* 帐篷卡片 */
+const nc = document.getElementById("tent-cards");
+TENTS.forEach(t => {
+  const card = document.createElement("div");
+  card.className = "card tentcard";
+  card.innerHTML = `<div class="ttl"><span class="badge">${t.id}</span><span class="name">${t.name}</span><span class="note">${t.note}</span></div>`;
+  const stage = document.createElement("div"); stage.className = "stage";
+  stage.appendChild(wrap(svgEl(t.s, 110, 110), "单帐"));
+  stage.appendChild(wrap(svgEl(t.h, 220, 110), "横双帐（占两格）"));
+  stage.appendChild(wrap(svgEl(t.v, 110, 220), "竖双帐（占两格）"));
+  card.appendChild(stage);
+  card.appendChild(buildBoard(t));
+  nc.appendChild(card);
+});
+
+/* 迷你棋盘：6列×3行，复刻游戏棋盘观感 */
+function buildBoard(t){
+  const demo = document.createElement("div"); demo.className = "boarddemo";
+  const grid = document.createElement("div"); grid.className = "minigrid";
+  const COLS = 6, ROWS = 3;
+  grid.style.width = COLS * CELL + "px";
+  grid.style.height = ROWS * CELL + "px";
+  for(let r = 0; r < ROWS; r++) for(let c = 0; c < COLS; c++){
+    const cell = document.createElement("div");
+    cell.className = "cell" + ((r + c) % 2 ? " alt" : "");
+    cell.style.left = c * CELL + "px"; cell.style.top = r * CELL + "px";
+    cell.style.width = CELL + "px"; cell.style.height = CELL + "px";
+    grid.appendChild(cell);
+  }
+  /* 布局：树 / 横双帐 / 树 上排；竖双帐+单帐 中下排 */
+  const items = [
+    {svg: TREES[0].svg, x:0, y:0, w:1, h:1},          // 现行树
+    {svg: t.h, x:2, y:0, w:2, h:1},                    // 横双帐
+    {svg: TREES[0].svg, x:5, y:2, w:1, h:1},           // 现行树
+    {svg: t.v, x:0, y:1, w:1, h:2},                    // 竖双帐
+    {svg: t.s, x:3, y:1, w:1, h:1},                    // 单帐
+    {svg: TREES[0].svg, x:5, y:0, w:1, h:1},           // 现行树
+  ];
+  items.forEach(it => {
+    const p = document.createElement("div"); p.className = "placed";
+    p.style.left = it.x * CELL + "px"; p.style.top = it.y * CELL + "px";
+    p.style.width = it.w * CELL + "px"; p.style.height = it.h * CELL + "px";
+    p.innerHTML = it.svg;
+    grid.appendChild(p);
+  });
+  demo.appendChild(grid);
+  return demo;
+}
+</script>
+</body>
+</html>

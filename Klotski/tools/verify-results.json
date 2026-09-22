@@ -1,0 +1,3445 @@
+[
+  {
+    "name": "橫刀立馬",
+    "mini": 81,
+    "level": 1,
+    "computed": 81,
+    "ok": true,
+    "ms": 990,
+    "grid": "HAAI/HAAI/JBBK/JNOK/P@@Q"
+  },
+  {
+    "name": "指揮若定",
+    "mini": 70,
+    "level": 2,
+    "computed": 70,
+    "ok": true,
+    "ms": 895,
+    "grid": "HAAI/HAAI/NBBO/JPQK/J@@K"
+  },
+  {
+    "name": "將擁曹營",
+    "mini": 72,
+    "level": 3,
+    "computed": 72,
+    "ok": true,
+    "ms": 1086,
+    "grid": "@AA@/HAAI/HJKI/NJKO/BBPQ"
+  },
+  {
+    "name": "齊頭並進",
+    "mini": 60,
+    "level": 4,
+    "computed": 60,
+    "ok": true,
+    "ms": 957,
+    "grid": "HAAI/HAAI/NOPQ/JBBK/J@@K"
+  },
+  {
+    "name": "兵分三路",
+    "mini": 72,
+    "level": 5,
+    "computed": 72,
+    "ok": true,
+    "ms": 620,
+    "grid": "NAAO/HAAI/HBBI/JPQK/J@@K"
+  },
+  {
+    "name": "雨聲淅瀝",
+    "mini": 47,
+    "level": 6,
+    "computed": 47,
+    "ok": true,
+    "ms": 76,
+    "grid": "HAAN/HAAO/IBBJ/IK@J/PK@Q"
+  },
+  {
+    "name": "左右佈兵",
+    "mini": 54,
+    "level": 7,
+    "computed": 54,
+    "ok": true,
+    "ms": 834,
+    "grid": "NAAO/PAAQ/HIJK/HIJK/@BB@"
+  },
+  {
+    "name": "桃花園中",
+    "mini": 70,
+    "level": 8,
+    "computed": 70,
+    "ok": true,
+    "ms": 427,
+    "grid": "NAAO/HAAI/HJKI/PJKQ/@BB@"
+  },
+  {
+    "name": "一路進軍",
+    "mini": 58,
+    "level": 9,
+    "computed": 58,
+    "ok": true,
+    "ms": 867,
+    "grid": "HAAN/HAAO/IJKP/IJKQ/@BB@"
+  },
+  {
+    "name": "一路順風",
+    "mini": 39,
+    "level": 10,
+    "computed": 39,
+    "ok": true,
+    "ms": 68,
+    "grid": "HAAN/HAAO/IBBJ/IPKJ/@QK@"
+  },
+  {
+    "name": "圍而不殲",
+    "mini": 62,
+    "level": 11,
+    "computed": 62,
+    "ok": true,
+    "ms": 64,
+    "grid": "HAAN/HAAO/IBBP/IJKQ/@JK@"
+  },
+  {
+    "name": "捷足先登",
+    "mini": 32,
+    "level": 12,
+    "computed": 32,
+    "ok": true,
+    "ms": 61,
+    "grid": "NAAO/PAAQ/@BB@/HIJK/HIJK"
+  },
+  {
+    "name": "插翅難飛",
+    "mini": 62,
+    "level": 13,
+    "computed": 62,
+    "ok": true,
+    "ms": 1488,
+    "grid": "HAAN/HAAO/BBPQ/ICCJ/I@@J"
+  },
+  {
+    "name": "守口如瓶1",
+    "mini": 81,
+    "level": 14,
+    "computed": 81,
+    "ok": true,
+    "ms": 1767,
+    "grid": "HAAI/HAAI/NJ@O/PJ@Q/BBCC"
+  },
+  {
+    "name": "守口如瓶2",
+    "mini": 99,
+    "level": 15,
+    "computed": 99,
+    "ok": true,
+    "ms": 1760,
+    "grid": "NAAO/HAAI/HJ@I/PJ@Q/BBCC"
+  },
+  {
+    "name": "雙將擋路",
+    "mini": 73,
+    "level": 16,
+    "computed": 73,
+    "ok": true,
+    "ms": 1598,
+    "grid": "HAAN/HAAO/IBBJ/ICCJ/P@@Q"
+  },
+  {
+    "name": "橫馬當關",
+    "mini": 83,
+    "level": 17,
+    "computed": 83,
+    "ok": true,
+    "ms": 1697,
+    "grid": "HAAI/HAAI/BBCC/NJ@O/PJ@Q"
+  },
+  {
+    "name": "層層設防1",
+    "mini": 102,
+    "level": 18,
+    "computed": 102,
+    "ok": true,
+    "ms": 1327,
+    "grid": "HAAI/HAAI/NBBO/PCCQ/@DD@"
+  },
+  {
+    "name": "層層設防2",
+    "mini": 120,
+    "level": 19,
+    "computed": 120,
+    "ok": true,
+    "ms": 1568,
+    "grid": "NAAO/HAAI/HBBI/PCCQ/@DD@"
+  },
+  {
+    "name": "兵擋將阻",
+    "mini": 87,
+    "level": 20,
+    "computed": 87,
+    "ok": true,
+    "ms": 1429,
+    "grid": "NAAH/OAAH/IBBP/ICCQ/@DD@"
+  },
+  {
+    "name": "堵塞要道",
+    "mini": 40,
+    "level": 21,
+    "computed": 40,
+    "ok": true,
+    "ms": 424,
+    "grid": "NAAO/PAAQ/HIBB/HICC/@DD@"
+  },
+  {
+    "name": "甕中之鼈",
+    "mini": 103,
+    "level": 22,
+    "computed": 103,
+    "ok": true,
+    "ms": 1242,
+    "grid": "HAAI/HAAI/BBCC/NDDO/P@@Q"
+  },
+  {
+    "name": "層巒疊嶂",
+    "mini": 98,
+    "level": 23,
+    "computed": 98,
+    "ok": true,
+    "ms": 1208,
+    "grid": "HAAI/HAAI/NBBO/CCDD/P@@Q"
+  },
+  {
+    "name": "水泄不通",
+    "mini": 79,
+    "level": 24,
+    "computed": 79,
+    "ok": true,
+    "ms": 251,
+    "grid": "HAAN/HAAO/BBCC/DDEE/P@@Q"
+  },
+  {
+    "name": "四路進兵",
+    "mini": 77,
+    "level": 25,
+    "computed": 77,
+    "ok": true,
+    "ms": 251,
+    "grid": "NAAO/PAAQ/H@BB/H@CC/DDEE"
+  },
+  {
+    "name": "入地無門",
+    "mini": 87,
+    "level": 26,
+    "computed": 87,
+    "ok": true,
+    "ms": 469,
+    "grid": "HAAN/HAAO/PBBQ/CCDD/@EE@"
+  },
+  {
+    "name": "勇闖五關",
+    "mini": 34,
+    "level": 27,
+    "computed": 34,
+    "ok": true,
+    "ms": 50,
+    "grid": "NAAO/PAAQ/BBCC/DDEE/@FF@"
+  },
+  {
+    "name": "一橫最難解的佈局",
+    "mini": 84,
+    "level": 28,
+    "computed": 84,
+    "ok": true,
+    "ms": 859,
+    "grid": "HAAN/HAAI/BBJI/KOJP/K@@Q"
+  },
+  {
+    "name": "一橫最容易解的佈局1",
+    "mini": 32,
+    "level": 29,
+    "computed": 32,
+    "ok": true,
+    "ms": 63,
+    "grid": "NAAO/PAAQ/@BB@/HIJK/HIJK"
+  },
+  {
+    "name": "一橫最容易解的佈局2",
+    "mini": 32,
+    "level": 30,
+    "computed": 32,
+    "ok": true,
+    "ms": 98,
+    "grid": "NAAO/HAAI/HPQI/JBBK/J@@K"
+  },
+  {
+    "name": "二橫最難解的佈局",
+    "mini": 103,
+    "level": 31,
+    "computed": 103,
+    "ok": true,
+    "ms": 1671,
+    "grid": "NAAH/OAAH/BBIJ/PQIJ/@CC@"
+  },
+  {
+    "name": "二橫最容易解的佈局",
+    "mini": 56,
+    "level": 32,
+    "computed": 56,
+    "ok": true,
+    "ms": 1508,
+    "grid": "NAAH/OAAH/IJBB/IJPQ/@CC@"
+  },
+  {
+    "name": "三橫最難解的佈局",
+    "mini": 120,
+    "level": 33,
+    "computed": 120,
+    "ok": true,
+    "ms": 1548,
+    "grid": "NAAO/HAAI/HBBI/PCCQ/@DD@"
+  },
+  {
+    "name": "三橫最容易解的佈局",
+    "mini": 40,
+    "level": 34,
+    "computed": 40,
+    "ok": true,
+    "ms": 324,
+    "grid": "NAAO/PAAQ/HIBB/HICC/@DD@"
+  },
+  {
+    "name": "四橫最難解的佈局",
+    "mini": 87,
+    "level": 35,
+    "computed": 87,
+    "ok": true,
+    "ms": 300,
+    "grid": "HAAN/HAAO/PBBQ/CCDD/@EE@"
+  },
+  {
+    "name": "四橫最易解的佈局",
+    "mini": 69,
+    "level": 36,
+    "computed": 69,
+    "ok": true,
+    "ms": 477,
+    "grid": "NAAO/HAAP/HQBB/CCDD/@EE@"
+  },
+  {
+    "name": "亂石崩雲",
+    "mini": 84,
+    "level": 37,
+    "computed": 84,
+    "ok": true,
+    "ms": 904,
+    "grid": "NAAH/IAAH/IJBB/OJPK/Q@@K"
+  },
+  {
+    "name": "背水列陣",
+    "mini": 54,
+    "level": 38,
+    "computed": 54,
+    "ok": true,
+    "ms": 822,
+    "grid": "HBBI/HNOI/@AA@/PAAQ/CCDD"
+  },
+  {
+    "name": "四面楚歌",
+    "mini": 56,
+    "level": 39,
+    "computed": 56,
+    "ok": true,
+    "ms": 507,
+    "grid": "HNOI/HAAI/PAAJ/KBBJ/K@@Q"
+  },
+  {
+    "name": "前呼後擁",
+    "mini": 22,
+    "level": 40,
+    "computed": 22,
+    "ok": true,
+    "ms": 19,
+    "grid": "NOAA/BBAA/CCDD/EEFF/@@PQ"
+  },
+  {
+    "name": "兵臨曹營",
+    "mini": 34,
+    "level": 41,
+    "computed": 34,
+    "ok": true,
+    "ms": 62,
+    "grid": "NAAO/PAAQ/HBBI/HJKI/@JK@"
+  },
+  {
+    "name": "五將逼宮",
+    "mini": 36,
+    "level": 42,
+    "computed": 36,
+    "ok": true,
+    "ms": 285,
+    "grid": "BBCC/HAAI/HAAI/NDDO/P@@Q"
+  },
+  {
+    "name": "雲遮霧障",
+    "mini": 81,
+    "level": 43,
+    "computed": 81,
+    "ok": true,
+    "ms": 1767,
+    "grid": "HAAI/HAAI/JBBN/JCCO/P@@Q"
+  },
+  {
+    "name": "iPhone關卡1",
+    "mini": 38,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "三軍聯防",
+    "mini": 65,
+    "level": 45,
+    "computed": 65,
+    "ok": true,
+    "ms": 2738,
+    "grid": "AAHI/AAHI/BBCC/NDDO/P@@Q"
+  },
+  {
+    "name": "前擋後阻",
+    "mini": 42,
+    "level": 46,
+    "computed": 42,
+    "ok": true,
+    "ms": 2217,
+    "grid": "AABB/AAHN/IJHO/IJPQ/@CC@"
+  },
+  {
+    "name": "近在咫尺",
+    "mini": 98,
+    "level": 47,
+    "computed": 98,
+    "ok": true,
+    "ms": 1668,
+    "grid": "NHIJ/OHIJ/BBPQ/CCAA/@@AA"
+  },
+  {
+    "name": "走投無路",
+    "mini": 0,
+    "level": 48,
+    "computed": "无解",
+    "ok": false,
+    "ms": 334,
+    "grid": "HAAI/HAAI/JKNL/JKOL/P@@Q"
+  },
+  {
+    "name": "小燕出巢",
+    "mini": 103,
+    "level": 49,
+    "computed": 103,
+    "ok": true,
+    "ms": 1231,
+    "grid": "HAAI/HAAI/BBCC/NDDO/P@@Q"
+  },
+  {
+    "name": "比翼橫空",
+    "mini": 28,
+    "level": 50,
+    "computed": 28,
+    "ok": true,
+    "ms": 45,
+    "grid": "BBAA/CCAA/DDEE/N@OH/P@QH"
+  },
+  {
+    "name": "夾道藏兵",
+    "mini": 75,
+    "level": 51,
+    "computed": 75,
+    "ok": true,
+    "ms": 221,
+    "grid": "AANH/AAOH/BBCC/DDEE/P@@Q"
+  },
+  {
+    "name": "屯兵東路",
+    "mini": 71,
+    "level": 52,
+    "computed": 71,
+    "ok": true,
+    "ms": 364,
+    "grid": "AAHI/AAHI/BBNO/JKPQ/JK@@"
+  },
+  {
+    "name": "四將連關",
+    "mini": 39,
+    "level": 53,
+    "computed": 39,
+    "ok": true,
+    "ms": 31,
+    "grid": "AABB/AACC/HIDD/HINO/P@@Q"
+  },
+  {
+    "name": "近在咫尺2",
+    "mini": 105,
+    "level": 54,
+    "computed": 105,
+    "ok": true,
+    "ms": 817,
+    "grid": "HINO/HIJP/BBJQ/CCAA/@@AA"
+  },
+  {
+    "name": "峰迴路轉",
+    "mini": 138,
+    "level": 55,
+    "computed": 138,
+    "ok": true,
+    "ms": 804,
+    "grid": "NOPH/AAIH/AAIJ/@BBJ/@QCC"
+  },
+  {
+    "name": "井底之蛙",
+    "mini": 68,
+    "level": 56,
+    "computed": 68,
+    "ok": true,
+    "ms": 1028,
+    "grid": "NBBO/HAAI/HAAI/PCCQ/@DD@"
+  },
+  {
+    "name": "插翅難飛2",
+    "mini": 63,
+    "level": 57,
+    "computed": 63,
+    "ok": true,
+    "ms": 1122,
+    "grid": "NBBO/HAAI/HAAI/P@@Q/CCDD"
+  },
+  {
+    "name": "似遠實近",
+    "mini": 15,
+    "level": 58,
+    "computed": 15,
+    "ok": true,
+    "ms": 18,
+    "grid": "AABB/AACC/@@NO/HIPJ/HIQJ"
+  },
+  {
+    "name": "近在咫尺3",
+    "mini": 105,
+    "level": 59,
+    "computed": 105,
+    "ok": true,
+    "ms": 814,
+    "grid": "@HNO/IHJP/IQJ@/BBAA/CCAA"
+  },
+  {
+    "name": "五橫最難的開局",
+    "mini": 56,
+    "level": 60,
+    "computed": 56,
+    "ok": true,
+    "ms": 28,
+    "grid": "AANO/AABB/CCDD/PEE@/FFQ@"
+  },
+  {
+    "name": "小兵探路",
+    "mini": 135,
+    "level": 61,
+    "computed": 135,
+    "ok": true,
+    "ms": 567,
+    "grid": "AANH/AA@H/@IBB/OICC/PQDD"
+  },
+  {
+    "name": "前後夾攻",
+    "mini": 112,
+    "level": 62,
+    "computed": 112,
+    "ok": true,
+    "ms": 833,
+    "grid": "@HNI/OH@I/JPAA/JQAA/BBCC"
+  },
+  {
+    "name": "單兵種的沒落",
+    "mini": 19,
+    "level": 63,
+    "computed": 19,
+    "ok": true,
+    "ms": 3,
+    "grid": "HINO/HIJK/AAJK/AALP/@QL@"
+  },
+  {
+    "name": "欲罷不能",
+    "mini": 93,
+    "level": 64,
+    "computed": 93,
+    "ok": true,
+    "ms": 876,
+    "grid": "@AAH/NAAH/IBBJ/IK@J/OKPQ"
+  },
+  {
+    "name": "橫行之將",
+    "mini": 97,
+    "level": 65,
+    "computed": 97,
+    "ok": true,
+    "ms": 257,
+    "grid": "AANO/AABB/CCP@/QHDD/@HEE"
+  },
+  {
+    "name": "列隊歡送",
+    "mini": 102,
+    "level": 66,
+    "computed": 102,
+    "ok": true,
+    "ms": 821,
+    "grid": "HIJN/HIJO/BBPQ/CCAA/@@AA"
+  },
+  {
+    "name": "列隊歡送2",
+    "mini": 99,
+    "level": 67,
+    "computed": 99,
+    "ok": true,
+    "ms": 820,
+    "grid": "@HIJ/@HIJ/NOPQ/AABB/AACC"
+  },
+  {
+    "name": "百花盛開",
+    "mini": 100,
+    "level": 68,
+    "computed": 100,
+    "ok": true,
+    "ms": 792,
+    "grid": "HINJ/HIOJ/@@PQ/BBAA/CCAA"
+  },
+  {
+    "name": "行百里者半九十",
+    "mini": 90,
+    "level": 69,
+    "computed": 90,
+    "ok": true,
+    "ms": 656,
+    "grid": "BBHN/OPHI/@AAI/QAAJ/CC@J"
+  },
+  {
+    "name": "小汽車",
+    "mini": 109,
+    "level": 70,
+    "computed": 109,
+    "ok": true,
+    "ms": 1787,
+    "grid": "HNO@/HIAA/@IAA/JPBB/JCCQ"
+  },
+  {
+    "name": "單身的小兵",
+    "mini": 111,
+    "level": 71,
+    "computed": 111,
+    "ok": true,
+    "ms": 798,
+    "grid": "@NHO/AAHI/AAPI/QBBJ/@CCJ"
+  },
+  {
+    "name": "以退為進",
+    "mini": 99,
+    "level": 72,
+    "computed": 99,
+    "ok": true,
+    "ms": 789,
+    "grid": "@NOP/AAHI/AAHI/BBJQ/CCJ@"
+  },
+  {
+    "name": "一字長蛇陣",
+    "mini": 50,
+    "level": 73,
+    "computed": 50,
+    "ok": true,
+    "ms": 416,
+    "grid": "@AAN/HAAO/HPBB/IQCC/I@DD"
+  },
+  {
+    "name": "一字長蛇陣2",
+    "mini": 50,
+    "level": 74,
+    "computed": 50,
+    "ok": true,
+    "ms": 582,
+    "grid": "AANO/AAHP/BBHQ/CCI@/DDI@"
+  },
+  {
+    "name": "擾敵之策",
+    "mini": 49,
+    "level": 75,
+    "computed": 49,
+    "ok": true,
+    "ms": 916,
+    "grid": "@AAN/@AAO/PQHI/JKHI/JKBB"
+  },
+  {
+    "name": "左兵右將",
+    "mini": 74,
+    "level": 76,
+    "computed": 74,
+    "ok": true,
+    "ms": 342,
+    "grid": "AAHI/AAHI/NOBB/PQJK/@@JK"
+  },
+  {
+    "name": "星羅棋佈",
+    "mini": 50,
+    "level": 77,
+    "computed": 50,
+    "ok": true,
+    "ms": 544,
+    "grid": "NBBO/HCCI/HAAI/PAAQ/@DD@"
+  },
+  {
+    "name": "虛與委蛇",
+    "mini": 131,
+    "level": 78,
+    "computed": 131,
+    "ok": true,
+    "ms": 1202,
+    "grid": "AANH/AA@H/O@BB/PICC/QIDD"
+  },
+  {
+    "name": "虛與委蛇2",
+    "mini": 128,
+    "level": 79,
+    "computed": 128,
+    "ok": true,
+    "ms": 816,
+    "grid": "AANO/AAPH/@@IH/BBIJ/QCCJ"
+  },
+  {
+    "name": "層層設防3",
+    "mini": 69,
+    "level": 80,
+    "computed": 69,
+    "ok": true,
+    "ms": 452,
+    "grid": "NAAH/OAAH/PBBI/QCCI/@DD@"
+  },
+  {
+    "name": "獎盃",
+    "mini": 40,
+    "level": 81,
+    "computed": 40,
+    "ok": true,
+    "ms": 321,
+    "grid": "BBCC/HAAI/HAAI/@DD@/NOPQ"
+  },
+  {
+    "name": "氣勢洶洶",
+    "mini": 41,
+    "level": 82,
+    "computed": 41,
+    "ok": true,
+    "ms": 65,
+    "grid": "BBAA/CCAA/DDHI/@@HI/NOPQ"
+  },
+  {
+    "name": "近在咫尺4",
+    "mini": 22,
+    "level": 83,
+    "computed": 22,
+    "ok": true,
+    "ms": 4,
+    "grid": "HINO/HIPQ/JKBB/JKAA/@@AA"
+  },
+  {
+    "name": "數位系列: 0",
+    "mini": 102,
+    "level": 84,
+    "computed": 102,
+    "ok": true,
+    "ms": 1103,
+    "grid": "NAAO/HAAP/H@@I/QBBI/CCDD"
+  },
+  {
+    "name": "數位系列: 1",
+    "mini": 131,
+    "level": 85,
+    "computed": 131,
+    "ok": true,
+    "ms": 1856,
+    "grid": "@NO@/AAPH/AAIH/BBIJ/QCCJ"
+  },
+  {
+    "name": "數位系列: 2",
+    "mini": 121,
+    "level": 86,
+    "computed": 121,
+    "ok": true,
+    "ms": 1578,
+    "grid": "NAAO/@AAH/IBBH/ICC@/PDDQ"
+  },
+  {
+    "name": "數位系列: 3",
+    "mini": 126,
+    "level": 87,
+    "computed": 126,
+    "ok": true,
+    "ms": 1178,
+    "grid": "NAAO/@AAH/PBBH/@ICC/QIDD"
+  },
+  {
+    "name": "數位系列: 4",
+    "mini": 133,
+    "level": 88,
+    "computed": 133,
+    "ok": true,
+    "ms": 1176,
+    "grid": "H@AA/HNAA/BBIO/CCIP/@DDQ"
+  },
+  {
+    "name": "數位系列: 5",
+    "mini": 121,
+    "level": 89,
+    "computed": 121,
+    "ok": true,
+    "ms": 1455,
+    "grid": "NAAO/HAA@/HBBI/@CCI/PDDQ"
+  },
+  {
+    "name": "數位系列: 6",
+    "mini": 106,
+    "level": 90,
+    "computed": 106,
+    "ok": true,
+    "ms": 1363,
+    "grid": "AAHN/AAH@/OPBB/I@CC/IDDQ"
+  },
+  {
+    "name": "數位系列: 7",
+    "mini": 126,
+    "level": 91,
+    "computed": 126,
+    "ok": true,
+    "ms": 1709,
+    "grid": "AANO/AAPH/BBIH/@QIJ/@CCJ"
+  },
+  {
+    "name": "數位系列: 8",
+    "mini": 99,
+    "level": 92,
+    "computed": 99,
+    "ok": true,
+    "ms": 1780,
+    "grid": "HNOI/H@PI/JQAA/J@AA/BBCC"
+  },
+  {
+    "name": "數位系列: 9",
+    "mini": 130,
+    "level": 93,
+    "computed": 130,
+    "ok": true,
+    "ms": 1488,
+    "grid": "HNAA/H@AA/BBOP/@CCI/QDDI"
+  },
+  {
+    "name": "窮途末路",
+    "mini": 90,
+    "level": 94,
+    "computed": 90,
+    "ok": true,
+    "ms": 1694,
+    "grid": "AA@@/AANH/OPQH/BBIJ/CCIJ"
+  },
+  {
+    "name": "砝碼",
+    "mini": 61,
+    "level": 95,
+    "computed": 61,
+    "ok": true,
+    "ms": 1107,
+    "grid": "NOPQ/@BB@/HAAI/HAAI/CCDD"
+  },
+  {
+    "name": "瓊瑤敲碎",
+    "mini": 125,
+    "level": 96,
+    "computed": 125,
+    "ok": true,
+    "ms": 1607,
+    "grid": "@AAN/OAAH/BB@H/IPCC/IDDQ"
+  },
+  {
+    "name": "馮京馬涼",
+    "mini": 122,
+    "level": 97,
+    "computed": 122,
+    "ok": true,
+    "ms": 1167,
+    "grid": "AA@N/AAOP/HQBB/HCCI/DD@I"
+  },
+  {
+    "name": "馮京馬涼2",
+    "mini": 109,
+    "level": 98,
+    "computed": 109,
+    "ok": true,
+    "ms": 563,
+    "grid": "NAAO/@AAP/H@BB/HCCI/DDQI"
+  },
+  {
+    "name": "花車",
+    "mini": 106,
+    "level": 99,
+    "computed": 106,
+    "ok": true,
+    "ms": 1180,
+    "grid": "@AA@/HAAI/HBBI/CCDD/NOPQ"
+  },
+  {
+    "name": "離而不坎",
+    "mini": 104,
+    "level": 100,
+    "computed": 104,
+    "ok": true,
+    "ms": 1169,
+    "grid": "HAAI/HAAI/BB@N/OPCC/DD@Q"
+  },
+  {
+    "name": "孤雁南飛",
+    "mini": 101,
+    "level": 101,
+    "computed": 101,
+    "ok": true,
+    "ms": 1169,
+    "grid": "HAAI/HAAI/NOBB/PCC@/DD@Q"
+  },
+  {
+    "name": "高廈一零一",
+    "mini": 101,
+    "level": 102,
+    "computed": 101,
+    "ok": true,
+    "ms": 1122,
+    "grid": "AAHN/AAHO/IBBP/ICCQ/@DD@"
+  },
+  {
+    "name": "暗渡陳倉",
+    "mini": 99,
+    "level": 103,
+    "computed": 99,
+    "ok": true,
+    "ms": 1071,
+    "grid": "NOPH/IAAH/IAAQ/BBCC/@DD@"
+  },
+  {
+    "name": "困於赤紱",
+    "mini": 95,
+    "level": 104,
+    "computed": 95,
+    "ok": true,
+    "ms": 1414,
+    "grid": "H@NI/HAAI/OAA@/BBCC/PQDD"
+  },
+  {
+    "name": "大渡橋橫鐵索寒",
+    "mini": 88,
+    "level": 105,
+    "computed": 88,
+    "ok": true,
+    "ms": 1445,
+    "grid": "@AA@/HAAN/HBBO/PCCI/QDDI"
+  },
+  {
+    "name": "魚游春水",
+    "mini": 94,
+    "level": 106,
+    "computed": 94,
+    "ok": true,
+    "ms": 253,
+    "grid": "AAN@/AAOP/HQBB/HCC@/DDEE"
+  },
+  {
+    "name": "古堡藏龍",
+    "mini": 100,
+    "level": 107,
+    "computed": 100,
+    "ok": true,
+    "ms": 1776,
+    "grid": "NOHI/PQHI/AA@J/AA@J/BBCC"
+  },
+  {
+    "name": "歧路亡羊",
+    "mini": 94,
+    "level": 108,
+    "computed": 94,
+    "ok": true,
+    "ms": 1891,
+    "grid": "NHAA/OHAA/BBIP/CCIJ/Q@@J"
+  },
+  {
+    "name": "陳兵西陲",
+    "mini": 107,
+    "level": 109,
+    "computed": 107,
+    "ok": true,
+    "ms": 1769,
+    "grid": "NAAH/OAAH/PBBI/Q@JI/CCJ@"
+  },
+  {
+    "name": "水滸聚義",
+    "mini": 108,
+    "level": 110,
+    "computed": 108,
+    "ok": true,
+    "ms": 790,
+    "grid": "HNIJ/H@IJ/@AAO/PAAQ/BBCC"
+  },
+  {
+    "name": "山在虛無縹緲間",
+    "mini": 107,
+    "level": 111,
+    "computed": 107,
+    "ok": true,
+    "ms": 1764,
+    "grid": "NH@O/PH@Q/IAAJ/IAAJ/BBCC"
+  },
+  {
+    "name": "相看兩不厭",
+    "mini": 100,
+    "level": 112,
+    "computed": 100,
+    "ok": true,
+    "ms": 1744,
+    "grid": "HI@J/HI@J/NAAO/PAAQ/BBCC"
+  },
+  {
+    "name": "互不相讓",
+    "mini": 62,
+    "level": 113,
+    "computed": 62,
+    "ok": true,
+    "ms": 360,
+    "grid": "HNBB/HAA@/OAAP/@CCQ/DDEE"
+  },
+  {
+    "name": "胡馬窺江",
+    "mini": 72,
+    "level": 114,
+    "computed": 72,
+    "ok": true,
+    "ms": 149,
+    "grid": "BB@H/@AAH/NAAO/CCDD/PEEQ"
+  },
+  {
+    "name": "馬首是瞻",
+    "mini": 73,
+    "level": 115,
+    "computed": 73,
+    "ok": true,
+    "ms": 156,
+    "grid": "BBNO/CCAA/PHAA/@HDD/EEQ@"
+  },
+  {
+    "name": "異地同心",
+    "mini": 81,
+    "level": 116,
+    "computed": 81,
+    "ok": true,
+    "ms": 140,
+    "grid": "BBNO/PHAA/@HAA/CCQ@/DDEE"
+  },
+  {
+    "name": "十八步",
+    "mini": 18,
+    "error": "小卒数量 14 ≠ 4"
+  },
+  {
+    "name": "四路進兵2",
+    "mini": 66,
+    "level": 123,
+    "computed": 66,
+    "ok": true,
+    "ms": 459,
+    "grid": "HAA@/HAA@/NOPQ/BBCC/DDEE"
+  },
+  {
+    "name": "數字系列4-2",
+    "mini": 135,
+    "level": 124,
+    "computed": 135,
+    "ok": true,
+    "ms": 1702,
+    "grid": "N@OH/AAPH/AAIJ/BBIJ/@QCC"
+  },
+  {
+    "name": "四面八方",
+    "mini": 53,
+    "level": 125,
+    "computed": 53,
+    "ok": true,
+    "ms": 559,
+    "grid": "@BB@/NCCO/HAAI/HAAI/PDDQ"
+  },
+  {
+    "name": "牛氣沖天",
+    "mini": 54,
+    "level": 126,
+    "computed": 54,
+    "ok": true,
+    "ms": 544,
+    "grid": "N@@O/BBCC/HAAI/HAAI/PDDQ"
+  },
+  {
+    "name": "拳頭",
+    "mini": 109,
+    "level": 127,
+    "computed": 109,
+    "ok": true,
+    "ms": 1654,
+    "grid": "NAAH/OAAH/PQBB/CCIJ/@@IJ"
+  },
+  {
+    "name": "匹馬嘶風",
+    "mini": 70,
+    "level": 128,
+    "computed": 70,
+    "ok": true,
+    "ms": 279,
+    "grid": "AANO/AAPQ/BB@@/HIJK/HIJK"
+  },
+  {
+    "name": "伏羲八卦:天天乾",
+    "mini": 53,
+    "error": "小卒数量 2 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地地坤",
+    "mini": 18,
+    "error": "小卒数量 12 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:水水坎",
+    "mini": 26,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:火火離",
+    "mini": 28,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:雷雷震",
+    "mini": 30,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:山山艮",
+    "mini": 19,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:風風巽",
+    "mini": 21,
+    "level": 135,
+    "computed": 21,
+    "ok": true,
+    "ms": 19,
+    "grid": "@@AA/BBAA/CCDD/EEFF/NOPQ"
+  },
+  {
+    "name": "伏羲八卦:澤澤兌",
+    "mini": 35,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:天地否",
+    "mini": 24,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地天泰",
+    "mini": 82,
+    "level": 138,
+    "computed": 82,
+    "ok": true,
+    "ms": 611,
+    "grid": "@AA@/NAAO/PQBB/HICC/HIDD"
+  },
+  {
+    "name": "伏羲八卦:天水訟",
+    "mini": 79,
+    "level": 139,
+    "computed": 79,
+    "ok": true,
+    "ms": 482,
+    "grid": "HAA@/HAA@/BBNO/CCDD/EEPQ"
+  },
+  {
+    "name": "伏羲八卦:火天大有",
+    "mini": 31,
+    "level": 140,
+    "computed": 31,
+    "ok": true,
+    "ms": 61,
+    "grid": "NAA@/OAA@/BBCC/PQDD/EEFF"
+  },
+  {
+    "name": "伏羲八卦:天雷無妄",
+    "mini": 71,
+    "level": 141,
+    "computed": 71,
+    "ok": true,
+    "ms": 263,
+    "grid": "HAA@/HAA@/BBNO/CCPQ/DDEE"
+  },
+  {
+    "name": "伏羲八卦:天山遯",
+    "mini": 86,
+    "level": 142,
+    "computed": 86,
+    "ok": true,
+    "ms": 215,
+    "grid": "NAA@/OAA@/BBCC/DDHP/EEHQ"
+  },
+  {
+    "name": "伏羲八卦:山天大畜",
+    "mini": 28,
+    "level": 143,
+    "computed": 28,
+    "ok": true,
+    "ms": 35,
+    "grid": "@@AA/BBAA/CCDD/NOEE/PQFF"
+  },
+  {
+    "name": "伏羲八卦:風天小畜",
+    "mini": 28,
+    "level": 144,
+    "computed": 28,
+    "ok": true,
+    "ms": 14,
+    "grid": "NAA@/OAA@/BBCC/DDEE/PQFF"
+  },
+  {
+    "name": "伏羲八卦:澤天夬",
+    "mini": 53,
+    "level": 145,
+    "computed": 53,
+    "ok": true,
+    "ms": 62,
+    "grid": "NAA@/OAA@/PQBB/CCDD/EEFF"
+  },
+  {
+    "name": "伏羲八卦:水地比",
+    "mini": 22,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地火明夷",
+    "mini": 99,
+    "level": 147,
+    "computed": 99,
+    "ok": true,
+    "ms": 780,
+    "grid": "HAA@/HAA@/NOBB/IJPQ/IJCC"
+  },
+  {
+    "name": "伏羲八卦:火地晉",
+    "mini": 34,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地雷複",
+    "mini": 28,
+    "error": "小卒数量 12 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:雷地豫",
+    "mini": 62,
+    "level": 150,
+    "computed": 62,
+    "ok": true,
+    "ms": 822,
+    "grid": "@AA@/NAAO/HIJK/HIJK/BBPQ"
+  },
+  {
+    "name": "伏羲八卦:地山謙1",
+    "mini": 21,
+    "error": "小卒数量 12 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地山謙2",
+    "mini": 72,
+    "level": 152,
+    "computed": 72,
+    "ok": true,
+    "ms": 655,
+    "grid": "NAA@/OAA@/PQBB/HIJK/HIJK"
+  },
+  {
+    "name": "伏羲八卦:山地剝",
+    "mini": 20,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地風升",
+    "mini": 100,
+    "level": 154,
+    "computed": 100,
+    "ok": true,
+    "ms": 1756,
+    "grid": "HAA@/HAA@/NOBB/IJCC/IJPQ"
+  },
+  {
+    "name": "伏羲八卦:風地觀",
+    "mini": 22,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:地澤臨",
+    "mini": 89,
+    "level": 156,
+    "computed": 89,
+    "ok": true,
+    "ms": 1782,
+    "grid": "HAA@/HAA@/NOPQ/IJBB/IJCC"
+  },
+  {
+    "name": "伏羲八卦:澤地萃",
+    "mini": 27,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:水火既濟",
+    "mini": 42,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:水雷屯",
+    "mini": 30,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:雷水解",
+    "mini": 97,
+    "level": 160,
+    "computed": 97,
+    "ok": true,
+    "ms": 1647,
+    "grid": "HAA@/HAA@/IJNO/IJBB/CCPQ"
+  },
+  {
+    "name": "伏羲八卦:水山蹇",
+    "mini": 32,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:山水蒙",
+    "mini": 96,
+    "level": 162,
+    "computed": 96,
+    "ok": true,
+    "ms": 1668,
+    "grid": "HAA@/HAA@/BBNO/IJCC/IJPQ"
+  },
+  {
+    "name": "伏羲八卦:風水渙",
+    "mini": 39,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:水澤節",
+    "mini": 24,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:火雷噬嗑",
+    "mini": 35,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:火山旅",
+    "mini": 83,
+    "level": 166,
+    "computed": 83,
+    "ok": true,
+    "ms": 217,
+    "grid": "NAA@/OAA@/BBCC/PQHI/DDHI"
+  },
+  {
+    "name": "伏羲八卦:山火賁",
+    "mini": 29,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:風火家人",
+    "mini": 27,
+    "level": 168,
+    "computed": 27,
+    "ok": true,
+    "ms": 29,
+    "grid": "@@AA/BBAA/CCDD/EENO/PQFF"
+  },
+  {
+    "name": "伏羲八卦:火澤睽",
+    "mini": 73,
+    "level": 169,
+    "computed": 73,
+    "ok": true,
+    "ms": 255,
+    "grid": "HAA@/HAA@/BBNO/PQCC/DDEE"
+  },
+  {
+    "name": "伏羲八卦:雷山小過",
+    "mini": 95,
+    "level": 170,
+    "computed": 95,
+    "ok": true,
+    "ms": 749,
+    "grid": "HAA@/HAA@/IJBB/IJNO/CCPQ"
+  },
+  {
+    "name": "伏羲八卦:山雷頤",
+    "mini": 108,
+    "level": 171,
+    "computed": 108,
+    "ok": true,
+    "ms": 1653,
+    "grid": "HAA@/HAA@/BBNO/IJPQ/IJCC"
+  },
+  {
+    "name": "伏羲八卦:雷風恒",
+    "mini": 42,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:風雷益",
+    "mini": 70,
+    "level": 173,
+    "computed": 70,
+    "ok": true,
+    "ms": 445,
+    "grid": "NAA@/OAA@/BBHI/CCHI/PQDD"
+  },
+  {
+    "name": "伏羲八卦:雷澤歸妹",
+    "mini": 32,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:風山漸",
+    "mini": 19,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:山澤損",
+    "mini": 40,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "伏羲八卦:澤山鹹",
+    "mini": 85,
+    "level": 177,
+    "computed": 85,
+    "ok": true,
+    "ms": 413,
+    "grid": "@AA@/NAAO/PQBB/CCHI/DDHI"
+  },
+  {
+    "name": "伏羲八卦:風澤中孚",
+    "mini": 80,
+    "level": 178,
+    "computed": 80,
+    "ok": true,
+    "ms": 554,
+    "grid": "HAA@/HAA@/BBNO/CCDD/PQEE"
+  },
+  {
+    "name": "顛倒96(陰)",
+    "mini": 96,
+    "level": 179,
+    "computed": 96,
+    "ok": true,
+    "ms": 406,
+    "grid": "NBBH/OPIH/AAIJ/AA@J/@QCC"
+  },
+  {
+    "name": "顛倒96(陽)",
+    "mini": 96,
+    "level": 180,
+    "computed": 96,
+    "ok": true,
+    "ms": 301,
+    "grid": "@NBB/AA@H/AAIH/OPIJ/QCCJ"
+  },
+  {
+    "name": "獨闢蹊徑",
+    "mini": 88,
+    "level": 181,
+    "computed": 88,
+    "ok": true,
+    "ms": 198,
+    "grid": "AAN@/AAOP/HQBB/HICC/@IDD"
+  },
+  {
+    "name": "三羊開泰1",
+    "mini": 62,
+    "level": 182,
+    "computed": 62,
+    "ok": true,
+    "ms": 724,
+    "grid": "NAAO/PAAQ/HBBI/HCCI/@DD@"
+  },
+  {
+    "name": "三羊開泰2",
+    "mini": 90,
+    "level": 183,
+    "computed": 90,
+    "ok": true,
+    "ms": 1201,
+    "grid": "NAAO/HAAI/HPQI/BBCC/@DD@"
+  },
+  {
+    "name": "三羊開泰3",
+    "mini": 100,
+    "level": 184,
+    "computed": 100,
+    "ok": true,
+    "ms": 1212,
+    "grid": "NAAO/HAAI/HBBI/CCDD/@PQ@"
+  },
+  {
+    "name": "順時風車",
+    "mini": 87,
+    "level": 185,
+    "computed": 87,
+    "ok": true,
+    "ms": 1884,
+    "grid": "AA@H/AANH/BBIO/J@IP/JCCQ"
+  },
+  {
+    "name": "逆時風車",
+    "mini": 77,
+    "level": 186,
+    "computed": 77,
+    "ok": true,
+    "ms": 1661,
+    "grid": "AA@H/AA@H/IBBN/IOJP/CCJQ"
+  },
+  {
+    "name": "一橫定式A",
+    "mini": 45,
+    "level": 187,
+    "computed": 45,
+    "ok": true,
+    "ms": 839,
+    "grid": "HAAN/HAAO/IPJK/IQJK/@@BB"
+  },
+  {
+    "name": "一橫定式B",
+    "mini": 38,
+    "level": 188,
+    "computed": 38,
+    "ok": true,
+    "ms": 66,
+    "grid": "HAAN/HAAO/@@BB/IPJK/IQJK"
+  },
+  {
+    "name": "一橫定式C",
+    "mini": 40,
+    "level": 189,
+    "computed": 40,
+    "ok": true,
+    "ms": 177,
+    "grid": "AANH/AAOH/@@BB/PIJK/QIJK"
+  },
+  {
+    "name": "一橫定式D",
+    "mini": 42,
+    "level": 190,
+    "computed": 42,
+    "ok": true,
+    "ms": 105,
+    "grid": "AANO/AABB/@@PH/IJKH/IJKQ"
+  },
+  {
+    "name": "二橫定式A",
+    "mini": 51,
+    "level": 191,
+    "computed": 51,
+    "ok": true,
+    "ms": 1104,
+    "grid": "AA@N/AA@O/HIBB/HIPJ/CCQJ"
+  },
+  {
+    "name": "二橫定式B",
+    "mini": 49,
+    "level": 192,
+    "computed": 49,
+    "ok": true,
+    "ms": 1235,
+    "grid": "AA@N/AA@O/HPBB/HQIJ/CCIJ"
+  },
+  {
+    "name": "三橫定式A",
+    "mini": 65,
+    "level": 193,
+    "computed": 65,
+    "ok": true,
+    "ms": 1051,
+    "grid": "AA@N/AA@O/HPBB/HCCI/DDQI"
+  },
+  {
+    "name": "三橫定式B",
+    "mini": 81,
+    "level": 194,
+    "computed": 81,
+    "ok": true,
+    "ms": 1386,
+    "grid": "AA@N/AA@O/HPBB/HCCI/QDDI"
+  },
+  {
+    "name": "四橫定式A",
+    "mini": 53,
+    "level": 195,
+    "computed": 53,
+    "ok": true,
+    "ms": 224,
+    "grid": "NHOP/QH@@/BBAA/CCAA/DDEE"
+  },
+  {
+    "name": "四橫定式B",
+    "mini": 46,
+    "level": 196,
+    "computed": 46,
+    "ok": true,
+    "ms": 155,
+    "grid": "NOAA/BBAA/HPCC/HQDD/@@EE"
+  },
+  {
+    "name": "四橫定式C",
+    "mini": 44,
+    "level": 197,
+    "computed": 44,
+    "ok": true,
+    "ms": 148,
+    "grid": "BBAA/HNAA/HOCC/@PDD/@QEE"
+  },
+  {
+    "name": "四橫定式D",
+    "mini": 38,
+    "level": 198,
+    "computed": 38,
+    "ok": true,
+    "ms": 140,
+    "grid": "HNBB/HOPQ/CCAA/DDAA/EE@@"
+  },
+  {
+    "name": "四橫定式E",
+    "mini": 33,
+    "level": 199,
+    "computed": 33,
+    "ok": true,
+    "ms": 150,
+    "grid": "NOBB/CCAA/HPAA/HQDD/@@EE"
+  },
+  {
+    "name": "殊途同歸",
+    "mini": 76,
+    "level": 200,
+    "computed": 76,
+    "ok": true,
+    "ms": 438,
+    "grid": "HIAA/HIAA/N@O@/JBBK/JPQK"
+  },
+  {
+    "name": "勿入歧途",
+    "mini": 73,
+    "level": 201,
+    "computed": 73,
+    "ok": true,
+    "ms": 977,
+    "grid": "HAAI/HAAI/JNO@/JBBK/@PQK"
+  },
+  {
+    "name": "一夫當關",
+    "mini": 64,
+    "level": 202,
+    "computed": 64,
+    "ok": true,
+    "ms": 511,
+    "grid": "HIJK/HIJK/@AA@/NAAO/BBPQ"
+  },
+  {
+    "name": "節節高升",
+    "mini": 63,
+    "level": 203,
+    "computed": 63,
+    "ok": true,
+    "ms": 1002,
+    "grid": "H@AA/HIAA/NIJ@/OPJK/BBQK"
+  },
+  {
+    "name": "六將之近在咫尺A",
+    "mini": 62,
+    "error": "小卒数量 2 ≠ 4"
+  },
+  {
+    "name": "六將之近在咫尺B",
+    "mini": 44,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將之步步高1",
+    "mini": 63,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將之步步高2",
+    "mini": 72,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將守關1",
+    "mini": 75,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將守關2",
+    "mini": 63,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將守關3",
+    "mini": 81,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將守關4",
+    "mini": 77,
+    "error": "小卒数量 2 ≠ 4"
+  },
+  {
+    "name": "六將守關5",
+    "mini": 86,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將守關6",
+    "mini": 62,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將守關7",
+    "mini": 76,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "六將之跋山涉水",
+    "mini": 92,
+    "error": "小卒数量 1 ≠ 4"
+  },
+  {
+    "name": "換離為兌",
+    "mini": 87,
+    "level": 216,
+    "computed": 87,
+    "ok": true,
+    "ms": 452,
+    "grid": "BBNO/CCAA/PQAA/DDHI/@@HI"
+  },
+  {
+    "name": "寓巧於拙",
+    "mini": 83,
+    "level": 217,
+    "computed": 83,
+    "ok": true,
+    "ms": 1477,
+    "grid": "AANO/AABB/@CCP/HDDI/H@QI"
+  },
+  {
+    "name": "搖旗放曹",
+    "mini": 17,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "輪回",
+    "mini": 58,
+    "level": 219,
+    "computed": 58,
+    "ok": true,
+    "ms": 910,
+    "grid": "HNBB/HAAO/PAAI/CCQI/@DD@"
+  },
+  {
+    "name": "殊途同歸I",
+    "mini": 63,
+    "level": 220,
+    "computed": 63,
+    "ok": true,
+    "ms": 948,
+    "grid": "AAHI/AAHI/@N@O/JKBB/JKPQ"
+  },
+  {
+    "name": "殊途同歸II",
+    "mini": 82,
+    "level": 221,
+    "computed": 82,
+    "ok": true,
+    "ms": 1779,
+    "grid": "NAAH/IAAH/IJOP/QJ@@/BBCC"
+  },
+  {
+    "name": "殊途同歸III",
+    "mini": 91,
+    "level": 222,
+    "computed": 91,
+    "ok": true,
+    "ms": 1383,
+    "grid": "HAAN/HAAI/BBOI/CC@@/PQDD"
+  },
+  {
+    "name": "殊途同歸IV",
+    "mini": 52,
+    "level": 223,
+    "computed": 52,
+    "ok": true,
+    "ms": 182,
+    "grid": "NOBB/PHAA/@HAA/@QCC/DDEE"
+  },
+  {
+    "name": "曹13",
+    "mini": 13,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "百步歧形",
+    "mini": 100,
+    "level": 225,
+    "computed": 100,
+    "ok": true,
+    "ms": 816,
+    "grid": "@HIJ/NHIJ/@OPQ/AABB/AACC"
+  },
+  {
+    "name": "四兵同心",
+    "mini": 102,
+    "level": 226,
+    "computed": 102,
+    "ok": true,
+    "ms": 812,
+    "grid": "NOH@/PQHI/AAJI/AAJ@/BBCC"
+  },
+  {
+    "name": "生機盎然",
+    "mini": 116,
+    "level": 227,
+    "computed": 116,
+    "ok": true,
+    "ms": 789,
+    "grid": "AA@H/AANH/@OIP/BBIJ/CCQJ"
+  },
+  {
+    "name": "旭日東昇",
+    "mini": 18,
+    "error": "小卒数量 12 ≠ 4"
+  },
+  {
+    "name": "退一步海闊天空",
+    "mini": 13,
+    "level": 229,
+    "computed": 13,
+    "ok": true,
+    "ms": 13,
+    "grid": "NBBO/HAAI/HAAI/JPQK/J@@K"
+  },
+  {
+    "name": "三七二十一",
+    "mini": 21,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "高處不勝寒",
+    "mini": 92,
+    "level": 231,
+    "computed": 92,
+    "ok": true,
+    "ms": 1196,
+    "grid": "@AA@/HAAI/HNOI/PBBQ/CCDD"
+  },
+  {
+    "name": "步步高3",
+    "mini": 97,
+    "level": 232,
+    "computed": 97,
+    "ok": true,
+    "ms": 1802,
+    "grid": "AANH/AAIH/@OIJ/BBPJ/@CCQ"
+  },
+  {
+    "name": "換位思考",
+    "mini": 19,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "水中倒影之實",
+    "mini": 69,
+    "level": 234,
+    "computed": 69,
+    "ok": true,
+    "ms": 566,
+    "grid": "@BBN/HAAO/HAA@/IJCC/IJPQ"
+  },
+  {
+    "name": "水中倒影之像",
+    "mini": 69,
+    "level": 235,
+    "computed": 69,
+    "ok": true,
+    "ms": 546,
+    "grid": "HINO/HIBB/JAA@/JAAP/@CCQ"
+  },
+  {
+    "name": "進退維谷",
+    "mini": 97,
+    "level": 236,
+    "computed": 97,
+    "ok": true,
+    "ms": 1733,
+    "grid": "NO@P/AAHI/AAHI/BB@J/CCQJ"
+  },
+  {
+    "name": "不謀而合",
+    "mini": 99,
+    "level": 237,
+    "computed": 99,
+    "ok": true,
+    "ms": 797,
+    "grid": "NOH@/AAHP/AAIJ/BBIJ/CC@Q"
+  },
+  {
+    "name": "左右逢源",
+    "mini": 25,
+    "level": 238,
+    "computed": 25,
+    "ok": true,
+    "ms": 46,
+    "grid": "AABB/AANO/@PQ@/HIJK/HIJK"
+  },
+  {
+    "name": "進退自如",
+    "mini": 100,
+    "level": 239,
+    "computed": 100,
+    "ok": true,
+    "ms": 991,
+    "grid": "NHI@/OHIP/AAJQ/AAJ@/BBCC"
+  },
+  {
+    "name": "百步穿楊",
+    "mini": 132,
+    "level": 240,
+    "computed": 132,
+    "ok": true,
+    "ms": 737,
+    "grid": "H@AA/HNAA/BBOI/CCPI/@QDD"
+  },
+  {
+    "name": "七上八下(上)",
+    "mini": 77,
+    "level": 241,
+    "computed": 77,
+    "ok": true,
+    "ms": 196,
+    "grid": "HIJN/HIJO/AABB/AA@@/CCPQ"
+  },
+  {
+    "name": "七上八下(下)",
+    "mini": 78,
+    "level": 242,
+    "computed": 78,
+    "ok": true,
+    "ms": 204,
+    "grid": "BBNO/AA@@/AACC/HIJP/HIJQ"
+  },
+  {
+    "name": "別無選擇",
+    "mini": 90,
+    "level": 243,
+    "computed": 90,
+    "ok": true,
+    "ms": 401,
+    "grid": "AAH@/AAH@/NIBB/JIOK/JPQK"
+  },
+  {
+    "name": "大喬小喬(上)",
+    "mini": 39,
+    "level": 244,
+    "computed": 39,
+    "ok": true,
+    "ms": 57,
+    "grid": "HINO/HIAA/PQAA/JKBB/JK@@"
+  },
+  {
+    "name": "大喬小喬(下)",
+    "mini": 38,
+    "level": 245,
+    "computed": 38,
+    "ok": true,
+    "ms": 52,
+    "grid": "HI@@/HIBB/NOAA/JKAA/JKPQ"
+  },
+  {
+    "name": "旋轉讓道",
+    "mini": 70,
+    "level": 246,
+    "computed": 70,
+    "ok": true,
+    "ms": 509,
+    "grid": "@HIN/JHIO/JAAP/KAA@/KQBB"
+  },
+  {
+    "name": "兵隨將轉",
+    "mini": 73,
+    "level": 247,
+    "computed": 73,
+    "ok": true,
+    "ms": 987,
+    "grid": "AANH/AAIH/JOIP/JKBB/@KQ@"
+  },
+  {
+    "name": "新鴻門宴Ⅰ",
+    "mini": 68,
+    "level": 248,
+    "computed": 68,
+    "ok": true,
+    "ms": 918,
+    "grid": "NAAH/IAAH/IJKO/@JK@/PQBB"
+  },
+  {
+    "name": "新鴻門宴Ⅱ",
+    "mini": 100,
+    "level": 249,
+    "computed": 100,
+    "ok": true,
+    "ms": 1165,
+    "grid": "HAAI/HAAI/BBCC/@NO@/DDPQ"
+  },
+  {
+    "name": "全民皆兵",
+    "mini": 22,
+    "error": "小卒数量 14 ≠ 4"
+  },
+  {
+    "name": "三顧茅廬",
+    "mini": 80,
+    "level": 251,
+    "computed": 80,
+    "ok": true,
+    "ms": 1711,
+    "grid": "AAHI/AAHI/JNO@/JPQ@/BBCC"
+  },
+  {
+    "name": "7系列:七步成詩",
+    "mini": 7,
+    "level": 252,
+    "computed": 7,
+    "ok": true,
+    "ms": 3,
+    "grid": "HI@J/HI@J/KLAA/KLAA/NOPQ"
+  },
+  {
+    "name": "7系列:整齊排列",
+    "mini": 37,
+    "level": 253,
+    "computed": 37,
+    "ok": true,
+    "ms": 77,
+    "grid": "NHIO/JHIK/JPQK/AA@@/AABB"
+  },
+  {
+    "name": "7系列:倒扣杯中",
+    "mini": 47,
+    "level": 254,
+    "computed": 47,
+    "ok": true,
+    "ms": 539,
+    "grid": "BBCC/@NO@/HAAI/HAAI/PDDQ"
+  },
+  {
+    "name": "7系列:飄在空中",
+    "mini": 57,
+    "level": 255,
+    "computed": 57,
+    "ok": true,
+    "ms": 484,
+    "grid": "HNOI/HAAI/JAAP/JBBK/@@QK"
+  },
+  {
+    "name": "7系列:四面楚歌",
+    "mini": 67,
+    "level": 256,
+    "computed": 67,
+    "ok": true,
+    "ms": 1038,
+    "grid": "@NO@/HBBI/HAAI/PAAQ/CCDD"
+  },
+  {
+    "name": "7系列:步履維艱",
+    "mini": 107,
+    "level": 257,
+    "computed": 107,
+    "ok": true,
+    "ms": 1684,
+    "grid": "NAAO/HAA@/HIBB/JIPQ/JCC@"
+  },
+  {
+    "name": "7系列:自動報時",
+    "mini": 117,
+    "level": 258,
+    "computed": 117,
+    "ok": true,
+    "ms": 800,
+    "grid": "@HNO/PHAA/IJAA/IJBB/CCQ@"
+  },
+  {
+    "name": "一心一意",
+    "mini": 11,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "上下鏡像",
+    "mini": 23,
+    "level": 260,
+    "computed": 23,
+    "ok": true,
+    "ms": 6,
+    "grid": "NAA@/OAA@/BBCC/DDEE/FFPQ"
+  },
+  {
+    "name": "首尾互換(上)",
+    "mini": 29,
+    "level": 261,
+    "computed": 29,
+    "ok": true,
+    "ms": 41,
+    "grid": "NAA@/OAA@/BBPQ/HIJK/HIJK"
+  },
+  {
+    "name": "首尾互換(下)",
+    "mini": 29,
+    "level": 262,
+    "computed": 29,
+    "ok": true,
+    "ms": 98,
+    "grid": "NAAO/HAAI/H@@I/JPQK/JBBK"
+  },
+  {
+    "name": "眾志成城",
+    "mini": 41,
+    "level": 263,
+    "computed": 41,
+    "ok": true,
+    "ms": 32,
+    "grid": "HNBB/HAAO/IAAP/IJ@K/@JQK"
+  },
+  {
+    "name": "孔融讓梨",
+    "mini": 47,
+    "level": 264,
+    "computed": 47,
+    "ok": true,
+    "ms": 320,
+    "grid": "NAA@/OAA@/BBCC/PHDD/QHEE"
+  },
+  {
+    "name": "仙人推磨",
+    "mini": 59,
+    "level": 265,
+    "computed": 59,
+    "ok": true,
+    "ms": 677,
+    "grid": "NAA@/OAAP/HBBQ/H@IJ/CCIJ"
+  },
+  {
+    "name": "陸績懷橘",
+    "mini": 61,
+    "level": 266,
+    "computed": 61,
+    "ok": true,
+    "ms": 626,
+    "grid": "HNOI/HAAI/JAAK/JBBK/PQ@@"
+  },
+  {
+    "name": "曹沖稱象",
+    "mini": 113,
+    "level": 267,
+    "computed": 113,
+    "ok": true,
+    "ms": 1734,
+    "grid": "AANH/AAIH/@OIP/@BBJ/CCQJ"
+  },
+  {
+    "name": "千里走單騎",
+    "mini": 33,
+    "error": "小卒数量 10 ≠ 4"
+  },
+  {
+    "name": "三英戰呂布",
+    "mini": 57,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "桃園三結義",
+    "mini": 43,
+    "error": "小卒数量 8 ≠ 4"
+  },
+  {
+    "name": "孔明扇",
+    "mini": 16,
+    "level": 271,
+    "computed": 16,
+    "ok": true,
+    "ms": 5,
+    "grid": "HBBN/HAAI/JAAI/JOKP/@QK@"
+  },
+  {
+    "name": "步步高之“義放曹操”",
+    "mini": 71,
+    "level": 272,
+    "computed": 71,
+    "ok": true,
+    "ms": 589,
+    "grid": "BBAA/HNAA/HICC/@IJO/P@JQ"
+  },
+  {
+    "name": "異位同步(上)",
+    "mini": 103,
+    "level": 273,
+    "computed": 103,
+    "ok": true,
+    "ms": 800,
+    "grid": "N@HI/AAHI/AA@J/BBOJ/PQCC"
+  },
+  {
+    "name": "異位同步(下)",
+    "mini": 103,
+    "level": 274,
+    "computed": 103,
+    "ok": true,
+    "ms": 798,
+    "grid": "N@@H/AAIH/AAIJ/BBOJ/PQCC"
+  },
+  {
+    "name": "自成鏡像",
+    "mini": 31,
+    "level": 275,
+    "computed": 31,
+    "ok": true,
+    "ms": 14,
+    "grid": "NAA@/OAA@/BBCC/HIPQ/HIDD"
+  },
+  {
+    "name": "孔明扇2",
+    "mini": 30,
+    "level": 276,
+    "computed": 30,
+    "ok": true,
+    "ms": 57,
+    "grid": "HBBN/HAAI/JAAI/JKOP/@KQ@"
+  },
+  {
+    "name": "大意失荊州",
+    "mini": 66,
+    "level": 277,
+    "computed": 66,
+    "ok": true,
+    "ms": 566,
+    "grid": "@HNI/JH@I/JAAO/KAAP/KQBB"
+  },
+  {
+    "name": "鞠躬盡瘁",
+    "mini": 55,
+    "level": 278,
+    "computed": 55,
+    "ok": true,
+    "ms": 833,
+    "grid": "HINO/HIAA/PQAA/JBBK/J@@K"
+  },
+  {
+    "name": "木牛流馬",
+    "mini": 44,
+    "level": 279,
+    "computed": 44,
+    "ok": true,
+    "ms": 79,
+    "grid": "HAAN/HAAI/BBOI/J@PK/J@QK"
+  },
+  {
+    "name": "諸葛八陣",
+    "mini": 88,
+    "level": 280,
+    "computed": 88,
+    "ok": true,
+    "ms": 844,
+    "grid": "HAA@/HAAN/BBIJ/K@IJ/KOPQ"
+  },
+  {
+    "name": "上下求索",
+    "mini": 75,
+    "level": 281,
+    "computed": 75,
+    "ok": true,
+    "ms": 920,
+    "grid": "@AAH/IAAH/IBBJ/@KNJ/OKPQ"
+  },
+  {
+    "name": "浪跡天涯",
+    "mini": 59,
+    "error": "小卒数量 2 ≠ 4"
+  },
+  {
+    "name": "花間一壺酒",
+    "mini": 55,
+    "level": 283,
+    "computed": 55,
+    "ok": true,
+    "ms": 544,
+    "grid": "@NO@/BBCC/HAAI/HAAI/PDDQ"
+  },
+  {
+    "name": "不惑之前",
+    "mini": 39,
+    "level": 284,
+    "computed": 39,
+    "ok": true,
+    "ms": 99,
+    "grid": "NOPQ/AAHI/AAHI/BBJK/@@JK"
+  },
+  {
+    "name": "不惑之後",
+    "mini": 41,
+    "level": 285,
+    "computed": 41,
+    "ok": true,
+    "ms": 104,
+    "grid": "@@HI/BBHI/AAJK/AAJK/NOPQ"
+  },
+  {
+    "name": "雙兵爭鋒",
+    "mini": 58,
+    "level": 286,
+    "computed": 58,
+    "ok": true,
+    "ms": 656,
+    "grid": "AABB/AANH/IO@H/IPCC/DDQ@"
+  },
+  {
+    "name": "高位分歧",
+    "mini": 87,
+    "level": 287,
+    "computed": 87,
+    "ok": true,
+    "ms": 1143,
+    "grid": "AA@@/AANH/IOPH/IQBB/CCDD"
+  },
+  {
+    "name": "形近神似(上)",
+    "mini": 45,
+    "level": 288,
+    "computed": 45,
+    "ok": true,
+    "ms": 386,
+    "grid": "AABB/AACC/HNOI/HDDI/P@@Q"
+  },
+  {
+    "name": "形近神似(下)",
+    "mini": 45,
+    "level": 289,
+    "computed": 45,
+    "ok": true,
+    "ms": 356,
+    "grid": "AABB/AACC/HNOI/H@@I/PDDQ"
+  },
+  {
+    "name": "旋轉砝碼",
+    "mini": 86,
+    "level": 290,
+    "computed": 86,
+    "ok": true,
+    "ms": 1033,
+    "grid": "NOAA/@@AA/HPBB/HCCI/DDQI"
+  },
+  {
+    "name": "坦克",
+    "mini": 123,
+    "level": 291,
+    "computed": 123,
+    "ok": true,
+    "ms": 1476,
+    "grid": "@AA@/NAAO/HBBI/HCCI/PDDQ"
+  },
+  {
+    "name": "孔明扇3",
+    "mini": 42,
+    "level": 292,
+    "computed": 42,
+    "ok": true,
+    "ms": 373,
+    "grid": "NBBH/IAAH/IAAJ/OCCJ/@PQ@"
+  },
+  {
+    "name": "萊希",
+    "mini": 27,
+    "level": 293,
+    "computed": 27,
+    "ok": true,
+    "ms": 40,
+    "grid": "BBAA/CCAA/DDEE/NOP@/@QFF"
+  },
+  {
+    "name": "米拉",
+    "mini": 36,
+    "level": 294,
+    "computed": 36,
+    "ok": true,
+    "ms": 39,
+    "grid": "BBAA/CCAA/DDN@/OEE@/PQFF"
+  },
+  {
+    "name": "形同神異",
+    "mini": 38,
+    "level": 295,
+    "computed": 38,
+    "ok": true,
+    "ms": 199,
+    "grid": "BBAA/CCAA/NHOI/PHQI/@@DD"
+  },
+  {
+    "name": "神在內涵",
+    "mini": 36,
+    "level": 296,
+    "computed": 36,
+    "ok": true,
+    "ms": 59,
+    "grid": "AABB/AACC/DDNO/@HEE/@HPQ"
+  },
+  {
+    "name": "面具",
+    "mini": 60,
+    "level": 297,
+    "computed": 60,
+    "ok": true,
+    "ms": 968,
+    "grid": "HAAI/HAAI/NJKO/PJKQ/@BB@"
+  },
+  {
+    "name": "龍鳳三胞（兄長）",
+    "mini": 44,
+    "level": 298,
+    "computed": 44,
+    "ok": true,
+    "ms": 265,
+    "grid": "@NO@/BBPQ/AACC/AAHI/DDHI"
+  },
+  {
+    "name": "龍鳳三胞（大妹）",
+    "mini": 44,
+    "level": 299,
+    "computed": 44,
+    "ok": true,
+    "ms": 1151,
+    "grid": "BBHI/AAHI/AACC/DDNO/@PQ@"
+  },
+  {
+    "name": "龍鳳三胞（小妹）",
+    "mini": 44,
+    "level": 300,
+    "computed": 44,
+    "ok": true,
+    "ms": 152,
+    "grid": "BBHI/AAHI/AACC/DDNO/PQ@@"
+  },
+  {
+    "name": "小鬼難纏",
+    "mini": 78,
+    "level": 301,
+    "computed": 78,
+    "ok": true,
+    "ms": 782,
+    "grid": "HNAA/HOAA/BBPQ/ICCJ/I@@J"
+  },
+  {
+    "name": "佳人梳妝（佳人）",
+    "mini": 28,
+    "level": 302,
+    "computed": 28,
+    "ok": true,
+    "ms": 55,
+    "grid": "@@BB/AAHN/AAHI/OJKI/PJKQ"
+  },
+  {
+    "name": "佳人梳妝（鏡像）",
+    "mini": 28,
+    "level": 303,
+    "computed": 28,
+    "ok": true,
+    "ms": 107,
+    "grid": "NHIO/PHIJ/AAKJ/AAKQ/@@BB"
+  },
+  {
+    "name": "雙頭倆尾",
+    "mini": 34,
+    "level": 304,
+    "computed": 34,
+    "ok": true,
+    "ms": 109,
+    "grid": "BBH@/AAH@/AAIN/OJIK/PJQK"
+  },
+  {
+    "name": "分兵作戰",
+    "mini": 38,
+    "level": 305,
+    "computed": 38,
+    "ok": true,
+    "ms": 159,
+    "grid": "NOBB/CCDD/HAA@/HAA@/PQEE"
+  },
+  {
+    "name": "閃展騰挪",
+    "mini": 45,
+    "level": 306,
+    "computed": 45,
+    "ok": true,
+    "ms": 441,
+    "grid": "NH@@/OHBB/AACC/AAPQ/DDEE"
+  },
+  {
+    "name": "丫形優解",
+    "mini": 38,
+    "level": 307,
+    "computed": 38,
+    "ok": true,
+    "ms": 105,
+    "grid": "BBCC/AADD/AANO/H@EE/HP@Q"
+  },
+  {
+    "name": "一顛快兩步（上）",
+    "mini": 41,
+    "level": 308,
+    "computed": 41,
+    "ok": true,
+    "ms": 268,
+    "grid": "@HBB/@HCC/AANO/AAPQ/DDEE"
+  },
+  {
+    "name": "一顛快兩步（下）",
+    "mini": 39,
+    "level": 309,
+    "computed": 39,
+    "ok": true,
+    "ms": 201,
+    "grid": "BBCC/AANO/AAPQ/@HDD/@HEE"
+  },
+  {
+    "name": "逃出來啦(上)",
+    "mini": 26,
+    "level": 310,
+    "computed": 26,
+    "ok": true,
+    "ms": 172,
+    "grid": "BBCC/H@@N/HAAO/PAAQ/DDEE"
+  },
+  {
+    "name": "逃出來啦(下)",
+    "mini": 26,
+    "level": 311,
+    "computed": 26,
+    "ok": true,
+    "ms": 169,
+    "grid": "BBCC/NAAO/HAAP/H@@Q/DDEE"
+  },
+  {
+    "name": "一顛快三步(上)",
+    "mini": 41,
+    "level": 312,
+    "computed": 41,
+    "ok": true,
+    "ms": 120,
+    "grid": "BBCC/DDNO/PAAQ/@AA@/EEFF"
+  },
+  {
+    "name": "一顛快三步(下)",
+    "mini": 38,
+    "level": 313,
+    "computed": 38,
+    "ok": true,
+    "ms": 42,
+    "grid": "BBCC/@AA@/NAAO/DDPQ/EEFF"
+  },
+  {
+    "name": "未卜先知",
+    "mini": 36,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "困獸猶鬥",
+    "mini": 62,
+    "level": 315,
+    "computed": 62,
+    "ok": true,
+    "ms": 157,
+    "grid": "AANO/AABB/CCH@/DDHP/QEE@"
+  },
+  {
+    "name": "六將之近在咫尺",
+    "mini": 40,
+    "error": "小卒数量 2 ≠ 4"
+  },
+  {
+    "name": "H形優解",
+    "mini": 97,
+    "level": 317,
+    "computed": 97,
+    "ok": true,
+    "ms": 647,
+    "grid": "AAN@/AA@H/IBBH/ICCO/PQDD"
+  },
+  {
+    "name": "扇壺一體(扇)",
+    "mini": 65,
+    "level": 318,
+    "computed": 65,
+    "ok": true,
+    "ms": 240,
+    "grid": "HIBB/HIAA/NJAA/OJCC/@PQ@"
+  },
+  {
+    "name": "扇壺一體(壺)",
+    "mini": 65,
+    "level": 319,
+    "computed": 65,
+    "ok": true,
+    "ms": 242,
+    "grid": "@NO@/PHBB/QHAA/IJAA/IJCC"
+  },
+  {
+    "name": "將士一心",
+    "mini": 108,
+    "level": 320,
+    "computed": 108,
+    "ok": true,
+    "ms": 682,
+    "grid": "AAH@/AAHN/OPBB/ICCQ/IDD@"
+  },
+  {
+    "name": "人形優解",
+    "mini": 77,
+    "level": 321,
+    "computed": 77,
+    "ok": true,
+    "ms": 445,
+    "grid": "AAH@/AAHI/N@OI/JBBK/JPQK"
+  },
+  {
+    "name": "手形優解",
+    "mini": 62,
+    "level": 322,
+    "computed": 62,
+    "ok": true,
+    "ms": 425,
+    "grid": "HIAA/HIAA/N@OJ/K@PJ/KBBQ"
+  },
+  {
+    "name": "倒影丫解（上）",
+    "mini": 38,
+    "level": 323,
+    "computed": 38,
+    "ok": true,
+    "ms": 107,
+    "grid": "AABB/AAHN/OPHI/JCCI/J@@Q"
+  },
+  {
+    "name": "倒影丫解（下）",
+    "mini": 38,
+    "level": 324,
+    "computed": 38,
+    "ok": true,
+    "ms": 111,
+    "grid": "H@@N/HBBI/OPJI/AAJQ/AACC"
+  },
+  {
+    "name": "倒影等優（上）",
+    "mini": 41,
+    "level": 325,
+    "computed": 41,
+    "ok": true,
+    "ms": 116,
+    "grid": "AABB/AAHN/CCHI/ODDI/P@@Q"
+  },
+  {
+    "name": "倒影等優（下）",
+    "mini": 41,
+    "level": 326,
+    "computed": 41,
+    "ok": true,
+    "ms": 122,
+    "grid": "N@@O/PBBH/CCIH/AAIQ/AADD"
+  },
+  {
+    "name": "同步倒影（上）",
+    "mini": 26,
+    "level": 327,
+    "computed": 26,
+    "ok": true,
+    "ms": 44,
+    "grid": "AABB/AANH/OPIH/QJIK/@J@K"
+  },
+  {
+    "name": "同步倒影（下）",
+    "mini": 26,
+    "level": 328,
+    "computed": 26,
+    "ok": true,
+    "ms": 99,
+    "grid": "@H@I/NHJI/OPJK/AAQK/AABB"
+  },
+  {
+    "name": "活眼倒影(上)",
+    "mini": 71,
+    "level": 329,
+    "computed": 71,
+    "ok": true,
+    "ms": 573,
+    "grid": "HNOP/HIBB/JI@Q/J@AA/CCAA"
+  },
+  {
+    "name": "活眼倒影(下)",
+    "mini": 71,
+    "level": 330,
+    "computed": 71,
+    "ok": true,
+    "ms": 589,
+    "grid": "BBAA/H@AA/HI@N/JICC/JOPQ"
+  },
+  {
+    "name": "觸角優解(左)",
+    "mini": 75,
+    "level": 331,
+    "computed": 75,
+    "ok": true,
+    "ms": 280,
+    "grid": "@HI@/NHIO/JBBP/JQAA/CCAA"
+  },
+  {
+    "name": "觸角優解(右)",
+    "mini": 75,
+    "level": 332,
+    "computed": 75,
+    "ok": true,
+    "ms": 280,
+    "grid": "BBAA/HNAA/HCCO/PIJQ/@IJ@"
+  },
+  {
+    "name": "字母糸列A",
+    "mini": 135,
+    "level": 333,
+    "computed": 135,
+    "ok": true,
+    "ms": 787,
+    "grid": "NHOP/IHAA/I@AA/JBBQ/J@CC"
+  },
+  {
+    "name": "字母系列C",
+    "mini": 125,
+    "level": 334,
+    "computed": 125,
+    "ok": true,
+    "ms": 4464,
+    "grid": "NOAA/HPAA/HBB@/IJQ@/IJCC"
+  },
+  {
+    "name": "字母系列F",
+    "mini": 116,
+    "level": 335,
+    "computed": 116,
+    "ok": true,
+    "ms": 800,
+    "grid": "HNAA/HIAA/OIP@/JQBB/JCC@"
+  },
+  {
+    "name": "字母系列H",
+    "mini": 134,
+    "level": 336,
+    "computed": 134,
+    "ok": true,
+    "ms": 787,
+    "grid": "N@OH/AAPH/AAIJ/BBIJ/Q@CC"
+  },
+  {
+    "name": "字母系列I",
+    "mini": 106,
+    "level": 337,
+    "computed": 106,
+    "ok": true,
+    "ms": 1636,
+    "grid": "HAAN/HAAO/@BB@/IJPQ/IJCC"
+  },
+  {
+    "name": "字母系列L",
+    "mini": 117,
+    "level": 338,
+    "computed": 117,
+    "ok": true,
+    "ms": 1186,
+    "grid": "AAN@/AAO@/PBBQ/HCCI/HDDI"
+  },
+  {
+    "name": "字母系列N",
+    "mini": 134,
+    "level": 339,
+    "computed": 134,
+    "ok": true,
+    "ms": 1720,
+    "grid": "NO@H/AAPH/AAIJ/BBIJ/Q@CC"
+  },
+  {
+    "name": "字母系列P",
+    "mini": 126,
+    "level": 340,
+    "computed": 126,
+    "ok": true,
+    "ms": 1180,
+    "grid": "NAAO/HAAP/H@BB/CCIQ/DDI@"
+  },
+  {
+    "name": "字母系列T",
+    "mini": 137,
+    "level": 341,
+    "computed": 137,
+    "ok": true,
+    "ms": 1714,
+    "grid": "HNOP/HIAA/JIAA/JBBQ/@CC@"
+  },
+  {
+    "name": "字母系列U",
+    "mini": 131,
+    "level": 342,
+    "computed": 131,
+    "ok": true,
+    "ms": 919,
+    "grid": "N@OP/H@AA/HIAA/JIBB/JCCQ"
+  },
+  {
+    "name": "古稀倒影(上)",
+    "mini": 70,
+    "level": 343,
+    "computed": 70,
+    "ok": true,
+    "ms": 280,
+    "grid": "NBB@/HIAA/HIAA/OJCC/PJQ@"
+  },
+  {
+    "name": "古稀倒影(下)",
+    "mini": 70,
+    "level": 344,
+    "computed": 70,
+    "ok": true,
+    "ms": 413,
+    "grid": "NHO@/PHBB/IJAA/IJAA/QCC@"
+  },
+  {
+    "name": "形神顛倒(上)",
+    "mini": 64,
+    "level": 345,
+    "computed": 64,
+    "ok": true,
+    "ms": 547,
+    "grid": "HBB@/HNAA/OPAA/IJCC/IJQ@"
+  },
+  {
+    "name": "形神顛倒(下)",
+    "mini": 64,
+    "level": 346,
+    "computed": 64,
+    "ok": true,
+    "ms": 547,
+    "grid": "HIN@/HIBB/OPAA/JQAA/JCC@"
+  },
+  {
+    "name": "形顛神倒(上)",
+    "mini": 34,
+    "level": 347,
+    "computed": 34,
+    "ok": true,
+    "ms": 93,
+    "grid": "BBAA/@HAA/NHOI/JPKI/JQK@"
+  },
+  {
+    "name": "形顛神倒(下)",
+    "mini": 43,
+    "level": 348,
+    "computed": 43,
+    "ok": true,
+    "ms": 153,
+    "grid": "HNI@/HOIJ/PKQJ/@KAA/BBAA"
+  },
+  {
+    "name": "鳳凰倒影(鳳)",
+    "mini": 31,
+    "level": 349,
+    "computed": 31,
+    "ok": true,
+    "ms": 105,
+    "grid": "BBN@/AAHI/AAHI/JOKP/JQK@"
+  },
+  {
+    "name": "鳳凰倒影(凰)",
+    "mini": 31,
+    "level": 350,
+    "computed": 31,
+    "ok": true,
+    "ms": 108,
+    "grid": "HNI@/HOIP/AAJK/AAJK/BBQ@"
+  },
+  {
+    "name": "互生優解",
+    "mini": 71,
+    "level": 351,
+    "computed": 71,
+    "ok": true,
+    "ms": 665,
+    "grid": "HNAA/H@AA/OIBB/@IJK/PQJK"
+  },
+  {
+    "name": "重鏈優解",
+    "mini": 96,
+    "level": 352,
+    "computed": 96,
+    "ok": true,
+    "ms": 1226,
+    "grid": "NOAA/@HAA/@HBB/CCIP/DDIQ"
+  },
+  {
+    "name": "電阻優解",
+    "mini": 63,
+    "level": 353,
+    "computed": 63,
+    "ok": true,
+    "ms": 875,
+    "grid": "HBBN/HAAI/OAAI/CCDD/@PQ@"
+  },
+  {
+    "name": "平行優解",
+    "mini": 75,
+    "level": 354,
+    "computed": 75,
+    "ok": true,
+    "ms": 1703,
+    "grid": "NAA@/HAA@/HBBO/IPQJ/ICCJ"
+  },
+  {
+    "name": "麒麟倒影(麒)",
+    "mini": 53,
+    "level": 355,
+    "computed": 53,
+    "ok": true,
+    "ms": 246,
+    "grid": "BBN@/OHCC/IHAA/IPAA/DDQ@"
+  },
+  {
+    "name": "麒麟倒影(麟)",
+    "mini": 53,
+    "level": 356,
+    "computed": 53,
+    "ok": true,
+    "ms": 253,
+    "grid": "BBN@/HOAA/HIAA/PICC/DDQ@"
+  },
+  {
+    "name": "合兵一處",
+    "mini": 41,
+    "level": 357,
+    "computed": 41,
+    "ok": true,
+    "ms": 178,
+    "grid": "BBNO/CCDD/PH@@/QHAA/EEAA"
+  },
+  {
+    "name": "兵分二路",
+    "mini": 48,
+    "level": 358,
+    "computed": 48,
+    "ok": true,
+    "ms": 214,
+    "grid": "BBN@/HOCC/HPQ@/AADD/AAEE"
+  },
+  {
+    "name": "貔貅倒影(貔)",
+    "mini": 44,
+    "level": 359,
+    "computed": 44,
+    "ok": true,
+    "ms": 176,
+    "grid": "NBBO/HP@I/HJ@I/QJAA/CCAA"
+  },
+  {
+    "name": "貔貅倒影(貅)",
+    "mini": 44,
+    "level": 360,
+    "computed": 44,
+    "ok": true,
+    "ms": 174,
+    "grid": "BBAA/NHAA/IH@J/IO@J/PCCQ"
+  },
+  {
+    "name": "同步堂親(兄)",
+    "mini": 62,
+    "level": 361,
+    "computed": 62,
+    "ok": true,
+    "ms": 380,
+    "grid": "AAHN/AAH@/IBBJ/IKOJ/PK@Q"
+  },
+  {
+    "name": "同步堂親(弟)",
+    "mini": 62,
+    "level": 362,
+    "computed": 62,
+    "ok": true,
+    "ms": 46,
+    "grid": "AAHN/AAH@/OBBI/JKPI/JK@Q"
+  },
+  {
+    "name": "分久必合",
+    "mini": 106,
+    "level": 363,
+    "computed": 106,
+    "ok": true,
+    "ms": 825,
+    "grid": "AANO/AAHI/BBHI/PCCJ/Q@@J"
+  },
+  {
+    "name": "合久必分",
+    "mini": 91,
+    "level": 364,
+    "computed": 91,
+    "ok": true,
+    "ms": 810,
+    "grid": "AA@H/AANH/OPIQ/BBIJ/@CCJ"
+  },
+  {
+    "name": "日月同輝",
+    "mini": 102,
+    "level": 365,
+    "computed": 102,
+    "ok": true,
+    "ms": 839,
+    "grid": "@N@H/OIJH/PIJQ/AABB/AACC"
+  },
+  {
+    "name": "曹操劃小圈",
+    "mini": 75,
+    "level": 366,
+    "computed": 75,
+    "ok": true,
+    "ms": 213,
+    "grid": "HIN@/HIO@/BBJP/AAJQ/AACC"
+  },
+  {
+    "name": "虎蹤",
+    "mini": 62,
+    "level": 367,
+    "computed": 62,
+    "ok": true,
+    "ms": 246,
+    "grid": "HBB@/HNCC/OAAP/IAAQ/I@DD"
+  },
+  {
+    "name": "狼影",
+    "mini": 62,
+    "level": 368,
+    "computed": 62,
+    "ok": true,
+    "ms": 249,
+    "grid": "H@BB/HAAN/OAAP/IQCC/IDD@"
+  },
+  {
+    "name": "轅門射戟Ａ",
+    "mini": 60,
+    "level": 369,
+    "computed": 60,
+    "ok": true,
+    "ms": 562,
+    "grid": "NBBH/CCOH/PIAA/@IAA/DDQ@"
+  },
+  {
+    "name": "轅門射戟Ｂ",
+    "mini": 47,
+    "level": 370,
+    "computed": 47,
+    "ok": true,
+    "ms": 320,
+    "grid": "NBBO/HPCC/HAA@/QAAI/@DDI"
+  },
+  {
+    "name": "以逸待勞",
+    "mini": 83,
+    "level": 371,
+    "computed": 83,
+    "ok": true,
+    "ms": 1690,
+    "grid": "HAAI/HAAI/BBCC/JNOP/J@@Q"
+  },
+  {
+    "name": "雪擁藍關",
+    "mini": 62,
+    "level": 372,
+    "computed": 62,
+    "ok": true,
+    "ms": 284,
+    "grid": "BBAA/@NAA/OHPI/@HJI/CCJQ"
+  },
+  {
+    "name": "雲橫秦嶺",
+    "mini": 65,
+    "level": 373,
+    "computed": 65,
+    "ok": true,
+    "ms": 182,
+    "grid": "BBHN/@IHJ/OIPJ/@QAA/CCAA"
+  },
+  {
+    "name": "八陣圖",
+    "mini": 80,
+    "level": 374,
+    "computed": 80,
+    "ok": true,
+    "ms": 1603,
+    "grid": "HAAN/HAAI/OBBI/JCCP/J@@Q"
+  },
+  {
+    "name": "兵據曹營",
+    "mini": 97,
+    "level": 375,
+    "computed": 97,
+    "ok": true,
+    "ms": 1774,
+    "grid": "HNOI/HPQI/JAA@/JAA@/BBCC"
+  },
+  {
+    "name": "山窮水盡",
+    "mini": 70,
+    "level": 376,
+    "computed": 70,
+    "ok": true,
+    "ms": 610,
+    "grid": "HAAI/HAAI/BBNO/PJKQ/@JK@"
+  },
+  {
+    "name": "上屋抽梯",
+    "mini": 82,
+    "level": 377,
+    "computed": 82,
+    "ok": true,
+    "ms": 1075,
+    "grid": "HAAN/HAAO/BBPI/QCCI/@DD@"
+  },
+  {
+    "name": "抽梁斷柱",
+    "mini": 37,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "有去有回",
+    "mini": 63,
+    "level": 379,
+    "computed": 63,
+    "ok": true,
+    "ms": 754,
+    "grid": "NOPQ/HIBB/HICC/AADD/AA@@"
+  },
+  {
+    "name": "能上能下",
+    "mini": 55,
+    "level": 380,
+    "computed": 55,
+    "ok": true,
+    "ms": 371,
+    "grid": "NHI@/OHIP/Q@BB/AACC/AADD"
+  },
+  {
+    "name": "火燒連營",
+    "mini": 41,
+    "level": 381,
+    "computed": 41,
+    "ok": true,
+    "ms": 162,
+    "grid": "H@N@/HIOJ/PIKJ/AAKQ/AABB"
+  },
+  {
+    "name": "橫行霸道",
+    "mini": 28,
+    "error": "小卒数量 6 ≠ 4"
+  },
+  {
+    "name": "睡獅甦醒",
+    "mini": 82,
+    "level": 383,
+    "computed": 82,
+    "ok": true,
+    "ms": 606,
+    "grid": "NOAA/PHAA/IHBB/IJQK/@J@K"
+  },
+  {
+    "name": "側面虎",
+    "mini": 76,
+    "level": 384,
+    "computed": 76,
+    "ok": true,
+    "ms": 522,
+    "grid": "@NOH/AAIH/AAIJ/@PKJ/BBKQ"
+  },
+  {
+    "name": "胸有朝陽",
+    "mini": 80,
+    "level": 385,
+    "computed": 80,
+    "ok": true,
+    "ms": 631,
+    "grid": "AANH/AA@H/OBBI/JK@I/JKPQ"
+  },
+  {
+    "name": "江村夕照",
+    "mini": 81,
+    "level": 386,
+    "computed": 81,
+    "ok": true,
+    "ms": 939,
+    "grid": "H@AA/HNAA/IJK@/IJKO/PQBB"
+  },
+  {
+    "name": "曲水流觴",
+    "mini": 81,
+    "level": 387,
+    "computed": 81,
+    "ok": true,
+    "ms": 429,
+    "grid": "HIAA/HIAA/JNOP/JKBB/QK@@"
+  },
+  {
+    "name": "簷浮旭日",
+    "mini": 70,
+    "level": 388,
+    "computed": 70,
+    "ok": true,
+    "ms": 39,
+    "grid": "AA@H/AANH/IJBB/IJ@K/OPQK"
+  },
+  {
+    "name": "三一奇陣",
+    "mini": 111,
+    "level": 389,
+    "computed": 111,
+    "ok": true,
+    "ms": 792,
+    "grid": "AA@H/AANH/OPBB/@QIJ/CCIJ"
+  },
+  {
+    "name": "流水行雲",
+    "mini": 110,
+    "level": 390,
+    "computed": 110,
+    "ok": true,
+    "ms": 771,
+    "grid": "AAH@/AAH@/NOBB/PQIJ/CCIJ"
+  },
+  {
+    "name": "運兵陰平",
+    "mini": 109,
+    "level": 391,
+    "computed": 109,
+    "ok": true,
+    "ms": 1214,
+    "grid": "NAAO/PAAH/BB@H/I@CC/IQDD"
+  },
+  {
+    "name": "野馬分鬃",
+    "mini": 107,
+    "level": 392,
+    "computed": 107,
+    "ok": true,
+    "ms": 1345,
+    "grid": "@HAA/NHAA/@BBI/CCOI/PDDQ"
+  },
+  {
+    "name": "寄人籬下",
+    "mini": 106,
+    "level": 393,
+    "computed": 106,
+    "ok": true,
+    "ms": 1191,
+    "grid": "@HAA/NHAA/OPBB/CCIQ/DDI@"
+  },
+  {
+    "name": "披甲持螯",
+    "mini": 103,
+    "level": 394,
+    "computed": 103,
+    "ok": true,
+    "ms": 1242,
+    "grid": "H@@I/HAAI/NAAO/BBCC/PDDQ"
+  },
+  {
+    "name": "居中斡旋",
+    "mini": 101,
+    "level": 395,
+    "computed": 101,
+    "ok": true,
+    "ms": 1184,
+    "grid": "@AA@/NAAO/HBBI/HCCI/PQDD"
+  },
+  {
+    "name": "開到茶蘼",
+    "mini": 101,
+    "level": 396,
+    "computed": 101,
+    "ok": true,
+    "ms": 1228,
+    "grid": "AA@H/AANH/OPBB/ICC@/IQDD"
+  },
+  {
+    "name": "小孤雁",
+    "mini": 69,
+    "level": 397,
+    "computed": 69,
+    "ok": true,
+    "ms": 328,
+    "grid": "@@AA/BBAA/HCCN/HODD/PQEE"
+  },
+  {
+    "name": "漩渦乍現",
+    "mini": 69,
+    "level": 398,
+    "computed": 69,
+    "ok": true,
+    "ms": 357,
+    "grid": "NBBO/HPAA/H@AA/CCQ@/DDEE"
+  },
+  {
+    "name": "漩渦乍現2",
+    "mini": 68,
+    "level": 399,
+    "computed": 68,
+    "ok": true,
+    "ms": 354,
+    "grid": "HNBB/HAA@/@AAO/CCPQ/DDEE"
+  },
+  {
+    "name": "兵不厭走",
+    "mini": 66,
+    "level": 400,
+    "computed": 66,
+    "ok": true,
+    "ms": 351,
+    "grid": "BBAA/@HAA/NH@O/PQCC/DDEE"
+  },
+  {
+    "name": "倒影胡馬",
+    "mini": 62,
+    "level": 401,
+    "computed": 62,
+    "ok": true,
+    "ms": 102,
+    "grid": "NBBO/CCDD/PAAQ/HAA@/H@EE"
+  },
+  {
+    "name": "首居中道",
+    "mini": 72,
+    "level": 402,
+    "computed": 72,
+    "ok": true,
+    "ms": 33,
+    "grid": "@HAA/NHAA/IJBB/IJK@/OPKQ"
+  },
+  {
+    "name": "小旋風",
+    "mini": 46,
+    "level": 403,
+    "computed": 46,
+    "ok": true,
+    "ms": 109,
+    "grid": "NBBO/PAAH/IAAH/IJQK/@J@K"
+  },
+  {
+    "name": "小旋風Ⅰ",
+    "mini": 41,
+    "level": 404,
+    "computed": 41,
+    "ok": true,
+    "ms": 32,
+    "grid": "BBNH/OAAH/PAAI/JQKI/J@K@"
+  },
+  {
+    "name": "小旋風Ⅱ",
+    "mini": 40,
+    "level": 405,
+    "computed": 40,
+    "ok": true,
+    "ms": 33,
+    "grid": "HNBB/HAA@/IAAJ/I@KJ/OPKQ"
+  },
+  {
+    "name": "身先士卒",
+    "mini": 21,
+    "level": 406,
+    "computed": 21,
+    "ok": true,
+    "ms": 25,
+    "grid": "BBAA/CCAA/DDEE/FFNO/PQ@@"
+  },
+  {
+    "name": "兵威將廣",
+    "mini": 52,
+    "level": 407,
+    "computed": 52,
+    "ok": true,
+    "ms": 63,
+    "grid": "AANO/AAPQ/BBCC/DDEE/@FF@"
+  },
+  {
+    "name": "高枕無憂",
+    "mini": 17,
+    "level": 408,
+    "computed": 17,
+    "ok": true,
+    "ms": 24,
+    "grid": "BBCC/AAHI/AAHI/DDNO/PQ@@"
+  },
+  {
+    "name": "海晏河清",
+    "mini": 32,
+    "level": 409,
+    "computed": 32,
+    "ok": true,
+    "ms": 92,
+    "grid": "BBAA/HIAA/HICC/N@@O/DDPQ"
+  },
+  {
+    "name": "旭日東昇2",
+    "mini": 61,
+    "level": 410,
+    "computed": 61,
+    "ok": true,
+    "ms": 439,
+    "grid": "@NO@/AAHP/AAHQ/BBCC/DDEE"
+  },
+  {
+    "name": "橫駱駝",
+    "mini": 72,
+    "level": 411,
+    "computed": 72,
+    "ok": true,
+    "ms": 512,
+    "grid": "AANH/AAIH/BBIO/@PCC/DD@Q"
+  },
+  {
+    "name": "圈套",
+    "mini": 87,
+    "level": 412,
+    "computed": 87,
+    "ok": true,
+    "ms": 1051,
+    "grid": "AA@N/AA@O/BBPH/ICCH/IQDD"
+  }
+]

@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>露营谜题 · Wild Camp 网页版</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛺</text></svg>">
+<style>
+:root{
+  /* 皮肤变量：默认为「入门 · 森林营地」，切换难度时由 applySkin() 动态改写 */
+  --frame1:#d2a371; --frame2:#a97b4e;
+  --board-bg:#6fae54;
+  --cell-line1:rgba(255,255,255,.16); --cell-line2:rgba(0,0,0,.05);
+  --chip1:#8a5e38; --chip2:#75492a;
+  --chipd1:#4bb06b; --chipd2:#2f8a4e; --chipd-ink:#fff;
+  --sky1:#bfe6f7; --sky2:#e9f8ff; --sky3:#dff3c9; --glow:#7ec850; --cloud:rgba(255,255,255,.9);
+  --ink:#3c2a1a; --cream:#fff4e0;
+  --orange:#ff8c42; --orange-d:#e5742e;
+  --footer-ink:#7d9b6a;
+  --app-w:clamp(280px, min(92vw, calc(100vh - 250px)), 540px);  /* 顶栏与棋盘统一宽度 */
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(130% 55% at 50% 112%, var(--glow) 0%, transparent 62%),
+    linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 55%, var(--sky3) 100%);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:14px 12px 46px;
+  overflow-x:hidden;
+}
+body::before,body::after{
+  content:"";position:fixed;background:var(--cloud);border-radius:999px;
+  filter:blur(2px);z-index:0;pointer-events:none;animation:drift 16s ease-in-out infinite alternate;
+}
+body::before{width:150px;height:34px;top:9%;left:5%;}
+body::after{width:100px;height:26px;top:18%;right:7%;animation-duration:21s;animation-direction:alternate-reverse;}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(46px)}}
+
+/* ---------- 顶栏 ---------- */
+.topbar{
+  width:var(--app-w);background:rgba(255,255,255,.78);backdrop-filter:blur(6px);
+  border-radius:16px;padding:10px 12px;box-shadow:0 4px 16px rgba(60,42,26,.14);
+  z-index:1;display:flex;flex-direction:column;gap:7px;
+}
+.title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+h1{font-size:20px;margin:0;display:flex;align-items:baseline;gap:8px;}
+h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
+.ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.btn{
+  border:none;border-radius:999px;padding:6px 10px;font-size:12.5px;background:#fff;
+  box-shadow:0 2px 6px rgba(60,42,26,.16);cursor:pointer;color:var(--ink);
+  display:inline-flex;align-items:center;gap:4px;transition:transform .1s, box-shadow .15s;
+  touch-action:manipulation;font-family:inherit;
+}
+.btn:hover{box-shadow:0 3px 10px rgba(60,42,26,.22);}
+.btn:active{transform:scale(.93);}
+.ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.flex-spacer{flex:1;}
+.meta-group{display:flex;gap:6px;align-items:center;}
+.icon-btn{padding:6px 9px;font-size:14px;line-height:1;}
+.lvl-badge .sep{margin:0 5px;color:#d8c49e;font-weight:400;}
+.tier-chip{box-shadow:none;font-weight:600;}
+/* 难度分段控件：五个难度是同一个选择器的五段，不是五颗散按钮 */
+.seg{display:flex;gap:2px;background:#f3ead9;border-radius:999px;padding:3px;box-shadow:inset 0 1px 3px rgba(60,42,26,.12);}
+.seg .tier-chip{background:transparent;border-radius:999px;padding:5px 12px;font-size:12.5px;color:#8a6a4a;transition:background .2s,color .2s;}
+.seg .tier-chip:hover{color:var(--ink);}
+.seg .tier-chip.active{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(255,140,66,.5);}
+.lvl-badge{font-size:12.5px;background:#fff7e6;border:1px solid #eedcb8;padding:6px 10px;border-radius:999px;font-weight:600;}
+.lvl-total{color:#b09468;font-weight:500;font-size:12px;}
+#time{font-variant-numeric:tabular-nums;}
+
+/* ---------- 棋盘区 ---------- */
+.board-area{width:var(--app-w);z-index:1;margin-top:14px;}
+.frame{
+  background:linear-gradient(145deg,var(--frame1),var(--frame2));border-radius:18px;padding:12px;
+  box-shadow:0 10px 26px rgba(60,42,26,.3), inset 0 2px 4px rgba(255,255,255,.35);
+}
+#win-bar{
+  display:none;justify-content:center;align-items:center;gap:10px;white-space:nowrap;
+  width:max-content;margin:12px auto 0;
+  background:rgba(255,253,247,.97);border-radius:999px;padding:7px 8px 7px 16px;
+  box-shadow:0 6px 18px rgba(60,42,26,.3);font-weight:700;font-size:14px;
+}
+#win-bar.show{display:flex;animation:barup .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes barup{from{transform:translateY(12px);opacity:0}}
+.grid-wrap{
+  display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:6px;user-select:none;
+}
+.row-clues{grid-area:1/1;display:grid;grid-template-rows:repeat(6,1fr);}
+.board{grid-area:1/2;position:relative;aspect-ratio:1;
+  display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);
+  background:var(--board-bg);border-radius:10px;overflow:hidden;
+  box-shadow:inset 0 0 0 2px rgba(0,0,0,.09);}
+.corner{grid-area:2/1;display:flex;align-items:center;justify-content:center;}
+.col-clues{grid-area:2/2;display:grid;grid-template-columns:repeat(6,1fr);}
+.chip{
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;
+  color:var(--cream);background:linear-gradient(var(--chip1),var(--chip2));border-radius:8px;margin:1px;
+  min-width:30px;min-height:30px;box-shadow:inset 0 -2px 0 rgba(0,0,0,.22);transition:background .2s;
+  font-variant-numeric:tabular-nums;
+}
+.chip.done{background:linear-gradient(var(--chipd1),var(--chipd2));color:var(--chipd-ink);}
+.cell{position:relative;cursor:pointer;touch-action:manipulation;box-shadow:inset 0 0 0 1px var(--cell-line1);}
+.cell.alt{box-shadow:inset 0 0 0 1px var(--cell-line2);}
+.cell .tree{
+  position:absolute;inset:4%;display:flex;align-items:center;justify-content:center;
+  animation:drop .38s cubic-bezier(.34,1.56,.64,1) backwards;pointer-events:none;
+}
+.cell .tree svg{width:94%;height:94%;filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));}
+@keyframes drop{from{transform:translateY(-16px) scale(.5);opacity:0}}
+.cell .tree.wiggle{animation:wig .32s;}
+@keyframes wig{25%{transform:rotate(-7deg)}75%{transform:rotate(7deg)}}
+.cell.anchor{box-shadow:inset 0 0 0 3px var(--orange);}
+.cell.cand{animation:pulse 1s infinite;box-shadow:inset 0 0 0 3px #ffd23f;}
+@keyframes pulse{50%{box-shadow:inset 0 0 0 3px rgba(255,210,63,.3)}}
+.cell.shakeit{animation:shakeit .4s;}
+@keyframes shakeit{20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+.cell.hintflash{animation:hintf 1s;}
+@keyframes hintf{0%,55%{box-shadow:inset 0 0 0 4px #ffd23f;filter:brightness(1.2)}}
+
+/* ---------- 帐篷浮层 ---------- */
+#overlay{position:absolute;inset:0;pointer-events:none;z-index:5;}
+.tent{
+  position:absolute;pointer-events:auto;cursor:pointer;touch-action:manipulation;
+  display:flex;align-items:center;justify-content:center;
+  animation:pop .22s cubic-bezier(.34,1.8,.64,1);
+}
+.tent svg{width:88%;height:88%;filter:drop-shadow(0 3px 3px rgba(0,0,0,.24));transition:transform .12s;}
+.tent:hover svg{transform:scale(1.08);}
+@keyframes pop{from{transform:scale(.4);opacity:.4}}
+
+/* ---------- 棋子栏 ---------- */
+.palette{display:flex;gap:10px;justify-content:center;margin-top:14px;align-items:stretch;flex-wrap:wrap;}
+.piece-btn{
+  display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.92);
+  border:3px solid transparent;border-radius:14px;padding:8px 14px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(60,42,26,.15);transition:.15s;touch-action:manipulation;font-family:inherit;
+}
+.piece-btn.sel{border-color:var(--orange);background:#fff3e6;}
+.piece-btn.disabled{opacity:.45;cursor:not-allowed;}
+.piece-btn .icon{width:54px;height:32px;display:flex;align-items:center;justify-content:center;}
+.piece-btn .icon svg{width:100%;height:100%;}
+.piece-btn .meta{text-align:left;font-size:13px;font-weight:700;line-height:1.35;}
+.piece-btn .cnt{display:block;font-size:11px;color:#8a6a4a;font-weight:500;}
+.counter{align-self:center;font-size:13px;background:rgba(255,255,255,.85);padding:9px 13px;border-radius:999px;font-weight:600;}
+
+/* ---------- 提示气泡 ---------- */
+#toast{
+  position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(8px);
+  background:rgba(40,28,16,.9);color:#fff;padding:8px 16px;border-radius:999px;font-size:13px;
+  opacity:0;transition:.25s;pointer-events:none;white-space:nowrap;z-index:60;max-width:92vw;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ---------- 弹窗 ---------- */
+.mask{
+  position:fixed;inset:0;background:rgba(30,20,10,.5);backdrop-filter:blur(3px);
+  display:flex;align-items:center;justify-content:center;z-index:100;
+  opacity:0;pointer-events:none;transition:.25s;padding:16px;
+}
+.mask.show{opacity:1;pointer-events:auto;}
+.card{
+  background:linear-gradient(180deg,#fffdf7,#ffefdb);border-radius:22px;padding:26px 28px;
+  text-align:center;box-shadow:0 20px 50px rgba(0,0,0,.35);transform:scale(.86);
+  transition:.25s;max-width:440px;width:100%;max-height:86vh;overflow:auto;
+}
+.mask.show .card{transform:scale(1);}
+.card .big{font-size:46px;line-height:1;}
+.card h2{margin:10px 0 2px;font-size:22px;}
+.card .sub{font-size:13px;color:#8a6a4a;margin:0 0 8px;}
+.stars{font-size:24px;letter-spacing:5px;margin:6px 0;}
+.stats{display:flex;gap:14px;justify-content:center;margin:10px 0 16px;font-size:14px;flex-wrap:wrap;}
+.card-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn.primary{background:var(--orange);color:#fff;font-weight:700;padding:9px 20px;}
+.rules-body{text-align:left;font-size:14px;line-height:1.75;}
+.rules-body h3{font-size:15px;margin:16px 0 4px;color:#a35a1f;}
+.rules-body p{margin:4px 0;}
+.rules-body ul{margin:4px 0;padding-left:20px;}
+.rules-body .bad{color:#c0392b;}
+.rules-body .good{color:#1f7a3d;}
+.reset-link{display:block;margin-top:16px;font-size:12px;color:#b04a2f;text-align:center;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;}
+
+/* ---------- 彩带 ---------- */
+#confetti i{position:fixed;top:-24px;display:block;z-index:120;pointer-events:none;border-radius:2px;animation:fall linear forwards;}
+@keyframes fall{to{transform:translateY(112vh) rotate(560deg)}}
+
+footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;z-index:1;line-height:1.8;}
+@media (max-width:420px){
+  h1{font-size:17px;}
+  h1 .en{display:none;}
+  .chip{font-size:13px;min-width:26px;min-height:26px;}
+  .btn{padding:6px 10px;font-size:12px;}
+  .icon-btn{padding:6px 7px;}
+  .seg .tier-chip{padding:4px 6px;}
+  .lvl-badge{font-size:11.5px;}
+  .ctrl{gap:6px;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="title-row">
+    <h1>🏕️ 露营谜题 <span class="en">Wild Camp · 网页版</span></h1>
+    <span class="meta-group">
+      <span class="lvl-badge">第 <b id="lvl">1</b> 关 <span class="lvl-total">/ 150</span><span class="sep">·</span><span id="time">00:00</span></span>
+      <button class="btn icon-btn" id="btn-rules" title="规则" aria-label="规则">📖</button>
+      <button class="btn icon-btn" id="btn-sound" title="声音开关" aria-label="声音开关">🔊</button>
+    </span>
+  </div>
+  <div class="ctrl">
+    <div class="seg" role="group" aria-label="难度选择">
+      <button class="btn tier-chip" data-tier="easy" title="入门 · 森林营地 · 共 150 关">入门</button>
+      <button class="btn tier-chip" data-tier="normal" title="进阶 · 白桦林间 · 共 150 关">进阶</button>
+      <button class="btn tier-chip" data-tier="hard" title="挑战 · 金色草原 · 共 150 关">挑战</button>
+      <button class="btn tier-chip" data-tier="master" title="大师 · 荒漠绿洲 · 共 150 关">大师</button>
+      <button class="btn tier-chip" data-tier="legend" title="传奇 · 星夜营地 · 共 150 关">传奇</button>
+    </div>
+    <span class="flex-spacer"></span>
+    <button class="btn" id="btn-hint" title="提示">💡 提示</button>
+    <button class="btn icon-btn" id="btn-restart" title="重开本关" aria-label="重开本关">↻</button>
+  </div>
+</header>
+
+<div class="board-area">
+  <div class="frame">
+    <div class="grid-wrap">
+      <div class="row-clues" id="row-clues"></div>
+      <div class="board" id="board"><div id="overlay"></div></div>
+      <div class="corner"></div>
+      <div class="col-clues" id="col-clues"></div>
+    </div>
+  </div>
+  <div id="win-bar">🎉 关卡完成！<button class="btn primary" id="btn-winbar-next">下一关 ⛺</button></div>
+  <div class="palette">
+    <button class="piece-btn sel" id="btn-single">
+      <span class="icon" id="icon-single"></span>
+      <span class="meta">单帐篷<span class="cnt" id="cnt-single">剩余 7</span></span>
+    </button>
+    <button class="piece-btn" id="btn-double">
+      <span class="icon" id="icon-double"></span>
+      <span class="meta">双帐篷<span class="cnt" id="cnt-double">剩余 2</span></span>
+    </button>
+    <span class="counter" id="counter">⛺ 0/0</span>
+  </div>
+</div>
+
+<footer>五个难度各 150 关，共 750 关 · 每关由算法随机生成并保证<b>唯一解</b>，全程不需要靠猜 · 每个难度自成一片营地风景</footer>
+
+<div id="toast"></div>
+<div id="confetti"></div>
+
+<!-- 胜利弹窗 -->
+<div class="mask" id="win-mask">
+  <div class="card">
+    <div class="big">🎉</div>
+    <h2>露营成功！</h2>
+    <p class="sub" id="win-lvl"></p>
+    <div class="stars" id="win-stars"></div>
+    <div class="stats" id="win-stats"></div>
+    <div class="card-btns">
+      <button class="btn primary" id="btn-next">下一关 ⛺</button>
+      <button class="btn" id="btn-replay">再玩一次</button>
+      <button class="btn" id="btn-close-win">欣赏营地</button>
+    </div>
+  </div>
+</div>
+
+<!-- 规则弹窗 -->
+<div class="mask" id="rules-mask">
+  <div class="card">
+    <h2>📖 游戏规则</h2>
+    <div class="rules-body">
+      <h3>🎯 目标</h3>
+      <p>在草地上摆放帐篷，让每棵树都配上一顶帐篷。行列边缘的数字是推理线索。每关<b>唯一解</b>，不需要靠猜。</p>
+      <p>每关配发的棋子是固定的（见棋子栏"剩余"数）：入门 / 进阶全是单帐篷，挑战 / 大师 / 传奇会配发双帐篷。<b>把配发的棋子全部摆上</b>并满足规则即过关。每个难度 <b>150 关</b>，五个难度共 <b>750 关</b>。每个难度是一片独立的营地风景：入门「森林营地」→ 进阶「白桦林间」→ 挑战「金色草原」→ 大师「荒漠绿洲」→ 传奇「星夜营地」。</p>
+      <h3>三条硬规则</h3>
+      <ul>
+        <li><b>R1</b> 每棵树恰好配一顶帐篷，帐篷必须放在树<b>上 / 下 / 左 / 右</b>紧邻的格子（斜对角不算相邻）。</li>
+        <li><b>R2</b> 任意两顶帐篷<b>不能相邻</b>——上下左右、四个斜角都不行。</li>
+        <li><b>R3</b> 棋盘边缘的数字 = 该行 / 该列的帐篷总数。</li>
+      </ul>
+      <h3>由规则可知</h3>
+      <ul>
+        <li>帐篷总数 = 树的总数。</li>
+        <li>不挨着任何树的格子一定是草地。</li>
+        <li>某行 / 列数字已达标 → 其余格子都能排除。</li>
+      </ul>
+      <h3>Double 帐篷（挑战 / 大师 / 传奇难度）</h3>
+      <ul>
+        <li>一顶双帐篷占<b>两个共边相邻的格子</b>（1×2 形状）。</li>
+        <li>仍只对应<b>一棵树</b>：其中一格紧挨它的树，另一格也必须紧挨某棵树。</li>
+        <li>双帐篷和其他帐篷之间照样不能相邻（含斜角）。</li>
+        <li class="bad">❌ 双帐篷不能配两棵树；❌ 占两格不等于不受"不相邻"限制。</li>
+      </ul>
+      <h3>🕹️ 操作</h3>
+      <ul>
+        <li><b>点格子</b>放帐篷，<b>再点一次</b>已放的帐篷就收回。</li>
+        <li>选「双帐篷」后<b>先点一格、再点相邻一格</b>放下一顶；棋子在下方棋子栏切换。</li>
+        <li>违反规则的摆放会被<b>自动弹回</b>并说明原因。</li>
+        <li>卡住了点 💡 提示，会自动帮你摆对一顶帐篷。</li>
+      </ul>
+      <h3>💡 解题技巧</h3>
+      <ul>
+        <li>从树多、数字大的行 / 列入手。</li>
+        <li>某棵树四周只剩一个可放位 → 那格必是帐篷。</li>
+        <li>用假设 + 反证试探分支：因为解唯一，猜错后面必然矛盾。</li>
+      </ul>
+    </div>
+    <button class="btn primary" id="btn-close-rules" style="margin-top:14px">开始露营！</button>
+    <button class="reset-link" id="btn-reset">重置全部进度</button>
+  </div>
+</div>
+
+<script>
+/*__CORE_START__*/
+/* ============ 纯逻辑核心（无 DOM），可独立测试 ============ */
+const N = 6;
+const D4 = [[-1,0],[1,0],[0,-1],[0,1]];
+const D8 = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+const inB = (r,c) => r>=0 && r<N && c>=0 && c<N;
+
+// 每格的正交 / 八向邻居（预计算）
+const NB4 = [], NB8 = [];
+for (let r=0;r<N;r++) for (let c=0;c<N;c++){
+  NB4[r*N+c] = D4.map(([dr,dc])=>[r+dr,c+dc]).filter(([a,b])=>inB(a,b));
+  NB8[r*N+c] = D8.map(([dr,dc])=>[r+dr,c+dc]).filter(([a,b])=>inB(a,b));
+}
+
+// 为每棵树枚举所有合法帐篷选项：单帐篷（紧邻格）或双帐篷（多米诺，
+// 其中一格紧挨该树，另一格也必须紧挨至少一棵树，且不能压在树上）
+function buildOptions(trees){
+  const treeSet = new Set(trees.map(([r,c])=>r*N+c));
+  const adjTree = new Set();
+  for (const idx of treeSet) for (const [a,b] of NB4[idx]) adjTree.add(a*N+b);
+  const isTree = (r,c)=>treeSet.has(r*N+c);
+  return trees.map(([tr,tc])=>{
+    const list = [];
+    for (const [r,c] of NB4[tr*N+tc]){
+      if (isTree(r,c)) continue;
+      list.push([[r,c]]);                                  // 单帐篷
+      for (const [r2,c2] of NB4[r*N+c]){                   // 双帐篷
+        if ((r2===tr&&c2===tc) || isTree(r2,c2)) continue;
+        if (!adjTree.has(r2*N+c2)) continue;
+        list.push([[r,c],[r2,c2]]);
+      }
+    }
+    const seen = new Set(), out = [];
+    for (const o of list){
+      const k = o.map(([a,b])=>a*N+b).sort((x,y)=>x-y).join(',');
+      if (!seen.has(k)){ seen.add(k); out.push(o); }
+    }
+    return out;
+  });
+}
+
+// 解空间计数：统计「恰好用 K 顶双帐篷」的合法摆放数（上限 cap，防爆炸）。
+// 关键设计：每关棋子库存固定（如 5 单 + 2 双），唯一解定义在该库存空间内——
+// 否则任何双帐篷都可收缩成单帐篷，含双帐篷的谜题永远不可能唯一。
+function solve(trees, K=0, cap=2, nodeCap=400000){
+  const opts = buildOptions(trees);
+  const occ = new Uint8Array(N*N);
+  const assign = new Array(trees.length).fill(null);
+  let count=0, nodes=0, first=null, aborted=false;
+
+  function canPlace(cells){
+    for (const [r,c] of cells){
+      const i = r*N+c;
+      if (occ[i]) return false;
+      for (const [a,b] of NB8[i]) if (occ[a*N+b]) return false;  // 八邻域禁帐篷
+    }
+    return true;
+  }
+  function dfs(remaining, dbl){
+    if (aborted) return;
+    if (++nodes > nodeCap){ aborted=true; return; }
+    if (remaining.length===0){
+      if (dbl===K){
+        count++;
+        if (!first) first = assign.map(o=>o.map(([r,c])=>[r,c]));
+      }
+      return;
+    }
+    if (dbl > K) return;                    // 双帐篷超库存
+    if (dbl + remaining.length < K) return; // 双帐篷凑不够
+    // MRV：优先分支最少的树
+    let best=-1, bestFeas=null, bestLen=1e9;
+    for (const ti of remaining){
+      const feas = opts[ti].filter(o=>canPlace(o) && dbl+(o.length===2?1:0)<=K);
+      if (feas.length===0) return;
+      if (feas.length<bestLen){ bestLen=feas.length; best=ti; bestFeas=feas; }
+    }
+    const rest = remaining.filter(t=>t!==best);
+    for (const o of bestFeas){
+      for (const [r,c] of o) occ[r*N+c]=1;
+      assign[best]=o;
+      dfs(rest, dbl+(o.length===2?1:0));
+      for (const [r,c] of o) occ[r*N+c]=0;
+      assign[best]=null;
+      if (aborted || count>=cap) return;
+    }
+  }
+  dfs([...opts.keys()], 0);
+  return {count, first, aborted};
+}
+
+// 树↔帐篷是否存在一一对应（Kuhn 匹配）
+function matchable(trees, tents){
+  const nT = trees.length;
+  if (tents.length !== nT) return false;
+  const adj = trees.map(([tr,tc])=>{
+    const nbs = NB4[tr*N+tc].map(([a,b])=>a*N+b);
+    const out = [];
+    tents.forEach((cells,j)=>{ if (cells.some(([r,c])=>nbs.includes(r*N+c))) out.push(j); });
+    return out;
+  });
+  const matchTent = Array(nT).fill(-1);
+  function aug(ti, vis){
+    for (const j of adj[ti]){
+      if (vis[j]) continue; vis[j]=true;
+      if (matchTent[j]===-1 || aug(matchTent[j], vis)){ matchTent[j]=ti; return true; }
+    }
+    return false;
+  }
+  for (let ti=0;ti<nT;ti++) if (!aug(ti, Array(nT).fill(false))) return false;
+  return true;
+}
+
+// 完整校验一个候选解（测试与自检用）
+function solutionValid(trees, solution){
+  if (solution.length !== trees.length) return false;
+  const cells = solution.flat();
+  const idxs = cells.map(([r,c])=>r*N+c);
+  if (new Set(idxs).size !== idxs.length) return false;              // 不重叠
+  const treeSet = new Set(trees.map(([r,c])=>r*N+c));
+  for (let i=0;i<cells.length;i++){
+    const [r,c]=cells[i];
+    if (treeSet.has(r*N+c)) return false;                            // 不压树
+    if (!NB4[r*N+c].some(([a,b])=>treeSet.has(a*N+b))) return false; // 每格挨树
+  }
+  for (let i=0;i<solution.length;i++) for (let j=i+1;j<solution.length;j++){
+    for (const [r1,c1] of solution[i]) for (const [r2,c2] of solution[j]){  // 只查不同帐篷之间
+      if (Math.max(Math.abs(r1-r2),Math.abs(c1-c2))<=1) return false;
+    }
+  }
+  for (const o of solution) if (o.length===2){                       // 双帐篷共边
+    if (Math.abs(o[0][0]-o[1][0]) + Math.abs(o[0][1]-o[1][1]) !== 1) return false;
+  }
+  return matchable(trees, solution);
+}
+
+function countsFromSolution(solution){
+  const rc=Array(N).fill(0), cc=Array(N).fill(0);
+  for (const o of solution) for (const [r,c] of o){ rc[r]++; cc[c]++; }
+  return {rc, cc};
+}
+
+function sampleTrees(n, minDist, rng){
+  const cells=[];
+  for (let r=0;r<N;r++) for (let c=0;c<N;c++) cells.push([r,c]);
+  for (let i=cells.length-1;i>0;i--){ const j=Math.floor(rng()*(i+1)); [cells[i],cells[j]]=[cells[j],cells[i]]; }
+  const chosen=[];
+  for (const [r,c] of cells){
+    if (chosen.every(([a,b])=>Math.max(Math.abs(a-r),Math.abs(b-c))>=minDist)){
+      chosen.push([r,c]);
+      if (chosen.length===n) return chosen;
+    }
+  }
+  return null;
+}
+
+// 生成一关：随机摆树 → 在「恰好 K 顶双帐篷」的库存空间里数解 → 恰好 1 个才收货
+function genPuzzle(params, rng=Math.random, maxAttempts=2500, deadlineMs=2500){
+  const {trees:nT, doubles:K=0, spacing=1} = params;
+  const deadline = Date.now()+deadlineMs;
+  for (let att=0; att<maxAttempts; att++){
+    if ((att&15)===0 && Date.now()>deadline) break;
+    const trees = sampleTrees(nT, spacing, rng);
+    if (!trees) continue;
+    if (buildOptions(trees).some(o=>o.length===0)) continue;
+    const {count, first, aborted} = solve(trees, K, 2);
+    if (aborted || count!==1 || !first) continue;
+    const {rc, cc} = countsFromSolution(first);
+    return {trees, solution:first, rc, cc, doubles:K, singles:nT-K};
+  }
+  return null;
+}
+
+// 难度曲线：随关数爬坡；挑战/大师/传奇给固定双帐篷库存。
+// 注意：树必须允许相邻（spacing 1），否则 6×6 上几乎不存在唯一解。
+function paramsFor(tier, level){
+  if (tier==='easy')   return level<8 ? { trees:5, doubles:0, spacing:1 }
+                                      : { trees:6, doubles:0, spacing:1 };
+  if (tier==='normal') return level<10 ? { trees:6, doubles:0, spacing:1 }
+                                       : { trees:7, doubles:0, spacing:1 };
+  if (tier==='hard')   return level<8 ? { trees:7, doubles:0, spacing:1 }
+                                      : { trees:7, doubles:1, spacing:1 };
+  if (tier==='legend') return level<10 ? { trees:8, doubles:1, spacing:1 }
+                       : level<60 ? { trees:8, doubles:2, spacing:1 }
+                       : { trees:8, doubles:3, spacing:1 };
+  return level<12 ? { trees:7, doubles:1, spacing:1 }
+                  : { trees:7, doubles:2, spacing:1 };
+}
+/*__CORE_END__*/
+
+/* ============ 皮肤素材（与难度绑定的套装） ============ */
+/* 树：入门=松+橡混植，进阶=白桦，挑战=金合欢，大师=仙人掌(巨柱+团扇)，传奇=夜色松 */
+const PINE_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="90" rx="24" ry="5" fill="rgba(0,0,0,.18)"/>
+  <rect x="45" y="70" width="10" height="18" rx="3" fill="#8a5a33"/>
+  <polygon points="50,38 86,88 14,88" fill="#1f6e3c"/>
+  <polygon points="50,20 80,66 20,66" fill="#2a854b"/>
+  <polygon points="50,4 72,46 28,46" fill="#38a05c"/>
+</svg>`;
+const OAK_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="91" rx="26" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M45 92 L47 56 L53 56 L55 92 Z" fill="#8a5a33"/>
+  <circle cx="28" cy="47" r="16" fill="#2f7d49"/>
+  <circle cx="72" cy="47" r="16" fill="#2f7d49"/>
+  <circle cx="50" cy="52" r="17" fill="#338a50"/>
+  <circle cx="50" cy="33" r="20" fill="#3f9e5f"/>
+  <circle cx="41" cy="25" r="6.5" fill="#58bb77"/>
+  <circle cx="59" cy="30" r="4.5" fill="#58bb77"/>
+</svg>`;
+const BIRCH_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="90" rx="25" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M45 90 Q48 66 46 46 L54 46 Q52 66 55 90 Z" fill="#eee8d8"/>
+  <rect x="47.6" y="80" width="4" height="2.2" rx="1" fill="#43423a"/>
+  <rect x="48.6" y="70" width="3.4" height="2" rx="1" fill="#43423a"/>
+  <rect x="47.2" y="59" width="3.6" height="2" rx="1" fill="#43423a"/>
+  <circle cx="31" cy="43" r="15" fill="#83b043"/>
+  <circle cx="69" cy="43" r="15" fill="#83b043"/>
+  <circle cx="50" cy="47" r="15" fill="#8fbc4e"/>
+  <circle cx="50" cy="28" r="18" fill="#9dc95c"/>
+  <circle cx="42" cy="21" r="6" fill="#b7dd7d"/>
+  <circle cx="60" cy="26" r="4" fill="#b7dd7d"/>
+</svg>`;
+const ACACIA_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="91" rx="27" ry="5" fill="rgba(0,0,0,.18)"/>
+  <path d="M46 92 C48 78 46 64 40 52 L48 49 C52 62 53 78 55 92 Z" fill="#8a5a33"/>
+  <line x1="44" y1="52" x2="32" y2="42" stroke="#8a5a33" stroke-width="3"/>
+  <line x1="47" y1="50" x2="64" y2="40" stroke="#8a5a33" stroke-width="3"/>
+  <ellipse cx="50" cy="42" rx="36" ry="8" fill="#4d8534"/>
+  <ellipse cx="50" cy="38" rx="38" ry="11" fill="#5f9c3f"/>
+  <ellipse cx="50" cy="34" rx="29" ry="7" fill="#79b551"/>
+</svg>`;
+const CACTUS_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="91" rx="22" ry="5" fill="rgba(0,0,0,.16)"/>
+  <rect x="24" y="36" width="12" height="26" rx="6" fill="#4f9455"/>
+  <rect x="28" y="54" width="16" height="10" rx="5" fill="#4f9455"/>
+  <rect x="64" y="28" width="12" height="30" rx="6" fill="#4f9455"/>
+  <rect x="56" y="50" width="16" height="10" rx="5" fill="#4f9455"/>
+  <rect x="42" y="18" width="16" height="74" rx="8" fill="#57a05c"/>
+  <rect x="45" y="22" width="3.5" height="66" rx="1.75" fill="#6db571"/>
+  <line x1="52.5" y1="24" x2="52.5" y2="88" stroke="rgba(0,0,0,.10)" stroke-width="1.5"/>
+  <line x1="55.5" y1="24" x2="55.5" y2="86" stroke="rgba(0,0,0,.08)" stroke-width="1.2"/>
+  <g stroke="rgba(255,255,255,.55)" stroke-width="1.2">
+    <line x1="44" y1="34" x2="46" y2="32"/><line x1="54" y1="42" x2="56" y2="40"/>
+    <line x1="44" y1="58" x2="46" y2="56"/><line x1="53" y1="70" x2="55" y2="68"/>
+    <line x1="29" y1="44" x2="31" y2="42"/><line x1="69" y1="36" x2="71" y2="34"/>
+  </g>
+  <circle cx="50" cy="16" r="4.5" fill="#f06e9c"/>
+  <circle cx="50" cy="16" r="1.8" fill="#ffd23f"/>
+</svg>`;
+const PEAR_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="91" rx="22" ry="5" fill="rgba(0,0,0,.16)"/>
+  <ellipse cx="50" cy="66" rx="16" ry="20" fill="#57a05c"/>
+  <ellipse cx="32" cy="50" rx="11" ry="14" fill="#4f9455"/>
+  <ellipse cx="68" cy="46" rx="12" ry="15" fill="#57a05c"/>
+  <ellipse cx="52" cy="30" rx="10" ry="12" fill="#63b068"/>
+  <g fill="#f4f0e0">
+    <circle cx="32" cy="42" r="1.1"/><circle cx="36" cy="56" r="1.1"/><circle cx="27" cy="52" r="1.1"/>
+    <circle cx="68" cy="38" r="1.1"/><circle cx="73" cy="50" r="1.1"/><circle cx="63" cy="48" r="1.1"/>
+    <circle cx="52" cy="24" r="1.1"/><circle cx="47" cy="34" r="1.1"/><circle cx="58" cy="32" r="1.1"/>
+    <circle cx="46" cy="60" r="1.1"/><circle cx="56" cy="66" r="1.1"/>
+  </g>
+  <circle cx="70" cy="32" r="3.5" fill="#f06e9c"/>
+  <circle cx="70" cy="32" r="1.4" fill="#ffd23f"/>
+</svg>`;
+const PINE_NIGHT_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="90" rx="24" ry="5" fill="rgba(0,0,0,.28)"/>
+  <rect x="45" y="70" width="10" height="18" rx="3" fill="#54402e"/>
+  <polygon points="50,38 86,88 14,88" fill="#1a4f40"/>
+  <polygon points="50,20 80,66 20,66" fill="#225f4e"/>
+  <polygon points="50,4 72,46 28,46" fill="#2a705c"/>
+  <circle cx="80" cy="26" r="2" fill="#ffe08a"/>
+  <circle cx="20" cy="48" r="1.6" fill="#ffe08a"/>
+</svg>`;
+
+/* 帐篷三件套：s=单帐(100x100) h=横双帐(200x100) v=竖双帐(100x200) */
+const TENT_ORANGE = {
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="87" rx="30" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="16" x2="50" y2="4" stroke="#7c4a21" stroke-width="3"/>
+  <polygon points="50,4 66,9 50,14" fill="#ffd23f"/>
+  <polygon points="50,16 92,86 8,86" fill="#ff8c42"/>
+  <polygon points="50,16 92,86 50,86" fill="#e5742e"/>
+  <polygon points="50,44 68,86 32,86" fill="#5b3d26"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="80" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="100" y1="14" x2="100" y2="2" stroke="#7c4a21" stroke-width="3"/>
+  <polygon points="100,2 118,8 100,13" fill="#ffd23f"/>
+  <polygon points="100,14 196,88 4,88" fill="#ff8c42"/>
+  <polygon points="100,14 196,88 100,88" fill="#e5742e"/>
+  <polygon points="100,40 130,88 70,88" fill="#5b3d26"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="188" rx="34" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="14" x2="50" y2="2" stroke="#7c4a21" stroke-width="3"/>
+  <polygon points="50,2 68,8 50,13" fill="#ffd23f"/>
+  <polygon points="50,14 92,188 8,188" fill="#ff8c42"/>
+  <polygon points="50,14 92,188 50,188" fill="#e5742e"/>
+  <polygon points="50,90 74,188 26,188" fill="#5b3d26"/>
+</svg>`};
+const TENT_STRIPED = {
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="88" rx="32" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="18" x2="50" y2="7" stroke="#7c4a21" stroke-width="3"/>
+  <defs><clipPath id="sk-st1"><polygon points="50,18 92,88 8,88"/></clipPath></defs>
+  <polygon points="50,18 92,88 8,88" fill="#f4e4c1"/>
+  <g clip-path="url(#sk-st1)">
+    <rect x="14" y="10" width="9" height="90" fill="#cf7b4e"/>
+    <rect x="32" y="10" width="9" height="90" fill="#cf7b4e"/>
+    <rect x="59" y="10" width="9" height="90" fill="#cf7b4e"/>
+    <rect x="77" y="10" width="9" height="90" fill="#cf7b4e"/>
+  </g>
+  <polygon points="50,18 92,88 8,88" fill="none" stroke="#b8663f" stroke-width="2.5"/>
+  <line x1="16" y1="70" x2="6" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <line x1="84" y1="70" x2="94" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <polygon points="50,44 65,88 35,88" fill="#6b4a2e"/>
+  <polygon points="50,44 65,88 50,88" fill="#7d5836"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="82" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="100" y1="14" x2="100" y2="3" stroke="#7c4a21" stroke-width="3"/>
+  <defs><clipPath id="sk-st2"><polygon points="100,14 196,88 4,88"/></clipPath></defs>
+  <polygon points="100,14 196,88 4,88" fill="#f4e4c1"/>
+  <g clip-path="url(#sk-st2)">
+    <rect x="30" y="8" width="10" height="95" fill="#cf7b4e"/>
+    <rect x="52" y="8" width="10" height="95" fill="#cf7b4e"/>
+    <rect x="138" y="8" width="10" height="95" fill="#cf7b4e"/>
+    <rect x="160" y="8" width="10" height="95" fill="#cf7b4e"/>
+  </g>
+  <polygon points="100,14 196,88 4,88" fill="none" stroke="#b8663f" stroke-width="2.5"/>
+  <line x1="16" y1="72" x2="5" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <line x1="184" y1="72" x2="195" y2="88" stroke="#8a6a4a" stroke-width="1.8"/>
+  <polygon points="100,44 122,88 78,88" fill="#6b4a2e"/>
+  <polygon points="100,44 122,88 100,88" fill="#7d5836"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="192" rx="30" ry="6" fill="rgba(0,0,0,.18)"/>
+  <line x1="50" y1="12" x2="50" y2="2" stroke="#7c4a21" stroke-width="3"/>
+  <defs><clipPath id="sk-st3"><polygon points="50,12 92,192 8,192"/></clipPath></defs>
+  <polygon points="50,12 92,192 8,192" fill="#f4e4c1"/>
+  <g clip-path="url(#sk-st3)">
+    <rect x="18" y="6" width="8" height="195" fill="#cf7b4e"/>
+    <rect x="36" y="6" width="8" height="195" fill="#cf7b4e"/>
+    <rect x="56" y="6" width="8" height="195" fill="#cf7b4e"/>
+    <rect x="74" y="6" width="8" height="195" fill="#cf7b4e"/>
+  </g>
+  <polygon points="50,12 92,192 8,192" fill="none" stroke="#b8663f" stroke-width="2.5"/>
+  <polygon points="50,120 72,192 28,192" fill="#6b4a2e"/>
+  <polygon points="50,120 72,192 50,192" fill="#7d5836"/>
+</svg>`};
+const TENT_TIPI = {
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="89" rx="24" ry="5" fill="rgba(0,0,0,.18)"/>
+  <line x1="36" y1="88" x2="60" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <line x1="64" y1="88" x2="40" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <path d="M50 20 C42 38 35 62 31 88 L69 88 C65 62 58 38 50 20 Z" fill="#ecdcb8"/>
+  <path d="M36 64 Q50 58.5 64 64 L63 71 Q50 65.5 37 71 Z" fill="#cf7b4e"/>
+  <path d="M41 42 Q50 38.5 59 42 L58.3 47 Q50 43.5 41.7 47 Z" fill="#cf7b4e"/>
+  <polygon points="50,20 41,29 47.5,31" fill="#b8663f"/>
+  <polygon points="50,20 59,29 52.5,31" fill="#b8663f"/>
+  <polygon points="50,52 58,88 42,88" fill="#6b4a2e"/>
+  <line x1="50" y1="52" x2="50" y2="88" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="89" rx="66" ry="5" fill="rgba(0,0,0,.18)"/>
+  <line x1="70" y1="88" x2="112" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <line x1="130" y1="88" x2="88" y2="2" stroke="#8a6a4a" stroke-width="2.4"/>
+  <path d="M100 18 C78 40 58 66 46 88 L154 88 C142 66 122 40 100 18 Z" fill="#ecdcb8"/>
+  <path d="M66 64 Q100 56 134 64 L133 71 Q100 63 67 71 Z" fill="#cf7b4e"/>
+  <path d="M80 42 Q100 37 120 42 L119 47 Q100 42 81 47 Z" fill="#cf7b4e"/>
+  <polygon points="100,18 89,28 96,30.5" fill="#b8663f"/>
+  <polygon points="100,18 111,28 104,30.5" fill="#b8663f"/>
+  <polygon points="100,52 114,88 86,88" fill="#6b4a2e"/>
+  <line x1="100" y1="52" x2="100" y2="88" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="190" rx="25" ry="5" fill="rgba(0,0,0,.18)"/>
+  <line x1="40" y1="190" x2="55" y2="8" stroke="#8a6a4a" stroke-width="2.4"/>
+  <line x1="60" y1="190" x2="45" y2="8" stroke="#8a6a4a" stroke-width="2.4"/>
+  <path d="M50 18 C43 60 37 125 33 190 L67 190 C63 125 57 60 50 18 Z" fill="#ecdcb8"/>
+  <path d="M41 90 Q50 85 59 90 L58.4 96 Q50 91 41.6 96 Z" fill="#cf7b4e"/>
+  <path d="M38 130 Q50 125 62 130 L61.3 136 Q50 131 38.7 136 Z" fill="#cf7b4e"/>
+  <polygon points="50,18 42,27 47.5,29" fill="#b8663f"/>
+  <polygon points="50,18 58,27 52.5,29" fill="#b8663f"/>
+  <polygon points="50,140 58,190 42,190" fill="#6b4a2e"/>
+  <line x1="50" y1="140" x2="50" y2="190" stroke="rgba(0,0,0,.18)" stroke-width="1.5"/>
+</svg>`};
+const TENT_DESERT = {
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="89" rx="31" ry="6" fill="rgba(0,0,0,.16)"/>
+  <line x1="50" y1="16" x2="50" y2="6" stroke="#7c4a21" stroke-width="2.5"/>
+  <polygon points="50,6 64,10 50,14" fill="#e05c4a"/>
+  <defs><clipPath id="sk-ds1"><polygon points="50,16 90,86 10,86"/></clipPath></defs>
+  <polygon points="50,16 90,86 10,86" fill="#fdf6ea"/>
+  <g clip-path="url(#sk-ds1)">
+    <rect x="20" y="10" width="7" height="85" fill="#e8a83e"/>
+    <rect x="37" y="10" width="7" height="85" fill="#e8a83e"/>
+    <rect x="56" y="10" width="7" height="85" fill="#e8a83e"/>
+    <rect x="73" y="10" width="7" height="85" fill="#e8a83e"/>
+  </g>
+  <polygon points="50,16 90,86 10,86" fill="none" stroke="#cf8c2a" stroke-width="2.5"/>
+  <g fill="#cf8c2a">
+    <circle cx="16" cy="86" r="5"/><circle cx="28" cy="86" r="5"/><circle cx="40" cy="86" r="5"/>
+    <circle cx="52" cy="86" r="5"/><circle cx="64" cy="86" r="5"/><circle cx="76" cy="86" r="5"/><circle cx="88" cy="86" r="5"/>
+  </g>
+  <polygon points="50,46 63,86 37,86" fill="#6b4423"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="89" rx="82" ry="6" fill="rgba(0,0,0,.16)"/>
+  <line x1="100" y1="14" x2="100" y2="4" stroke="#7c4a21" stroke-width="2.5"/>
+  <polygon points="100,4 114,8 100,12" fill="#e05c4a"/>
+  <defs><clipPath id="sk-ds2"><polygon points="100,14 190,86 10,86"/></clipPath></defs>
+  <polygon points="100,14 190,86 10,86" fill="#fdf6ea"/>
+  <g clip-path="url(#sk-ds2)">
+    <rect x="30" y="8" width="8" height="90" fill="#e8a83e"/>
+    <rect x="52" y="8" width="8" height="90" fill="#e8a83e"/>
+    <rect x="140" y="8" width="8" height="90" fill="#e8a83e"/>
+    <rect x="162" y="8" width="8" height="90" fill="#e8a83e"/>
+  </g>
+  <polygon points="100,14 190,86 10,86" fill="none" stroke="#cf8c2a" stroke-width="2.5"/>
+  <g fill="#cf8c2a">
+    <circle cx="20" cy="86" r="6"/><circle cx="36" cy="86" r="6"/><circle cx="52" cy="86" r="6"/><circle cx="68" cy="86" r="6"/>
+    <circle cx="84" cy="86" r="6"/><circle cx="100" cy="86" r="6"/><circle cx="116" cy="86" r="6"/><circle cx="132" cy="86" r="6"/>
+    <circle cx="148" cy="86" r="6"/><circle cx="164" cy="86" r="6"/><circle cx="180" cy="86" r="6"/>
+  </g>
+  <polygon points="100,46 122,86 78,86" fill="#6b4423"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="191" rx="29" ry="6" fill="rgba(0,0,0,.16)"/>
+  <line x1="50" y1="12" x2="50" y2="3" stroke="#7c4a21" stroke-width="2.5"/>
+  <polygon points="50,3 63,7 50,11" fill="#e05c4a"/>
+  <defs><clipPath id="sk-ds3"><polygon points="50,12 88,190 12,190"/></clipPath></defs>
+  <polygon points="50,12 88,190 12,190" fill="#fdf6ea"/>
+  <g clip-path="url(#sk-ds3)">
+    <rect x="26" y="6" width="7" height="195" fill="#e8a83e"/>
+    <rect x="42" y="6" width="7" height="195" fill="#e8a83e"/>
+    <rect x="51" y="6" width="7" height="195" fill="#e8a83e"/>
+    <rect x="67" y="6" width="7" height="195" fill="#e8a83e"/>
+  </g>
+  <polygon points="50,12 88,190 12,190" fill="none" stroke="#cf8c2a" stroke-width="2.5"/>
+  <g fill="#cf8c2a">
+    <circle cx="18" cy="190" r="5.5"/><circle cx="31" cy="190" r="5.5"/><circle cx="44" cy="190" r="5.5"/>
+    <circle cx="56" cy="190" r="5.5"/><circle cx="69" cy="190" r="5.5"/><circle cx="82" cy="190" r="5.5"/>
+  </g>
+  <polygon points="50,122 63,190 37,190" fill="#6b4423"/>
+</svg>`};
+const TENT_GLOW = {
+s:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="87" rx="30" ry="6" fill="rgba(0,0,0,.3)"/>
+  <line x1="50" y1="16" x2="50" y2="4" stroke="#5d4530" stroke-width="3"/>
+  <polygon points="50,4 66,9 50,14" fill="#ffe08a"/>
+  <polygon points="50,16 92,86 8,86" fill="#e5763a"/>
+  <polygon points="50,16 92,86 50,86" fill="#c95f28"/>
+  <polygon points="50,40 72,86 28,86" fill="rgba(255,200,110,.35)"/>
+  <polygon points="50,44 68,86 32,86" fill="#ffcf7a"/>
+  <line x1="50" y1="44" x2="50" y2="86" stroke="rgba(180,90,20,.5)" stroke-width="1.5"/>
+</svg>`,
+h:`<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="100" cy="88" rx="80" ry="6" fill="rgba(0,0,0,.3)"/>
+  <line x1="100" y1="14" x2="100" y2="2" stroke="#5d4530" stroke-width="3"/>
+  <polygon points="100,2 118,8 100,13" fill="#ffe08a"/>
+  <polygon points="100,14 196,88 4,88" fill="#e5763a"/>
+  <polygon points="100,14 196,88 100,88" fill="#c95f28"/>
+  <polygon points="100,38 132,88 68,88" fill="rgba(255,200,110,.35)"/>
+  <polygon points="100,42 130,88 70,88" fill="#ffcf7a"/>
+  <line x1="100" y1="42" x2="100" y2="88" stroke="rgba(180,90,20,.5)" stroke-width="1.5"/>
+</svg>`,
+v:`<svg viewBox="0 0 100 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="188" rx="34" ry="6" fill="rgba(0,0,0,.3)"/>
+  <line x1="50" y1="14" x2="50" y2="2" stroke="#5d4530" stroke-width="3"/>
+  <polygon points="50,2 68,8 50,13" fill="#ffe08a"/>
+  <polygon points="50,14 92,188 8,188" fill="#e5763a"/>
+  <polygon points="50,14 92,188 50,188" fill="#c95f28"/>
+  <polygon points="50,86 76,188 24,188" fill="rgba(255,200,110,.35)"/>
+  <polygon points="50,90 74,188 26,188" fill="#ffcf7a"/>
+  <line x1="50" y1="90" x2="50" y2="188" stroke="rgba(180,90,20,.5)" stroke-width="1.5"/>
+</svg>`};
+
+/* 皮肤表：每个难度一片营地风景（frame=木框 board=草地 line=格线 chip=数字章） */
+const SKINS = {
+  easy:  { frame:['#d2a371','#a97b4e'], board:'#6fae54', line1:'rgba(255,255,255,.16)', line2:'rgba(0,0,0,.05)',
+           chip:['#8a5e38','#75492a'], chipDone:['#4bb06b','#2f8a4e'], chipInk:'#fff',
+           sky:['#bfe6f7','#e9f8ff','#dff3c9'], glow:'#7ec850', cloud:'rgba(255,255,255,.9)', footerInk:'#7d9b6a',
+           trees:[PINE_SVG, OAK_SVG], tent:TENT_ORANGE },
+  normal:{ frame:['#ddcba2','#c3ab78'], board:'#9cc266', line1:'rgba(255,255,255,.28)', line2:'rgba(0,0,0,.07)',
+           chip:['#b98f56','#9e7743'], chipDone:['#7cb856','#5b9a3e'], chipInk:'#fff',
+           sky:['#d5ecc0','#ecf7dd','#e3f2c8'], glow:'#a8cc6e', cloud:'rgba(255,255,255,.9)', footerInk:'#7d9b6a',
+           trees:[BIRCH_SVG], tent:TENT_STRIPED },
+  hard:  { frame:['#c9a05e','#a87f42'], board:'#b8ac60', line1:'rgba(255,255,255,.3)', line2:'rgba(0,0,0,.08)',
+           chip:['#a07b3f','#85632f'], chipDone:['#8fae4e','#6f8f3a'], chipInk:'#fff',
+           sky:['#e9e2b4','#f5f0d6','#eadfa8'], glow:'#c2b264', cloud:'rgba(255,255,255,.85)', footerInk:'#8f8448',
+           trees:[ACACIA_SVG], tent:TENT_TIPI },
+  master:{ frame:['#cd8f63','#a5613f'], board:'#ecd796', line1:'rgba(0,0,0,.08)', line2:'rgba(255,255,255,.5)',
+           chip:['#b07046','#8f5630'], chipDone:['#7fae54','#5f8f3e'], chipInk:'#fff',
+           sky:['#f2dba6','#f9eed4','#eed59e'], glow:'#d9ac60', cloud:'rgba(255,255,255,.8)', footerInk:'#a8834e',
+           trees:[CACTUS_SVG, PEAR_SVG], tent:TENT_DESERT },
+  legend:{ frame:['#46536b','#323d52'], board:'#2f5d4e', line1:'rgba(255,255,255,.15)', line2:'rgba(0,0,0,.22)',
+           chip:['#4a5872','#39455c'], chipDone:['#e5a13c','#c9822a'], chipInk:'#452b05',
+           sky:['#2c3550','#232b42','#1e3a30'], glow:'#3b6d5c', cloud:'rgba(255,255,255,.22)', footerInk:'#6d8577',
+           trees:[PINE_NIGHT_SVG], tent:TENT_GLOW },
+};
+// 把皮肤写到 CSS 变量并换掉棋子栏图标； trees 数组多于一棵时按序混植
+function applySkin(tier){
+  const s = SKINS[tier] || SKINS.easy;
+  const rs = document.documentElement.style;
+  rs.setProperty('--frame1', s.frame[0]); rs.setProperty('--frame2', s.frame[1]);
+  rs.setProperty('--board-bg', s.board);
+  rs.setProperty('--cell-line1', s.line1); rs.setProperty('--cell-line2', s.line2);
+  rs.setProperty('--chip1', s.chip[0]); rs.setProperty('--chip2', s.chip[1]);
+  rs.setProperty('--chipd1', s.chipDone[0]); rs.setProperty('--chipd2', s.chipDone[1]);
+  rs.setProperty('--chipd-ink', s.chipInk);
+  rs.setProperty('--sky1', s.sky[0]); rs.setProperty('--sky2', s.sky[1]); rs.setProperty('--sky3', s.sky[2]);
+  rs.setProperty('--glow', s.glow); rs.setProperty('--cloud', s.cloud); rs.setProperty('--footer-ink', s.footerInk);
+  $('icon-single').innerHTML = s.tent.s;
+  $('icon-double').innerHTML = s.tent.h;
+  state.skin = s;
+}
+
+/* ============ 音效（WebAudio 合成，无素材） ============ */
+const Sound = (()=>{
+  let ctx=null, enabled=true;
+  function ac(){
+    if(!ctx){ const A=window.AudioContext||window.webkitAudioContext; if(A) ctx=new A(); }
+    if(ctx && ctx.state==='suspended') ctx.resume();
+    return ctx;
+  }
+  function tone(f, t0, dur, type='triangle', vol=.14){
+    const c=ac(); if(!c) return;
+    const o=c.createOscillator(), g=c.createGain();
+    o.type=type; o.frequency.value=f; o.connect(g); g.connect(c.destination);
+    const s=c.currentTime+t0;
+    g.gain.setValueAtTime(.0001,s);
+    g.gain.exponentialRampToValueAtTime(vol,s+.015);
+    g.gain.exponentialRampToValueAtTime(.0001,s+dur);
+    o.start(s); o.stop(s+dur+.05);
+  }
+  return {
+    get enabled(){ return enabled; },
+    set enabled(v){ enabled=v; if(v) ac(); },
+    place(){ if(enabled){ tone(520,0,.09); tone(720,.05,.12);} },
+    remove(){ if(enabled) tone(330,0,.12,'sine'); },
+    error(){ if(enabled){ tone(160,0,.12,'square',.07); tone(120,.09,.14,'square',.07);} },
+    hint(){ if(enabled){ tone(880,0,.1); tone(1175,.08,.14);} },
+    win(){ if(enabled) [523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.24,'triangle',.15)); },
+  };
+})();
+
+/* ============ 游戏状态 ============ */
+const TIERS = { easy:'入门', normal:'进阶', hard:'挑战', master:'大师', legend:'传奇' };
+const MAX_LEVEL = 150;   // 每个难度 150 关，五个难度共 750 关
+const SAVE_KEY = 'camp-guru-web-v1';
+let save = { v:1, sound:true, tier:'easy', seenRules:false, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
+try {
+  const raw = localStorage.getItem(SAVE_KEY);
+  if (raw){ const s=JSON.parse(raw); if(s && s.v===1) save=s; }
+} catch(e){}
+// 老存档没有新难度的进度键，这里补默认值（不影响既有进度）
+save.levels = Object.assign({easy:1,normal:1,hard:1,master:1,legend:1}, save.levels);
+function persist(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(save)); }catch(e){} }
+
+const state = {
+  tier: save.tier in TIERS ? save.tier : 'easy',
+  level: save.levels[save.tier in TIERS ? save.tier : 'easy'] || 1,
+  puzzle: null,
+  treeSet: new Set(),
+  tents: new Map(),
+  nextId: 1,
+  piece: 'single',
+  anchor: null,
+  hints: 0, moves: 0,
+  startAt: 0, timerId: null,
+  won: false,
+};
+
+/* ============ DOM ============ */
+const $ = id => document.getElementById(id);
+const boardEl=$('board'), overlayEl=$('overlay');
+const cellEls=[];
+for (let r=0;r<N;r++) for (let c=0;c<N;c++){
+  const d=document.createElement('div');
+  d.className='cell'+(((r+c)%2)?' alt':'');
+  d.addEventListener('click', ()=>onCell(r,c));
+  boardEl.insertBefore(d, overlayEl);
+  cellEls.push(d);
+}
+const cellAt=(r,c)=>cellEls[r*N+c];
+const rowChipEls=[], colChipEls=[];
+for (let i=0;i<N;i++){
+  const rc=document.createElement('span'); rc.className='chip'; $('row-clues').appendChild(rc); rowChipEls.push(rc);
+  const cc=document.createElement('span'); cc.className='chip'; $('col-clues').appendChild(cc); colChipEls.push(cc);
+}
+
+/* ============ 渲染 ============ */
+function renderTrees(animate){
+  cellEls.forEach(el=>{ el.innerHTML=''; el.classList.remove('anchor','cand'); });
+  state.puzzle.trees.forEach(([r,c],i)=>{
+    const t=document.createElement('div');
+    t.className='tree';
+    if (animate) t.style.animationDelay=(i*70)+'ms';
+    t.innerHTML=state.skin.trees[i % state.skin.trees.length];
+    cellAt(r,c).appendChild(t);
+  });
+}
+function tentSvgFor(t){
+  if (t.kind===1) return state.skin.tent.s;
+  return t.cells[0][0]===t.cells[1][0] ? state.skin.tent.h : state.skin.tent.v;
+}
+function renderTents(){
+  overlayEl.querySelectorAll('.tent').forEach(e=>e.remove());
+  for (const t of state.tents.values()){
+    const d=document.createElement('div');
+    d.className='tent';
+    const rs=t.cells.map(x=>x[0]), cs=t.cells.map(x=>x[1]);
+    const minR=Math.min(...rs), minC=Math.min(...cs);
+    const hCells=(t.kind===2 && t.cells[0][0]===t.cells[1][0])?2:1;
+    const vCells=(t.kind===2 && t.cells[0][0]!==t.cells[1][0])?2:1;
+    d.style.left=(minC/N*100)+'%';
+    d.style.top =(minR/N*100)+'%';
+    d.style.width =(hCells/N*100)+'%';
+    d.style.height=(vCells/N*100)+'%';
+    d.innerHTML=tentSvgFor(t);
+    d.addEventListener('click', e=>{ e.stopPropagation(); removeTent(t.id); });
+    overlayEl.appendChild(d);
+  }
+}
+function currentCounts(){
+  const rc=Array(N).fill(0), cc=Array(N).fill(0);
+  for (const t of state.tents.values()) for (const [r,c] of t.cells){ rc[r]++; cc[c]++; }
+  return {rc, cc};
+}
+function updateClues(){
+  const {rc,cc}=currentCounts(), p=state.puzzle;
+  rowChipEls.forEach((el,i)=>{ el.textContent=p.rc[i]; el.classList.toggle('done', rc[i]===p.rc[i]); });
+  colChipEls.forEach((el,i)=>{ el.textContent=p.cc[i]; el.classList.toggle('done', cc[i]===p.cc[i]); });
+}
+function updatePalette(){
+  const p=state.puzzle;
+  const usedS=[...state.tents.values()].filter(t=>t.kind===1).length;
+  const usedD=[...state.tents.values()].filter(t=>t.kind===2).length;
+  const invS=p?p.singles:0, invD=p?p.doubles:0;
+  $('cnt-single').textContent='剩余 '+(invS-usedS);
+  $('cnt-double').textContent='剩余 '+(invD-usedD);
+  $('btn-single').classList.toggle('disabled', usedS>=invS);
+  $('btn-double').classList.toggle('disabled', usedD>=invD);
+  $('counter').textContent=`⛺ ${state.tents.size}/${p?p.singles+p.doubles:0}`;
+  if (state.piece==='single' && usedS>=invS && usedD<invD) selectPiece('double');
+  else if (state.piece==='double' && usedD>=invD && usedS<invS) selectPiece('single');
+}
+function updateHud(){
+  $('lvl').textContent=state.level;
+  document.querySelectorAll('.tier-chip').forEach(b=>b.classList.toggle('active', b.dataset.tier===state.tier));
+}
+
+/* ============ 交互 ============ */
+let toastTimer=null;
+function toast(msg){
+  const t=$('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),1900);
+}
+function shake(cells){
+  cells.forEach(([r,c])=>{
+    const el=cellAt(r,c);
+    el.classList.remove('shakeit'); void el.offsetWidth; el.classList.add('shakeit');
+  });
+}
+const treeAt=(r,c)=>state.treeSet.has(r*N+c);
+const tentIdAt=(r,c)=>{
+  for (const t of state.tents.values()) if (t.cells.some(([a,b])=>a===r&&b===c)) return t.id;
+  return null;
+};
+
+// 摆放合法性（R1/R2/R3），返回 {ok} 或 {ok:false,msg}
+function checkPlacement(cells){
+  for (const [r,c] of cells){
+    if (treeAt(r,c)) return {ok:false, msg:'不能放在树上'};
+    if (tentIdAt(r,c)) return {ok:false, msg:'这里已经有帐篷了'};
+  }
+  for (const [r,c] of cells){
+    for (const t of state.tents.values()) for (const [a,b] of t.cells){
+      if (Math.max(Math.abs(a-r),Math.abs(b-c))<=1)
+        return {ok:false, msg:'帐篷之间不能相邻（斜对角也不行）'};
+    }
+  }
+  for (const [r,c] of cells){
+    if (!NB4[r*N+c].some(([a,b])=>treeAt(a,b)))
+      return {ok:false, msg:cells.length===2?'双帐篷的每一格都要紧挨一棵树':'帐篷必须紧挨一棵树（上下左右）'};
+  }
+  const {rc,cc}=currentCounts();
+  for (const [r,c] of cells){ rc[r]++; cc[c]++; }
+  for (let i=0;i<N;i++){
+    if (rc[i]>state.puzzle.rc[i]) return {ok:false, msg:`第 ${i+1} 行的帐篷已满（目标 ${state.puzzle.rc[i]} 顶）`};
+    if (cc[i]>state.puzzle.cc[i]) return {ok:false, msg:`第 ${i+1} 列的帐篷已满（目标 ${state.puzzle.cc[i]} 顶）`};
+  }
+  return {ok:true};
+}
+
+function onCell(r,c){
+  if (state.won || !state.puzzle) return;
+  const tid=tentIdAt(r,c);
+  if (tid){ cancelAnchor(); removeTent(tid); return; }
+  if (treeAt(r,c)){
+    const t=cellAt(r,c).querySelector('.tree');
+    if (t){ t.classList.remove('wiggle'); void t.offsetWidth; t.classList.add('wiggle'); }
+    return;
+  }
+  if (state.piece==='single'){ tryPlace([[r,c]],1); return; }
+  if (!state.anchor){ tryAnchor(r,c); return; }
+  const [ar,ac]=state.anchor;
+  if (ar===r && ac===c){ cancelAnchor(); return; }
+  if (Math.abs(ar-r)+Math.abs(ac-c)===1){ tryPlace([[ar,ac],[r,c]],2); return; }
+  tryAnchor(r,c);   // 点了不相邻的空格：尝试换锚点
+}
+
+function tryAnchor(r,c){
+  const v0=checkPlacement([[r,c]]);
+  const cands = v0.ok ? NB4[r*N+c].filter(([a,b])=>checkPlacement([[r,c],[a,b]]).ok) : [];
+  if (!cands.length){
+    toast(v0.ok ? '这格周围放不下双帐篷' : v0.msg);
+    shake([[r,c]]); Sound.error(); return;
+  }
+  cancelAnchor();
+  state.anchor=[r,c];
+  cellAt(r,c).classList.add('anchor');
+  cands.forEach(([a,b])=>cellAt(a,b).classList.add('cand'));
+  toast('再点一个相邻的格子放下双帐篷（点原格取消）');
+}
+function cancelAnchor(){
+  state.anchor=null;
+  cellEls.forEach(el=>el.classList.remove('anchor','cand'));
+}
+
+function tryPlace(cells, kind){
+  const v=checkPlacement(cells);
+  if (!v.ok){ toast(v.msg); shake(cells); Sound.error(); cancelAnchor(); return; }
+  const invKey = kind===1?'singles':'doubles';
+  const used=[...state.tents.values()].filter(t=>t.kind===kind).length;
+  if (used>=state.puzzle[invKey]){
+    toast(kind===1?`本关单帐篷只有 ${state.puzzle.singles} 顶`:`本关双帐篷只有 ${state.puzzle.doubles} 顶`);
+    Sound.error(); cancelAnchor(); return;
+  }
+  state.tents.set(state.nextId, {id:state.nextId, cells:cells.map(([r,c])=>[r,c]), kind});
+  state.nextId++;
+  state.moves++;
+  cancelAnchor();
+  Sound.place();
+  renderTents(); updateClues(); updatePalette();
+  checkWin();
+}
+function removeTent(id){
+  if (state.won) return;
+  state.tents.delete(id);
+  state.moves++;
+  Sound.remove();
+  renderTents(); updateClues(); updatePalette();
+}
+function selectPiece(kind){
+  state.piece=kind;
+  cancelAnchor();
+  $('btn-single').classList.toggle('sel', kind==='single');
+  $('btn-double').classList.toggle('sel', kind==='double');
+}
+
+/* ============ 胜利判定 ============ */
+function checkWin(){
+  if (state.won || !state.puzzle) return;
+  const {rc,cc}=currentCounts(), p=state.puzzle;
+  let full=true;
+  for (let i=0;i<N;i++) if (rc[i]!==p.rc[i] || cc[i]!==p.cc[i]){ full=false; break; }
+  if (!full) return;
+  const usedS=[...state.tents.values()].filter(t=>t.kind===1).length;
+  const usedD=state.tents.size-usedS;
+  if (usedS!==p.singles || usedD!==p.doubles){
+    toast('规格和本关棋子对不上：单/双帐篷数量要和棋子栏一致');
+    return;
+  }
+  const tentsArr=[...state.tents.values()].map(t=>t.cells);
+  if (matchable(p.trees, tentsArr)){ doWin(); }
+  else toast('帐篷数量对了，但没法和树一一对应，调整一下吧');
+}
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+function doWin(){
+  state.won=true;
+  clearInterval(state.timerId);
+  const secs=Math.floor((Date.now()-state.startAt)/1000);
+  Sound.win(); confetti();
+  const st=state.hints===0?3:(state.hints<=2?2:1);
+  $('win-stars').textContent='⭐'.repeat(st)+'☆'.repeat(3-st);
+  $('win-stats').innerHTML=`⏱ 用时 <b>${fmt(secs)}</b> · 💡 提示 <b>${state.hints}</b> · 🖐 步数 <b>${state.moves}</b>`;
+  const clearedAll = state.level >= MAX_LEVEL;
+  if (clearedAll){
+    $('win-lvl').textContent=`🏆 恭喜通关「${TIERS[state.tier]}」全部 ${MAX_LEVEL} 关！`;
+    $('btn-next').style.display='none';
+  } else {
+    $('win-lvl').textContent=`${TIERS[state.tier]} · 第 ${state.level} 关`;
+    $('btn-next').style.display='';
+  }
+  if (!clearedAll && save.levels[state.tier]===state.level){ save.levels[state.tier]++; persist(); }
+  setTimeout(()=>{ $('win-mask').classList.add('show'); updateWinBar(); }, 550);
+}
+// 通关后关闭结算弹窗时，在棋盘上保留"下一关"入口
+function updateWinBar(){
+  const clearedAll = state.won && state.level >= MAX_LEVEL;
+  $('win-bar').classList.toggle('show', state.won && !clearedAll && !$('win-mask').classList.contains('show'));
+}
+function confetti(){
+  const colors=['#ff8c42','#ffd23f','#3e9e5f','#4aa3df','#ff5d8f'];
+  const cont=$('confetti');
+  for (let i=0;i<70;i++){
+    const s=document.createElement('i');
+    const sz=6+Math.random()*8;
+    s.style.left=Math.random()*100+'vw';
+    s.style.width=sz+'px';
+    s.style.height=(sz*(.6+Math.random()*.8))+'px';
+    s.style.background=colors[i%colors.length];
+    s.style.animationDelay=(Math.random()*.6)+'s';
+    s.style.animationDuration=(2.2+Math.random()*1.7)+'s';
+    cont.appendChild(s);
+    setTimeout(()=>s.remove(),4600);
+  }
+}
+
+/* ============ 提示 ============ */
+function useHint(){
+  if (state.won || !state.puzzle) return;
+  const sol=state.puzzle.solution;
+  const key=o=>o.map(([r,c])=>r*N+c).sort((a,b)=>a-b).join(',');
+  const placedKeys=new Set([...state.tents.values()].map(t=>key(t.cells)));
+  let target=null;
+  for (const o of sol) if (!placedKeys.has(key(o))){ target=o; break; }
+  if (!target){ toast('都已经摆对了！'); return; }
+  const tc=new Set(target.map(([r,c])=>r*N+c));
+  const conflict=t=>{
+    for (const [r,c] of t.cells){
+      if (tc.has(r*N+c)) return true;
+      for (const [a,b] of NB8[r*N+c]) if (tc.has(a*N+b)) return true;
+    }
+    return false;
+  };
+  for (const id of [...state.tents.keys()]) if (conflict(state.tents.get(id))) state.tents.delete(id);
+  state.tents.set(state.nextId, {id:state.nextId, cells:target.map(([r,c])=>[r,c]), kind:target.length});
+  state.nextId++;
+  state.hints++; state.moves++;
+  cancelAnchor();
+  Sound.hint();
+  target.forEach(([r,c])=>{
+    const el=cellAt(r,c);
+    el.classList.remove('hintflash'); void el.offsetWidth; el.classList.add('hintflash');
+  });
+  renderTents(); updateClues(); updatePalette();
+  checkWin();
+}
+
+/* ============ 关卡流转 ============ */
+function startTimer(){
+  clearInterval(state.timerId);
+  state.startAt=Date.now();
+  $('time').textContent='00:00';
+  state.timerId=setInterval(()=>{ $('time').textContent=fmt(Math.floor((Date.now()-state.startAt)/1000)); },500);
+}
+function resetBoard(){
+  state.tents.clear(); state.nextId=1;
+  state.anchor=null; state.hints=0; state.moves=0; state.won=false;
+  selectPiece('single');
+  renderTents(); updateClues(); updatePalette(); startTimer();
+  updateWinBar();
+}
+function loadLevel(animateTrees=true){
+  const p=paramsFor(state.tier, state.level);
+  let pz=genPuzzle(p);
+  if (!pz) pz=genPuzzle({...p, doubles:0});
+  if (!pz) pz=genPuzzle({trees:Math.max(3,p.trees-1), doubles:0, spacing:1});
+  state.puzzle=pz;
+  state.treeSet=new Set(pz.trees.map(([r,c])=>r*N+c));
+  resetBoard();
+  renderTrees(animateTrees);
+  updateHud();
+}
+
+/* ============ 按钮绑定 ============ */
+document.querySelectorAll('.tier-chip').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    if (state.tier===b.dataset.tier) return;
+    state.tier=b.dataset.tier;
+    applySkin(state.tier);
+    save.tier=state.tier; persist();
+    state.level=Math.min(save.levels[state.tier], MAX_LEVEL);
+    $('win-mask').classList.remove('show');
+    loadLevel();
+  });
+});
+$('btn-hint').addEventListener('click', useHint);
+$('btn-restart').addEventListener('click', resetBoard);
+$('btn-rules').addEventListener('click', ()=>$('rules-mask').classList.add('show'));
+function closeRules(){
+  $('rules-mask').classList.remove('show');
+  if (!save.seenRules){ save.seenRules=true; persist(); }
+}
+$('btn-close-rules').addEventListener('click', closeRules);
+$('btn-sound').addEventListener('click', ()=>{
+  Sound.enabled=!Sound.enabled;
+  save.sound=Sound.enabled; persist();
+  $('btn-sound').textContent=Sound.enabled?'🔊':'🔇';
+  if (Sound.enabled) Sound.place();
+});
+$('btn-single').addEventListener('click', ()=>selectPiece('single'));
+$('btn-double').addEventListener('click', ()=>selectPiece('double'));
+$('btn-next').addEventListener('click', ()=>{
+  $('win-mask').classList.remove('show');
+  state.level=Math.min(save.levels[state.tier], MAX_LEVEL);
+  loadLevel();
+});
+$('btn-replay').addEventListener('click', ()=>{
+  $('win-mask').classList.remove('show');
+  state.won=false; resetBoard();
+});
+$('btn-close-win').addEventListener('click', ()=>{ $('win-mask').classList.remove('show'); updateWinBar(); });
+$('btn-reset').addEventListener('click', ()=>{
+  if (confirm('确定重置全部进度吗？五个难度的关卡数都会回到第 1 关。')){
+    save.levels={easy:1,normal:1,hard:1,master:1,legend:1};
+    state.level=1; persist();
+    closeRules();
+    loadLevel();
+  }
+});
+document.addEventListener('keydown', e=>{ if (e.key==='Escape') cancelAnchor(); });
+$('win-mask').addEventListener('click', e=>{ if (e.target===$('win-mask')){ $('win-mask').classList.remove('show'); updateWinBar(); } });
+$('btn-winbar-next').addEventListener('click', ()=>{ $('win-mask').classList.remove('show'); $('btn-next').click(); });
+$('rules-mask').addEventListener('click', e=>{ if (e.target===$('rules-mask')) closeRules(); });
+
+/* ============ 调试钩子（自动化测试用） ============ */
+window.__cg={
+  state, save, genPuzzle, solve, paramsFor, matchable, checkPlacement,
+  loadLevel, tryPlace, useHint, resetBoard,
+  placeSolution(){
+    if (!state.puzzle) return false;
+    state.tents.clear();
+    let i=100;
+    for (const o of state.puzzle.solution){
+      state.tents.set(i, {id:i, cells:o.map(([r,c])=>[r,c]), kind:o.length});
+      i++;
+    }
+    renderTents(); updateClues(); updatePalette(); checkWin();
+    return state.won;
+  },
+};
+
+/* ============ 启动 ============ */
+Sound.enabled=!!save.sound;
+$('btn-sound').textContent=Sound.enabled?'🔊':'🔇';
+applySkin(state.tier);
+loadLevel();
+if (!save.seenRules) $('rules-mask').classList.add('show');   // 首次进入先看规则
+</script>
+</body>
+</html>

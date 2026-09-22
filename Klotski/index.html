@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="description" content="华容道网页游戏：33 个经典布局，内置最优解求解器、提示与自动演示">
+  <title>华容道 · 滑块益智游戏</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23e7c68d'/><rect x='26' y='12' width='48' height='48' rx='8' fill='%23a03a26'/><text x='50' y='46' font-size='30' text-anchor='middle' fill='%23f8e3a6' font-family='serif' font-weight='bold'>曹</text><rect x='12' y='66' width='34' height='22' rx='6' fill='%23556f42'/><rect x='54' y='66' width='34' height='22' rx='6' fill='%23556f42'/></svg>">
+</head>
+<body>
+  <header id="hud">
+    <button id="btn-levels" class="hbtn" title="选择关卡">关卡</button>
+    <div id="level-info">
+      <h1 id="level-name">横刀立马</h1>
+      <div id="level-meta"></div>
+    </div>
+    <div style="display:flex; gap:6px;">
+      <button id="btn-sound" class="hbtn" title="音效开关">🔊</button>
+      <button id="btn-help" class="hbtn" title="玩法说明">玩法</button>
+    </div>
+  </header>
+
+  <section id="stats">
+    <div class="stat"><span class="stat-label">步数</span><span class="stat-value" id="stat-steps">0</span></div>
+    <div class="stat"><span class="stat-label">最少</span><span class="stat-value" id="stat-min">—</span></div>
+    <div class="stat"><span class="stat-label">用时</span><span class="stat-value" id="stat-time">0:00</span></div>
+    <div class="stat"><span class="stat-label">最佳</span><span class="stat-value" id="stat-best">—</span></div>
+  </section>
+
+  <main id="board-outer">
+    <div id="board-wrap">
+      <div id="board"></div>
+      <div id="gate">出口</div>
+    </div>
+  </main>
+
+  <section id="actions">
+    <button id="btn-undo" class="btn" title="撤销一步（Z）">撤销</button>
+    <button id="btn-restart" class="btn" title="重新开始（R）">重玩</button>
+    <button id="btn-hint" class="btn" title="提示下一步最优走法（H）">提示</button>
+    <button id="btn-demo" class="btn primary" title="自动演示最优解法">演示</button>
+  </section>
+
+  <footer>
+    <div class="kbd-legend">⌨️ <kbd>Tab</kbd> 换子 · <kbd>↑↓←→</kbd> 移动 · <kbd>Z</kbd> 撤销 · <kbd>H</kbd> 提示 · <kbd>R</kbd>×2 重玩 · <kbd>D</kbd> 演示 · <kbd>L</kbd> 关卡 · <kbd>M</kbd> 音效</div>
+    <div>33 个经典布局 · 最优步数经内置求解器复核 · 灵感致敬「计客超级华容道」</div>
+  </footer>
+
+  <!-- 关卡选择 -->
+  <div class="modal" id="modal-levels">
+    <div class="sheet">
+      <h2>选择关卡</h2>
+      <div id="levels-list"></div>
+      <div class="sheet-actions">
+        <button class="btn" data-close>关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 玩法说明 -->
+  <div class="modal" id="modal-help">
+    <div class="sheet">
+      <h2>玩法说明</h2>
+      <div id="help-body">
+        <p><b>目标</b>：移动各棋子，把 <b>曹操</b> 从棋盘底部中央的<b>出口</b>滑出（滑到出口位置即触发通关动画）。</p>
+        <p><b>操作</b>：<span class="rule-tag">拖动</span>棋子沿轨道滑动；<span class="rule-tag">轻点</span>棋子时，若它只有一个方向可走会直接帮您走这一步，有多个方向可选时才弹出方向箭头；也可以用 <span class="rule-tag">方向键</span> 移动选中的棋子。</p>
+        <p><b>键盘</b>：<kbd>Tab</kbd>/<kbd>Shift+Tab</kbd> 在走得动的棋子间循环选子（优先定位刚动过的棋子），<kbd>↑↓←→</kbd> 移动，<kbd>Esc</kbd> 取消/关闭；<kbd>Z</kbd> 撤销、<kbd>H</kbd> 提示、<kbd>D</kbd> 演示、<kbd>L</kbd> 关卡、<kbd>M</kbd> 音效、<kbd>I</kbd> 本说明、<kbd>R</kbd> 按两次重玩；通关后 <kbd>Enter</kbd> 直接下一关。全程可以不碰鼠标。</p>
+        <p><b>计步</b>：同一棋子连续滑动（包括拐弯）计为 <b>1 步</b>，换棋子才计新的一步——与经典华容道计步一致，「横刀立马」最少 81 步。</p>
+        <p><b>助手</b>：<span class="rule-tag">提示</span>用内置求解器推演当前局面的最优下一步；<span class="rule-tag">演示</span>自动播放完整解法（不计入纪录）；<span class="rule-tag">撤销</span>回退一步。</p>
+        <p><b>记录</b>：通关成绩保存在本地浏览器。使用提示或演示通关的成绩不计入最佳纪录。</p>
+      </div>
+      <div class="sheet-actions">
+        <button class="btn primary" data-close>知道了</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 通关 -->
+  <div class="modal" id="modal-win">
+    <div class="sheet">
+      <h2 id="win-title">通关</h2>
+      <div id="win-stats"></div>
+      <div class="sheet-actions">
+        <button class="btn" id="win-levels">选关</button>
+        <button class="btn" id="win-again">再来一局</button>
+        <button class="btn primary" id="win-next">下一关</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="js/levels.js"></script>
+  <script src="js/solver.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
