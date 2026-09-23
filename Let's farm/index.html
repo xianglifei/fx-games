@@ -769,7 +769,8 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
       closeAuth();
       renderFooter();
       toast('欢迎回来，' + auth.nickname + '，正在同步…');
-      syncNow('pull');
+      // 推送即双向：上传本地全量（老用户先积累的记录此刻上云），同时拿回云端全量合并
+      syncNow('push');
     }catch(e){
       showAuthError('连不上服务器，检查一下网络');
     }finally{
@@ -874,8 +875,8 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
   tick();
   setInterval(tick, 250);
   if(auth){
-    syncNow('pull');                                  // 打开即同步一次
-    setInterval(() => syncNow('pull'), 5 * 60 * 1000); // 之后每 5 分钟拉一次
+    syncNow('push');                                 // 打开即双向对齐：离线攒的记录先推上去，再拿回云端全量
+    setInterval(() => syncNow('pull'), 5 * 60 * 1000); // 之后每 5 分钟轻量拉一次
   }
 })();
 </script>
