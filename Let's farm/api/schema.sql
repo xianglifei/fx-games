@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS users (
   nickname   TEXT NOT NULL,
   pwd_hash   TEXT NOT NULL,
   salt       TEXT NOT NULL,
-  created_at INTEGER NOT NULL
+  created_at INTEGER NOT NULL,
+  timezone   TEXT    NOT NULL DEFAULT 'Asia/Shanghai'   -- 日报按用户本地日历日归档
 );
 
 CREATE TABLE IF NOT EXISTS records (
@@ -32,3 +33,17 @@ CREATE TABLE IF NOT EXISTS notes (
   PRIMARY KEY (user_id, id)
 );
 CREATE INDEX IF NOT EXISTS idx_notes_user_rid ON notes(user_id, rid);
+
+-- 每日工作日报（AI 生成，每个用户每天最多一行，当天滚动覆盖更新）
+CREATE TABLE IF NOT EXISTS daily_reports (
+  user_id          INTEGER NOT NULL,
+  date_key         TEXT    NOT NULL,   -- 用户本地日期 YYYY-MM-DD
+  content          TEXT    NOT NULL,
+  note_count       INTEGER NOT NULL,   -- 生成时基于的备注条数（展示用）
+  generated_at     INTEGER NOT NULL,
+  based_on_note_ts INTEGER NOT NULL,   -- 生成时该日最新一条备注时间，增量触发判断用
+  PRIMARY KEY (user_id, date_key)
+);
+
+-- 已有库升级时执行（全新安装走上面的 CREATE 即可，不必执行这条）：
+-- ALTER TABLE users ADD COLUMN timezone TEXT NOT NULL DEFAULT 'Asia/Shanghai';

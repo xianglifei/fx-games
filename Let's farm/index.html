@@ -175,6 +175,22 @@ header .sub{color:var(--muted);font-size:14px;margin-top:4px}
 }
 .empty-tip{color:var(--muted);font-size:13px;text-align:center;padding:14px 0 6px}
 
+/* ---------- 今日工作总结 ---------- */
+#reportCard .card-head{margin-bottom:8px}
+.rp-refresh{
+  flex:none;width:26px;height:26px;border-radius:8px;border:none;cursor:pointer;
+  background:transparent;color:#c9bfb1;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:color .15s,background .15s;touch-action:manipulation;
+}
+.rp-refresh:hover{background:var(--line);color:var(--ink)}
+.rp-refresh:active{transform:scale(.92)}
+.rp-refresh.spin svg{animation:rp-spin 1s linear infinite}
+@keyframes rp-spin{to{transform:rotate(360deg)}}
+.rp-meta{font-size:12px;color:var(--muted);margin:0 0 10px;font-variant-numeric:tabular-nums}
+.rp-body{font-size:13.5px;line-height:1.85;color:#6f6357;white-space:pre-wrap;word-break:break-word}
+.rp-empty{font-size:13px;color:var(--muted)}
+
 footer{text-align:center;color:#bdb2a4;font-size:12px;margin-top:6px}
 footer a, .auth-switch a{color:#b09a86;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
 footer a:hover, .auth-switch a:hover{color:var(--work)}
@@ -286,6 +302,17 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
       <span><i class="sw sw-live"></i>进行中</span>
       <span style="margin-left:auto">每格 5 分钟 × 288 格</span>
     </div>
+  </section>
+
+  <section class="card" id="reportCard" hidden>
+    <div class="card-head">
+      <h2 id="rpTitle">今日工作总结</h2>
+      <button id="rpRefresh" class="rp-refresh" aria-label="立即重新生成" hidden>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      </button>
+    </div>
+    <p id="rpMeta" class="rp-meta" hidden></p>
+    <div id="rpBody" class="rp-body"></div>
   </section>
 
   <section class="card">
@@ -436,6 +463,11 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     const x = new Date(a), y = new Date(b);
     return x.getFullYear() === y.getFullYear() && x.getMonth() === y.getMonth() && x.getDate() === y.getDate();
   }
+  // 本地日期键 YYYY-MM-DD（日报按本地日历日查询）
+  function dateKeyOf(ts){
+    const d = new Date(ts);
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
   // slot 的时间范围文案，如 14:35 – 14:40（最后一格终点显示 24:00）
   function slotRange(idx, dayStart){
     const endTs = dayStart + (idx + 1) * SLOT_MS;
@@ -555,7 +587,9 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     updateDateNav();
     renderHeatmap();
     renderTimeline();
+    renderReport();
     updateLiveCell();
+    fetchReport();   // 回看历史日期时拉那天的日报（未登录时内部直接返回）
   }
 
   // ---------- 时间线 ----------
@@ -678,6 +712,7 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     renderTimerPanel();
     renderHeatmap();
     renderTimeline();
+    renderReport();
     updateLiveCell();
   }
 
@@ -706,7 +741,7 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     if(realToday !== lastKnownToday){
       const wasToday = viewTs === lastKnownToday;
       lastKnownToday = realToday;
-      if(wasToday){ viewTs = realToday; renderAll(); }
+      if(wasToday){ viewTs = realToday; renderAll(); fetchReport(); }
     }
     const isToday = isTodayView();
     nowClock.hidden = !isToday;
@@ -781,6 +816,7 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
 
   // ---------- 账号与云同步 ----------
   const SYNC_API = 'https://pomodoro-api.xianglifei.workers.dev';
+  const TZ_NAME = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Shanghai';   // 同步时上报纸时区，日报按本地日归档
   const AUTH_KEY = 'letsfarm.pomodoro.auth';
   const KDF_SALT = 'letsfarm.pomodoro.v1';   // 与 api/worker.js 保持一致
   let auth = null;        // {token, email, nickname}
@@ -882,6 +918,9 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
       toast('欢迎回来，' + auth.nickname + '，正在同步…');
       // 推送即双向：上传本地全量（老用户先积累的记录此刻上云），同时拿回云端全量合并
       syncNow('push');
+      reportCache.clear();   // 换账号后重新拉日报
+      renderReport();
+      fetchReport();
     }catch(e){
       showAuthError('连不上服务器，检查一下网络');
     }finally{
@@ -898,6 +937,8 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     auth = null;
     lastSyncAt = null;
     saveAuth();
+    reportCache.clear();
+    renderReport();   // 未登录板块整体消失
     renderFooter();
     toast(msg || '已退出登录，数据仍保留在本机');
   }
@@ -940,7 +981,7 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
         ? { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' },
             body: JSON.stringify({ records: state.records, notes: state.notes }) }
         : { headers };
-      const r = await fetch(SYNC_API + '/sync', opt);
+      const r = await fetch(SYNC_API + '/sync?tz=' + encodeURIComponent(TZ_NAME), opt);
       if(r.status === 401){ logout('登录已过期，请重新登录'); return; }
       if(!r.ok) return;
       const data = await r.json();
@@ -957,6 +998,75 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     clearTimeout(pushTimer);
     pushTimer = setTimeout(() => syncNow('push'), 2000);   // 防抖：连续多轮只推一次
   }
+
+  // ---------- 今日工作总结（登录可见；云端 Cron 整点生成，未登录整个板块不出现） ----------
+  const reportCard = $('#reportCard'), rpTitle = $('#rpTitle'), rpMeta = $('#rpMeta'),
+        rpBody = $('#rpBody'), rpRefresh = $('#rpRefresh');
+  const reportCache = new Map();   // dateKey → {content, note_count, generated_at} | null（当日无日报）
+  let reportBusy = false, reportFetchedAt = 0;
+
+  function renderReport(){
+    if(!auth){ reportCard.hidden = true; return; }
+    const key = dateKeyOf(viewTs), isToday = isTodayView();
+    const rep = reportCache.get(key);
+    if(!rep){
+      // 历史日期没日报（上线前/当天没写备注）→ 板块不出现；今天给一句轻量空态，避免板块中途冒出来顶动布局
+      if(isToday){
+        reportCard.hidden = false;
+        rpTitle.textContent = '今日工作总结';
+        rpMeta.hidden = true;
+        rpBody.innerHTML = '<p class="rp-empty">写下第一条备注后，每个整点会自动帮你总结今天</p>';
+        rpRefresh.hidden = true;
+      }else{
+        reportCard.hidden = true;
+      }
+      return;
+    }
+    reportCard.hidden = false;
+    rpTitle.textContent = isToday ? '今日工作总结' : shortDay(viewTs) + ' · 工作总结';
+    rpMeta.hidden = false;
+    rpMeta.textContent = fmtClock(rep.generated_at) + ' 生成 · 基于当日 ' + rep.note_count + ' 条备注';
+    rpBody.textContent = rep.content;
+    rpRefresh.hidden = !isToday;
+  }
+
+  async function fetchReport(){
+    if(!auth || reportBusy) return;
+    reportBusy = true;
+    try{
+      const key = dateKeyOf(viewTs);
+      const r = await fetch(SYNC_API + '/report?date=' + key, { headers: { Authorization: 'Bearer ' + auth.token } });
+      if(r.status === 401){ logout('登录已过期，请重新登录'); return; }
+      if(!r.ok) return;
+      const j = await r.json();
+      if(j.date === key){ reportCache.set(key, j.report || null); renderReport(); }
+      reportFetchedAt = Date.now();
+    }catch(e){ /* 静默，下个整点轮询再拉 */ }
+    finally{ reportBusy = false; }
+  }
+
+  rpRefresh.addEventListener('click', async () => {
+    if(reportBusy) return;
+    reportBusy = true;
+    rpRefresh.classList.add('spin');
+    try{
+      const r = await fetch(SYNC_API + '/report/regenerate', { method: 'POST', headers: { Authorization: 'Bearer ' + auth.token } });
+      if(r.status === 401){ logout('登录已过期，请重新登录'); return; }
+      const j = await r.json().catch(() => ({}));
+      if(r.ok && j.report){
+        reportCache.set(j.date, j.report);
+        renderReport();
+        toast('已重新生成');
+      }else{
+        toast(j.error || '生成失败，稍后再试');
+      }
+    }catch(e){
+      toast('连不上服务器，稍后再试');
+    }finally{
+      rpRefresh.classList.remove('spin');
+      reportBusy = false;
+    }
+  });
 
   // ---------- 热力图 tooltip ----------
   hmGrid.addEventListener('pointermove', e => {
@@ -984,7 +1094,11 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
   $('#btnStop').addEventListener('click', () => finish(false));
   prevDayBtn.addEventListener('click', () => shiftDay(-1));
   nextDayBtn.addEventListener('click', () => shiftDay(1));
-  document.addEventListener('visibilitychange', () => { if(!document.hidden) tick(); });
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden) return;
+    tick();
+    if(auth && Date.now() - reportFetchedAt > 5 * 60 * 1000) fetchReport();   // 切回页面补拉最新日报
+  });
 
   // ---------- 启动 ----------
   buildHeatmapDom();
@@ -999,6 +1113,8 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
   if(auth){
     syncNow('push');                                 // 打开即双向对齐：离线攒的记录先推上去，再拿回云端全量
     setInterval(() => syncNow('pull'), 5 * 60 * 1000); // 之后每 5 分钟轻量拉一次
+    fetchReport();                                     // 打开即拉今日日报
+    setInterval(() => { if(!document.hidden) fetchReport(); }, 60 * 60 * 1000);   // 每小时随 Cron 更新
   }
 })();
 </script>

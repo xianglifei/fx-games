@@ -2,6 +2,14 @@ name = "pomodoro-api"
 main = "worker.js"
 compatibility_date = "2025-01-01"
 
+# 日报：每小时醒一次，处理器内按用户本地时区门控（9–21 点整点跑，0/3/6 点低频收尾）
+[triggers]
+crons = ["0 * * * *"]
+
+# Workers AI（日报生成）
+[ai]
+binding = "AI"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "pomodoro-db"
