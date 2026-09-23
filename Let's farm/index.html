@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="description" content="番茄钟：专注 25 分钟，休息 10 分钟，热力图与时间线把一天的时间看得见。">
+<title>番茄钟 · 专注与休息</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍅%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f7f2ea;
+  --card:#ffffff;
+  --ink:#3d3229;
+  --muted:#a1968a;
+  --line:#f0e9df;
+  --work:#e0533d;
+  --rest:#2b9f84;
+  --empty:#ece6dd;
+  --work-1:#f8cfc7;--work-2:#ef9384;--work-3:#e0533d;
+  --rest-1:#cdeee2;--rest-2:#7fcab5;--rest-3:#2b9f84;
+  --shadow:0 2px 14px rgba(61,50,41,.07);
+  --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  background:var(--bg);
+  background-image:radial-gradient(1200px 400px at 50% -100px,#fdf0e4 0%,rgba(253,240,228,0) 70%);
+  color:var(--ink);
+  min-height:100vh;
+  line-height:1.5;
+}
+.wrap{max-width:640px;margin:0 auto;padding:28px 16px calc(32px + env(safe-area-inset-bottom))}
+header{text-align:center;margin-bottom:22px}
+header h1{font-size:clamp(24px,6vw,30px);letter-spacing:1px}
+header .sub{color:var(--muted);font-size:14px;margin-top:4px}
+.card{
+  background:var(--card);border:1px solid rgba(61,50,41,.05);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:20px 18px;margin-bottom:16px;
+}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:14px}
+.card-head h2{font-size:15px;font-weight:600;color:var(--ink)}
+.now-clock{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- 计时区 ---------- */
+.idle-panel{display:flex;gap:12px}
+.btn{
+  flex:1;border:none;cursor:pointer;font-family:inherit;
+  font-size:16px;font-weight:600;color:#fff;border-radius:14px;
+  padding:18px 10px;transition:transform .12s ease,box-shadow .12s ease;
+  touch-action:manipulation;
+}
+.btn:active{transform:scale(.97)}
+.btn-work{background:linear-gradient(160deg,#e8684f,var(--work));box-shadow:0 4px 14px rgba(224,83,61,.32)}
+.btn-rest{background:linear-gradient(160deg,#3ab394,var(--rest));box-shadow:0 4px 14px rgba(43,159,132,.30)}
+.btn-work:hover,.btn-rest:hover{transform:translateY(-1px)}
+.btn-ghost{
+  flex:none;background:none;color:var(--muted);font-weight:500;
+  border:1px solid var(--line);box-shadow:none;padding:10px 22px;font-size:14px;
+}
+.btn-ghost:hover{color:var(--ink);border-color:#ddd2c4;transform:none}
+.run-panel{text-align:center;padding:10px 0 6px}
+.run-panel .mode-line{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px}
+.tag{font-size:13px;font-weight:600;color:#fff;border-radius:999px;padding:3px 14px}
+.tag.work{background:var(--work)}
+.tag.rest{background:var(--rest)}
+.mode-hint{font-size:13px;color:var(--muted)}
+.countdown{
+  font-size:clamp(64px,16vw,92px);font-weight:700;letter-spacing:2px;
+  font-variant-numeric:tabular-nums;line-height:1.2;
+  margin-bottom:10px;
+  transition:color .3s;
+}
+.countdown.work{color:var(--work)}
+.countdown.rest{color:var(--rest)}
+.progress{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:0 0 20px}
+.progress > div{height:100%;width:0%;border-radius:3px;background:var(--work);transition:width .3s linear,background .3s}
+.progress > div.rest{background:var(--rest)}
+
+/* ---------- 热力图 ---------- */
+.hm-hours{
+  display:grid;grid-template-columns:repeat(24,1fr);gap:2px;
+  margin-bottom:4px;
+}
+.hm-hours span{font-size:10px;color:var(--muted);font-variant-numeric:tabular-nums;text-align:center}
+.hm-hours span.cur{color:var(--work);font-weight:700}
+/* 窄屏列太窄，非整点数字隐藏占位，避免挤成一团（visibility 保持网格结构不塌） */
+@media (max-width:480px){
+  .hm-hours span.min{visibility:hidden}
+}
+.hm-grid{
+  display:grid;grid-template-columns:repeat(24,1fr);gap:2px;
+  position:relative;
+}
+.cell{
+  aspect-ratio:1/1;border-radius:3px;background:var(--empty);
+  transition:background .35s;
+}
+.cell.work1{background:var(--work-1)}
+.cell.work2{background:var(--work-2)}
+.cell.work3{background:var(--work-3)}
+.cell.rest1{background:var(--rest-1)}
+.cell.rest2{background:var(--rest-2)}
+.cell.rest3{background:var(--rest-3)}
+.cell.live{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.legend{
+  display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;
+  font-size:12px;color:var(--muted);
+}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+.sw-empty{background:var(--empty)}
+.sw-work{background:var(--work-3)}
+.sw-rest{background:var(--rest-3)}
+.sw-live{background:var(--work-3);animation:pulse 1.6s ease-in-out infinite}
+.tooltip{
+  position:fixed;z-index:30;pointer-events:none;
+  background:rgba(51,42,34,.92);color:#fff;font-size:12px;
+  padding:4px 9px;border-radius:7px;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ---------- 时间线 ---------- */
+.today-summary{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.timeline{list-style:none}
+.timeline li{
+  display:flex;align-items:center;gap:9px;
+  padding:9px 2px;border-bottom:1px dashed var(--line);
+  font-size:14px;
+}
+.timeline li:last-child{border-bottom:none}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dot.work{background:var(--work)}
+.dot.rest{background:var(--rest)}
+.tl-range{margin-left:auto;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.empty-tip{color:var(--muted);font-size:13px;text-align:center;padding:14px 0 6px}
+
+footer{text-align:center;color:#bdb2a4;font-size:12px;margin-top:6px}
+
+#toast{
+  position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(16px);
+  background:rgba(51,42,34,.92);color:#fff;font-size:14px;
+  padding:10px 18px;border-radius:12px;opacity:0;
+  transition:opacity .25s,transform .25s;pointer-events:none;z-index:40;
+  max-width:88vw;text-align:center;
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:420px){
+  .card{padding:16px 12px}
+  .btn{font-size:15px;padding:16px 6px}
+}
+@media (prefers-reduced-motion:reduce){
+  .cell.live,.sw-live{animation:none}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>🍅 番茄钟</h1>
+    <p class="sub">专注 25 分钟 · 休息 10 分钟，把时间看得见</p>
+  </header>
+
+  <section class="card">
+    <div id="idlePanel" class="idle-panel">
+      <button id="btnWork" class="btn btn-work">🍅 工作 25 分钟</button>
+      <button id="btnRest" class="btn btn-rest">🌿 休息 10 分钟</button>
+    </div>
+    <div id="runPanel" class="run-panel" hidden>
+      <div class="mode-line">
+        <span id="modeTag" class="tag work">工作</span>
+        <span id="modeHint" class="mode-hint">专注中，加油！</span>
+      </div>
+      <div id="countdown" class="countdown work">25:00</div>
+      <div class="progress"><div id="progressBar"></div></div>
+      <button id="btnStop" class="btn btn-ghost">结束本轮</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>今日热力图</h2>
+      <span id="nowClock" class="now-clock"></span>
+    </div>
+    <div id="hmHours" class="hm-hours"></div>
+    <div id="hmGrid" class="hm-grid"></div>
+    <div class="legend">
+      <span><i class="sw sw-empty"></i>空闲</span>
+      <span><i class="sw sw-work"></i>工作</span>
+      <span><i class="sw sw-rest"></i>休息</span>
+      <span><i class="sw sw-live"></i>进行中</span>
+      <span style="margin-left:auto">每格 5 分钟 × 288 格</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head">
+      <h2>今日时间线</h2>
+      <span id="todaySummary" class="today-summary"></span>
+    </div>
+    <ul id="timeline" class="timeline"></ul>
+    <p id="emptyTip" class="empty-tip">今天还没有记录，点上面的按钮开始第一轮吧 ☀️</p>
+  </section>
+
+  <footer>数据只保存在你的浏览器本地，不会上传。</footer>
+</main>
+
+<div id="tooltip" class="tooltip" hidden></div>
+<div id="toast"></div>
+
+<script>
+'use strict';
+(function(){
+  const $ = s => document.querySelector(s);
+
+  const WORK_MIN = 25, REST_MIN = 10;
+  const SLOT_MS = 5 * 60 * 1000;          // 热力图一格 = 5 分钟
+  const SLOTS_PER_HOUR = 12;
+  const DAY_SLOTS = 24 * SLOTS_PER_HOUR;  // 288 格
+  const STORE_KEY = 'letsfarm.pomodoro.v1';
+  const MIN_RECORD_MS = 60 * 1000;        // 不足 1 分钟不记录
+
+  const MODES = {
+    work: { label: '工作', verb: '工作中', hint: '专注中，加油！',  min: WORK_MIN },
+    rest: { label: '休息', verb: '休息中', hint: '喝口水，放松一下～', min: REST_MIN },
+  };
+
+  // ---------- 状态与持久化 ----------
+  let state = { session: null, records: [] };
+
+  function save(){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+  }
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORE_KEY);
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      if(data && Array.isArray(data.records)) state.records = data.records;
+      if(data && data.session && MODES[data.session.type]) state.session = data.session;
+    }catch(e){}
+  }
+
+  // ---------- 音效（WebAudio 合成，无音频文件） ----------
+  let audioCtx = null;
+  function ensureAudio(){
+    if(!audioCtx){
+      try{ audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }catch(e){}
+    }
+    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+  function tone(freq, at, dur, type, vol){
+    if(!audioCtx) return;
+    const t0 = audioCtx.currentTime + at;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type; osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(vol, t0 + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(t0); osc.stop(t0 + dur + 0.05);
+  }
+  function chime(kind){
+    if(!audioCtx) return;
+    if(kind === 'work'){         // 清脆三连上行：C5 E5 G5
+      tone(523.25, 0.00, 0.18, 'sine', 0.22);
+      tone(659.25, 0.20, 0.18, 'sine', 0.22);
+      tone(783.99, 0.40, 0.30, 'sine', 0.24);
+    }else{                        // 柔和双音：G4 C5
+      tone(392.00, 0.00, 0.28, 'triangle', 0.16);
+      tone(523.25, 0.26, 0.42, 'triangle', 0.16);
+    }
+  }
+
+  // ---------- 时间工具 ----------
+  const pad = n => String(n).padStart(2, '0');
+  function fmtClock(ts){
+    const d = new Date(ts);
+    return pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }
+  function fmtMMSS(ms){
+    const s = Math.max(0, Math.ceil(ms / 1000));
+    return pad(Math.floor(s / 60)) + ':' + pad(s % 60);
+  }
+  function fmtMin(ms){ return Math.round(ms / 60000); }
+  function todayStart(ts){
+    const d = new Date(ts === undefined ? Date.now() : ts);
+    d.setHours(0, 0, 0, 0);
+    return +d;
+  }
+  function sameDay(a, b){
+    const x = new Date(a), y = new Date(b);
+    return x.getFullYear() === y.getFullYear() && x.getMonth() === y.getMonth() && x.getDate() === y.getDate();
+  }
+  // slot 的时间范围文案，如 14:35 – 14:40（最后一格终点显示 24:00）
+  function slotRange(idx){
+    const dayStart = todayStart();
+    const endTs = dayStart + (idx + 1) * SLOT_MS;
+    const end = (idx === DAY_SLOTS - 1) ? '24:00' : fmtClock(endTs);
+    return fmtClock(dayStart + idx * SLOT_MS) + ' – ' + end;
+  }
+  // tooltip 里的分钟数：不足 1 分钟按 1 分钟显示
+  function dispMin(ms){ return Math.max(1, fmtMin(ms)); }
+
+  // ---------- 热力图：把记录铺进 288 个 5 分钟格子 ----------
+  let lastSlots = [];
+  function buildSlots(){
+    const slots = Array.from({ length: DAY_SLOTS }, () => ({ work: 0, rest: 0 }));
+    const dayStart = todayStart(), dayEnd = dayStart + 24 * 3600 * 1000;
+    const sources = state.records.slice();
+    if(state.session){
+      sources.push({ type: state.session.type, start: state.session.start, end: Math.min(Date.now(), state.session.end) });
+    }
+    for(const rec of sources){
+      const s = Math.max(rec.start, dayStart), e = Math.min(rec.end, dayEnd);
+      if(e <= s) continue;
+      let i = Math.floor((s - dayStart) / SLOT_MS);
+      const last = Math.min(DAY_SLOTS - 1, Math.floor((e - dayStart - 1) / SLOT_MS));
+      for(; i <= last; i++){
+        const slotStart = dayStart + i * SLOT_MS;
+        const ov = Math.min(e, slotStart + SLOT_MS) - Math.max(s, slotStart);
+        if(ov > 0) slots[i][rec.type] += ov;
+      }
+    }
+    return slots;
+  }
+  function slotClass(s){
+    const total = Math.min(SLOT_MS, s.work + s.rest);
+    if(total <= 0) return '';
+    const type = s.work >= s.rest ? 'work' : 'rest';
+    const lv = total <= 2 * 60000 ? 1 : total <= 4 * 60000 ? 2 : 3;
+    return ' ' + type + lv;
+  }
+
+  // ---------- DOM ----------
+  const idlePanel = $('#idlePanel'), runPanel = $('#runPanel');
+  const modeTag = $('#modeTag'), modeHint = $('#modeHint');
+  const countdownEl = $('#countdown'), progressBar = $('#progressBar');
+  const hmGrid = $('#hmGrid'), hmHours = $('#hmHours');
+  const nowClock = $('#nowClock');
+  const timelineEl = $('#timeline'), summaryEl = $('#todaySummary'), emptyTip = $('#emptyTip');
+  const tooltip = $('#tooltip'), toastEl = $('#toast');
+
+  const cellBySlot = [];   // slot 索引（小时×12 + 块）→ 格子元素
+  const hourLabels = [];
+
+  function buildHeatmapDom(){
+    for(let h = 0; h < 24; h++){
+      const sp = document.createElement('span');
+      sp.textContent = String(h);
+      // maj = 整点/端点列（窄屏也保留），min = 其余列（窄屏隐藏）
+      sp.className = (h % 3 === 0 || h === 23) ? 'maj' : 'min';
+      hmHours.appendChild(sp);
+      hourLabels.push(sp);
+    }
+    // 行 = 每小时内的第 r 个 5 分钟块，列 = 小时（0–23 从左到右）
+    for(let r = 0; r < SLOTS_PER_HOUR; r++){
+      for(let h = 0; h < 24; h++){
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        const slot = h * SLOTS_PER_HOUR + r;
+        cell.dataset.slot = slot;
+        hmGrid.appendChild(cell);
+        cellBySlot[slot] = cell;
+      }
+    }
+  }
+
+  function renderHeatmap(){
+    lastSlots = buildSlots();
+    for(let i = 0; i < DAY_SLOTS; i++){
+      cellBySlot[i].className = 'cell' + slotClass(lastSlots[i]);
+    }
+    markNowColumn();
+  }
+
+  function markNowColumn(){
+    const h = new Date().getHours();
+    hourLabels.forEach((sp, i) => sp.classList.toggle('cur', i === h));
+  }
+
+  // ---------- 时间线 ----------
+  function renderTimeline(){
+    const now = Date.now();
+    const todays = state.records
+      .filter(r => sameDay(r.start, now))
+      .sort((a, b) => b.start - a.start);
+    timelineEl.innerHTML = '';
+    emptyTip.hidden = todays.length > 0;
+    let workN = 0, workMs = 0, restN = 0, restMs = 0;
+    for(const r of todays){
+      if(r.type === 'work'){ workN++; workMs += r.end - r.start; }
+      else{ restN++; restMs += r.end - r.start; }
+      const li = document.createElement('li');
+      const dur = fmtMin(r.end - r.start);
+      li.innerHTML =
+        '<span class="dot ' + r.type + '"></span>' +
+        '<span>' + MODES[r.type].label + ' ' + dur + ' 分钟</span>' +
+        '<span class="tl-range">' + fmtClock(r.start) + ' – ' + fmtClock(r.end) + '</span>';
+      timelineEl.appendChild(li);
+    }
+    summaryEl.textContent = todays.length
+      ? '工作 ' + workN + ' 轮 / ' + fmtMin(workMs) + ' 分钟 · 休息 ' + restN + ' 轮 / ' + fmtMin(restMs) + ' 分钟'
+      : '';
+  }
+
+  // ---------- 计时面板 ----------
+  function renderTimerPanel(){
+    const s = state.session;
+    idlePanel.hidden = !!s;
+    runPanel.hidden = !s;
+    if(s){
+      const m = MODES[s.type];
+      modeTag.textContent = m.label;
+      modeTag.className = 'tag ' + s.type;
+      modeHint.textContent = m.hint;
+      countdownEl.className = 'countdown ' + s.type;
+      progressBar.className = s.type;
+      tick();
+    }else{
+      document.title = '番茄钟 · 专注与休息';
+    }
+  }
+
+  function renderAll(){
+    liveMark = -1;
+    renderTimerPanel();
+    renderHeatmap();
+    renderTimeline();
+    updateLiveCell();
+  }
+
+  // ---------- 进行中：热力图当前格呼吸 ----------
+  let liveSlot = -1;
+  let liveMark = -1;   // 上次铺色时的「已进行分钟数」，变化即重铺，让当前格随时间加深
+  function updateLiveCell(){
+    if(liveSlot >= 0 && cellBySlot[liveSlot]){
+      cellBySlot[liveSlot].classList.remove('live');
+      liveSlot = -1;
+    }
+    if(!state.session) return;
+    const idx = Math.floor((Date.now() - todayStart()) / SLOT_MS);
+    if(idx >= 0 && idx < DAY_SLOTS && cellBySlot[idx]){
+      cellBySlot[idx].classList.add('live');
+      liveSlot = idx;
+    }
+  }
+
+  // ---------- 主循环（剩余时间一律用时间戳算，后台节流/刷新都不漂移） ----------
+  function tick(){
+    const now = Date.now();
+    nowClock.textContent = '现在 ' + fmtClock(now);
+    const s = state.session;
+    if(s){
+      const remain = s.end - now;
+      if(remain <= 0){ finish(true); return; }
+      countdownEl.textContent = fmtMMSS(remain);
+      document.title = fmtMMSS(remain) + ' · ' + MODES[s.type].verb;
+      const total = s.end - s.start;
+      progressBar.style.width = Math.min(100, (total - remain) / total * 100) + '%';
+      const mark = Math.floor((now - s.start) / 60000);   // 已进行分钟数
+      if(mark !== liveMark){
+        liveMark = mark;
+        renderHeatmap();   // 全量重铺：把走过的格子固化、当前格按已覆盖分钟加深
+      }
+      updateLiveCell();
+    }
+    markNowColumn();
+  }
+
+  // ---------- 开始 / 结束 ----------
+  function start(type){
+    if(state.session) return;
+    ensureAudio();               // 借用户手势解锁音频
+    const now = Date.now();
+    state.session = { type: type, start: now, end: now + MODES[type].min * 60000 };
+    save();
+    renderAll();
+  }
+
+  function finish(natural){
+    const s = state.session;
+    if(!s) return;
+    const end = natural ? s.end : Date.now();
+    state.session = null;
+    if(end - s.start >= MIN_RECORD_MS){
+      state.records.push({ type: s.type, start: s.start, end: end });
+      toast(MODES[s.type].label + '完成：' + fmtClock(s.start) + ' – ' + fmtClock(end) +
+            (natural ? '' : '（提前结束）'));
+    }else{
+      toast('时间太短，这一轮就不记啦');
+    }
+    save();
+    if(natural){ ensureAudio(); chime(s.type); }
+    renderAll();
+  }
+
+  // ---------- 恢复（刷新页面后从时间戳继续；过期则补录） ----------
+  function recover(){
+    const s = state.session;
+    if(s && s.end <= Date.now()){
+      state.session = null;
+      if(s.end - s.start >= MIN_RECORD_MS){
+        state.records.push({ type: s.type, start: s.start, end: s.end });
+        toast('上一轮' + MODES[s.type].label + '已经结束，已帮你记录');
+      }
+      save();
+    }
+  }
+
+  // ---------- toast ----------
+  let toastTimer = null;
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  }
+
+  // ---------- 热力图 tooltip ----------
+  hmGrid.addEventListener('pointermove', e => {
+    const cell = e.target.closest('.cell');
+    if(!cell){ tooltip.hidden = true; return; }
+    const idx = +cell.dataset.slot;
+    const s = lastSlots[idx] || { work: 0, rest: 0 };
+    let label = '空闲';
+    if(s.work > 0 && s.rest > 0) label = '工作 ' + dispMin(s.work) + ' 分钟 · 休息 ' + dispMin(s.rest) + ' 分钟';
+    else if(s.work > 0) label = '工作 ' + dispMin(s.work) + ' 分钟';
+    else if(s.rest > 0) label = '休息 ' + dispMin(s.rest) + ' 分钟';
+    tooltip.textContent = slotRange(idx) + ' · ' + label;
+    tooltip.hidden = false;
+    const pad2 = 10, w = tooltip.offsetWidth;
+    let x = e.clientX + pad2;
+    if(x + w > window.innerWidth - 6) x = e.clientX - w - pad2;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = Math.max(6, e.clientY - 34) + 'px';
+  });
+  hmGrid.addEventListener('pointerleave', () => { tooltip.hidden = true; });
+
+  // ---------- 事件 ----------
+  $('#btnWork').addEventListener('click', () => start('work'));
+  $('#btnRest').addEventListener('click', () => start('rest'));
+  $('#btnStop').addEventListener('click', () => finish(false));
+  document.addEventListener('visibilitychange', () => { if(!document.hidden) tick(); });
+
+  // ---------- 启动 ----------
+  buildHeatmapDom();
+  load();
+  recover();
+  renderAll();
+  tick();
+  setInterval(tick, 250);
+})();
+</script>
+</body>
+</html>
