@@ -1348,6 +1348,7 @@ function loadLevel(animateTrees=true){
 //   done()   该步是否完成（从棋盘实时推导，收回帐篷会自动回退步骤）
 const tentsArr=()=>[...state.tents.values()].map(t=>t.cells);
 const hasTentNear=(r,c)=>tentsArr().some(cs=>cs.some(([a,b])=>Math.abs(a-r)+Math.abs(b-c)===1));
+const freeOfTents=(r,c)=>![...state.tents.values()].some(t=>t.cells.some(([a,b])=>Math.max(Math.abs(a-r),Math.abs(b-c))<=1));
 
 const TUTORIALS=[
   { // 教学一 · R1：每棵树旁边都要有一顶帐篷
@@ -1366,6 +1367,41 @@ const TUTORIALS=[
         allow:(r,c)=>NB4[4*N+4].some(([a,b])=>a===r&&b===c),
         denyMsg:'这顶帐篷是第二棵树的——试试亮起的格子',
         done:()=>matchable([[1,2],[4,4]], tentsArr()) },
+    ],
+  },
+  { // 教学二 · R2：帐篷只能放树的上下左右；帐篷之间不能相邻（含斜角）
+    // 第一阶段只有一棵树；第二阶段揭示三棵树 + 两顶"别的露营者"搭好的锁定帐篷，
+    // 中间那棵树只剩一个合法格（已用核心函数验证：无论第一步怎么放都唯一是 (2,2)）
+    clues:false, singles:4,
+    trees:[[0,4]],
+    solution:[[[1,4]],[[4,1]],[[4,3]],[[2,2]]],
+    title:'帐篷不能挨着帐篷——连斜对角也不行',
+    steps:[
+      { sub:'先热个身：把帐篷搭在这棵树的上下左右',
+        enter(){ setTutMarks(NB4[0*N+4]); },
+        allow:(r,c)=>NB4[0*N+4].some(([a,b])=>a===r&&b===c),
+        denyMsg:'只能放在树的上下左右——试试亮起的格子',
+        done:()=>hasTentNear(0,4) },
+      { sub:'每顶 ⛺ 都会锁住周围一圈格子（红 ✕，斜对角也算）——给中间那棵树找还能放的位置！',
+        enter(){
+          state.puzzle.trees=[[0,4],[3,1],[3,2],[3,3]];
+          state.treeSet=new Set(state.puzzle.trees.map(([r,c])=>r*N+c));
+          if (!tentIdAt(4,1)) placeLockedTent(4,1);   // 别的露营者搭好的，收不回
+          if (!tentIdAt(4,3)) placeLockedTent(4,3);
+          renderTrees(true); renderTents(); updatePalette();
+          const lock=new Set();
+          for (const t of state.tents.values())
+            for (const [r,c] of t.cells)
+              for (const [a,b] of NB8[r*N+c])
+                if (!treeAt(a,b) && !tentIdAt(a,b)) lock.add(a*N+b);
+          setTutMarks(
+            NB4[3*N+2].filter(([a,b])=>!lock.has(a*N+b)),
+            [...lock].map(k=>[Math.floor(k/N), k%N])
+          );
+        },
+        allow:(r,c)=>NB4[3*N+2].some(([a,b])=>a===r&&b===c) && freeOfTents(r,c),
+        denyMsg:'被旁边的帐篷挡住了——找找没有 ✕ 的格子',
+        done:()=>matchable([[0,4],[3,1],[3,2],[3,3]], tentsArr()) },
     ],
   },
 ];
