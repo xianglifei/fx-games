@@ -242,7 +242,9 @@ body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:
 }
 #landing::before{width:170px;height:38px;top:10%;left:6%;}
 #landing::after{width:110px;height:28px;top:20%;right:8%;animation-duration:22s;animation-direction:alternate-reverse;}
-.landing-inner{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(92vw,460px);}
+.landing-inner{display:flex;flex-direction:column;align-items:center;width:min(92vw,460px);
+  /* 纵向呼吸感随视口高度走：720px 高的桌面约 17px，手机/高屏自动拉开到 22~42px */
+  gap:clamp(16px, calc(4vh - 12px), 42px);}
 .landing-banner{
   background:linear-gradient(145deg,var(--frame1),var(--frame2));
   border-radius:18px;padding:20px 38px;position:relative;text-align:center;
@@ -274,7 +276,7 @@ body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:
 @keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
 @keyframes flick{from{transform:scaleY(.94)}to{transform:scaleY(1.08)}}
 .landing-cta{
-  border:none;cursor:pointer;font-family:inherit;color:#fff;margin-top:8px;
+  border:none;cursor:pointer;font-family:inherit;color:#fff;margin-top:clamp(6px, calc(1.6vh - 4px), 14px);
   background:linear-gradient(180deg,var(--orange),var(--orange-d));
   font-size:17px;font-weight:700;letter-spacing:2px;
   padding:13px 40px;border-radius:999px;touch-action:manipulation;
@@ -396,6 +398,15 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
   #landing.lv4 .sc-bfire{width:42px;height:42px;}
   .tut-title{font-size:15px;}
   #tut-card{padding:10px 12px;}
+}
+/* 窄屏但屏幕较高(现代手机)：场景盒放大一档、元素上移保持上下间距平衡 */
+@media (max-width:420px) and (min-height:700px){
+  .landing-scene{height:140px;}
+  .sc-tree1{bottom:38px;}
+  .sc-tree2{bottom:46px;}
+  .sc-tree3{bottom:40px;}
+  .sc-tent{bottom:44px;}
+  .sc-fire{bottom:30px;}
 }
 </style>
 </head>
