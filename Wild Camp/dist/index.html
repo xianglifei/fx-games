@@ -243,8 +243,10 @@ body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:
 #landing::before{width:170px;height:38px;top:10%;left:6%;}
 #landing::after{width:110px;height:28px;top:20%;right:8%;animation-duration:22s;animation-direction:alternate-reverse;}
 .landing-inner{display:flex;flex-direction:column;align-items:center;width:min(92vw,460px);
-  /* 纵向呼吸感随视口高度走：720px 高的桌面约 17px，手机/高屏自动拉开到 22~42px */
-  gap:clamp(16px, calc(4vh - 12px), 42px);}
+  /* 占住视口高度的大部分，三元素 space-evenly 拉开：标题偏上、场景居中、按钮偏下 */
+  height:min(88vh, 780px);
+  justify-content:space-evenly;
+  gap:18px;   /* 保底间距，防止矮视口下贴在一起 */}
 .landing-banner{
   background:linear-gradient(145deg,var(--frame1),var(--frame2));
   border-radius:18px;padding:20px 38px;position:relative;text-align:center;
@@ -276,7 +278,7 @@ body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:
 @keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
 @keyframes flick{from{transform:scaleY(.94)}to{transform:scaleY(1.08)}}
 .landing-cta{
-  border:none;cursor:pointer;font-family:inherit;color:#fff;margin-top:clamp(6px, calc(1.6vh - 4px), 14px);
+  border:none;cursor:pointer;font-family:inherit;color:#fff;margin-top:8px;
   background:linear-gradient(180deg,var(--orange),var(--orange-d));
   font-size:17px;font-weight:700;letter-spacing:2px;
   padding:13px 40px;border-radius:999px;touch-action:manipulation;
