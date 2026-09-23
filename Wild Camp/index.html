@@ -445,6 +445,19 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
   </div>
 </div>
 
+<!-- 教学完成卡 -->
+<div class="mask" id="tutdone-mask">
+  <div class="card">
+    <div class="big">🎓</div>
+    <h2>教学完成！</h2>
+    <p class="sub">三条规则都学会了：树树配帐篷 · 互不相邻 · 看数字推理。<br>五片营地共 750 关，等你来搭！</p>
+    <div class="card-btns">
+      <button class="btn primary" id="btn-tutdone-start">开始第一关 ⛺</button>
+      <button class="btn" id="btn-tutdone-rules">先看完整规则</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /*__CORE_START__*/
 /* ============ 纯逻辑核心（无 DOM），可独立测试 ============ */
@@ -1012,7 +1025,7 @@ const state = {
   tier: save.tier in TIERS ? save.tier : 'easy',
   level: save.levels[save.tier in TIERS ? save.tier : 'easy'] || 1,
   mode: 'normal',          // normal=正式关卡 | tutorial=教学关
-  tut: 0, tutStep: 0, tutDone: false,
+  tut: 0, tutStep: 0, tutDone: false, pendingStart: false,
   puzzle: null,
   treeSet: new Set(),
   tents: new Map(),
@@ -1404,6 +1417,25 @@ const TUTORIALS=[
         done:()=>matchable([[0,4],[3,1],[3,2],[3,3]], tentsArr()) },
     ],
   },
+  { // 教学三 · R3：边缘数字 = 每行/列的帐篷数
+    // 4 树棋盘,唯一解已用核心 solve() 验证;rc/cc 是真实计数,
+    // 行列超标的摆放会被自然弹回（"目标 N 顶"），数字对上芯片变绿
+    clues:true, singles:4,
+    trees:[[3,4],[3,5],[1,4],[0,5]],
+    solution:[[[3,3]],[[4,5]],[[1,3]],[[1,5]]],
+    rc:[0,2,0,1,1,0], cc:[0,0,0,2,0,2],
+    title:'边缘的数字 = 这一行·这一列的帐篷数',
+    steps:[
+      { sub:'提示都收起来了——读数字来推理：0 的行/列一定没帐篷，数字对上就会变绿',
+        enter(){ setTutMarks([]); },
+        // 不设 allow：这一关就是真实玩法，合法性完全交给 R1/R2/R3 校验
+        done(){
+          const {rc,cc}=currentCounts(), P=state.puzzle;
+          return rc.every((v,i)=>v===P.rc[i]) && cc.every((v,i)=>v===P.cc[i])
+            && matchable([[3,4],[3,5],[1,4],[0,5]], tentsArr());
+        } },
+    ],
+  },
 ];
 
 function setTutMarks(hi, lock=[]){
@@ -1424,8 +1456,8 @@ function updateTutCard(){
 function loadTutorial(i){
   state.mode='tutorial'; state.tut=i; state.tutStep=0; state.tutDone=false;
   const T=TUTORIALS[i];
-  // 教学一二把行列数字调暗不参与判定，这里给宽松值，避免出现「行列已满」的困惑
-  state.puzzle={ trees:T.trees, solution:T.solution, rc:Array(N).fill(2), cc:Array(N).fill(2), singles:T.singles, doubles:0 };
+  // 教学一二把行列数字调暗不参与判定，给宽松值；教学三用真实数字（rc/cc 由关卡提供）
+  state.puzzle={ trees:T.trees, solution:T.solution, rc:T.rc||Array(N).fill(2), cc:T.cc||Array(N).fill(2), singles:T.singles, doubles:0 };
   state.treeSet=new Set(T.trees.map(([r,c])=>r*N+c));
   applySkin('easy');   // 教学固定用入门皮肤
   document.body.classList.add('tut');
@@ -1467,8 +1499,12 @@ function tutWin(){
   const next=state.tut+1;
   setTimeout(()=>{
     if (next<TUTORIALS.length) loadTutorial(next);
-    else finishOnboarding();   // 教学三完成后在这里换成"教学完成卡"再进第一关
+    else showTutDone();
   },1000);
+}
+function showTutDone(){
+  state.pendingStart=true;
+  $('tutdone-mask').classList.add('show');
 }
 function exitTutorial(){
   state.mode='normal';
@@ -1502,6 +1538,8 @@ function closeRules(){
   $('rules-mask').classList.remove('show');
   showRulesView('main');
   if (!save.seenRules){ save.seenRules=true; persist(); }
+  // 从教学完成卡进来查看规则的：关掉规则后接着进第一关
+  if (state.pendingStart){ state.pendingStart=false; finishOnboarding(); }
 }
 $('btn-close-rules').addEventListener('click', closeRules);
 $('btn-double-rules').addEventListener('click', ()=>showRulesView('double'));
@@ -1513,6 +1551,15 @@ $('btn-sound').addEventListener('click', ()=>{
   if (Sound.enabled) Sound.place();
 });
 $('tut-skip').addEventListener('click', finishOnboarding);
+$('btn-tutdone-start').addEventListener('click', ()=>{
+  $('tutdone-mask').classList.remove('show');
+  finishOnboarding();
+});
+$('btn-tutdone-rules').addEventListener('click', ()=>{
+  $('tutdone-mask').classList.remove('show');
+  showRulesView('main');
+  $('rules-mask').classList.add('show');
+});
 $('btn-single').addEventListener('click', ()=>selectPiece('single'));
 $('btn-double').addEventListener('click', ()=>selectPiece('double'));
 $('btn-next').addEventListener('click', ()=>{
