@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>落地页候选 · Wild Camp（仅供挑选）</title>
+<style>
+*{box-sizing:border-box;}
+body{
+  margin:0;padding:26px 16px 60px;font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+  background:linear-gradient(180deg,#e9f4dc,#f7f3e4);color:#3c2a1a;
+}
+.wrap{max-width:620px;margin:0 auto;}
+h1{font-size:22px;margin:0 0 4px;}
+.tip{font-size:13px;color:#8a6a4a;margin:0 0 8px;line-height:1.7;}
+button.fresh{
+  border:none;border-radius:999px;padding:7px 16px;font-size:12.5px;cursor:pointer;font-family:inherit;
+  background:#fff;color:#6b4e2e;box-shadow:0 2px 6px rgba(60,42,26,.15);margin-bottom:6px;
+}
+button.fresh:active{transform:scale(.96);}
+section{margin-top:22px;}
+section h2{
+  font-size:16px;margin:0 0 8px;display:flex;align-items:baseline;gap:10px;
+}
+section h2 a{font-size:12px;color:#b0793a;text-decoration:none;font-weight:400;}
+.frame{
+  border-radius:18px;overflow:hidden;box-shadow:0 10px 26px rgba(60,42,26,.18);
+  background:#fff;border:6px solid #d2a371;
+}
+iframe{display:block;width:100%;height:600px;border:none;background:#bfe6f7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⛺ 落地页候选（仅供挑选，游戏未做其它改动）</h1>
+  <p class="tip">四个设计方向，滚动对比。按钮会按你的存档显示「继续露营 · 第 N 关」，是正常现象；
+  想看新玩家视角点下面的按钮。中选后告诉我编号即可设为默认。</p>
+  <button class="fresh" id="btn-fresh">↺ 模拟新玩家（清存档并刷新全部预览）</button>
+
+  <section>
+    <h2>A · 森林营地 <a href="index.html?landing=1" target="_blank">单独打开 ↗</a></h2>
+    <div class="frame"><iframe src="index.html?landing=1" data-v="1"></iframe></div>
+  </section>
+  <section>
+    <h2>B · 星夜营地 <a href="index.html?landing=2" target="_blank">单独打开 ↗</a></h2>
+    <div class="frame"><iframe src="index.html?landing=2" data-v="2"></iframe></div>
+  </section>
+  <section>
+    <h2>C · 大地平线（极简大字 + 木牌按钮）<a href="index.html?landing=3" target="_blank">单独打开 ↗</a></h2>
+    <div class="frame"><iframe src="index.html?landing=3" data-v="3"></iframe></div>
+  </section>
+  <section>
+    <h2>D · 场景主角（大场景 + 小标题）<a href="index.html?landing=4" target="_blank">单独打开 ↗</a></h2>
+    <div class="frame"><iframe src="index.html?landing=4" data-v="4"></iframe></div>
+  </section>
+</div>
+<script>
+document.getElementById('btn-fresh').addEventListener('click', ()=>{
+  try{ localStorage.removeItem('wild-camp-web-v1'); }catch(e){}
+  document.querySelectorAll('iframe').forEach(f=>{
+    f.src=f.src;   // 重新加载,读取清空后的存档
+  });
+});
+</script>
+</body>
+</html>
