@@ -149,6 +149,38 @@ h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
 .piece-btn .cnt{display:block;font-size:11px;color:#8a6a4a;font-weight:500;}
 .counter{align-self:center;font-size:13px;background:rgba(255,255,255,.85);padding:9px 13px;border-radius:999px;font-weight:600;}
 
+/* ---------- 教学关 ---------- */
+#tut-card{
+  display:none;width:var(--app-w);margin-top:14px;z-index:1;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(6px);
+  border-radius:16px;padding:12px 16px;box-shadow:0 4px 16px rgba(60,42,26,.14);
+  align-items:center;gap:12px;
+}
+body.tut #tut-card{display:flex;}
+.tut-badge{flex:none;font-size:11.5px;font-weight:700;color:#fff;background:var(--orange);border-radius:999px;padding:4px 10px;letter-spacing:1px;}
+.tut-text{flex:1;min-width:0;}
+.tut-title{font-size:16.5px;font-weight:700;line-height:1.3;}
+.tut-sub{font-size:12.5px;color:#8a6a4a;margin-top:3px;line-height:1.4;}
+.tut-skip{flex:none;border:none;background:none;cursor:pointer;font-family:inherit;font-size:11.5px;color:#b09468;text-decoration:underline dotted;padding:4px;}
+.tut-skip:hover{color:#b04a2f;}
+/* 教学模式下精简游戏界面：藏难度/提示/重开/棋子栏/关卡徽章/规则按钮 */
+body.tut .ctrl, body.tut .lvl-badge, body.tut .palette, body.tut #btn-rules{display:none;}
+/* 教学一、二不讲数字，把行列数字调暗 */
+body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:saturate(.4);}
+/* 教学高亮格（"可以放这里"）与锁定格（"被挡住了"） */
+.cell.tut-hi{animation:tuthi 1.2s ease-in-out infinite;box-shadow:inset 0 0 0 3px #ffd23f;}
+@keyframes tuthi{50%{box-shadow:inset 0 0 0 3px rgba(255,210,63,.25)}}
+.cell.tut-lock{
+  box-shadow:inset 0 0 0 2px rgba(192,57,43,.5);cursor:not-allowed;
+  background:repeating-linear-gradient(45deg,rgba(192,57,43,.22) 0 5px,rgba(192,57,43,.08) 5px 10px);
+}
+.cell.tut-lock::after{
+  content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:rgba(160,30,20,.55);font-weight:700;
+}
+/* 教学里预先搭好的帐篷（不可收回）加一圈暖光 */
+.tent.locked svg{filter:drop-shadow(0 3px 3px rgba(0,0,0,.24)) drop-shadow(0 0 6px rgba(255,244,200,.9));}
+
 /* ---------- 提示气泡 ---------- */
 #toast{
   position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(8px);
@@ -280,6 +312,8 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
   .sc-tent{width:78px;height:78px;}
   .sc-fire{width:34px;height:34px;}
   .landing-cta{font-size:17px;padding:13px 40px;}
+  .tut-title{font-size:15px;}
+  #tut-card{padding:10px 12px;}
 }
 </style>
 </head>
@@ -322,6 +356,15 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
 </header>
 
 <div class="board-area">
+  <!-- 教学指令卡：只在教学模式显示 -->
+  <div id="tut-card">
+    <span class="tut-badge" id="tut-badge">教学 1/3</span>
+    <div class="tut-text">
+      <div class="tut-title" id="tut-title"></div>
+      <div class="tut-sub" id="tut-sub"></div>
+    </div>
+    <button class="tut-skip" id="tut-skip">跳过教学</button>
+  </div>
   <div class="frame">
     <div class="grid-wrap">
       <div class="row-clues" id="row-clues"></div>
@@ -968,6 +1011,8 @@ function persist(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(save)); }
 const state = {
   tier: save.tier in TIERS ? save.tier : 'easy',
   level: save.levels[save.tier in TIERS ? save.tier : 'easy'] || 1,
+  mode: 'normal',          // normal=正式关卡 | tutorial=教学关
+  tut: 0, tutStep: 0, tutDone: false,
   puzzle: null,
   treeSet: new Set(),
   tents: new Map(),
@@ -1016,7 +1061,7 @@ function renderTents(){
   overlayEl.querySelectorAll('.tent').forEach(e=>e.remove());
   for (const t of state.tents.values()){
     const d=document.createElement('div');
-    d.className='tent';
+    d.className='tent'+(t.locked?' locked':'');
     const rs=t.cells.map(x=>x[0]), cs=t.cells.map(x=>x[1]);
     const minR=Math.min(...rs), minC=Math.min(...cs);
     const hCells=(t.kind===2 && t.cells[0][0]===t.cells[1][0])?2:1;
@@ -1101,15 +1146,16 @@ function checkPlacement(cells){
   return {ok:true};
 }
 
+function wiggleTree(r,c){
+  const t=cellAt(r,c).querySelector('.tree');
+  if (t){ t.classList.remove('wiggle'); void t.offsetWidth; t.classList.add('wiggle'); }
+}
 function onCell(r,c){
   if (state.won || !state.puzzle) return;
+  if (state.mode==='tutorial'){ tutorialTap(r,c); return; }
   const tid=tentIdAt(r,c);
   if (tid){ cancelAnchor(); removeTent(tid); return; }
-  if (treeAt(r,c)){
-    const t=cellAt(r,c).querySelector('.tree');
-    if (t){ t.classList.remove('wiggle'); void t.offsetWidth; t.classList.add('wiggle'); }
-    return;
-  }
+  if (treeAt(r,c)){ wiggleTree(r,c); return; }
   if (state.piece==='single'){ tryPlace([[r,c]],1); return; }
   if (!state.anchor){ tryAnchor(r,c); return; }
   const [ar,ac]=state.anchor;
@@ -1151,14 +1197,18 @@ function tryPlace(cells, kind){
   cancelAnchor();
   Sound.place();
   renderTents(); updateClues(); updatePalette();
+  if (state.mode==='tutorial') syncTutorial();
   checkWin();
 }
 function removeTent(id){
   if (state.won) return;
+  const t=state.tents.get(id);
+  if (t && t.locked){ toast('这顶帐篷已经搭好啦'); return; }
   state.tents.delete(id);
   state.moves++;
   Sound.remove();
   renderTents(); updateClues(); updatePalette();
+  if (state.mode==='tutorial') syncTutorial();
 }
 function selectPiece(kind){
   state.piece=kind;
@@ -1169,7 +1219,7 @@ function selectPiece(kind){
 
 /* ============ 胜利判定 ============ */
 function checkWin(){
-  if (state.won || !state.puzzle) return;
+  if (state.mode!=='normal' || state.won || !state.puzzle) return;
   const {rc,cc}=currentCounts(), p=state.puzzle;
   let full=true;
   for (let i=0;i<N;i++) if (rc[i]!==p.rc[i] || cc[i]!==p.cc[i]){ full=false; break; }
@@ -1272,6 +1322,8 @@ function resetBoard(){
   updateWinBar();
 }
 function loadLevel(animateTrees=true){
+  state.mode='normal';
+  exitTutorial();
   const p=paramsFor(state.tier, state.level);
   let pz=genPuzzle(p);
   if (!pz) pz=genPuzzle({...p, doubles:0});
@@ -1287,6 +1339,105 @@ function loadLevel(animateTrees=true){
     showRulesView('double');
     $('rules-mask').classList.add('show');
   }
+}
+
+/* ============ 教学关 ============ */
+// 教学关不走 genPuzzle，用手工设计的固定小棋盘。每个步骤：
+//   enter()  进入该步时布置高亮/锁定格与文案
+//   allow()  本步只允许点这些格（返回 false 时给出引导语）
+//   done()   该步是否完成（从棋盘实时推导，收回帐篷会自动回退步骤）
+const tentsArr=()=>[...state.tents.values()].map(t=>t.cells);
+const hasTentNear=(r,c)=>tentsArr().some(cs=>cs.some(([a,b])=>Math.abs(a-r)+Math.abs(b-c)===1));
+
+const TUTORIALS=[
+  { // 教学一 · R1：每棵树旁边都要有一顶帐篷
+    clues:false, singles:2,
+    trees:[[1,2],[4,4]],
+    solution:[[[0,2]],[[3,4]]],
+    title:'每棵树旁边，都要有一顶帐篷',
+    steps:[
+      { sub:'点点亮起的格子，把帐篷搭在树旁边',
+        enter(){ setTutMarks(NB4[1*N+2]); },
+        allow:(r,c)=>NB4[1*N+2].some(([a,b])=>a===r&&b===c),
+        denyMsg:'帐篷要搭在树旁边——试试亮起的格子',
+        done:()=>hasTentNear(1,2) },
+      { sub:'太棒了！再给第二棵树也搭一顶',
+        enter(){ setTutMarks(NB4[4*N+4]); },
+        allow:(r,c)=>NB4[4*N+4].some(([a,b])=>a===r&&b===c),
+        denyMsg:'这顶帐篷是第二棵树的——试试亮起的格子',
+        done:()=>matchable([[1,2],[4,4]], tentsArr()) },
+    ],
+  },
+];
+
+function setTutMarks(hi, lock=[]){
+  cellEls.forEach(el=>el.classList.remove('tut-hi','tut-lock'));
+  hi.forEach(([r,c])=>cellAt(r,c).classList.add('tut-hi'));
+  lock.forEach(([r,c])=>cellAt(r,c).classList.add('tut-lock'));
+}
+function placeLockedTent(r,c){
+  state.tents.set(state.nextId, {id:state.nextId, cells:[[r,c]], kind:1, locked:true});
+  state.nextId++;
+}
+function updateTutCard(){
+  const T=TUTORIALS[state.tut], S=T.steps[Math.min(state.tutStep, T.steps.length-1)];
+  $('tut-badge').textContent=`教学 ${state.tut+1}/${TUTORIALS.length}`;
+  $('tut-title').textContent=T.title;
+  $('tut-sub').textContent=S.sub||T.sub||'';
+}
+function loadTutorial(i){
+  state.mode='tutorial'; state.tut=i; state.tutStep=0; state.tutDone=false;
+  const T=TUTORIALS[i];
+  // 教学一二把行列数字调暗不参与判定，这里给宽松值，避免出现「行列已满」的困惑
+  state.puzzle={ trees:T.trees, solution:T.solution, rc:Array(N).fill(2), cc:Array(N).fill(2), singles:T.singles, doubles:0 };
+  state.treeSet=new Set(T.trees.map(([r,c])=>r*N+c));
+  applySkin('easy');   // 教学固定用入门皮肤
+  document.body.classList.add('tut');
+  document.body.classList.toggle('dim-clues', !T.clues);
+  resetBoard();
+  renderTrees(true);
+  (T.preTents||[]).forEach(([r,c])=>placeLockedTent(r,c));
+  renderTents(); updateClues(); updatePalette();
+  updateTutCard();
+  T.steps[0].enter();
+}
+function tutorialTap(r,c){
+  if (state.tutDone) return;
+  if (treeAt(r,c)){ wiggleTree(r,c); return; }
+  const tid=tentIdAt(r,c);
+  if (tid){ removeTent(tid); return; }   // 预摆的锁定帐篷会在 removeTent 里被拒绝
+  const T=TUTORIALS[state.tut];
+  const S=T.steps[Math.min(state.tutStep, T.steps.length-1)];
+  if (S.allow && !S.allow(r,c)){ toast(S.denyMsg||'再看看亮起的格子'); shake([[r,c]]); Sound.error(); return; }
+  tryPlace([[r,c]],1);
+}
+function syncTutorial(){
+  if (state.mode!=='tutorial') return;
+  const T=TUTORIALS[state.tut];
+  let i=0;
+  while (i<T.steps.length && T.steps[i].done()) i++;
+  if (i>=T.steps.length){ tutWin(); return; }
+  if (i!==state.tutStep){
+    state.tutStep=i;
+    updateTutCard();
+    T.steps[i].enter();
+  }
+}
+function tutWin(){
+  if (state.tutDone) return;
+  state.tutDone=true;
+  setTutMarks([]);
+  Sound.win(); confetti();
+  const next=state.tut+1;
+  setTimeout(()=>{
+    if (next<TUTORIALS.length) loadTutorial(next);
+    else finishOnboarding();   // 教学三完成后在这里换成"教学完成卡"再进第一关
+  },1000);
+}
+function exitTutorial(){
+  state.mode='normal';
+  document.body.classList.remove('tut','dim-clues');
+  cellEls.forEach(el=>el.classList.remove('tut-hi','tut-lock'));
 }
 
 /* ============ 按钮绑定 ============ */
@@ -1325,6 +1476,7 @@ $('btn-sound').addEventListener('click', ()=>{
   $('btn-sound').textContent=Sound.enabled?'🔊':'🔇';
   if (Sound.enabled) Sound.place();
 });
+$('tut-skip').addEventListener('click', finishOnboarding);
 $('btn-single').addEventListener('click', ()=>selectPiece('single'));
 $('btn-double').addEventListener('click', ()=>selectPiece('double'));
 $('btn-next').addEventListener('click', ()=>{
@@ -1402,8 +1554,7 @@ function finishOnboarding(){
 }
 $('btn-start').addEventListener('click', ()=>{
   if (!save.tutorialDone){
-    // 教学关将在后续提交接入；当前先直接进入第一关
-    finishOnboarding();
+    loadTutorial(0);
   } else {
     loadLevel();
   }
