@@ -1,0 +1,8 @@
+name = "pomodoro-api"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pomodoro-db"
+database_id = "e421afab-1f74-48bb-afec-06cc9d23300f"
