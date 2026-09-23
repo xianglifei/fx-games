@@ -82,6 +82,15 @@ function validRecord(r){
     && Number.isInteger(r.start) && Number.isInteger(r.end)
     && r.start > 0 && r.end > r.start && r.end - r.start <= 24 * 3600 * 1000;
 }
+// 备注：追加条目 {id, rid, text, at}，rid 必须是合法记录的三元组
+function validNote(n){
+  return n && typeof n === 'object'
+    && typeof n.id === 'string' && n.id.length >= 8 && n.id.length <= 64
+    && typeof n.rid === 'string' && /^[a-z]+:\d+:\d+$/.test(n.rid)
+    && validRecord({ type: n.rid.split(':')[0], start: +n.rid.split(':')[1], end: +n.rid.split(':')[2] })
+    && typeof n.text === 'string' && n.text.trim().length >= 1 && n.text.length <= 200
+    && Number.isInteger(n.at);
+}
 
 // ---------- 端点 ----------
 async function handleRegister(req, env){
@@ -145,7 +154,8 @@ async function handleSync(req, env){
   if (req.method === 'POST'){
     const body = await req.json().catch(() => null);
     const records = body && Array.isArray(body.records) ? body.records : [];
-    if (records.length > SYNC_BATCH_LIMIT)
+    const notes = body && Array.isArray(body.notes) ? body.notes : [];
+    if (records.length > SYNC_BATCH_LIMIT || notes.length > SYNC_BATCH_LIMIT)
       return json(R, 400, { error: '单次最多上传 ' + SYNC_BATCH_LIMIT + ' 条' });
     const stmts = [];
     for (const r of records){
@@ -154,13 +164,22 @@ async function handleSync(req, env){
         'INSERT OR IGNORE INTO records (user_id, type, start, end) VALUES (?, ?, ?, ?)'
       ).bind(uid, r.type, r.start, r.end));
     }
+    for (const n of notes){
+      if (!validNote(n)) continue;
+      stmts.push(env.DB.prepare(
+        'INSERT OR IGNORE INTO notes (user_id, id, rid, text, created_at) VALUES (?, ?, ?, ?, ?)'
+      ).bind(uid, n.id, n.rid, n.text, n.at));
+    }
     if (stmts.length) await env.DB.batch(stmts);
   }
 
-  const { results } = await env.DB.prepare(
+  const recs = await env.DB.prepare(
     'SELECT type, start, end FROM records WHERE user_id = ? ORDER BY start'
   ).bind(uid).all();
-  return json(R, 200, { records: results || [] });
+  const nts = await env.DB.prepare(
+    'SELECT id, rid, text, created_at AS at FROM notes WHERE user_id = ? ORDER BY created_at'
+  ).bind(uid).all();
+  return json(R, 200, { records: recs.results || [], notes: nts.results || [] });
 }
 
 // ---------- 入口 ----------

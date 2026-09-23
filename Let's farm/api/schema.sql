@@ -22,3 +22,13 @@ CREATE TABLE IF NOT EXISTS login_fails (
   count     INTEGER NOT NULL,
   last_fail INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS notes (
+  user_id    INTEGER NOT NULL,
+  id         TEXT NOT NULL,      -- 客户端 UUID，追加条目的幂等主键
+  rid        TEXT NOT NULL,      -- 关联记录的三元组 "type:start:end"
+  text       TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  PRIMARY KEY (user_id, id)
+);
+CREATE INDEX IF NOT EXISTS idx_notes_user_rid ON notes(user_id, rid);

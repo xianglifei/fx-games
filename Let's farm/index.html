@@ -143,15 +143,36 @@ header .sub{color:var(--muted);font-size:14px;margin-top:4px}
 .today-summary{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .timeline{list-style:none}
 .timeline li{
-  display:flex;align-items:center;gap:9px;
+  display:flex;flex-direction:column;gap:5px;
   padding:9px 2px;border-bottom:1px dashed var(--line);
-  font-size:14px;
 }
 .timeline li:last-child{border-bottom:none}
+.tl-main{display:flex;align-items:center;gap:9px;font-size:14px}
 .dot{width:9px;height:9px;border-radius:50%;flex:none}
 .dot.work{background:var(--work)}
 .dot.rest{background:var(--rest)}
 .tl-range{margin-left:auto;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tl-note-btn{
+  flex:none;width:26px;height:26px;border-radius:8px;border:none;cursor:pointer;
+  background:transparent;color:#c9bfb1;position:relative;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:color .15s,background .15s;touch-action:manipulation;
+}
+.tl-note-btn:hover{background:var(--line);color:var(--ink)}
+.tl-note-btn .badge{
+  position:absolute;top:-3px;right:-4px;min-width:14px;height:14px;border-radius:7px;
+  background:var(--work);color:#fff;font-size:9px;font-weight:700;line-height:1;
+  display:flex;align-items:center;justify-content:center;padding:0 3px;
+  font-variant-numeric:tabular-nums;
+}
+.tl-note-btn.rest .badge{background:var(--rest)}
+.tl-notes{display:flex;flex-direction:column;gap:3px}
+.tl-note{
+  font-size:12px;color:#8d8175;line-height:1.5;padding-left:8px;
+  border-left:2px solid var(--line);margin-left:18px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  white-space:pre-wrap;word-break:break-word;
+}
 .empty-tip{color:var(--muted);font-size:13px;text-align:center;padding:14px 0 6px}
 
 footer{text-align:center;color:#bdb2a4;font-size:12px;margin-top:6px}
@@ -192,6 +213,14 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
 .btn-block{width:100%;padding:12px;font-size:15px;margin-top:2px}
 .auth-switch{font-size:12px;color:var(--muted);text-align:center;margin-top:14px}
 .auth-note{font-size:11px;color:#c9bfb1;text-align:center;margin-top:6px}
+.note-input{
+  width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 12px;
+  font-size:14px;font-family:inherit;color:var(--ink);line-height:1.5;
+  resize:vertical;min-height:88px;outline:none;background:#fff;
+  transition:border-color .15s;
+}
+.note-input:focus{border-color:#e5b7a9}
+.note-count{text-align:right;font-size:11px;color:var(--muted);margin:4px 0 10px;font-variant-numeric:tabular-nums}
 
 #toast{
   position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));
@@ -303,6 +332,20 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
   </div>
 </div>
 
+<div id="noteModal" class="modal-mask" hidden>
+  <div class="modal">
+    <button id="noteClose" class="modal-close" aria-label="关闭">
+      <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <h3>记录一下</h3>
+    <p class="auth-sub" id="noteCtx"></p>
+    <textarea id="noteInput" class="note-input" maxlength="200" rows="4" placeholder="这段时间做了什么？"></textarea>
+    <div class="note-count"><span id="noteCount">0</span>/200</div>
+    <button id="noteSave" type="button" class="btn btn-work btn-block">记下</button>
+    <button id="noteDone" type="button" class="btn btn-ghost btn-block" style="margin-top:8px">完成</button>
+  </div>
+</div>
+
 <div id="tooltip" class="tooltip" hidden></div>
 <div id="toast"></div>
 
@@ -324,7 +367,7 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
   };
 
   // ---------- 状态与持久化 ----------
-  let state = { session: null, records: [] };
+  let state = { session: null, records: [], notes: [] };   // notes: 追加式备注 {id, rid, text, at}
   let viewTs = null;   // 当前查看的日期（当天零点时间戳），null 初始化为今天
 
   function save(){
@@ -336,6 +379,7 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
       if(!raw) return;
       const data = JSON.parse(raw);
       if(data && Array.isArray(data.records)) state.records = data.records;
+      if(data && Array.isArray(data.notes)) state.notes = data.notes;
       if(data && data.session && MODES[data.session.type]) state.session = data.session;
     }catch(e){}
   }
@@ -515,6 +559,11 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
   }
 
   // ---------- 时间线 ----------
+  // Lucide pen-line（ISC License, lucide-static v1.47.0）
+  const PEN_SVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 21h8"/><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>';
+  const ridOf = r => r.type + ':' + r.start + ':' + r.end;
+  const notesOf = rid => state.notes.filter(n => n.rid === rid).sort((a, b) => a.at - b.at);
+
   function renderTimeline(){
     const todays = state.records
       .filter(r => sameDay(r.start, viewTs))
@@ -530,18 +579,80 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     for(const r of todays){
       if(r.type === 'work'){ workN++; workMs += r.end - r.start; }
       else{ restN++; restMs += r.end - r.start; }
-      const li = document.createElement('li');
       const dur = fmtMin(r.end - r.start);
+      const rid = ridOf(r);
+      const ns = notesOf(rid);
+      const li = document.createElement('li');
       li.innerHTML =
-        '<span class="dot ' + r.type + '"></span>' +
-        '<span>' + MODES[r.type].label + ' ' + dur + ' 分钟</span>' +
-        '<span class="tl-range">' + fmtClock(r.start) + ' – ' + fmtClock(r.end) + '</span>';
+        '<div class="tl-main">' +
+          '<span class="dot ' + r.type + '"></span>' +
+          '<span>' + MODES[r.type].label + ' ' + dur + ' 分钟</span>' +
+          '<span class="tl-range">' + fmtClock(r.start) + ' – ' + fmtClock(r.end) + '</span>' +
+          '<button class="tl-note-btn' + (r.type === 'rest' ? ' rest' : '') + '" data-rid="' + rid + '" aria-label="记录一下">' +
+            PEN_SVG + (ns.length ? '<span class="badge">' + ns.length + '</span>' : '') +
+          '</button>' +
+        '</div>' +
+        (ns.length
+          ? '<div class="tl-notes">' + ns.map(n => '<p class="tl-note">' + esc(n.text) + '</p>').join('') + '</div>'
+          : '');
       timelineEl.appendChild(li);
     }
     summaryEl.textContent = todays.length
       ? '工作 ' + workN + ' 轮 / ' + fmtMin(workMs) + ' 分钟 · 休息 ' + restN + ' 轮 / ' + fmtMin(restMs) + ' 分钟'
       : '';
   }
+
+  // ---------- 「记录一下」弹窗（追加式，可连续记多条） ----------
+  const noteModal = $('#noteModal'), noteInput = $('#noteInput'), noteCtx = $('#noteCtx'), noteCount = $('#noteCount');
+  let noteRid = null;
+
+  function noteCtxText(){
+    const parts = noteRid.split(':');
+    const s = +parts[1], e = +parts[2];
+    let t = MODES[parts[0]].label + ' ' + fmtMin(e - s) + ' 分钟 · ' + fmtClock(s) + ' – ' + fmtClock(e);
+    const n = notesOf(noteRid).length;
+    if(n) t += ' · 已有 ' + n + ' 条';
+    return t;
+  }
+  function openNoteModal(rid){
+    noteRid = rid;
+    noteCtx.textContent = noteCtxText();
+    noteInput.value = '';
+    noteCount.textContent = '0';
+    noteModal.hidden = false;
+    requestAnimationFrame(() => noteModal.classList.add('show'));
+    noteInput.focus();
+  }
+  function closeNoteModal(){
+    noteModal.classList.remove('show');
+    setTimeout(() => { noteModal.hidden = true; }, 200);
+  }
+  function saveNote(){
+    const text = noteInput.value.trim();
+    if(!text){ toast('写点什么再记吧'); noteInput.focus(); return; }
+    const id = (crypto.randomUUID ? crypto.randomUUID() : 'n' + Date.now() + '-' + Math.random().toString(36).slice(2));
+    state.notes.push({ id: id, rid: noteRid, text: text, at: Date.now() });
+    save();
+    schedulePush();   // 备注上云，复用防抖（未登录时是空操作）
+    renderTimeline();
+    noteInput.value = '';
+    noteCount.textContent = '0';
+    noteCtx.textContent = noteCtxText();   // 更新「已有 N 条」提示，可继续追写
+    toast('已记下');
+    noteInput.focus();
+  }
+  timelineEl.addEventListener('click', e => {
+    const btn = e.target.closest('.tl-note-btn');
+    if(btn) openNoteModal(btn.dataset.rid);
+  });
+  $('#noteClose').addEventListener('click', closeNoteModal);
+  $('#noteDone').addEventListener('click', closeNoteModal);
+  $('#noteSave').addEventListener('click', saveNote);
+  noteModal.addEventListener('click', e => { if(e.target === noteModal) closeNoteModal(); });
+  noteInput.addEventListener('input', () => { noteCount.textContent = String(noteInput.value.length); });
+  noteInput.addEventListener('keydown', e => {
+    if((e.metaKey || e.ctrlKey) && e.key === 'Enter') saveNote();   // ⌘/Ctrl+Enter 快速记下
+  });
 
   // ---------- 计时面板 ----------
   function renderTimerPanel(){
@@ -791,17 +902,28 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
     toast(msg || '已退出登录，数据仍保留在本机');
   }
 
-  // 记录合并：append-only 三元组求并集
-  function mergeRecords(remote){
-    if(!Array.isArray(remote) || !remote.length) return;
-    const key = r => r.type + ':' + r.start + ':' + r.end;
-    const map = new Map(state.records.map(r => [key(r), r]));
-    let added = false;
-    for(const r of remote){
-      if(!map.has(key(r))){ map.set(key(r), r); added = true; }
-    }
-    if(added){
+  // 数据合并：records 与 notes 各自按天然主键求并集（append-only，无冲突）
+  function mergeRecords(data){
+    let changed = false;
+    const remoteRecs = Array.isArray(data && data.records) ? data.records : [];
+    const remoteNotes = Array.isArray(data && data.notes) ? data.notes : [];
+
+    if(remoteRecs.length){
+      const key = r => r.type + ':' + r.start + ':' + r.end;
+      const map = new Map(state.records.map(r => [key(r), r]));
+      for(const r of remoteRecs){
+        if(!map.has(key(r))){ map.set(key(r), r); changed = true; }
+      }
       state.records = [...map.values()].sort((a, b) => a.start - b.start);
+    }
+    if(remoteNotes.length){
+      const nmap = new Map(state.notes.map(n => [n.id, n]));
+      for(const n of remoteNotes){
+        if(!nmap.has(n.id) && n && n.id && n.rid && typeof n.text === 'string'){ nmap.set(n.id, n); changed = true; }
+      }
+      state.notes = [...nmap.values()].sort((a, b) => a.at - b.at);
+    }
+    if(changed){
       save();
       renderHeatmap();
       renderTimeline();
@@ -816,13 +938,13 @@ footer a:hover, .auth-switch a:hover{color:var(--work)}
       const headers = { Authorization: 'Bearer ' + auth.token };
       const opt = direction === 'push'
         ? { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ records: state.records }) }
+            body: JSON.stringify({ records: state.records, notes: state.notes }) }
         : { headers };
       const r = await fetch(SYNC_API + '/sync', opt);
       if(r.status === 401){ logout('登录已过期，请重新登录'); return; }
       if(!r.ok) return;
       const data = await r.json();
-      mergeRecords(data.records);
+      mergeRecords(data);
       lastSyncAt = Date.now();
       renderFooter();
     }catch(e){ /* 离线静默，下次时机再试 */ }
