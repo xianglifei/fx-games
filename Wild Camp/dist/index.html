@@ -149,6 +149,39 @@ h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
 .piece-btn .cnt{display:block;font-size:11px;color:#8a6a4a;font-weight:500;}
 .counter{align-self:center;font-size:13px;background:rgba(255,255,255,.85);padding:9px 13px;border-radius:999px;font-weight:600;}
 
+/* ---------- 教学关 ---------- */
+#tut-card{
+  display:none;width:var(--app-w);margin-top:14px;z-index:1;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(6px);
+  border-radius:16px;padding:12px 16px;box-shadow:0 4px 16px rgba(60,42,26,.14);
+  align-items:center;gap:12px;
+}
+body.tut #tut-card{display:flex;}
+.tut-badge{flex:none;font-size:11.5px;font-weight:700;color:#fff;background:var(--orange);border-radius:999px;padding:4px 10px;letter-spacing:1px;}
+.tut-text{flex:1;min-width:0;}
+.tut-title{font-size:16.5px;font-weight:700;line-height:1.3;}
+.tut-sub{font-size:12.5px;color:#8a6a4a;margin-top:3px;line-height:1.4;}
+.tut-skip{flex:none;border:none;background:none;cursor:pointer;font-family:inherit;font-size:11.5px;color:#b09468;text-decoration:underline dotted;padding:4px;}
+.tut-skip:hover{color:#b04a2f;}
+/* 教学模式下精简游戏界面：藏难度/提示/重开/棋子栏/关卡徽章/规则按钮 */
+body.tut .ctrl, body.tut .lvl-badge, body.tut .palette, body.tut #btn-rules{display:none;}
+/* 教学一、二不讲数字，把行列数字调暗（带过渡，进出场更柔和） */
+.row-clues,.col-clues{transition:opacity .35s, filter .35s;}
+body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:saturate(.4);}
+/* 教学高亮格（"可以放这里"）与锁定格（"被挡住了"） */
+.cell.tut-hi{animation:tuthi 1.2s ease-in-out infinite;box-shadow:inset 0 0 0 3px #ffd23f;}
+@keyframes tuthi{50%{box-shadow:inset 0 0 0 3px rgba(255,210,63,.25)}}
+.cell.tut-lock{
+  box-shadow:inset 0 0 0 2px rgba(192,57,43,.5);cursor:not-allowed;
+  background:repeating-linear-gradient(45deg,rgba(192,57,43,.22) 0 5px,rgba(192,57,43,.08) 5px 10px);
+}
+.cell.tut-lock::after{
+  content:"✕";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:15px;color:rgba(160,30,20,.55);font-weight:700;
+}
+/* 教学里预先搭好的帐篷（不可收回）加一圈暖光 */
+.tent.locked svg{filter:drop-shadow(0 3px 3px rgba(0,0,0,.24)) drop-shadow(0 0 6px rgba(255,244,200,.9));}
+
 /* ---------- 提示气泡 ---------- */
 #toast{
   position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(8px);
@@ -193,7 +226,69 @@ h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
 .rules-link:hover{background:rgba(255,255,255,.9);}
 .rules-link:active{transform:scale(.98);}
 .rules-link .note{font-size:11px;color:#b09468;font-weight:400;}
-.reset-link{display:block;margin-top:16px;font-size:12px;color:#b04a2f;text-align:center;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:inherit;}
+/* ---------- 开屏落地页 ---------- */
+#landing{
+  position:fixed;inset:0;z-index:90;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  background:
+    radial-gradient(130% 55% at 50% 112%, var(--glow) 0%, transparent 62%),
+    linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 55%, var(--sky3) 100%);
+  transition:opacity .45s ease, transform .45s ease;
+}
+#landing.hide{opacity:0;transform:scale(1.05);pointer-events:none;}
+#landing::before,#landing::after{
+  content:"";position:fixed;background:var(--cloud);border-radius:999px;
+  filter:blur(2px);pointer-events:none;animation:drift 16s ease-in-out infinite alternate;
+}
+#landing::before{width:170px;height:38px;top:10%;left:6%;}
+#landing::after{width:110px;height:28px;top:20%;right:8%;animation-duration:22s;animation-direction:alternate-reverse;}
+.landing-inner{display:flex;flex-direction:column;align-items:center;gap:16px;width:min(92vw,460px);}
+.landing-banner{
+  background:linear-gradient(145deg,var(--frame1),var(--frame2));
+  border-radius:18px;padding:20px 38px;position:relative;text-align:center;
+  box-shadow:0 10px 26px rgba(60,42,26,.32), inset 0 2px 4px rgba(255,255,255,.35);
+}
+.landing-banner::before,.landing-banner::after{   /* 木牌上的两颗钉子 */
+  content:"";position:absolute;top:8px;width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #f3e2c2, #7a5a34);
+  box-shadow:0 1px 2px rgba(0,0,0,.35);
+}
+.landing-banner::before{left:12px;}
+.landing-banner::after{right:12px;}
+.landing-title{margin:0;font-size:40px;letter-spacing:6px;color:var(--cream);text-shadow:0 2px 0 rgba(0,0,0,.18);}
+.landing-en{margin-top:6px;font-size:13px;letter-spacing:5px;color:#f3e2c2;opacity:.85;font-weight:600;}
+.landing-scene{position:relative;width:min(88vw,400px);height:190px;}
+.landing-scene .ground{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:106%;height:74px;border-radius:50%;
+  background:radial-gradient(50% 60% at 50% 30%, #82c064, #5c9c45 70%, #4f8a3c);
+  box-shadow:0 10px 22px rgba(46,84,32,.28);
+}
+.sc{position:absolute;filter:drop-shadow(0 4px 4px rgba(0,0,0,.18));transform-origin:50% 100%;}
+.sc svg{width:100%;height:100%;}
+.sc-tree1{left:4%;bottom:34px;width:120px;height:120px;animation:sway 5s ease-in-out infinite alternate;}
+.sc-tree2{left:33%;bottom:42px;width:86px;height:86px;animation:sway 6s .6s ease-in-out infinite alternate;}
+.sc-tree3{right:2%;bottom:36px;width:104px;height:104px;animation:sway 5.4s .3s ease-in-out infinite alternate;}
+.sc-tent{left:43%;bottom:40px;width:100px;height:100px;}
+.sc-fire{left:59%;bottom:26px;width:44px;height:44px;animation:flick .9s ease-in-out infinite alternate;}
+@keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
+@keyframes flick{from{transform:scaleY(.94)}to{transform:scaleY(1.08)}}
+.landing-cta{
+  border:none;cursor:pointer;font-family:inherit;color:#fff;
+  background:linear-gradient(180deg,var(--orange),var(--orange-d));
+  font-size:19px;font-weight:700;letter-spacing:2px;
+  padding:15px 52px;border-radius:999px;touch-action:manipulation;
+  box-shadow:0 8px 20px rgba(229,116,46,.45), inset 0 2px 0 rgba(255,255,255,.35);
+  transition:transform .12s;animation:cta 2.6s ease-in-out infinite;
+}
+.landing-cta:active{transform:scale(.94);}
+@keyframes cta{50%{transform:scale(1.035)}}
+.landing-sub{font-size:12.5px;color:#8a6a4a;text-align:center;line-height:1.7;}
+.reset-test{
+  display:inline-block;margin-top:6px;background:none;border:none;cursor:pointer;
+  font-family:inherit;font-size:11px;color:#a58a63;text-decoration:underline dotted;
+}
+.reset-test:hover{color:#b04a2f;}
 
 /* ---------- 彩带 ---------- */
 #confetti i{position:fixed;top:-24px;display:block;z-index:120;pointer-events:none;border-radius:2px;animation:fall linear forwards;}
@@ -209,10 +304,34 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
   .seg .tier-chip{padding:4px 6px;}
   .lvl-badge{font-size:11.5px;}
   .ctrl{gap:6px;}
+  .landing-title{font-size:30px;letter-spacing:4px;}
+  .landing-banner{padding:14px 24px;}
+  .landing-scene{height:150px;}
+  .sc-tree1{width:92px;height:92px;}
+  .sc-tree2{width:66px;height:66px;}
+  .sc-tree3{width:80px;height:80px;}
+  .sc-tent{width:78px;height:78px;}
+  .sc-fire{width:34px;height:34px;}
+  .landing-cta{font-size:17px;padding:13px 40px;}
+  .tut-title{font-size:15px;}
+  #tut-card{padding:10px 12px;}
 }
 </style>
 </head>
 <body>
+
+<!-- 开屏落地页：新玩家从这里进入教学，老玩家从这里继续存档 -->
+<div id="landing">
+  <div class="landing-inner">
+    <div class="landing-banner">
+      <h1 class="landing-title">露营谜题</h1>
+      <div class="landing-en">WILD CAMP</div>
+    </div>
+    <div class="landing-scene" id="landing-scene"></div>
+    <button class="landing-cta" id="btn-start">立即开始玩</button>
+    <div class="landing-sub" id="landing-sub"></div>
+  </div>
+</div>
 
 <header class="topbar">
   <div class="title-row">
@@ -238,6 +357,15 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
 </header>
 
 <div class="board-area">
+  <!-- 教学指令卡：只在教学模式显示 -->
+  <div id="tut-card">
+    <span class="tut-badge" id="tut-badge">教学 1/3</span>
+    <div class="tut-text">
+      <div class="tut-title" id="tut-title"></div>
+      <div class="tut-sub" id="tut-sub"></div>
+    </div>
+    <button class="tut-skip" id="tut-skip">跳过教学</button>
+  </div>
   <div class="frame">
     <div class="grid-wrap">
       <div class="row-clues" id="row-clues"></div>
@@ -260,7 +388,10 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
   </div>
 </div>
 
-<footer>五个难度各 150 关，共 750 关 · 每关由算法随机生成并保证<b>唯一解</b>，全程不需要靠猜 · 每个难度自成一片营地风景</footer>
+<footer>五个难度各 150 关，共 750 关 · 每关由算法随机生成并保证<b>唯一解</b>，全程不需要靠猜 · 每个难度自成一片营地风景
+  <br><!-- 测试期临时入口：发布前移除 -->
+  <button class="reset-test" id="btn-reset">重置进度（测试）</button>
+</footer>
 
 <div id="toast"></div>
 <div id="confetti"></div>
@@ -312,8 +443,19 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
       <button class="rules-link" id="btn-back-rules">← 返回游戏规则</button>
     </div>
     <button class="btn primary" id="btn-close-rules" style="margin-top:14px">开始露营！</button>
-    <!-- 功能保留在代码层面，界面暂不露出：去掉 hidden 即可恢复 -->
-    <button class="reset-link" id="btn-reset" hidden>重置全部进度</button>
+  </div>
+</div>
+
+<!-- 教学完成卡 -->
+<div class="mask" id="tutdone-mask">
+  <div class="card">
+    <div class="big">🎓</div>
+    <h2>教学完成！</h2>
+    <p class="sub">三条规则都学会了：树树配帐篷 · 互不相邻 · 看数字推理。<br>五片营地共 750 关，等你来搭！</p>
+    <div class="card-btns">
+      <button class="btn primary" id="btn-tutdone-start">开始第一关 ⛺</button>
+      <button class="btn" id="btn-tutdone-rules">先看完整规则</button>
+    </div>
   </div>
 </div>
 
@@ -869,18 +1011,22 @@ const Sound = (()=>{
 const TIERS = { easy:'入门', normal:'进阶', hard:'挑战', master:'大师', legend:'传奇' };
 const MAX_LEVEL = 150;   // 每个难度 150 关，五个难度共 750 关
 const SAVE_KEY = 'wild-camp-web-v1';
-let save = { v:1, sound:true, tier:'easy', seenRules:false, seenDoubleRules:false, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
+let save = { v:1, sound:true, tier:'easy', seenRules:false, seenDoubleRules:false, tutorialDone:false, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
 try {
   const raw = localStorage.getItem(SAVE_KEY);
   if (raw){ const s=JSON.parse(raw); if(s && s.v===1) save=s; }
 } catch(e){}
 // 老存档没有新难度的进度键，这里补默认值（不影响既有进度）
 save.levels = Object.assign({easy:1,normal:1,hard:1,master:1,legend:1}, save.levels);
+// 存档迁移：老玩家（看过文字规则）视为已完成教学，不进教学关
+if (save.tutorialDone===undefined){ save.tutorialDone=!!save.seenRules; persist(); }
 function persist(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(save)); }catch(e){} }
 
 const state = {
   tier: save.tier in TIERS ? save.tier : 'easy',
   level: save.levels[save.tier in TIERS ? save.tier : 'easy'] || 1,
+  mode: 'normal',          // normal=正式关卡 | tutorial=教学关
+  tut: 0, tutStep: 0, tutDone: false, pendingStart: false,
   puzzle: null,
   treeSet: new Set(),
   tents: new Map(),
@@ -929,7 +1075,7 @@ function renderTents(){
   overlayEl.querySelectorAll('.tent').forEach(e=>e.remove());
   for (const t of state.tents.values()){
     const d=document.createElement('div');
-    d.className='tent';
+    d.className='tent'+(t.locked?' locked':'');
     const rs=t.cells.map(x=>x[0]), cs=t.cells.map(x=>x[1]);
     const minR=Math.min(...rs), minC=Math.min(...cs);
     const hCells=(t.kind===2 && t.cells[0][0]===t.cells[1][0])?2:1;
@@ -1014,15 +1160,16 @@ function checkPlacement(cells){
   return {ok:true};
 }
 
+function wiggleTree(r,c){
+  const t=cellAt(r,c).querySelector('.tree');
+  if (t){ t.classList.remove('wiggle'); void t.offsetWidth; t.classList.add('wiggle'); }
+}
 function onCell(r,c){
   if (state.won || !state.puzzle) return;
+  if (state.mode==='tutorial'){ tutorialTap(r,c); return; }
   const tid=tentIdAt(r,c);
   if (tid){ cancelAnchor(); removeTent(tid); return; }
-  if (treeAt(r,c)){
-    const t=cellAt(r,c).querySelector('.tree');
-    if (t){ t.classList.remove('wiggle'); void t.offsetWidth; t.classList.add('wiggle'); }
-    return;
-  }
+  if (treeAt(r,c)){ wiggleTree(r,c); return; }
   if (state.piece==='single'){ tryPlace([[r,c]],1); return; }
   if (!state.anchor){ tryAnchor(r,c); return; }
   const [ar,ac]=state.anchor;
@@ -1064,14 +1211,18 @@ function tryPlace(cells, kind){
   cancelAnchor();
   Sound.place();
   renderTents(); updateClues(); updatePalette();
+  if (state.mode==='tutorial') syncTutorial();
   checkWin();
 }
 function removeTent(id){
   if (state.won) return;
+  const t=state.tents.get(id);
+  if (t && t.locked){ toast('这顶帐篷已经搭好啦'); return; }
   state.tents.delete(id);
   state.moves++;
   Sound.remove();
   renderTents(); updateClues(); updatePalette();
+  if (state.mode==='tutorial') syncTutorial();
 }
 function selectPiece(kind){
   state.piece=kind;
@@ -1082,7 +1233,7 @@ function selectPiece(kind){
 
 /* ============ 胜利判定 ============ */
 function checkWin(){
-  if (state.won || !state.puzzle) return;
+  if (state.mode!=='normal' || state.won || !state.puzzle) return;
   const {rc,cc}=currentCounts(), p=state.puzzle;
   let full=true;
   for (let i=0;i<N;i++) if (rc[i]!==p.rc[i] || cc[i]!==p.cc[i]){ full=false; break; }
@@ -1185,6 +1336,8 @@ function resetBoard(){
   updateWinBar();
 }
 function loadLevel(animateTrees=true){
+  state.mode='normal';
+  exitTutorial();
   const p=paramsFor(state.tier, state.level);
   let pz=genPuzzle(p);
   if (!pz) pz=genPuzzle({...p, doubles:0});
@@ -1200,6 +1353,165 @@ function loadLevel(animateTrees=true){
     showRulesView('double');
     $('rules-mask').classList.add('show');
   }
+}
+
+/* ============ 教学关 ============ */
+// 教学关不走 genPuzzle，用手工设计的固定小棋盘。每个步骤：
+//   enter()  进入该步时布置高亮/锁定格与文案
+//   allow()  本步只允许点这些格（返回 false 时给出引导语）
+//   done()   该步是否完成（从棋盘实时推导，收回帐篷会自动回退步骤）
+const tentsArr=()=>[...state.tents.values()].map(t=>t.cells);
+const hasTentNear=(r,c)=>tentsArr().some(cs=>cs.some(([a,b])=>Math.abs(a-r)+Math.abs(b-c)===1));
+const freeOfTents=(r,c)=>![...state.tents.values()].some(t=>t.cells.some(([a,b])=>Math.max(Math.abs(a-r),Math.abs(b-c))<=1));
+
+const TUTORIALS=[
+  { // 教学一 · R1：每棵树旁边都要有一顶帐篷
+    clues:false, singles:2,
+    trees:[[1,2],[4,4]],
+    solution:[[[0,2]],[[3,4]]],
+    title:'每棵树旁边，都要有一顶帐篷',
+    steps:[
+      { sub:'点点亮起的格子，把帐篷搭在树旁边',
+        enter(){ setTutMarks(NB4[1*N+2]); },
+        allow:(r,c)=>NB4[1*N+2].some(([a,b])=>a===r&&b===c),
+        denyMsg:'帐篷要搭在树旁边——试试亮起的格子',
+        done:()=>hasTentNear(1,2) },
+      { sub:'太棒了！再给第二棵树也搭一顶',
+        enter(){ setTutMarks(NB4[4*N+4]); },
+        allow:(r,c)=>NB4[4*N+4].some(([a,b])=>a===r&&b===c),
+        denyMsg:'这顶帐篷是第二棵树的——试试亮起的格子',
+        done:()=>matchable([[1,2],[4,4]], tentsArr()) },
+    ],
+  },
+  { // 教学二 · R2：帐篷只能放树的上下左右；帐篷之间不能相邻（含斜角）
+    // 第一阶段只有一棵树；第二阶段揭示三棵树 + 两顶"别的露营者"搭好的锁定帐篷，
+    // 中间那棵树只剩一个合法格（已用核心函数验证：无论第一步怎么放都唯一是 (2,2)）
+    clues:false, singles:4,
+    trees:[[0,4]],
+    solution:[[[1,4]],[[4,1]],[[4,3]],[[2,2]]],
+    title:'帐篷不能挨着帐篷——连斜对角也不行',
+    steps:[
+      { sub:'先热个身：把帐篷搭在这棵树的上下左右',
+        enter(){ setTutMarks(NB4[0*N+4]); },
+        allow:(r,c)=>NB4[0*N+4].some(([a,b])=>a===r&&b===c),
+        denyMsg:'只能放在树的上下左右——试试亮起的格子',
+        done:()=>hasTentNear(0,4) },
+      { sub:'每顶 ⛺ 都会锁住周围一圈格子（红 ✕，斜对角也算）——给中间那棵树找还能放的位置！',
+        enter(){
+          state.puzzle.trees=[[0,4],[3,1],[3,2],[3,3]];
+          state.treeSet=new Set(state.puzzle.trees.map(([r,c])=>r*N+c));
+          if (!tentIdAt(4,1)) placeLockedTent(4,1);   // 别的露营者搭好的，收不回
+          if (!tentIdAt(4,3)) placeLockedTent(4,3);
+          renderTrees(true); renderTents(); updatePalette();
+          const lock=new Set();
+          for (const t of state.tents.values())
+            for (const [r,c] of t.cells)
+              for (const [a,b] of NB8[r*N+c])
+                if (!treeAt(a,b) && !tentIdAt(a,b)) lock.add(a*N+b);
+          setTutMarks(
+            NB4[3*N+2].filter(([a,b])=>!lock.has(a*N+b) && !treeAt(a,b)),   // 树占的格子不算候选
+            [...lock].map(k=>[Math.floor(k/N), k%N])
+          );
+        },
+        allow:(r,c)=>NB4[3*N+2].some(([a,b])=>a===r&&b===c) && freeOfTents(r,c),
+        denyMsg:'被旁边的帐篷挡住了——找找没有 ✕ 的格子',
+        done:()=>matchable([[0,4],[3,1],[3,2],[3,3]], tentsArr()) },
+    ],
+  },
+  { // 教学三 · R3：边缘数字 = 每行/列的帐篷数
+    // 4 树棋盘,唯一解已用核心 solve() 验证;rc/cc 是真实计数,
+    // 行列超标的摆放会被自然弹回（"目标 N 顶"），数字对上芯片变绿
+    clues:true, singles:4,
+    trees:[[3,4],[3,5],[1,4],[0,5]],
+    solution:[[[3,3]],[[4,5]],[[1,3]],[[1,5]]],
+    rc:[0,2,0,1,1,0], cc:[0,0,0,2,0,2],
+    title:'边缘的数字 = 这一行·这一列的帐篷数',
+    steps:[
+      { sub:'提示都收起来了——读数字来推理：0 的行/列一定没帐篷，数字对上就会变绿',
+        enter(){ setTutMarks([]); },
+        // 不设 allow：这一关就是真实玩法，合法性完全交给 R1/R2/R3 校验
+        done(){
+          const {rc,cc}=currentCounts(), P=state.puzzle;
+          return rc.every((v,i)=>v===P.rc[i]) && cc.every((v,i)=>v===P.cc[i])
+            && matchable([[3,4],[3,5],[1,4],[0,5]], tentsArr());
+        } },
+    ],
+  },
+];
+
+function setTutMarks(hi, lock=[]){
+  cellEls.forEach(el=>el.classList.remove('tut-hi','tut-lock'));
+  hi.forEach(([r,c])=>cellAt(r,c).classList.add('tut-hi'));
+  lock.forEach(([r,c])=>cellAt(r,c).classList.add('tut-lock'));
+}
+function placeLockedTent(r,c){
+  state.tents.set(state.nextId, {id:state.nextId, cells:[[r,c]], kind:1, locked:true});
+  state.nextId++;
+}
+function updateTutCard(){
+  const T=TUTORIALS[state.tut], S=T.steps[Math.min(state.tutStep, T.steps.length-1)];
+  $('tut-badge').textContent=`教学 ${state.tut+1}/${TUTORIALS.length}`;
+  $('tut-title').textContent=T.title;
+  $('tut-sub').textContent=S.sub||T.sub||'';
+}
+function loadTutorial(i){
+  state.mode='tutorial'; state.tut=i; state.tutStep=0; state.tutDone=false;
+  const T=TUTORIALS[i];
+  // 教学一二把行列数字调暗不参与判定，给宽松值；教学三用真实数字（rc/cc 由关卡提供）
+  state.puzzle={ trees:T.trees, solution:T.solution, rc:T.rc||Array(N).fill(2), cc:T.cc||Array(N).fill(2), singles:T.singles, doubles:0 };
+  state.treeSet=new Set(T.trees.map(([r,c])=>r*N+c));
+  applySkin('easy');   // 教学固定用入门皮肤
+  document.body.classList.add('tut');
+  document.body.classList.toggle('dim-clues', !T.clues);
+  resetBoard();
+  renderTrees(true);
+  (T.preTents||[]).forEach(([r,c])=>placeLockedTent(r,c));
+  renderTents(); updateClues(); updatePalette();
+  updateTutCard();
+  T.steps[0].enter();
+}
+function tutorialTap(r,c){
+  if (state.tutDone) return;
+  if (treeAt(r,c)){ wiggleTree(r,c); return; }
+  const tid=tentIdAt(r,c);
+  if (tid){ removeTent(tid); return; }   // 预摆的锁定帐篷会在 removeTent 里被拒绝
+  const T=TUTORIALS[state.tut];
+  const S=T.steps[Math.min(state.tutStep, T.steps.length-1)];
+  if (S.allow && !S.allow(r,c)){ toast(S.denyMsg||'再看看亮起的格子'); shake([[r,c]]); Sound.error(); return; }
+  tryPlace([[r,c]],1);
+}
+function syncTutorial(){
+  if (state.mode!=='tutorial') return;
+  const T=TUTORIALS[state.tut];
+  let i=0;
+  while (i<T.steps.length && T.steps[i].done()) i++;
+  if (i>=T.steps.length){ tutWin(); return; }
+  if (i!==state.tutStep){
+    state.tutStep=i;
+    updateTutCard();
+    T.steps[i].enter();
+  }
+}
+function tutWin(){
+  if (state.tutDone) return;
+  state.tutDone=true;
+  setTutMarks([]);
+  Sound.win(); confetti();
+  const next=state.tut+1;
+  if (next>=TUTORIALS.length){ save.tutorialDone=true; persist(); }   // 最后一关胜局即存档，刷新也不必重学
+  setTimeout(()=>{
+    if (next<TUTORIALS.length) loadTutorial(next);
+    else showTutDone();
+  },1000);
+}
+function showTutDone(){
+  state.pendingStart=true;
+  $('tutdone-mask').classList.add('show');
+}
+function exitTutorial(){
+  state.mode='normal';
+  document.body.classList.remove('tut','dim-clues');
+  cellEls.forEach(el=>el.classList.remove('tut-hi','tut-lock'));
 }
 
 /* ============ 按钮绑定 ============ */
@@ -1228,6 +1540,8 @@ function closeRules(){
   $('rules-mask').classList.remove('show');
   showRulesView('main');
   if (!save.seenRules){ save.seenRules=true; persist(); }
+  // 从教学完成卡进来查看规则的：关掉规则后接着进第一关
+  if (state.pendingStart){ state.pendingStart=false; finishOnboarding(); }
 }
 $('btn-close-rules').addEventListener('click', closeRules);
 $('btn-double-rules').addEventListener('click', ()=>showRulesView('double'));
@@ -1237,6 +1551,16 @@ $('btn-sound').addEventListener('click', ()=>{
   save.sound=Sound.enabled; persist();
   $('btn-sound').textContent=Sound.enabled?'🔊':'🔇';
   if (Sound.enabled) Sound.place();
+});
+$('tut-skip').addEventListener('click', finishOnboarding);
+$('btn-tutdone-start').addEventListener('click', ()=>{
+  $('tutdone-mask').classList.remove('show');
+  finishOnboarding();
+});
+$('btn-tutdone-rules').addEventListener('click', ()=>{
+  $('tutdone-mask').classList.remove('show');
+  showRulesView('main');
+  $('rules-mask').classList.add('show');
 });
 $('btn-single').addEventListener('click', ()=>selectPiece('single'));
 $('btn-double').addEventListener('click', ()=>selectPiece('double'));
@@ -1250,12 +1574,11 @@ $('btn-replay').addEventListener('click', ()=>{
   state.won=false; resetBoard();
 });
 $('btn-close-win').addEventListener('click', ()=>{ $('win-mask').classList.remove('show'); updateWinBar(); });
+// 测试期临时入口：清空存档并回到开屏，方便反复走「新玩家 → 教学」流程；发布前随页脚按钮一起移除
 $('btn-reset').addEventListener('click', ()=>{
-  if (confirm('确定重置全部进度吗？五个难度的关卡数都会回到第 1 关。')){
-    save.levels={easy:1,normal:1,hard:1,master:1,legend:1};
-    state.level=1; persist();
-    closeRules();
-    loadLevel();
+  if (confirm('重置全部进度并回到开屏吗？五个难度的关卡进度都会清空。')){
+    try{ localStorage.removeItem(SAVE_KEY); }catch(e){}
+    location.reload();
   }
 });
 document.addEventListener('keydown', e=>{ if (e.key==='Escape') cancelAnchor(); });
@@ -1280,12 +1603,55 @@ window.__cg={
   },
 };
 
+/* ============ 开屏落地页 ============ */
+const CAMPFIRE_SVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="50" cy="88" rx="26" ry="6" fill="rgba(0,0,0,.16)"/>
+  <rect x="22" y="74" width="56" height="9" rx="4.5" fill="#8a5a33" transform="rotate(-6 50 78)"/>
+  <rect x="22" y="74" width="56" height="9" rx="4.5" fill="#7a4c2a" transform="rotate(7 50 78)"/>
+  <path d="M50 22 C60 38 68 46 62 60 C58 70 52 72 50 72 C48 72 42 70 38 60 C32 46 40 38 50 22 Z" fill="#ff8c42"/>
+  <path d="M50 40 C55 48 58 53 55 60 C53 66 51 67 50 67 C49 67 47 66 45 60 C42 53 45 48 50 40 Z" fill="#ffd23f"/>
+</svg>`;
+function buildLandingScene(){
+  $('landing-scene').innerHTML = `
+    <div class="ground"></div>
+    <div class="sc sc-tree1">${PINE_SVG}</div>
+    <div class="sc sc-tree2">${OAK_SVG}</div>
+    <div class="sc sc-tree3">${BIRCH_SVG}</div>
+    <div class="sc sc-tent">${TENT_ORANGE.s}</div>
+    <div class="sc sc-fire">${CAMPFIRE_SVG}</div>`;
+}
+function showLanding(){
+  const isNew = !save.tutorialDone;
+  $('btn-start').textContent = isNew ? '立即开始玩'
+    : `继续露营 · ${TIERS[state.tier]} 第 ${Math.min(save.levels[state.tier], MAX_LEVEL)} 关`;
+  $('landing-sub').textContent = isNew
+    ? '第一次来露营？三个小教学，一分钟上手'
+    : '经典「帐篷与树」逻辑谜题 · 五片营地 750 关 · 每关唯一解，不需要靠猜';
+}
+function hideLanding(){
+  const l=$('landing');
+  l.classList.add('hide');
+  setTimeout(()=>{ l.style.display='none'; },500);
+}
+function finishOnboarding(){
+  save.tutorialDone=true; persist();
+  loadLevel();
+}
+$('btn-start').addEventListener('click', ()=>{
+  if (!save.tutorialDone){
+    loadTutorial(0);
+  } else {
+    loadLevel();
+  }
+  hideLanding();
+});
+
 /* ============ 启动 ============ */
 Sound.enabled=!!save.sound;
 $('btn-sound').textContent=Sound.enabled?'🔊':'🔇';
 applySkin(state.tier);
-loadLevel();
-if (!save.seenRules) $('rules-mask').classList.add('show');   // 首次进入先看规则
+buildLandingScene();
+showLanding();
 </script>
 </body>
 </html>

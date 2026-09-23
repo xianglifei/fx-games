@@ -165,7 +165,8 @@ body.tut #tut-card{display:flex;}
 .tut-skip:hover{color:#b04a2f;}
 /* 教学模式下精简游戏界面：藏难度/提示/重开/棋子栏/关卡徽章/规则按钮 */
 body.tut .ctrl, body.tut .lvl-badge, body.tut .palette, body.tut #btn-rules{display:none;}
-/* 教学一、二不讲数字，把行列数字调暗 */
+/* 教学一、二不讲数字，把行列数字调暗（带过渡，进出场更柔和） */
+.row-clues,.col-clues{transition:opacity .35s, filter .35s;}
 body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:saturate(.4);}
 /* 教学高亮格（"可以放这里"）与锁定格（"被挡住了"） */
 .cell.tut-hi{animation:tuthi 1.2s ease-in-out infinite;box-shadow:inset 0 0 0 3px #ffd23f;}
@@ -1408,7 +1409,7 @@ const TUTORIALS=[
               for (const [a,b] of NB8[r*N+c])
                 if (!treeAt(a,b) && !tentIdAt(a,b)) lock.add(a*N+b);
           setTutMarks(
-            NB4[3*N+2].filter(([a,b])=>!lock.has(a*N+b)),
+            NB4[3*N+2].filter(([a,b])=>!lock.has(a*N+b) && !treeAt(a,b)),   // 树占的格子不算候选
             [...lock].map(k=>[Math.floor(k/N), k%N])
           );
         },
@@ -1497,6 +1498,7 @@ function tutWin(){
   setTutMarks([]);
   Sound.win(); confetti();
   const next=state.tut+1;
+  if (next>=TUTORIALS.length){ save.tutorialDone=true; persist(); }   // 最后一关胜局即存档，刷新也不必重学
   setTimeout(()=>{
     if (next<TUTORIALS.length) loadTutorial(next);
     else showTutDone();
