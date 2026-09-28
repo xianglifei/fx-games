@@ -69,10 +69,12 @@
           <div class="bc-bottom"><span>奖励</span><b id="bc-reward">$3</b></div>
         </div>
         <div id="card-score" class="panelcard">
+          <div class="pc-head"><span class="pch-ico">🎯</span><span>分 数</span></div>
           <div class="row-target"><span>目标</span><b class="px" id="sc-target">300</b></div>
           <div class="score-big px" id="sc-score">0</div>
         </div>
         <div id="card-hand" class="panelcard">
+          <div class="pc-head"><span class="pch-ico">🃏</span><span>牌 型</span></div>
           <div class="hh-name" id="hh-name">高牌</div>
           <div class="hh-lv px" id="hh-lv">lv.1</div>
           <div class="hh-score"><span class="chipbox px" id="hh-chips">5</span><span class="times">×</span><span class="multbox px" id="hh-mult">1</span></div>
@@ -95,6 +97,7 @@
       <section id="playarea">
         <div id="msgline">选择手牌,组成牌型出击</div>
         <div id="played-cards"></div>
+        <div id="play-hint">出 牌 区</div>
       </section>
       <aside id="rail-right">
         <div id="joker-tray" class="tray"><div class="tray-label">小丑</div></div>
@@ -103,8 +106,10 @@
     </main>
     <footer id="handzone">
       <div class="hz-side">
-        <button id="btn-sort-rank" class="chipbtn">点数</button>
-        <button id="btn-sort-suit" class="chipbtn">花色</button>
+        <div class="seg">
+          <button id="btn-sort-rank" class="sel">点数</button>
+          <button id="btn-sort-suit">花色</button>
+        </div>
       </div>
       <div id="hand-cards"></div>
       <div class="hz-side hz-actions">
@@ -122,6 +127,7 @@
   <!-- 盲注选择 -->
   <section id="scr-blind" class="screen overlay">
     <div class="blind-wrap">
+      <div class="blind-ante px" id="blind-ante">ANTE 1</div>
       <div class="blind-title">选 择 盲 注</div>
       <div id="blind-cards"></div>
       <button id="blind-go" class="bigbtn red">选 择</button>
@@ -131,9 +137,22 @@
   <!-- 商店 -->
   <section id="scr-shop" class="screen overlay">
     <header class="shop-head"><span>商 店</span><span class="sh-money px" id="shop-money">$4</span></header>
-    <div class="shop-grid" id="shop-voucher"></div>
-    <div class="shop-grid" id="shop-cards"></div>
-    <div class="shop-grid shop-packs" id="shop-packs"></div>
+    <div class="shop-section sec-voucher" id="sec-voucher">
+      <div class="shop-sec-head"><span class="ssh-t gold">代 金 券</span><i class="ssh-line"></i><span class="ssh-note">本场冒险永久生效</span></div>
+      <div class="shop-row" id="shop-voucher"></div>
+    </div>
+    <div class="shop-section" id="sec-joker">
+      <div class="shop-sec-head"><span class="ssh-t">小 丑</span><i class="ssh-line"></i><span class="ssh-note">被动增益 · 常驻场上</span></div>
+      <div class="shop-row" id="shop-jokers"></div>
+    </div>
+    <div class="shop-section" id="sec-cons">
+      <div class="shop-sec-head"><span class="ssh-t">消 耗 牌</span><i class="ssh-line"></i><span class="ssh-note">塔罗 · 星球 · 光谱 · 扑克</span></div>
+      <div class="shop-row" id="shop-cons"></div>
+    </div>
+    <div class="shop-section" id="sec-packs">
+      <div class="shop-sec-head"><span class="ssh-t">卡 包</span><i class="ssh-line"></i><span class="ssh-note">买下立即打开选取</span></div>
+      <div class="shop-row shop-packs" id="shop-packs"></div>
+    </div>
     <div class="shop-tip" id="shop-tip">买东西能变强,但别把钱花光——利息 $5 = $1</div>
     <div class="shop-foot">
       <button id="shop-reroll" class="bigbtn blue">重 掷 <span class="px" id="reroll-cost">$5</span></button>

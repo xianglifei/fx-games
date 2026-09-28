@@ -192,6 +192,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 #money-val.up{animation:moneyPop .4s}
 @keyframes moneyPop{0%{transform:scale(1.4);color:#fff}100%{transform:scale(1)}}
 
+/* 面板标题条 */
+.panelcard .pc-head{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:3px;color:var(--dim);font-weight:800;margin-bottom:7px;white-space:nowrap}
+.panelcard .pc-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+.panelcard .pc-head .pch-ico{font-size:12px}
+
 /* 牌堆卡 */
 #card-deck{display:flex;align-items:center;gap:10px}
 .dk-back{
@@ -273,6 +278,25 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 @keyframes cardScored{0%{transform:translateY(-8px) scale(1.06);box-shadow:0 0 18px rgba(255,255,255,.7)}100%{transform:none}}
 .pcard.shake{animation:cardShake .3s}
 @keyframes cardShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-2deg)}75%{transform:translateX(5px) rotate(2deg)}}
+
+/* 出牌区提示 */
+#play-hint{
+  position:absolute;inset:10% 4%;border:2px dashed rgba(143,181,160,.16);border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(143,181,160,.25);font-size:14px;letter-spacing:10px;text-indent:10px;
+  pointer-events:none;transition:opacity .35s;
+}
+#play-hint.off{opacity:0}
+
+/* 分段排序控件 */
+.seg{display:flex;border:2px solid var(--line2);border-radius:999px;overflow:hidden;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+.seg button{padding:7px 14px;font-size:12px;font-weight:800;color:var(--dim);background:var(--panel);letter-spacing:1px;transition:filter .15s}
+.seg button + button{border-left:2px solid var(--line2)}
+.seg button.sel{background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink)}
+
+/* 托盘计数 */
+.tray .tray-label{display:flex;align-items:center;gap:6px;justify-content:center}
+.tray .tray-label .tl-count{font-size:9px;color:var(--dim2);background:rgba(0,0,0,.3);padding:1px 7px;border-radius:999px;letter-spacing:1px}
 
 /* 手牌区 */
 #handzone{display:flex;align-items:flex-end;gap:8px;padding:2px 6px 6px}
@@ -363,8 +387,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    ============================================================ */
 #scr-blind{align-items:center;justify-content:center;padding:14px}
 .blind-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:920px}
+.blind-ante{font-size:13px;color:var(--gold);letter-spacing:3px;text-shadow:0 2px 0 var(--gold-deep)}
 .blind-title{font-size:13px;letter-spacing:6px;color:var(--dim)}
 #blind-cards{display:flex;gap:14px;width:100%;justify-content:center;align-items:stretch}
+.bcard.boss{border-color:rgba(224,69,90,.45)}
+.bcard.boss.sel{border-color:var(--mult);box-shadow:0 6px 0 rgba(0,0,0,.4), 0 0 18px rgba(255,93,93,.3)}
 .bcard{
   flex:1;max-width:280px;background:linear-gradient(180deg,var(--panel2),var(--panel));
   border:2px solid var(--line2);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;
@@ -393,33 +420,56 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 /* ============================================================
    商店
    ============================================================ */
-#scr-shop{padding:12px clamp(8px,3vw,28px);gap:10px;overflow-y:auto}
-.shop-head{display:flex;align-items:center;justify-content:center;gap:14px;font-size:22px;color:var(--gold);text-shadow:0 3px 0 var(--gold-deep);padding:6px 0 2px;letter-spacing:8px}
-.shop-head .sh-money{font-size:16px;color:var(--green);letter-spacing:0;background:rgba(0,0,0,.35);padding:5px 14px;border-radius:10px;border:1.5px solid var(--green-deep)}
-.shop-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.shop-slot{
-  display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 8px;
-  background:rgba(0,0,0,.25);border:2px solid var(--line);border-radius:14px;min-width:calc(var(--jw) + 20px);
-  transition:border-color .15s;
+#scr-shop{padding:12px clamp(8px,3vw,28px);gap:10px;overflow-y:auto;align-items:center}
+.shop-head{display:flex;align-items:center;justify-content:center;gap:14px;font-size:24px;color:var(--gold);text-shadow:0 3px 0 var(--gold-deep);padding:6px 0 2px;letter-spacing:10px}
+.shop-head .sh-money{font-size:17px;color:var(--green);letter-spacing:0;background:rgba(0,0,0,.35);padding:5px 16px;border-radius:10px;border:1.5px solid var(--green-deep)}
+.shop-section{
+  width:min(600px,96vw);background:linear-gradient(180deg,rgba(0,0,0,.30),rgba(0,0,0,.16));
+  border:2px solid var(--line);border-radius:14px;padding:12px 14px 12px;margin:0 auto;
 }
-.shop-slot:hover{border-color:var(--line2)}
+.shop-section.sec-voucher{border-color:rgba(255,207,92,.4)}
+.shop-sec-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.shop-sec-head .ssh-t{font-size:12px;letter-spacing:4px;color:var(--dim);font-weight:900;white-space:nowrap}
+.shop-sec-head .ssh-t.gold{color:var(--gold)}
+.shop-sec-head .ssh-line{flex:1;height:2px;background:linear-gradient(90deg,var(--line2),transparent)}
+.shop-sec-head .ssh-note{font-size:10px;color:var(--dim2);white-space:nowrap}
+.shop-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;min-height:20px}
+.shop-empty{font-size:11px;color:var(--dim2);text-align:center;padding:6px 0;letter-spacing:3px;width:100%}
+.shop-slot{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px 8px;
+  background:rgba(0,0,0,.28);border:2px solid var(--line2);border-radius:14px;min-width:calc(var(--jw) + 22px);
+  transition:border-color .15s, transform .15s;
+}
+.shop-slot:hover{border-color:var(--gold-deep);transform:translateY(-2px)}
+.shop-slot.sold{opacity:.45}
+.type-badge{
+  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  font-size:10px;font-weight:900;padding:2px 11px;border-radius:999px;letter-spacing:2px;
+  box-shadow:0 2px 0 rgba(0,0,0,.45);z-index:2;white-space:nowrap;
+}
+.tb-joker{background:linear-gradient(180deg,#6ba4ff,var(--chip-deep));color:#fff}
+.tb-tarot{background:linear-gradient(180deg,#b18ae0,#5b3d8f);color:#fff}
+.tb-planet{background:linear-gradient(180deg,#7db8e8,#2d5b8f);color:#fff}
+.tb-spectral{background:linear-gradient(180deg,#9a9ab8,#4a4a66);color:#fff}
+.tb-playing{background:linear-gradient(180deg,#fff3d6,#c9b88a);color:#4a3d1c}
+.tb-voucher{background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink)}
 .shop-slot .buybtn{
-  padding:5px 14px;border-radius:9px;font-weight:900;font-size:13px;
+  padding:5px 16px;border-radius:9px;font-weight:900;font-size:13px;
   background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink);
   box-shadow:0 3px 0 rgba(0,0,0,.4);
 }
 .shop-slot .buybtn:active{transform:translateY(2px);box-shadow:none}
 .shop-slot .buybtn.free{background:linear-gradient(180deg,#5fe393,var(--green-deep));color:#042e18}
 .shop-slot .buybtn:disabled{filter:grayscale(.9) brightness(.65)}
-.shop-slot .soldout{font-size:12px;color:var(--dim2);padding:6px 0}
+.shop-slot .soldout{font-size:12px;color:var(--dim2);padding:8px 0;letter-spacing:2px}
 .shop-packs .shop-slot .packface{
-  width:calc(var(--jw) + 6px);height:calc(var(--jh)*.82);border-radius:10px;
+  width:calc(var(--jw) + 8px);height:calc(var(--jh)*.84);border-radius:10px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4);font-size:13px;
 }
-.packface .pf-emoji{font-size:34px}
-.shop-foot{display:flex;gap:14px;justify-content:center;align-items:center;padding:8px 0 14px;flex-wrap:wrap}
-.shop-tip{font-size:11px;color:var(--dim2);text-align:center}
+.packface .pf-emoji{font-size:36px}
+.shop-foot{display:flex;gap:14px;justify-content:center;align-items:center;padding:10px 0 4px;flex-wrap:wrap}
+.shop-tip{font-size:11px;color:var(--dim2);text-align:center;letter-spacing:1px}
 .pack-arcana{background:linear-gradient(160deg,#7a4fc9,#452b80)}
 .pack-celestial{background:linear-gradient(160deg,#3f6fc9,#24407d)}
 .pack-buffoon{background:linear-gradient(160deg,#c93f5c,#7d2438)}
@@ -431,7 +481,8 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    ============================================================ */
 #scr-pack{align-items:center;justify-content:center;padding:14px}
 #pack-box{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:860px;width:100%}
-.pack-head{font-size:15px;font-weight:900;letter-spacing:4px;color:var(--gold)}
+.pack-head{font-size:16px;font-weight:900;letter-spacing:4px;color:var(--gold);display:flex;align-items:center;gap:12px}
+.pack-head .pk-pill{font-size:11px;letter-spacing:1px;color:#042e18;background:linear-gradient(180deg,#5fe393,var(--green-deep));padding:3px 12px;border-radius:999px;text-shadow:none;box-shadow:0 2px 0 rgba(0,0,0,.4)}
 .pack-cards{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .pack-cards .pick{position:relative;cursor:pointer}
 .pack-cards .pick::after{
@@ -454,8 +505,10 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 }
 .cash-box h3{font-size:15px;letter-spacing:4px;color:var(--gold);text-align:center}
 .cash-list{display:flex;flex-direction:column;gap:7px;min-height:0}
-.cash-item{display:flex;justify-content:space-between;font-size:14px;color:var(--dim);opacity:0;animation:cashIn .4s forwards}
-.cash-item b{color:var(--green)}
+.cash-item{display:flex;align-items:baseline;font-size:14px;color:var(--dim);opacity:0;animation:cashIn .4s forwards}
+.cash-item .ci-dots{flex:1;border-bottom:2px dotted var(--line2);margin:0 10px;opacity:.55;transform:translateY(-3px)}
+.cash-item b{color:var(--green);white-space:nowrap}
+.cash-item .ci-ico{margin-right:6px}
 @keyframes cashIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
 .cash-total{display:flex;justify-content:space-between;align-items:center;border-top:2px dashed var(--line2);padding-top:10px;font-size:17px;font-weight:900}
 .cash-total b{color:var(--gold);font-size:24px}
@@ -579,6 +632,9 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   #btn-play,#btn-discard{min-width:96px;padding:10px 14px;font-size:16px}
   .mini-row{gap:6px}
   .bcard .bart{height:64px;font-size:40px}
+  .shop-section{padding:10px 8px 10px}
+  .shop-row{gap:8px}
+  #play-hint{letter-spacing:5px;text-indent:5px;font-size:12px}
   .bcard .bdesc{min-height:44px;font-size:11px}
 }
 @media (max-height:620px){
@@ -659,10 +715,12 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
           <div class="bc-bottom"><span>奖励</span><b id="bc-reward">$3</b></div>
         </div>
         <div id="card-score" class="panelcard">
+          <div class="pc-head"><span class="pch-ico">🎯</span><span>分 数</span></div>
           <div class="row-target"><span>目标</span><b class="px" id="sc-target">300</b></div>
           <div class="score-big px" id="sc-score">0</div>
         </div>
         <div id="card-hand" class="panelcard">
+          <div class="pc-head"><span class="pch-ico">🃏</span><span>牌 型</span></div>
           <div class="hh-name" id="hh-name">高牌</div>
           <div class="hh-lv px" id="hh-lv">lv.1</div>
           <div class="hh-score"><span class="chipbox px" id="hh-chips">5</span><span class="times">×</span><span class="multbox px" id="hh-mult">1</span></div>
@@ -685,6 +743,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
       <section id="playarea">
         <div id="msgline">选择手牌,组成牌型出击</div>
         <div id="played-cards"></div>
+        <div id="play-hint">出 牌 区</div>
       </section>
       <aside id="rail-right">
         <div id="joker-tray" class="tray"><div class="tray-label">小丑</div></div>
@@ -693,8 +752,10 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
     </main>
     <footer id="handzone">
       <div class="hz-side">
-        <button id="btn-sort-rank" class="chipbtn">点数</button>
-        <button id="btn-sort-suit" class="chipbtn">花色</button>
+        <div class="seg">
+          <button id="btn-sort-rank" class="sel">点数</button>
+          <button id="btn-sort-suit">花色</button>
+        </div>
       </div>
       <div id="hand-cards"></div>
       <div class="hz-side hz-actions">
@@ -712,6 +773,7 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   <!-- 盲注选择 -->
   <section id="scr-blind" class="screen overlay">
     <div class="blind-wrap">
+      <div class="blind-ante px" id="blind-ante">ANTE 1</div>
       <div class="blind-title">选 择 盲 注</div>
       <div id="blind-cards"></div>
       <button id="blind-go" class="bigbtn red">选 择</button>
@@ -721,9 +783,22 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   <!-- 商店 -->
   <section id="scr-shop" class="screen overlay">
     <header class="shop-head"><span>商 店</span><span class="sh-money px" id="shop-money">$4</span></header>
-    <div class="shop-grid" id="shop-voucher"></div>
-    <div class="shop-grid" id="shop-cards"></div>
-    <div class="shop-grid shop-packs" id="shop-packs"></div>
+    <div class="shop-section sec-voucher" id="sec-voucher">
+      <div class="shop-sec-head"><span class="ssh-t gold">代 金 券</span><i class="ssh-line"></i><span class="ssh-note">本场冒险永久生效</span></div>
+      <div class="shop-row" id="shop-voucher"></div>
+    </div>
+    <div class="shop-section" id="sec-joker">
+      <div class="shop-sec-head"><span class="ssh-t">小 丑</span><i class="ssh-line"></i><span class="ssh-note">被动增益 · 常驻场上</span></div>
+      <div class="shop-row" id="shop-jokers"></div>
+    </div>
+    <div class="shop-section" id="sec-cons">
+      <div class="shop-sec-head"><span class="ssh-t">消 耗 牌</span><i class="ssh-line"></i><span class="ssh-note">塔罗 · 星球 · 光谱 · 扑克</span></div>
+      <div class="shop-row" id="shop-cons"></div>
+    </div>
+    <div class="shop-section" id="sec-packs">
+      <div class="shop-sec-head"><span class="ssh-t">卡 包</span><i class="ssh-line"></i><span class="ssh-note">买下立即打开选取</span></div>
+      <div class="shop-row shop-packs" id="shop-packs"></div>
+    </div>
     <div class="shop-tip" id="shop-tip">买东西能变强,但别把钱花光——利息 $5 = $1</div>
     <div class="shop-foot">
       <button id="shop-reroll" class="bigbtn blue">重 掷 <span class="px" id="reroll-cost">$5</span></button>
@@ -2500,6 +2575,9 @@ function renderRail(){
   $('round-val').textContent=G.round;
   /* 牌堆 */
   $('dk-count').textContent=G.pile.length+'/'+G.deck.length;
+  /* 出牌区提示 */
+  const hint=$('play-hint');
+  if(hint)hint.classList.toggle('off',document.querySelectorAll('#played-cards .pcard').length>0);
   /* 消息行 */
   const ml=$('msgline');
   if(UI.selMode){
@@ -2526,9 +2604,9 @@ function consDef(idx){
 function renderTrays(){
   const G=UI.G;
   const jt=$('joker-tray'),ct=$('consumable-tray');
-  jt.innerHTML='<div class="tray-label">小丑</div>';
-  ct.innerHTML='<div class="tray-label">消耗牌</div>';
   const st=Engine.recalcStats(G);
+  jt.innerHTML=`<div class="tray-label">小丑<span class="tl-count px">${G.jokers.length}/${st.jokerSlots}</span></div>`;
+  ct.innerHTML=`<div class="tray-label">消耗牌<span class="tl-count px">${G.consumables.length}/${st.consumableSlots}</span></div>`;
   for(const j of G.jokers){
     const el=jcardEl(j);
     attachInfo(el,()=>jokerInfoHtml(j));
@@ -2696,6 +2774,7 @@ function renderBlindSelect(){
   const G=UI.G;
   endSelMode();
   showScreen('scr-blind');
+  $('blind-ante').textContent='ANTE '+G.ante+(G.ante>8?' · 无尽':'');
   const wrap=$('blind-cards');wrap.innerHTML='';
   const peek=Engine.peekTag(G);
   const blinds=[
@@ -2926,12 +3005,12 @@ async function onRoundWon(){
     total+=it.n;
     const el=document.createElement('div');
     el.className='cash-item';el.style.animationDelay=(i*.18)+'s';
-    el.innerHTML=`<span>${it.lab}</span><b class="px">+$${it.n}</b>`;
+    el.innerHTML=`<span><span class="ci-ico">🪙</span>${it.lab}</span><i class="ci-dots"></i><b class="px">+$${it.n}</b>`;
     list.appendChild(el);
   });
   for(const e of rewards.ev){if(e.t==='money'){total+=e.n;
     const el=document.createElement('div');el.className='cash-item';el.style.animationDelay='.5s';
-    el.innerHTML=`<span>${JOKERS[e.src]?JOKERS[e.src].n:'小丑'}</span><b class="px">+$${e.n}</b>`;list.appendChild(el)}}
+    el.innerHTML=`<span><span class="ci-ico">🃏</span>${JOKERS[e.src]?JOKERS[e.src].n:'小丑'}</span><i class="ci-dots"></i><b class="px">+$${e.n}</b>`;list.appendChild(el)}}
   rewards.destroyed.forEach((j,i)=>{
     const el=document.createElement('div');el.className='cash-item';el.style.animationDelay='.6s';
     el.innerHTML=`<span style="color:var(--mult)">${JOKERS[j.id].n} 被吃掉了…</span><b class="px">💀</b>`;list.appendChild(el);
@@ -2948,75 +3027,111 @@ async function onRoundWon(){
   };
 }
 
-/* ---------- 商店 ---------- */
+/* ---------- 商店(分区呈现) ---------- */
+const KIND_META={
+  joker:{lab:'小丑',cls:'tb-joker'},
+  tarot:{lab:'塔罗',cls:'tb-tarot'},
+  planet:{lab:'星球',cls:'tb-planet'},
+  spectral:{lab:'光谱',cls:'tb-spectral'},
+  playing:{lab:'扑克牌',cls:'tb-playing'},
+  voucher:{lab:'代金券',cls:'tb-voucher'},
+};
+function shopSlotEl(inner,lab,cost,free,disabled,onbuy,badgeKind){
+  const slot=document.createElement('div');slot.className='shop-slot';
+  if(badgeKind){const b=document.createElement('span');b.className='type-badge '+KIND_META[badgeKind].cls;b.textContent=KIND_META[badgeKind].lab;slot.appendChild(b)}
+  slot.appendChild(inner);
+  const btn=document.createElement('button');
+  btn.className='buybtn'+(free?' free':'');
+  btn.innerHTML=(free?'免费':'$'+cost);
+  btn.disabled=!!disabled;
+  btn.onclick=e=>{e.stopPropagation();onbuy(btn)};
+  slot.appendChild(btn);
+  void lab;
+  return slot;
+}
 function renderShop(){
   const G=UI.G;
   endSelMode();
   showScreen('scr-shop');
   $('shop-money').textContent='$'+G.money;
-  /* 代金券槽 */
+  /* —— 代金券区 —— */
   const vs=$('shop-voucher');vs.innerHTML='';
+  let anyV=false;
   for(const vkey of G.shop.voucher||[]){
     if(!vkey)continue;
     for(const v of vkey.split(',')){
       if(!v||G.vouchers.includes(v))continue;
-      const slot=document.createElement('div');slot.className='shop-slot';
+      anyV=true;
       const el=voucherEl(v);
       attachInfo(el,()=>voucherInfoHtml(v));
       const cost=Engine.priceOf(G,10);
-      const btn=document.createElement('button');
-      btn.className='buybtn'+(cost===0?' free':'');
-      btn.textContent=cost===0?'免费领取':'$'+cost;
-      btn.disabled=G.money<cost;
-      btn.onclick=()=>{
+      const slot=shopSlotEl(el,null,cost,cost===0,G.money<cost,()=>{
         const r=Engine.buyVoucher(G,v);
         if(r.ok){Snd.cash();toast(VOUCHERS[v].n+'!');refreshAll();saveRun()}
         else{Snd.error();toast(r.error)}
-      };
-      slot.appendChild(el);slot.appendChild(btn);vs.appendChild(slot);
+      },'voucher');
+      vs.appendChild(slot);
     }
   }
-  /* 卡牌槽 */
-  const cs=$('shop-cards');cs.innerHTML='';
+  if(!anyV)vs.innerHTML='<div class="shop-empty">本店暂无代金券</div>';
+  /* —— 小丑区 / 消耗牌区 —— */
+  const js=$('shop-jokers'),cs=$('shop-cons');
+  js.innerHTML='';cs.innerHTML='';
+  let anyJ=false,anyC=false;
+  const soldHTML='<div class="soldout">已 售 出</div>';
+  const soldSlot=k=>{const d=document.createElement('div');d.className='shop-slot sold';d.innerHTML=soldHTML;return d};
+  let hasSoldJ=false,hasSoldC=false;
   G.shop.items.forEach((it,i)=>{
-    if(!it){const sold=document.createElement('div');sold.className='shop-slot';sold.innerHTML='<div class="soldout">已售出</div>';cs.appendChild(sold);return}
-    const slot=document.createElement('div');slot.className='shop-slot';
-    let el,label;
-    if(it.kind==='joker'){
-      const j=it.joker||{id:it.stock.id,ed:it.stock.ed,c:{}};
-      el=jcardEl(j);
-      attachInfo(el,()=>jokerInfoHtml(j));
-      label=JOKERS[it.stock.id].n;
-    }else if(it.kind==='playing'){
-      el=pcardEl(it.card);
-      attachInfo(el,()=>cardInfoHtml(it.card));
-      label='扑克牌';
-    }else{
-      el=consumableEl({kind:it.kind,id:it.stock.id});
-      attachInfo(el,()=>consumableInfoHtml({kind:it.kind,id:it.stock.id}));
-      label={tarot:'塔罗牌',planet:'星球牌',spectral:'光谱牌'}[it.kind];
+    if(!it){
+      /* 已售出槽位按原类型归位 */
+      const prev=G._soldKinds&&G._soldKinds[i];
+      if(prev==='joker')hasSoldJ=true;else hasSoldC=true;
+      return;
     }
     const cost=it.free?0:it.cost;
-    const btn=document.createElement('button');
-    btn.className='buybtn'+(cost===0?' free':'');
-    btn.textContent=cost===0?'免费':'$'+cost;
-    btn.disabled=!it.free&&G.money<cost;
-    btn.onclick=()=>{
+    const disabled=!it.free&&G.money<cost;
+    const buy=btn=>{
       const r=Engine.buyShopItem(G,i);
-      if(r.ok){Snd.cash();toast('买下 '+label+'!');refreshAll();saveRun()}
+      if(r.ok){Snd.cash();G._soldKinds=G._soldKinds||{};G._soldKinds[i]=it.kind;refreshAll();saveRun()}
       else{Snd.error();toast(r.error)}
     };
-    slot.appendChild(el);slot.appendChild(btn);cs.appendChild(slot);
+    if(it.kind==='joker'){
+      anyJ=true;
+      const j=it.joker||{id:it.stock.id,ed:it.stock.ed,c:{}};
+      const el=jcardEl(j);
+      attachInfo(el,()=>jokerInfoHtml(j));
+      js.appendChild(shopSlotEl(el,JOKERS[it.stock.id].n,cost,it.free,disabled,buy,'joker'));
+    }else{
+      anyC=true;
+      let el,kind;
+      if(it.kind==='playing'){
+        el=pcardEl(it.card);
+        attachInfo(el,()=>cardInfoHtml(it.card));
+        kind='playing';
+      }else{
+        el=consumableEl({kind:it.kind,id:it.stock.id});
+        attachInfo(el,()=>consumableInfoHtml({kind:it.kind,id:it.stock.id}));
+        kind=it.kind;
+      }
+      cs.appendChild(shopSlotEl(el,null,cost,it.free,disabled,buy,kind));
+    }
   });
-  /* 卡包槽 */
+  if(hasSoldJ)js.appendChild(soldSlot('joker'));
+  if(hasSoldC)cs.appendChild(soldSlot());
+  if(!anyJ&&!hasSoldJ)js.innerHTML='<div class="shop-empty">本店暂无小丑 · 重掷试试</div>';
+  if(!anyC&&!hasSoldC)cs.innerHTML='<div class="shop-empty">本店暂无消耗牌</div>';
+  /* —— 卡包区 —— */
   const ps=$('shop-packs');ps.innerHTML='';
+  let anyP=false;
   G.shop.packs.forEach((pk,i)=>{
-    if(!pk){const sold=document.createElement('div');sold.className='shop-slot';sold.innerHTML='<div class="soldout">已卖完</div>';ps.appendChild(sold);return}
+    if(!pk){const sold=document.createElement('div');sold.className='shop-slot sold';sold.innerHTML='<div class="soldout">已 卖 完</div>';ps.appendChild(sold);return}
+    anyP=true;
     const P=PACKS[pk.id];
     const slot=document.createElement('div');slot.className='shop-slot';
+    const b=document.createElement('span');b.className='type-badge '+(P.cls.replace('pack-','tb-'));b.textContent='卡包';slot.appendChild(b);
     const el=document.createElement('div');
     el.className='packface '+P.cls;
-    el.innerHTML=`<span class="pf-emoji">${P.e}</span><span>${P.n}</span><span style="font-size:10px;opacity:.8">${P.d}</span>`;
+    el.innerHTML=`<span class="pf-emoji">${P.e}</span><span>${P.n}</span><span style="font-size:10px;opacity:.85">${P.d}</span>`;
     attachInfo(el,()=>`<div class="ip-name">${P.e} ${P.n}</div><div class="ip-desc">${P.d}</div>`);
     const cost=pk.free?0:pk.cost;
     const btn=document.createElement('button');
@@ -3030,19 +3145,18 @@ function renderShop(){
     };
     slot.appendChild(el);slot.appendChild(btn);ps.appendChild(slot);
   });
-  /* 重掷 */
+  if(!anyP)ps.innerHTML='<div class="shop-empty">卡包已全部卖完</div>';
+  /* —— 重掷/ tip —— */
   let rc=G.shop.rerollCost;
   if(G.shop.d6Free>0)rc=0;
   $('reroll-cost').textContent=rc===0?'免费':'$'+rc;
   $('shop-reroll').disabled=G.money<rc;
   $('shop-reroll').onclick=()=>{
     const r=Engine.rerollShop(G);
-    if(r.ok){Snd.reroll();renderShop();saveRun()}
+    if(r.ok){Snd.reroll();G._soldKinds=null;renderShop();saveRun()}
     else{Snd.error();toast(r.error)}
   };
-  $('shop-next').onclick=()=>{
-    leaveShopUI();
-  };
+  $('shop-next').onclick=()=>{leaveShopUI()};
 }
 function leaveShopUI(){
   const G=UI.G;
@@ -3068,9 +3182,10 @@ function showPackOverlay(title,after){
   const G=UI.G,P=G.pack;
   if(!P){after&&after();return}
   showScreen('scr-pack');
-  $('pack-head').textContent=title||PACKS[P.typeId].n;
+  const PT=PACKS[P.typeId];
+  $('pack-head').innerHTML=`<span>${PT.e} ${title||PT.n}</span><span class="pk-pill px">还可选 ${P.left}</span>`;
   const box=$('pack-cards');box.innerHTML='';
-  $('pack-note').textContent='剩余选取次数:'+P.left;
+  $('pack-note').textContent=PT.d;
   P.opts.forEach((opt,i)=>{
     if(!opt)return;
     const pick=document.createElement('div');pick.className='pick';

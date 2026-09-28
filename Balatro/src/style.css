@@ -172,6 +172,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 #money-val.up{animation:moneyPop .4s}
 @keyframes moneyPop{0%{transform:scale(1.4);color:#fff}100%{transform:scale(1)}}
 
+/* 面板标题条 */
+.panelcard .pc-head{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:3px;color:var(--dim);font-weight:800;margin-bottom:7px;white-space:nowrap}
+.panelcard .pc-head::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+.panelcard .pc-head .pch-ico{font-size:12px}
+
 /* 牌堆卡 */
 #card-deck{display:flex;align-items:center;gap:10px}
 .dk-back{
@@ -253,6 +258,25 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 @keyframes cardScored{0%{transform:translateY(-8px) scale(1.06);box-shadow:0 0 18px rgba(255,255,255,.7)}100%{transform:none}}
 .pcard.shake{animation:cardShake .3s}
 @keyframes cardShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-2deg)}75%{transform:translateX(5px) rotate(2deg)}}
+
+/* 出牌区提示 */
+#play-hint{
+  position:absolute;inset:10% 4%;border:2px dashed rgba(143,181,160,.16);border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(143,181,160,.25);font-size:14px;letter-spacing:10px;text-indent:10px;
+  pointer-events:none;transition:opacity .35s;
+}
+#play-hint.off{opacity:0}
+
+/* 分段排序控件 */
+.seg{display:flex;border:2px solid var(--line2);border-radius:999px;overflow:hidden;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+.seg button{padding:7px 14px;font-size:12px;font-weight:800;color:var(--dim);background:var(--panel);letter-spacing:1px;transition:filter .15s}
+.seg button + button{border-left:2px solid var(--line2)}
+.seg button.sel{background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink)}
+
+/* 托盘计数 */
+.tray .tray-label{display:flex;align-items:center;gap:6px;justify-content:center}
+.tray .tray-label .tl-count{font-size:9px;color:var(--dim2);background:rgba(0,0,0,.3);padding:1px 7px;border-radius:999px;letter-spacing:1px}
 
 /* 手牌区 */
 #handzone{display:flex;align-items:flex-end;gap:8px;padding:2px 6px 6px}
@@ -343,8 +367,11 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    ============================================================ */
 #scr-blind{align-items:center;justify-content:center;padding:14px}
 .blind-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:920px}
+.blind-ante{font-size:13px;color:var(--gold);letter-spacing:3px;text-shadow:0 2px 0 var(--gold-deep)}
 .blind-title{font-size:13px;letter-spacing:6px;color:var(--dim)}
 #blind-cards{display:flex;gap:14px;width:100%;justify-content:center;align-items:stretch}
+.bcard.boss{border-color:rgba(224,69,90,.45)}
+.bcard.boss.sel{border-color:var(--mult);box-shadow:0 6px 0 rgba(0,0,0,.4), 0 0 18px rgba(255,93,93,.3)}
 .bcard{
   flex:1;max-width:280px;background:linear-gradient(180deg,var(--panel2),var(--panel));
   border:2px solid var(--line2);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;
@@ -373,33 +400,56 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 /* ============================================================
    商店
    ============================================================ */
-#scr-shop{padding:12px clamp(8px,3vw,28px);gap:10px;overflow-y:auto}
-.shop-head{display:flex;align-items:center;justify-content:center;gap:14px;font-size:22px;color:var(--gold);text-shadow:0 3px 0 var(--gold-deep);padding:6px 0 2px;letter-spacing:8px}
-.shop-head .sh-money{font-size:16px;color:var(--green);letter-spacing:0;background:rgba(0,0,0,.35);padding:5px 14px;border-radius:10px;border:1.5px solid var(--green-deep)}
-.shop-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.shop-slot{
-  display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 8px;
-  background:rgba(0,0,0,.25);border:2px solid var(--line);border-radius:14px;min-width:calc(var(--jw) + 20px);
-  transition:border-color .15s;
+#scr-shop{padding:12px clamp(8px,3vw,28px);gap:10px;overflow-y:auto;align-items:center}
+.shop-head{display:flex;align-items:center;justify-content:center;gap:14px;font-size:24px;color:var(--gold);text-shadow:0 3px 0 var(--gold-deep);padding:6px 0 2px;letter-spacing:10px}
+.shop-head .sh-money{font-size:17px;color:var(--green);letter-spacing:0;background:rgba(0,0,0,.35);padding:5px 16px;border-radius:10px;border:1.5px solid var(--green-deep)}
+.shop-section{
+  width:min(600px,96vw);background:linear-gradient(180deg,rgba(0,0,0,.30),rgba(0,0,0,.16));
+  border:2px solid var(--line);border-radius:14px;padding:12px 14px 12px;margin:0 auto;
 }
-.shop-slot:hover{border-color:var(--line2)}
+.shop-section.sec-voucher{border-color:rgba(255,207,92,.4)}
+.shop-sec-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.shop-sec-head .ssh-t{font-size:12px;letter-spacing:4px;color:var(--dim);font-weight:900;white-space:nowrap}
+.shop-sec-head .ssh-t.gold{color:var(--gold)}
+.shop-sec-head .ssh-line{flex:1;height:2px;background:linear-gradient(90deg,var(--line2),transparent)}
+.shop-sec-head .ssh-note{font-size:10px;color:var(--dim2);white-space:nowrap}
+.shop-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;min-height:20px}
+.shop-empty{font-size:11px;color:var(--dim2);text-align:center;padding:6px 0;letter-spacing:3px;width:100%}
+.shop-slot{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 10px 8px;
+  background:rgba(0,0,0,.28);border:2px solid var(--line2);border-radius:14px;min-width:calc(var(--jw) + 22px);
+  transition:border-color .15s, transform .15s;
+}
+.shop-slot:hover{border-color:var(--gold-deep);transform:translateY(-2px)}
+.shop-slot.sold{opacity:.45}
+.type-badge{
+  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  font-size:10px;font-weight:900;padding:2px 11px;border-radius:999px;letter-spacing:2px;
+  box-shadow:0 2px 0 rgba(0,0,0,.45);z-index:2;white-space:nowrap;
+}
+.tb-joker{background:linear-gradient(180deg,#6ba4ff,var(--chip-deep));color:#fff}
+.tb-tarot{background:linear-gradient(180deg,#b18ae0,#5b3d8f);color:#fff}
+.tb-planet{background:linear-gradient(180deg,#7db8e8,#2d5b8f);color:#fff}
+.tb-spectral{background:linear-gradient(180deg,#9a9ab8,#4a4a66);color:#fff}
+.tb-playing{background:linear-gradient(180deg,#fff3d6,#c9b88a);color:#4a3d1c}
+.tb-voucher{background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink)}
 .shop-slot .buybtn{
-  padding:5px 14px;border-radius:9px;font-weight:900;font-size:13px;
+  padding:5px 16px;border-radius:9px;font-weight:900;font-size:13px;
   background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink);
   box-shadow:0 3px 0 rgba(0,0,0,.4);
 }
 .shop-slot .buybtn:active{transform:translateY(2px);box-shadow:none}
 .shop-slot .buybtn.free{background:linear-gradient(180deg,#5fe393,var(--green-deep));color:#042e18}
 .shop-slot .buybtn:disabled{filter:grayscale(.9) brightness(.65)}
-.shop-slot .soldout{font-size:12px;color:var(--dim2);padding:6px 0}
+.shop-slot .soldout{font-size:12px;color:var(--dim2);padding:8px 0;letter-spacing:2px}
 .shop-packs .shop-slot .packface{
-  width:calc(var(--jw) + 6px);height:calc(var(--jh)*.82);border-radius:10px;
+  width:calc(var(--jw) + 8px);height:calc(var(--jh)*.84);border-radius:10px;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4);font-size:13px;
 }
-.packface .pf-emoji{font-size:34px}
-.shop-foot{display:flex;gap:14px;justify-content:center;align-items:center;padding:8px 0 14px;flex-wrap:wrap}
-.shop-tip{font-size:11px;color:var(--dim2);text-align:center}
+.packface .pf-emoji{font-size:36px}
+.shop-foot{display:flex;gap:14px;justify-content:center;align-items:center;padding:10px 0 4px;flex-wrap:wrap}
+.shop-tip{font-size:11px;color:var(--dim2);text-align:center;letter-spacing:1px}
 .pack-arcana{background:linear-gradient(160deg,#7a4fc9,#452b80)}
 .pack-celestial{background:linear-gradient(160deg,#3f6fc9,#24407d)}
 .pack-buffoon{background:linear-gradient(160deg,#c93f5c,#7d2438)}
@@ -411,7 +461,8 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
    ============================================================ */
 #scr-pack{align-items:center;justify-content:center;padding:14px}
 #pack-box{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:860px;width:100%}
-.pack-head{font-size:15px;font-weight:900;letter-spacing:4px;color:var(--gold)}
+.pack-head{font-size:16px;font-weight:900;letter-spacing:4px;color:var(--gold);display:flex;align-items:center;gap:12px}
+.pack-head .pk-pill{font-size:11px;letter-spacing:1px;color:#042e18;background:linear-gradient(180deg,#5fe393,var(--green-deep));padding:3px 12px;border-radius:999px;text-shadow:none;box-shadow:0 2px 0 rgba(0,0,0,.4)}
 .pack-cards{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
 .pack-cards .pick{position:relative;cursor:pointer}
 .pack-cards .pick::after{
@@ -434,8 +485,10 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 }
 .cash-box h3{font-size:15px;letter-spacing:4px;color:var(--gold);text-align:center}
 .cash-list{display:flex;flex-direction:column;gap:7px;min-height:0}
-.cash-item{display:flex;justify-content:space-between;font-size:14px;color:var(--dim);opacity:0;animation:cashIn .4s forwards}
-.cash-item b{color:var(--green)}
+.cash-item{display:flex;align-items:baseline;font-size:14px;color:var(--dim);opacity:0;animation:cashIn .4s forwards}
+.cash-item .ci-dots{flex:1;border-bottom:2px dotted var(--line2);margin:0 10px;opacity:.55;transform:translateY(-3px)}
+.cash-item b{color:var(--green);white-space:nowrap}
+.cash-item .ci-ico{margin-right:6px}
 @keyframes cashIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
 .cash-total{display:flex;justify-content:space-between;align-items:center;border-top:2px dashed var(--line2);padding-top:10px;font-size:17px;font-weight:900}
 .cash-total b{color:var(--gold);font-size:24px}
@@ -559,6 +612,9 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   #btn-play,#btn-discard{min-width:96px;padding:10px 14px;font-size:16px}
   .mini-row{gap:6px}
   .bcard .bart{height:64px;font-size:40px}
+  .shop-section{padding:10px 8px 10px}
+  .shop-row{gap:8px}
+  #play-hint{letter-spacing:5px;text-indent:5px;font-size:12px}
   .bcard .bdesc{min-height:44px;font-size:11px}
 }
 @media (max-height:620px){

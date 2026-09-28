@@ -240,6 +240,9 @@ function renderRail(){
   $('round-val').textContent=G.round;
   /* 牌堆 */
   $('dk-count').textContent=G.pile.length+'/'+G.deck.length;
+  /* 出牌区提示 */
+  const hint=$('play-hint');
+  if(hint)hint.classList.toggle('off',document.querySelectorAll('#played-cards .pcard').length>0);
   /* 消息行 */
   const ml=$('msgline');
   if(UI.selMode){
@@ -266,9 +269,9 @@ function consDef(idx){
 function renderTrays(){
   const G=UI.G;
   const jt=$('joker-tray'),ct=$('consumable-tray');
-  jt.innerHTML='<div class="tray-label">小丑</div>';
-  ct.innerHTML='<div class="tray-label">消耗牌</div>';
   const st=Engine.recalcStats(G);
+  jt.innerHTML=`<div class="tray-label">小丑<span class="tl-count px">${G.jokers.length}/${st.jokerSlots}</span></div>`;
+  ct.innerHTML=`<div class="tray-label">消耗牌<span class="tl-count px">${G.consumables.length}/${st.consumableSlots}</span></div>`;
   for(const j of G.jokers){
     const el=jcardEl(j);
     attachInfo(el,()=>jokerInfoHtml(j));
@@ -436,6 +439,7 @@ function renderBlindSelect(){
   const G=UI.G;
   endSelMode();
   showScreen('scr-blind');
+  $('blind-ante').textContent='ANTE '+G.ante+(G.ante>8?' · 无尽':'');
   const wrap=$('blind-cards');wrap.innerHTML='';
   const peek=Engine.peekTag(G);
   const blinds=[
@@ -666,12 +670,12 @@ async function onRoundWon(){
     total+=it.n;
     const el=document.createElement('div');
     el.className='cash-item';el.style.animationDelay=(i*.18)+'s';
-    el.innerHTML=`<span>${it.lab}</span><b class="px">+$${it.n}</b>`;
+    el.innerHTML=`<span><span class="ci-ico">🪙</span>${it.lab}</span><i class="ci-dots"></i><b class="px">+$${it.n}</b>`;
     list.appendChild(el);
   });
   for(const e of rewards.ev){if(e.t==='money'){total+=e.n;
     const el=document.createElement('div');el.className='cash-item';el.style.animationDelay='.5s';
-    el.innerHTML=`<span>${JOKERS[e.src]?JOKERS[e.src].n:'小丑'}</span><b class="px">+$${e.n}</b>`;list.appendChild(el)}}
+    el.innerHTML=`<span><span class="ci-ico">🃏</span>${JOKERS[e.src]?JOKERS[e.src].n:'小丑'}</span><i class="ci-dots"></i><b class="px">+$${e.n}</b>`;list.appendChild(el)}}
   rewards.destroyed.forEach((j,i)=>{
     const el=document.createElement('div');el.className='cash-item';el.style.animationDelay='.6s';
     el.innerHTML=`<span style="color:var(--mult)">${JOKERS[j.id].n} 被吃掉了…</span><b class="px">💀</b>`;list.appendChild(el);
@@ -688,75 +692,111 @@ async function onRoundWon(){
   };
 }
 
-/* ---------- 商店 ---------- */
+/* ---------- 商店(分区呈现) ---------- */
+const KIND_META={
+  joker:{lab:'小丑',cls:'tb-joker'},
+  tarot:{lab:'塔罗',cls:'tb-tarot'},
+  planet:{lab:'星球',cls:'tb-planet'},
+  spectral:{lab:'光谱',cls:'tb-spectral'},
+  playing:{lab:'扑克牌',cls:'tb-playing'},
+  voucher:{lab:'代金券',cls:'tb-voucher'},
+};
+function shopSlotEl(inner,lab,cost,free,disabled,onbuy,badgeKind){
+  const slot=document.createElement('div');slot.className='shop-slot';
+  if(badgeKind){const b=document.createElement('span');b.className='type-badge '+KIND_META[badgeKind].cls;b.textContent=KIND_META[badgeKind].lab;slot.appendChild(b)}
+  slot.appendChild(inner);
+  const btn=document.createElement('button');
+  btn.className='buybtn'+(free?' free':'');
+  btn.innerHTML=(free?'免费':'$'+cost);
+  btn.disabled=!!disabled;
+  btn.onclick=e=>{e.stopPropagation();onbuy(btn)};
+  slot.appendChild(btn);
+  void lab;
+  return slot;
+}
 function renderShop(){
   const G=UI.G;
   endSelMode();
   showScreen('scr-shop');
   $('shop-money').textContent='$'+G.money;
-  /* 代金券槽 */
+  /* —— 代金券区 —— */
   const vs=$('shop-voucher');vs.innerHTML='';
+  let anyV=false;
   for(const vkey of G.shop.voucher||[]){
     if(!vkey)continue;
     for(const v of vkey.split(',')){
       if(!v||G.vouchers.includes(v))continue;
-      const slot=document.createElement('div');slot.className='shop-slot';
+      anyV=true;
       const el=voucherEl(v);
       attachInfo(el,()=>voucherInfoHtml(v));
       const cost=Engine.priceOf(G,10);
-      const btn=document.createElement('button');
-      btn.className='buybtn'+(cost===0?' free':'');
-      btn.textContent=cost===0?'免费领取':'$'+cost;
-      btn.disabled=G.money<cost;
-      btn.onclick=()=>{
+      const slot=shopSlotEl(el,null,cost,cost===0,G.money<cost,()=>{
         const r=Engine.buyVoucher(G,v);
         if(r.ok){Snd.cash();toast(VOUCHERS[v].n+'!');refreshAll();saveRun()}
         else{Snd.error();toast(r.error)}
-      };
-      slot.appendChild(el);slot.appendChild(btn);vs.appendChild(slot);
+      },'voucher');
+      vs.appendChild(slot);
     }
   }
-  /* 卡牌槽 */
-  const cs=$('shop-cards');cs.innerHTML='';
+  if(!anyV)vs.innerHTML='<div class="shop-empty">本店暂无代金券</div>';
+  /* —— 小丑区 / 消耗牌区 —— */
+  const js=$('shop-jokers'),cs=$('shop-cons');
+  js.innerHTML='';cs.innerHTML='';
+  let anyJ=false,anyC=false;
+  const soldHTML='<div class="soldout">已 售 出</div>';
+  const soldSlot=k=>{const d=document.createElement('div');d.className='shop-slot sold';d.innerHTML=soldHTML;return d};
+  let hasSoldJ=false,hasSoldC=false;
   G.shop.items.forEach((it,i)=>{
-    if(!it){const sold=document.createElement('div');sold.className='shop-slot';sold.innerHTML='<div class="soldout">已售出</div>';cs.appendChild(sold);return}
-    const slot=document.createElement('div');slot.className='shop-slot';
-    let el,label;
-    if(it.kind==='joker'){
-      const j=it.joker||{id:it.stock.id,ed:it.stock.ed,c:{}};
-      el=jcardEl(j);
-      attachInfo(el,()=>jokerInfoHtml(j));
-      label=JOKERS[it.stock.id].n;
-    }else if(it.kind==='playing'){
-      el=pcardEl(it.card);
-      attachInfo(el,()=>cardInfoHtml(it.card));
-      label='扑克牌';
-    }else{
-      el=consumableEl({kind:it.kind,id:it.stock.id});
-      attachInfo(el,()=>consumableInfoHtml({kind:it.kind,id:it.stock.id}));
-      label={tarot:'塔罗牌',planet:'星球牌',spectral:'光谱牌'}[it.kind];
+    if(!it){
+      /* 已售出槽位按原类型归位 */
+      const prev=G._soldKinds&&G._soldKinds[i];
+      if(prev==='joker')hasSoldJ=true;else hasSoldC=true;
+      return;
     }
     const cost=it.free?0:it.cost;
-    const btn=document.createElement('button');
-    btn.className='buybtn'+(cost===0?' free':'');
-    btn.textContent=cost===0?'免费':'$'+cost;
-    btn.disabled=!it.free&&G.money<cost;
-    btn.onclick=()=>{
+    const disabled=!it.free&&G.money<cost;
+    const buy=btn=>{
       const r=Engine.buyShopItem(G,i);
-      if(r.ok){Snd.cash();toast('买下 '+label+'!');refreshAll();saveRun()}
+      if(r.ok){Snd.cash();G._soldKinds=G._soldKinds||{};G._soldKinds[i]=it.kind;refreshAll();saveRun()}
       else{Snd.error();toast(r.error)}
     };
-    slot.appendChild(el);slot.appendChild(btn);cs.appendChild(slot);
+    if(it.kind==='joker'){
+      anyJ=true;
+      const j=it.joker||{id:it.stock.id,ed:it.stock.ed,c:{}};
+      const el=jcardEl(j);
+      attachInfo(el,()=>jokerInfoHtml(j));
+      js.appendChild(shopSlotEl(el,JOKERS[it.stock.id].n,cost,it.free,disabled,buy,'joker'));
+    }else{
+      anyC=true;
+      let el,kind;
+      if(it.kind==='playing'){
+        el=pcardEl(it.card);
+        attachInfo(el,()=>cardInfoHtml(it.card));
+        kind='playing';
+      }else{
+        el=consumableEl({kind:it.kind,id:it.stock.id});
+        attachInfo(el,()=>consumableInfoHtml({kind:it.kind,id:it.stock.id}));
+        kind=it.kind;
+      }
+      cs.appendChild(shopSlotEl(el,null,cost,it.free,disabled,buy,kind));
+    }
   });
-  /* 卡包槽 */
+  if(hasSoldJ)js.appendChild(soldSlot('joker'));
+  if(hasSoldC)cs.appendChild(soldSlot());
+  if(!anyJ&&!hasSoldJ)js.innerHTML='<div class="shop-empty">本店暂无小丑 · 重掷试试</div>';
+  if(!anyC&&!hasSoldC)cs.innerHTML='<div class="shop-empty">本店暂无消耗牌</div>';
+  /* —— 卡包区 —— */
   const ps=$('shop-packs');ps.innerHTML='';
+  let anyP=false;
   G.shop.packs.forEach((pk,i)=>{
-    if(!pk){const sold=document.createElement('div');sold.className='shop-slot';sold.innerHTML='<div class="soldout">已卖完</div>';ps.appendChild(sold);return}
+    if(!pk){const sold=document.createElement('div');sold.className='shop-slot sold';sold.innerHTML='<div class="soldout">已 卖 完</div>';ps.appendChild(sold);return}
+    anyP=true;
     const P=PACKS[pk.id];
     const slot=document.createElement('div');slot.className='shop-slot';
+    const b=document.createElement('span');b.className='type-badge '+(P.cls.replace('pack-','tb-'));b.textContent='卡包';slot.appendChild(b);
     const el=document.createElement('div');
     el.className='packface '+P.cls;
-    el.innerHTML=`<span class="pf-emoji">${P.e}</span><span>${P.n}</span><span style="font-size:10px;opacity:.8">${P.d}</span>`;
+    el.innerHTML=`<span class="pf-emoji">${P.e}</span><span>${P.n}</span><span style="font-size:10px;opacity:.85">${P.d}</span>`;
     attachInfo(el,()=>`<div class="ip-name">${P.e} ${P.n}</div><div class="ip-desc">${P.d}</div>`);
     const cost=pk.free?0:pk.cost;
     const btn=document.createElement('button');
@@ -770,19 +810,18 @@ function renderShop(){
     };
     slot.appendChild(el);slot.appendChild(btn);ps.appendChild(slot);
   });
-  /* 重掷 */
+  if(!anyP)ps.innerHTML='<div class="shop-empty">卡包已全部卖完</div>';
+  /* —— 重掷/ tip —— */
   let rc=G.shop.rerollCost;
   if(G.shop.d6Free>0)rc=0;
   $('reroll-cost').textContent=rc===0?'免费':'$'+rc;
   $('shop-reroll').disabled=G.money<rc;
   $('shop-reroll').onclick=()=>{
     const r=Engine.rerollShop(G);
-    if(r.ok){Snd.reroll();renderShop();saveRun()}
+    if(r.ok){Snd.reroll();G._soldKinds=null;renderShop();saveRun()}
     else{Snd.error();toast(r.error)}
   };
-  $('shop-next').onclick=()=>{
-    leaveShopUI();
-  };
+  $('shop-next').onclick=()=>{leaveShopUI()};
 }
 function leaveShopUI(){
   const G=UI.G;
@@ -808,9 +847,10 @@ function showPackOverlay(title,after){
   const G=UI.G,P=G.pack;
   if(!P){after&&after();return}
   showScreen('scr-pack');
-  $('pack-head').textContent=title||PACKS[P.typeId].n;
+  const PT=PACKS[P.typeId];
+  $('pack-head').innerHTML=`<span>${PT.e} ${title||PT.n}</span><span class="pk-pill px">还可选 ${P.left}</span>`;
   const box=$('pack-cards');box.innerHTML='';
-  $('pack-note').textContent='剩余选取次数:'+P.left;
+  $('pack-note').textContent=PT.d;
   P.opts.forEach((opt,i)=>{
     if(!opt)return;
     const pick=document.createElement('div');pick.className='pick';
