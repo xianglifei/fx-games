@@ -1,0 +1,178 @@
+<div id="bgfx"><div class="scan"></div><div class="noise"></div><div class="vig"></div></div>
+<div id="app">
+  <!-- 主菜单 -->
+  <section id="scr-menu" class="screen">
+    <div class="menu-box">
+      <div class="logo">
+        <div class="logo-joker">🃏</div>
+        <h1 class="px">JOKER'S DECK</h1>
+        <div class="logo-sub">小 丑 牌</div>
+      </div>
+      <div class="menu-btns">
+        <button id="btn-continue" class="bigbtn gold">继续冒险</button>
+        <button id="btn-newrun" class="bigbtn red">新的一局</button>
+        <button id="btn-decks" class="bigbtn blue">牌背图鉴</button>
+        <button id="btn-stats" class="bigbtn dark">战绩统计</button>
+        <button id="btn-howto" class="bigbtn dark">怎么玩</button>
+      </div>
+      <div class="menu-foot px">BEST ANTE <span id="menu-best">1</span> · WINS <span id="menu-wins">0</span></div>
+    </div>
+  </section>
+
+  <!-- 牌背选择 -->
+  <section id="scr-decks" class="screen">
+    <div class="page-box">
+      <h2>选择牌背</h2>
+      <div class="deck-grid" id="deck-grid"></div>
+      <div class="back-btn-row"><button class="bigbtn dark" id="decks-back">返 回</button></div>
+    </div>
+  </section>
+
+  <!-- 战绩 -->
+  <section id="scr-stats" class="screen">
+    <div class="page-box">
+      <h2>战绩统计</h2>
+      <div class="stat-grid" id="stat-grid"></div>
+      <div class="back-btn-row"><button class="bigbtn dark" id="stats-back">返 回</button></div>
+    </div>
+  </section>
+
+  <!-- 怎么玩 -->
+  <section id="scr-howto" class="screen">
+    <div class="page-box">
+      <h2>怎么玩</h2>
+      <div class="howto-sec">
+        <div class="kv"><span class="chipbox px">筹码</span><b>×</b><span class="multbox px">多倍</span><span>= 这手牌的分数,超过右上目标即获胜</span></div>
+        <p>· 每回合有 <b>出牌次数</b> 和 <b>弃牌机会</b>,点选手牌后「出牌」,按扑克牌型计分。<br>
+        · <b>小丑</b>是被动增益(常驻),<b>塔罗</b>强化手牌,<b>星球</b>升级牌型,<b>光谱</b>稀有强力——都在消耗牌栏。<br>
+        · 每个 Ante 有 <b>小盲 → 大盲 → Boss</b> 三关,小盲/大盲可以「跳过」换取标签,Boss 必须打。<br>
+        · 打赢盲注有奖金:剩余出牌、弃牌、手中 <b>黄金卡</b> 都给钱,持钱还有 <b>利息</b>($5 = $1)。<br>
+        · 商店买小丑/消耗牌/卡包/代金券,钱要花在刀刃上——构筑滚雪球,8 个 Ante 通关!<br>
+        · 长按(或悬停)任意卡牌可查看说明;拖动无,点击即选。</p>
+      </div>
+      <div class="back-btn-row"><button class="bigbtn dark" id="howto-back">返 回</button></div>
+    </div>
+  </section>
+
+  <!-- 游戏主界面 -->
+  <section id="scr-game" class="screen">
+    <header id="topbar">
+      <button id="tb-menu" class="iconbtn">☰</button>
+      <div id="ante-track"></div>
+      <button id="tb-sound" class="iconbtn">🔊</button>
+    </header>
+    <main id="mid">
+      <aside id="rail-left">
+        <div id="card-blind" class="panelcard blind">
+          <div class="bc-top"><span id="bc-name">小盲注</span><span class="px" id="bc-mult">1x</span></div>
+          <div class="bc-art" id="bc-art">💵</div>
+          <div class="bc-bottom"><span>奖励</span><b id="bc-reward">$3</b></div>
+        </div>
+        <div id="card-score" class="panelcard">
+          <div class="row-target"><span>目标</span><b class="px" id="sc-target">300</b></div>
+          <div class="score-big px" id="sc-score">0</div>
+        </div>
+        <div id="card-hand" class="panelcard">
+          <div class="hh-name" id="hh-name">高牌</div>
+          <div class="hh-lv px" id="hh-lv">lv.1</div>
+          <div class="hh-score"><span class="chipbox px" id="hh-chips">5</span><span class="times">×</span><span class="multbox px" id="hh-mult">1</span></div>
+          <div class="hh-counts">
+            <div class="hc"><i>出牌</i><b class="px" id="hh-plays">4</b></div>
+            <div class="hc"><i>弃牌</i><b class="px" id="hh-discards">3</b></div>
+            <div class="hc"><i>手牌</i><b class="px" id="hh-handsize">8</b></div>
+          </div>
+        </div>
+        <div class="mini-row">
+          <div class="panelcard"><span class="ico">💰</span><b class="px" id="money-val">$4</b></div>
+          <div class="panelcard"><span class="ico">⏫</span><b class="px" id="ante-val">1/8</b></div>
+          <div class="panelcard"><span class="ico">🎲</span><b class="px" id="round-val">1</b></div>
+        </div>
+        <div id="card-deck" class="panelcard">
+          <div class="dk-back"></div>
+          <div class="dk-info">牌堆<br><b class="px" id="dk-count">52/52</b></div>
+        </div>
+      </aside>
+      <section id="playarea">
+        <div id="msgline">选择手牌,组成牌型出击</div>
+        <div id="played-cards"></div>
+      </section>
+      <aside id="rail-right">
+        <div id="joker-tray" class="tray"><div class="tray-label">小丑</div></div>
+        <div id="consumable-tray" class="tray"><div class="tray-label">消耗牌</div></div>
+      </aside>
+    </main>
+    <footer id="handzone">
+      <div class="hz-side">
+        <button id="btn-sort-rank" class="chipbtn">点数</button>
+        <button id="btn-sort-suit" class="chipbtn">花色</button>
+      </div>
+      <div id="hand-cards"></div>
+      <div class="hz-side hz-actions">
+        <div>
+          <button id="btn-play" class="bigbtn blue">出 牌</button>
+          <div class="sel-count" id="sel-count">未选牌</div>
+        </div>
+        <div>
+          <button id="btn-discard" class="bigbtn red">弃 牌</button>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- 盲注选择 -->
+  <section id="scr-blind" class="screen overlay">
+    <div class="blind-wrap">
+      <div class="blind-title">选 择 盲 注</div>
+      <div id="blind-cards"></div>
+      <button id="blind-go" class="bigbtn red">选 择</button>
+    </div>
+  </section>
+
+  <!-- 商店 -->
+  <section id="scr-shop" class="screen overlay">
+    <header class="shop-head"><span>商 店</span><span class="sh-money px" id="shop-money">$4</span></header>
+    <div class="shop-grid" id="shop-voucher"></div>
+    <div class="shop-grid" id="shop-cards"></div>
+    <div class="shop-grid shop-packs" id="shop-packs"></div>
+    <div class="shop-tip" id="shop-tip">买东西能变强,但别把钱花光——利息 $5 = $1</div>
+    <div class="shop-foot">
+      <button id="shop-reroll" class="bigbtn blue">重 掷 <span class="px" id="reroll-cost">$5</span></button>
+      <button id="shop-next" class="bigbtn red">下一回合</button>
+    </div>
+  </section>
+
+  <!-- 卡包 -->
+  <section id="scr-pack" class="screen overlay">
+    <div id="pack-box">
+      <div class="pack-head" id="pack-head">卡包</div>
+      <div class="pack-cards" id="pack-cards"></div>
+      <div class="pack-note" id="pack-note">点击选取</div>
+    </div>
+  </section>
+
+  <!-- 回合结算 -->
+  <section id="scr-cashout" class="screen overlay">
+    <div class="cash-box">
+      <h3>回 合 结 算</h3>
+      <div class="cash-list" id="cash-list"></div>
+      <div class="cash-total"><span>总计</span><b class="px" id="cash-total">$0</b></div>
+      <button id="cash-go" class="bigbtn gold">收 下</button>
+    </div>
+  </section>
+
+  <!-- 结束/胜利 -->
+  <section id="scr-end" class="screen overlay">
+    <div class="end-box" id="end-box">
+      <h2 id="end-title">游戏结束</h2>
+      <div class="end-stats" id="end-stats"></div>
+      <div class="end-btns" id="end-btns"></div>
+    </div>
+  </section>
+
+  <div id="infoPop"></div>
+  <div id="sel-banner"><span id="sel-banner-txt"></span><button class="mini" id="sel-banner-cancel">取消</button></div>
+  <div id="confirmPop"><div class="confirm-box"><div class="cb-title" id="cb-title"></div><div class="cb-desc" id="cb-desc"></div><div class="cb-btns" id="cb-btns"></div></div></div>
+  <div id="toast"></div>
+  <div id="fxLayer"></div>
+  <div id="confetti"></div>
+</div>

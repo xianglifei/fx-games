@@ -1,0 +1,3254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0c1f16">
+<meta name="description" content="小丑牌 Balatro 风格扑克肉鸽单文件网页游戏:筹码×倍率计分,小丑/塔罗/星球/光谱牌构筑,8 个盲注通关,原创视觉与合成音效">
+<title>小丑牌 · JOKER'S DECK</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230c1f16'/><text x='50' y='74' font-size='62' text-anchor='middle' fill='%23ffcf5c' font-family='serif' font-weight='bold'>&#127183;</text></svg>">
+<style>
+/* Press Start 2P — SIL Open Font License 1.1, 仅用于拉丁字符与数字的像素化表现 */
+@font-face{
+  font-family:'PixelNum';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(data:font/woff2;base64,d09GMgABAAAAADDAABAAAAAApCgAADBhAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhYcgzwGYACEdAiBYgmaFhEICoKKTIHsUwuDRgABNgIkA4Z4BCAFhEoHhGgMgTEbTZJVB2LGOMDAcHbFyECwcQCRB+GBqh4T6BjjWDuUaiW4urV5wi1kb3DFOx1vEPVYipjuvC9dbLLikhUnuPeXeJP4HqXOresf/tGjDM2EE2XIiUesNQVkzR0nL2T2mHULJjiCmPwMbBv5k5y88MC/93puksIjUtGjSk8ZYH0BeATU2vYfvEO+ISU8JM9PxEuik4p5qu7/v87sPoERNDMBR7YsGfRNLDvf/pYDQJoJ4gJhUe/pPSdbbZW6Wr/mm6ampHnMqroDyc4KOKGcdh3hUlGrqOmqx3fusLQ3cBDRHDmfLB2GHpuSYmNScCdUhNH1tlBuiLbesix9REoQgTAGa8HIZOxsvv9p6r/nJoQLYJdR4WWnKoWii+LwqWO59OjNh5zlnZ5G9avGEPVT39urr1m2fy2Ep2i4EAvHmUAaFVMTIKUboGg1739S3di+vVpbaKu86A0p0/meYM6ELIPa0GXoMhJnDkInCa4SdaL6//2p/7X7HEmWnUf2B6owa5QBLJrgEHS8esBO3vvcc6xzdK/iK0uKpciZSHFItgNK8sH5WTr3XjmykrdsXv5E+kB+meHqPYd+8hEyQNgxlNNV73VDbTVNU4yOMX1A560kJHpZzWFXjdceKYMRWYpMxOPVV/+xY6/93qow0cy8YwwqAkKDiC10DJvP3btrTOv13Fy+lihYKihll6JwmT8XAZiy/bUT3EVCRkYAxlKsQIppHz8PrzHVpZjTDBFda6djDJ0OBQk9DDEiUXy+ggEKDH82kNHHOElKyslArX/c4MuQ9K2OzetNTKO+xYS5MwJickz6uQR9PrOFSklCmKMAAkMEbZBohDGBQjcSM8G1JF5QQqUrIdp4DaFhWuBUCVP0GTwc2HEQiWyiM2Mz7UKiidX7mobMckYiYY4+U0kzBZvhxs8Zxgj0Z0vYMCaDU+ZmGjka0kO4KqPagkbgAPnPCE7oV2VgmgZspjQk7nIvfTTZFPmlmIYeSBOkTiAZN4sevKITLK9mX9qAe4wennU5BlYl+SWA/FLUBlgKIL0vSbcG/LxGyIghRer1a+1HRaEJYMZdoCF0wjPKjg9JZ6QH0iNZqI3UFmob1SrYhaAQE6rDJsuKn265tirpdCDfUcVDkGXJrM+K2lBtprbafWCz0H0D0l++O1vD/9b/m/zX/6/37y48W4S/RJVXXHvis2bPLJ5uexr4DnitRwDgBdLcATGD7ZiYAOHw/zYgM48lLOAA57nMUtayjukcZQ4bWchyZrOMU5zgJIu4hIIpZiyoTxOa0ozmtKEtKlas2XLlzoMnL94CBAoSLNRqZrCGO6zgCWHixEuULEOmLNk666Kr7nroJV+hIsVKlalWo1adgVZyi1WcYS/z2cch9nOY21zlMdfQbOYsm7jOU25ymglM5AHnuMJMHjKeIbYwlSlMYzGG6KGPMQOMmGBOYxrQkEa0pgUtaUU9bDiyY8+Zg2M48efDl58QbkpECRchRqRosRKkS5EqTSftddBRkp766a2PXH0dJ0eVchUq9VdgABd5NrCeHexkO7P/GL/5LVVYhEaL6nRPvUSL36NBfonp/38mQyVptAainxjDn9A1GIgLum/A6T/EzpzSd+6zsrt3XbayQLuglMz6P4AAbk9l4vKeuEII2RtAECVHEqNeFpESwwx8d5qK9XkoL4fE/nSfPlc9ZdNuvqgX736+DJ6+Og9wcwofTg2vGLrocJ2xXBwy7eNN3RTAu9OwQPt5uwehTDG0ztEhgveh/7vAMzO3JttMiNM6N4uUGfZBxawzUBVXStXI9BnZ5b2RvEiFiRePWVd3Mo7oPOucIDpAxXM8H6Zc9UM/OwJNb2uye1M1qVjXWq7c9o2pmDeQ3yrJdi46MNLtYpXRL8YDpICBb8RfPnwBYeRKaWdBuk3yqFYj/Qw2nxkW038KdkaH9zIvxvJl73S7ABv8YYj9PPIxgKAdk2xI2zjZYt+Milmw34yKWdh87A3tKepuzYN1DmVT6t5cVxNWM8pimCH0DBF07IMdwiHZVe8MbyMfGWVdklzecX++yBgjeShHxIma4c5JIxujXHaWRZsj4wxMLM0L4Z+C282o8WeLguaNxAZBHi3BTu+0K3f2bO3r4F15GkkaR6719PZ91OXnWDo1xTri4n6LeFyQtjPjNnbPomTmHrlh0a1ImgHK5pX2RdxPpVbaz/r841Uv3yUv68RAGkb6Ot0YEYeM5mEzYM2irOR77EDa2CMJYjYQ0efvgjRb2oXk3injRsY+w0ZmyKDiZRTS9u9kkhDDIjevp3w2f7JdwSIzrCNtR2ZZpy5oXIINLsMmV2CLq7CH+2Av98M+HoD9PDhRCRL+LenzTu9UsE66sVPSU2d1VFKLv9zZTlrxVz+kc2xpHbX9ZAdYjunYhTyXoMBlMLgCRa6CyX1gcT+UeADKPFhnAWm7Qu3MwqSHXekjJnTdg5ph9oXqgbUxayN+diMAhxGiWZO6KcQYXVC7IEDTebs+aevGqKuUdfWZOWpaAYo2rt5meA070/GvQO5sVZJtRcjwXaH9CwBYvpfN3qaskz8gXYaEQ8sPEEL+CkX22Pq9E9mfcpgkpt9eeMC6BM3EOpcJY38cP24/HxI4WaETR7Dp1zsOfaJspho5ZIS2TuRRxbzS+EdnUIznrS5AasPR3YzGsK5zPxUDJcqglz3uyq/1p6Sv6u6tZK3uuZIzaiMg0Aypa5SDQkWkpS5ZTRwfjyGJMhPKos6Ww5KoTtPlJ1D2Q6oCULHkoG46gwFxQMm8k7EVC85ZyZ0jyoGr8dZVs1LVXqZieWZMa/rNInJmi8mjFjkORwZmQbXYAUmbI8lJngGxkYOMs2MUPUeEnHICfTuc13Uk8W4t9W4A1bUY9ZnqvONDXqxi6PZ2IqYNjHvTX4qC86XLs0Cg63KdD8yC+DGYaXz3CaFX7qwpkq33+nLGdu168OveuNNX5joiS77d88ChPfPpi8CR3fQVcbbKNpxyBhWxznoQRB4aRpklN3J62p+wu5vaT1uGHlDMZV2hvf+nOMQveoO56s2TbLo8UgreoII7gaEdjsxKTa8FL7XjkXKeHcpmd7o/IKVH0nZ/t7o3h48fCR3UHV332uGjgYM7HLsVNFewjoNm1ID5x8NWHuWx3hknwgAsmZ3kBKe2EdhpTnBmCHDZWU5wbhuBned05oXwE8Cc2MUYwaX7COxyjODKkwBiV2ME1+4jsOsx0jdMM8FvYgW3thGYxwm2h4AV2+EEt7cR2B1O5i48tuD36AT37yOwBzEyDxky9ihG8Pg+AnsSo1NPA4xX0jzjjnI2xZ+zg/rF4lPF+OTLgEThVYJirxMEb0qYaGfvxSfs/fjEfMDoh33o/MBHCYKPEwSflOD8sE/jDvss7rDP4w77wmHwZYLgqwTB1yVMGfsmPmXfxqfsu/iUfe8w+CFB8GOCLviJ/Qwq0lPrLfKYgbuUi1dPx/HPSixAIHQ6LAB4ASBOgfgH9YegkT7QcA4OUykPZLbilyz3PSB2siMtidP0RBmBoh08vyuxrsQ2L3fQ3Q5hrlt2whBD56nET4lCBuk+2D7eBbb5tpVSaH63aJ92Eap6JVaYWGGZNLHtMo2Zu8ej2kj7VBbr5iLNa0Bgl4fXMPQYHWc66XsWa8jxBdOdBfVDPiVmAikfe6LVmfqakRnN6I9hAIioSazNHQMxnNvKBdKEML73Exmce2RuAIiAldkVuVoaaBx0buociAg/9AU3o7H11zli4YV7frB+pMDJ0gK16fiAOz9v/TuLdFVNyyTTLAtMMRtwtGFKELiSiZdzDVm/IGMWJKQ6aG5a3vPU/hIg6YBciJacfHaplyeHT9A55m6YI3wAZFBZ2M3O3SLlj+JTA3ZEODT4z7Kpjupb12kNCVlQrMFgIhBFbPCkKGgRsa+pLg9mHEasCpJFVxpaHBLNnAa1p4VSYOnTrbj18VsG8U0Uw21sDVcJ/II4g3ilxutQh0A7oFHwKrd74UzhOmkF9fgG5ZoWylotB4WF7gOTyISsehvQHgpT5uI9xUUNOxSe68Rfg36LFSYkGjqCz23I8T81c+tDUowN98GAO6vONwrxSdp0WIXVjlbdXcQ0boelx5acW46qwKCQK+Kb6brR1AxCPRhiKUd0NL2EXee5RiyH+WxkjSJYywdslMXCtHF6VJRE5roW5KAI3VL4rpWGEP4kiugcxcw6PXuQRWdJFUVlDrjQzy/CRUZD+lMxEXBYzdJv4ZbC/hpHac3jvFwfNzBCcxizzdIC9jeb0SBgSmKqxSArUoNEbvk5KsKoGW9wJ4bBTT6jWRDmNflaK0EvqwRYa5jJArfFRXOIwGqklEhpd0YDwTEldoSLzBrdc48RPZ2n6eIeDaFJO2CywnnxvVWPnmERj+RIHFtkvmLh325Jt0kITHfnonDEQooWZtcstOYMfmviog6g09reuIKyidc6ky3S1ecEL9407FSD6wU5pFAjmp0I0UpVW4wGbc2WkIUe891wOkHq74Dm44AwYVJQS0jcugPH/mTUUZnQw8PbFI8DEmskY+sZ5RS3YKJlj+YJvNAqaMq7Dhtx7cSQMjatoZdsT7FgrRS2cObOlPSUhHJEtSnErpIFKQ4NZW9JiZnkKHxn7lgQo83EkEV3tobPAANXKFr+ZYpJsgvBKkJgFUqOHDiog7VDNmpLbqZVmzCcQVMjbBPS45zYLHETTq05SGrMHXQ+5yJcG/IzC1rro+LnekQz7/wBHgIy1Ug0kiIeaMtdCBMHqW2MC7WQQAshxRu0lCvk8DCc0oKbXGk6SmMTTx1jogfjlU8D97CdwASOhW6beJm3ikho3X7lOklrqmlNFT8LvuSA7kcqoQkOBY6Hd++Cj40oWTpUQFilDDYli8IASiuxejhabHJlcIB29CAUMRMfJde4cJ0LkGTVJ483WAueqw3CgL6gwJyZlyEwpqfVI8fAwYYoItM+luoQLJiKQfdQuj8MeXgRmsQ3l6PX3EjgBRPnra8npDYVq8JYkChhocD2nZ0f1CvHJClFnRFLopnheGpiRuzoEMnAjCbtjZRRyeu0syx4r2bDpg4ZmNUybIZTBvbA9gDpVP5hTQNYG5AwRsuU+DCX4i6StkxhhB7yYWjqP6Neiu0ckY0XQyhOEmIXYbmXkCJH5wi5QhkSkJRdRsKKsuSCSqgEgZst+aQnLencKs5V+8mH7J3DbBARUMIVGBnBgtIKhw4RZwz2zYkf1RsopKLLlsh891SzrBLD8t+Br40niYHKf0RhKsQzk/sm7LFhEj8bGxN6LEgPFS1sH3UpTDrBcpusRIBHniJuJAaTMKOg28YumqIUQ6+DEtNtkDMPOHTGnhqoXOHXCTFd6KIuwgy1Ql9vOm4gkO7CR7g2lkh7wOAHW8HGAyz79igRrzZNehHxcmZvBq2IgYGgI2cgHtWrWgvQouVpwtOaj27BxPUsWmzyRPh6iEuQLzMw5VF9ESdaI6QbiYha3xJjaNxpd4MFUblSQyThRHNb4OTSmGcHXD+BeEFfh5/sUW9igXG61oBaoskU942EMx8qUky3teTooWvGjlbXXwOQEB1K+LPO27H14GF7FgWf+5/m3P/iS6oTifvStSTlcSxJ860t7Dg9Qs0yxUmM37iAoBdRWukOJEGB5KY0kgRJmgQBIkk+NH8UkqNDn8FX2/EhQXWHpg1EfUp0fIBfN7pZKJLibIazPcMzf9mq6u+rrvPGvudaBTXn6/pwkppAIAa/x43rWrN/BqBhlNT2U9JN4issrcZqh94h2KGjDg9MipB20Z3iKVPl3VOfBAukqQN9tuEqlrAXPFTVnotAby7H0KzS6/fxBUuhKZkyrorPyDAYgZsXA8l7V1SNGeyV8x5dh5KVb/eUpQ/UmHt63kVYcJ4YgdYCPOs9FgFQ54vOR1AmttwC0LwwlMXC6IOFAeqXuNnrQcbUKlk+bqfD2LyujYGd0E+ejaZGrrSnk6ptXN5Ef0QUteRO3TPcJa2NJpjeTdpQysVeBnFvOg+4v7kgItWDZAyaflRGqtJnWebZ9Xk9YNgQiLxjKAdU1QA8Oi2HTQQwjuRM9XScGLHJOiO1kPIqcNa6hbKuL0Mhe6mDAiVePPt8LRXhZNoAvKgo15JitIZuDvoB6FxvHxsWK5s9mvX0ftP3JRMja/YZO58TTvJELZ1aGR+68d6OZUZxJptbP8ejRd5vu4hXmlrMJb4gcA8Jw5ekEnlQzJIGK6gGGH0dII8PLE3D+cxxEaa6ExrNseutyaVvgkYse7tN+WQL7ZKsY5+kL0ndoIGxrzzRjVrImX+RVzlN0rrqeDReG5OFp/9g9GXS+gtqgDh825WyjRLfozH2jo9lJfoK2ZuvQ3wSYsK7qorAdvqxg1eWmY6vBa1tiJX4ehLxvZNbx4zZ+Mhw8ib7WASGSe2J7P7bepTtnxPGVdN3HdCY6CYCeJaowxhqUqnTmxYnKc7FKBBfIZEN6aYO4XppIawtf884iAMCTX0BSfjSxKt7W0wX36ij+5nMnsO7+DucTX/skXIQu1XlhkUHlZtRV0M4hCVMhGW9YouXxZ5V8feUeEAEb9789jtY2QKxLPbbS6L/pcVjvqQ29+gv/Ej28hE7HSaDhnB3ZUAIcGmKpMVm169BY8Zajvd0ZOr6vrTmlGh7y+6/NeQ8LedTPzYj95Yg4nwi5mNnmJKbq59za+cbRFwCd8IzehAsxg+ba2dcoGfO/S2pnsJ+1tRaqz6SPPKh/iq47AA37DqXycOmiv2eIkMCWgEf4+now6sLqFyIIND5to1yEZ+rOYCI52eltLWyHL70URRs5cpJXjSGu7gd3PR96b7cUqprX8xnySLteR1GLjqwkbSRHSeBxfEBGjrOi1qucCYficjLbSimKZWLQ9o2//A6Re1zb0g1eapRSfxhpDeKa5+3OlEKUnwvSL4VwXWqiMsAK2qQtAY8xuSvB6yLU2dbooNv90hK+dRZU3d9e/dPn4ShhaFMHj7oPOYNOlQYs9j/9sgqDK4OKh9PTXTwxRLPSBRaoPKjP3NtvCBCqbE7KArIvb5oKOfuxc3pFSOz3nAKNIdtu+aLqCfPnPq77Am/mrrC4v2/U6prE8dNr7TT64JMydXy1ekFD3forK5GnvgqEGOgUsguGmFylYSS6psxRrtsW9z6kRv99bfSyDf+/YNMN+7oY6ePz49q0QhvVclh9vDfaY+s8pw0gHp+H+OGo8T3WZQnbF0sjGI291bgUSMkbTN8e+6ks3wQfHlpNB5OUkvLhPL7UbftMPq7D47ZxuaCd7APa4rvJrBwz47AnKqVj4vB+oiSLyzuHq8vE1n2iL3tJuE6ZHCr5N/cMVm4YzwEnc4yYzzqbK7txfp8IYkuXXmMKz8QgwXv7rrWNev/lDJaFafKrHsLEq5OVw7sKhFSOFj/bj5Pjzubq0eM+RnA/pDRBm8CAaLRY5Bh5ALSbJgUuhW3OPpzX/aSF+oS2cjyzuYuuYyEM0AZFO3mMMsdFVld5Wj02DE+dMCNabkHxuDaiyp4bra3uMVnFPtgqx9DPNhYOH0jooekNd3mrv6nLrTY3SqaZ/P9aydBGvKnb9hdDq2uZMNOY4g6DgZqxwPUrHFmTCplncwujlQ7Z+XkmZBikXvosaDYMeUS3Mth3Ee4ZOX/bxojaJy+szRABPYvcqfxguq50sIKMRllX8pMU/y+h8adsEJxR56IRAV8GgVOS65zKfyejOelvvJfktlH3s409WyIqpEvMNMUIzKutp9huuJLspOjJ3T7tfO9USx0por616NDTmRxH0sKXidl1R/bL3aUR1HZxqlMj2Nt/vLi6NCG3Z/P4Yf23vJ+anv2WoO04cT5zfqKdeyhLmt1tTyxmLW73FGL/dPGPUc9efw1B1tMkp7c/wHaz9mP4v9y9aUYd/3f/Gf+/2+rQQnyK/vYX4X9mlwNGfIMWgsZnt9oCJZCZzgvKD8NATiPWmx20uPcW6cjTnnUa8KtnrmvTcF/WDCFGfP2qtryezAftJMJrVpYaWghtc4ZwrPQoID6oXvr1BqXRIznsU4246sC82k6zn2qpuct1FHP3FfO9V8qVPReAQug5+22m23++P57ZunQZgatGzM2M24qEoircGeD58k7p6YLrk+Dy6YurHoeAZCvqck5n9Jx7q66N9mG5lFfel8FyI8Ked2Bp+IezlVuz2D6s2lTU1sXmk7tjQXP1ftmGyHCMgE8DbYpLGQwuEQVuDmo58hkbdTrpbeaIH/ueqCpAhPpPm0L+f9Yvh+NGoNBINt9PsKPjg5Yg+rdbcnZHCuiT6guBS629V5qkrs7OwpNDbQKPFMD55SFFGtqnkUWTMIF3j98awOI10TnGE++oUlNrydqo8bqQQG+bcAeuGipfoesuJjaRkcQnUXfHjdOaJZa5waEHfVCCHGpxPg0NubZFsLO4xgsgqsEcELmHVL4pjCdb/XF91V+9wL85NnY4+8+vpvRlZfCER/J4098BFJAKxNS3nCYq3UGUvDUMclImrPBFrXYeqKjLlRGvXbcarXUoAUvMWv3zJcADsSdRJaQOwZNop2KWNgpTS3ZksmORQRRdRSUnw+/5Mef8pOKJAosoRdyJXiGKkkLechKOL/f4e0ao7VTOxC8R/Rb3tj8QfI7+5kbE2pDV8QpqITyqJ4pJo2vQBMNbFNhlpxTo6UTAcF26rp93o6PCT7jPRL7CfRpxDmtlGiIK0ADaafnQMgQ0/JO2jXEw0UPFdQo8ah7IlFHTSsTHlABLJVjiBa/W7eQ8lqhRjBClCBAKM4S9XzYYlMYJuM1Bm70QjFZ1cR1QI8thwH1+9on2xRmDdl8a85QiLJ0oGnPuNpiQqPGmIwv1qQhxrTKGzdl874QynHJnSuEKWf/ZDYc6/YGKQ5IF8wPX7RXw5gs/e15oOBaSMQU4nw0Y8nOwOtkvkYwKqZTuzeFMCDy4fNOcttYzE2SWg/il1iENXoF0j5ZoGS7YmuOIUvYU0m256Y2ERAfmOcw68LqCtwSkLMU1ZPIxpMycjXkhyp1RgpbuG4RUlwZyOQaCQBYIUyd3KWlco1Qyqkc584Z1STwgJ5SxABaM0VJ7EIXjzYTsVbXasEip1nGN+WWDBGdjLQbSnw680qYFxvQrIjoFbMW7VPGcjeUWdap+Q4gN0m7vJD8mlKNN1yFB+DOWSqQV166HJbT/Q5ZlGmuPi7lR6cPWcEeSltydisbAHQRAJKxBmX94x0Wtkdr1Ci1gd5qYuszIklsBi1T67s6K4eyuKrI9A+vxjcWu76jFs8et1wHkKp9ufgIQ8U29G9CevNXGenhJAcNdkDzXY016obqcmTPDeLqDSyBkENOsSGPN+vOUKIQKfQBPlBxLHcPKFQiZo0BSSgZEWZzxuTO5wsMcZbOCTG0SCgNMb0uLfmynqu4n0l55RpE4by1uurnasT5Tvg5pNEbSgiEOZxdeIAMrS9sO5vM5TaFlNj6SKbExdi2nDU8LIG0SxLrn2ZbgLV7hBgGYLnN1d7RVPjHBH1snTkNFQoEJ9yEXCMvSPmW5OZgvEYsczTH9G/LzzuWSN20N6tHt8os1QGGt507MY12eHOzfXE7i7a7BjUq9HXnqj46irKHUfQAn25wgzVT89p6QtTi0kXiwZ6LFZcShSPeT3t9Ah7eQ/Hd45LawpLc/ER6AocYeQ0oExqhV0KQRfFr6nEpGMn3cGp+jeN+yse595v3LnAcQCpB3l82jii0g/058mDCpcRHE46Ll6UlSFJ40W3Czy0lIGpSyGCj+xznXNpplv4d8SEgMsVOQi1oR7cRd9zd+DFGJpCjt2TVPr7ScQXrD5tdSImXvlhlnfb8ANw9QvHhfm2OoqFhTu+dv/rhMYjJecBiUFlJjeFtejw3OqJkgtaKSieukRYLmjdjU48SBqyH3mDivjaO4UZsQRbgw/Uu0tTSxTEcxY+KASkunUkoF6gEllHalWS31toWf+hQTknVFAUMMhQRxy3fs1Cp8Xl1ysX35mDgKNwfVBXunqHyo2kHUloohLrAR3/EQDWWCOmJ6BRSDB1XnoSr7l/a5nUB9b4eM1WxKRBf+IHzwJwO7NyVP/ZDqJNElvHtqaygynVYrdZ8L2k/jmoQMjCthjqhKHrALIvv4WNhZcGfxq71xhhhQHSiSXqj2VMQRJaUk7So8XTG6nTjIzCQKHo00y4SXgs0T+5NfaYwa4maLgH9O7oyTQv94hWgXVNXlkFE0cSobhwG9HCmaQAF99Jkv0Yqr6MbQSJhVULKhNTKRFzCgTX5f32DBHHAm99XQqDmWHbs+4s55kFtlfldskSuGOQjk9jiCplO7d64hQG4rsWWAoNqx7Rszi/0MVJFw0oJS+QBTcLphkaS6AayUL5BsjtWXHWjxAEOWlQClz3BdW0y4I3I8AHRRfLsOUJYrKUGEnEyOSxOYOKhlioitWUQjZ10l7uk/1YNDxbcBgJFrXQcUvXQVskQ0SS0zK4UD/XmjsNl4YWRfN9VJl9KjxokT06a7+CNOet2jaIWmj4vxeFLOmiSSRy2mCVdo6R0iv4SqzeJax6QLoNbghALw6ef0h16DDGHgUS1UDsBLaa9W9OlNuUpzUIthCbFL69QOqYQdnLjzjdv7zu0qNC3mHNm8iMUS8CrhQdDSOpZC8eqHv3hKS95G2CKTbwVVzW+KM1vtTRWpW5GMOt9NR3QPpIT/W4IQ5PosRFzmGMzm/yG5So5n/MVmNmmck1oBrPkplN5mT7aEXipGMIK3dIOt2ZbE1wpEIdXKGXAL0ii2h9eW6O0W7v94/AjjDBALoKLpO+3T2efsz4wVQg2crwSw0pbwihYByUWggiSX7K8or8iwnRvDz0/J9TNugDqmMRdtv8GhukVd9/bI8rNo40Aikl0el07CxNmQTdD+YIolsJ+9flXbctGa+fZ55mugE4Pzg5ucIvDY3vnfHerMQVF1NeZXhdbGi621J62T4z+biywVX5tgwNMgqnoh2ah7aclmDj3sb6YWybR9fvHx88J7Nk5D0wElPCqGLPicC+7uKpCfqhi1PvsG0wkLemV6HfPalhqCTi/CXr2peg2ntfddGhRITmZWy5zo3ineRvXucxZJAfOJWWUFnwv8ZkDAlW2SOJGA6Bi6jQQyNxePBd51Ser0kK7q5IlIDswdunGKYWDkTERdhg7WZRxmabT5LmjGCbOzJlpWPR6MR9ODEJnkFydnEZnedGfKm1TpV2gMqvMCku4cRBaP+FiVHypUiS8qRWO9cbb13dlOUeElnklLUW0ZbHiNt14rS/Q7EiFjWrnLL4su003Vlbms9kXmyxXYG+f5TF4djCpfXTpOYYV4IG8o8iRcwhCCqJzgKuRyYZHO0xqbDSgVx7ygMjYWInG3j91DP4dRy1Ojp2Gcb9FHoA3b7Vw4LlRVkSWEM7IDEMcMuKrdgRPyxTRoKrOVcjpyq1rMmQArRUzb4quJ2dKMqABvbGMxbrs1LZfk7JkwhDP1UwB2v/9PL8TIvjvY0CRp7jSC0JeGY1KjtUuaelyPB4pn/uIQ42iD+hJyRiAlPa0uwNwuIfl747B3f+epnebc3QoMhorZcB3oK+EhEhZjRjgjZ335vnbpJDAMliR7of2+IzdfiYFGROAg8QlcvH5ygiIQQVXI04G3T9N1rJSUrkLHI5WloeUBMVAmxcSYurn5P2CWA4/efrTnOknLkAo6JR+y8R0oWViTayfKH3EMQ0mh1ijR2SNpeRboq7pNYobsaiIf307UNar5fDG41V21yHf9cYhaN016RVPyKjsFVCtv19L+8v6pGsRW7IQNK7d5OifIwYL9/W8b+eTfGDOKPJk6W4qiSbWFRydp/PrSqnu63Ip4WRVJn5Gibn+yI5taIJNodOQT3uYRWY095/QBU1xUFAaU9ZStKVEt8UiwXPIPXc8CPoIA1E9bmeppVgorqUw6QZFESUa+qPzyzSYJ7uUtAI/+FGf2F5Slk4pz0XYRNHm1SRdxZuVjufj7fr9UroBgN400BCcFuH1LvCD67+GEG7QfpJER9cp2o2L3SyUt+VScp/s01L9mPY5qJ+8V6K63vdgwzmyxoEijm9kIgv2DWXexZexfvq7lMf5rNGq6QY03iC1z7yzYYIFG+8F3b28Fz8aSlT/7ClcS9OJ4G3NE6zAJaAGGpSVQqfU7Cq2a8hhQkEuvaGGAbRusCc8qRRmtEig/WBaCyZrsGsCyUc2mNhpgMJUbpBSK1YX+x4uQUDmkDuKAi6vuMaFiv4QRTdV2uPLO/cjLHtbUAfQVCPaLDGCv78JPVjIa0YhReX1VBKpnuxmIOxBZVoL4rLeNqD9fv7EGsDNaMXgJN4DC4RoeKXntSYy5BXlr5sNe+JkA8i9C86b4PXvMEcR4gUSgSlTbAKTj6tVJhsy7fvDp2rKNhCk9kaixFA6hXaUpogF4MhsLIIvNp/1ohtETzaUOa5nGiosSppVwS0GSKA3TK4mWnC1rTLdIYPFPOANZEo3iK41s1efG+Cux2tt6s4m8PbgLMXznNa7/9RyfG0/UXzWBGICrajxJ4UbzFUuDHB07oYiksbOLONYLNgO7XDpcaQ0IHrKp2eqHdKlNYN9078B8SvmupXlwQjszRNFRGWNerrbg+0GF+MHc4iNRf1DLwJIe62/O+/MWo+vwQbY9MluMXW/sBCxNB2U2yk4YSRS5x57A4RpwMb7ihJh5t5OtqjKrW1qyJ5ycg+rxBB6J6XIisC3SwKFvAc5pjklDR/Gbn73l//+Yo8iUBbtJtN4U53+LFX8/VQEs6Nz3lDbzq0fbLE7bHf95YEPx+Ph8nOaPv7rJsfD8fn1KSXg181GvcZ+VivfvlpPAww+fHwIyjFCQlnwnLzBPtR3E3/o4Tf/qye7P1wIG/4CGxvs5s3u3cwHmo7z9Mp9a8fLI+XYlmea/jqwwEGJoxPt0y6Pv//+fjNmfS9CgamTkZADeiYXSi2nvm4fpc1UD632Jw642x/u+gv7B9o97nevPG+3jxeeH7fLO7aP26+z9Xp/3+20Z4yuKCIXiU90cfYRRRJT6QFnosrUM/D1psoLq0bdrr66cVt9eSYBm3Df/CaW/247Gank1A8KvBUXPPKIYmv9kdaU08hJLnp9Ohw2m1pRqxiLCD6Mb/abuVrn6kPYCJYdZ/G9AiJcWoOpAfqKPMQlW6RbzBCXCA0b4mUCG1PyqGdUhC9kf3OWr+JA1zx4hfgk+QHpAMiy8pxLVGOiDE0RUYL5RGKawdPh+c+jrTAJsQxEf405vBHyT1+qqdRyXOS4jyawKGtQScfPqUsPljldn4R770zVGWWZKDPFnHJpHSMRLgF862kzj9OTH1uDVgXEejARMsfolkil7MivKKv+4vBcJ7SUyKGXQmkAkqSWmJVtOXJT2TTCQwwE/gNJiG8JceIi3Ot8Ku3t5LSrHs4f81gnuYEM90V8eoyKN+N51dS7W/HhkMCSpq3a839T3kECkYA6KpDmyzgVFyyXFG2bpSeI0Yh+WEkxdT/8toNvp4IiU6klhBSeaO8SGVAkBFLTJFMCCZaKJiy/8oJSAVtMuiE8a1CpBf4U/s8SQQa8OaOdJyqsMnCR2mMRvZSDEgEYifVCFqlYkbwH4NnAmY7Iou0yupQ8Th+SRPc3YCcJx7QeZILn1dAtRdHYV3gmyky944fGxcu3ChAJypDNlEtdEg/oFWUMmLkvC2LGoylednSGfHiFTfTKvuKgUljz8k4ayGjKhYOj4B6B1LkgLnXjNKBHmXzA3L50ack8EnIman83N6ec8reD47KoXTvi3mbj6JK+u1beMWWlFy4Up4z8La01zTSUICFvs3Ek+X7vrVRJRAks6AZzWIsIwTSQ5qQ4HX3BfJQ3/c1GxPQiEkOsXlF5ou78ToNFQ0M5kVu84QGBkkBeUI5Ndp/0m3ygNORcNVAJgv4DBgZxv92Nn1VkpsSSOqOIIO6MS3IltIyuNmT0yaxRj/aQyD1d3UI2SsqMSOh9se/nJsXLSwqm+HGTslyz4/0bwvw+4MNnWPLpo9my8KUyXeywFb/px2ZKaqnHTVtiz2wbGZVXaAyMlmQ4o/f2D9EPCtv/RnAvdeUZ4Bm9ooUsqnXKKYWYOtBm4bJ5Gg0RXjrM2dyGqu3QdYOrCN5E/D0HnInAdCwDJLFGumdXaIdRroy+JcGcP6X3dhPvN6ugZHxB5TK3/mWyfa2aXx62E+LHLe+tcWxcpnWYPd1teZ7mFx/QaXbHZufsf4aPdKYq8OWvnxG9IhuF8/ujUxL8gLFIxKjmZhoyomS4V1jtK4p/hgW17SwvwpXPNE5opx1XeEym20qFGsgxpcM5+4WKCq49C8V+fmmxIKyoDzOsRU0DelmoDpi7EGPqimYa0/ufhFpWAlksdwxxqBqqQ9Rkm4sg5GgNHhnWLOmA3lLBgPZflvDR+aIXXmDruUn+5Nd5Qh0oYWRO1NUbGIA/Xe5BLEVmGHdkMesKQM/rxVd1Sr2piNZess+Iwd8j0NiFZw1T6giTha7N/GLggnhTP5/jovJ2roDoTOlFv2kUMnEMctZCm2o7EM/Y0bzHwMGsA22P+22fp15+56y9M2WVqZb/mF45Hu+uW9zdnZ4PyzhCCK5H5zPdTdNLvs8PP33bQb/66b3wq4kAlaCvrfgtifYzadJMCnct3tPTkpQyC1pslO08yBTqJmlCWOfgGVaC7TAxaZlu1KDtsl9dFG5iYdUA+msuEL0gr543yABZThT0z8rFniu5+Wwv3wx5y86e8sqg6G/45baFaASNeK2cWFVbcrqh7tY+zNkHvfHsdAN9o1w1IPuCi02/8Pw1XVSyDriL+i3VOAAc0I8rOzaTbzpbozJPpQPNgKfPwVEKLFSK1Fz7fgPsfpSSFutEjh1oB72nX4QAIXRB7oyT+273OtO9RuQasxx/pGyPs0vYTqHvL7zd0+aw3XQihBl4dKGd/fUz6sPhYMvlJ7EmLXZdSpX1mXbQhvf5MSTX+c/gEo/Per+ld3xuPn+kjc8be8+2P+9cP+3a+2rhsA396ZMPd7S/P+w7jw8P9xce7x8Wnu4fvn6xCoXcx7t3kSy5v8atypd5vGAWZDz3nRPxP00ObR43qxfU78SXqX8G+tWc9jn5FITSSeWYijFcuDDKh2ihpI1TGQDMkSlFbL6Cp/E6eEVwcmMaar9oSKz6+RSkfQLn4DIBZJ8shVhza/GrNQUAPcosFzlbUTjEpprHSsBWZE5TlRCN0WkNxT78ETeMmIj/6/5pqvK5aw8sy99XG+8rrJ/nfBhz3/AyzWylJDEWfwIodLQSaE4v81pE96HVw5Ueeh1uJZVV0kxOCUNBCEt8UnxqzQgWcIasjTFmxts2YSbUXknkewIAAvzr/9/Hv8Z/fGsmM+clwC378H0bn6z9z/h7p2EHKj/HAAnKAmhEaRdRIOxZ5oGV1ZiP33y3Wgjn8lu17+fxVqNtE7Xu/wyaZVy7/HHsq9bld94+P6bZUlujm9Yl4FoU3pU1mc0J93vVWpyR6Tl6paSHMVGX74CGf0F6CfwBEHV+o9GiOhqNRgAvCGCKDQMkImSaCOwzKyMQgCG5ZIRiBB4IY2q7oBXvt0uY82y7TJgV2xVc1G7XowXdtuvjwCdjzicgXzU8p1wQ9zOr9FWpQM9U1yE3VZni5899mUp53KWLkyJDpRxVqmSr1lulal4yuMqSI0+N4mKjgxyVWtcrU0rFmxuPrOXYqXZGTbtRW8V/3QSL1lmWWMFebDK6fXO0MuUGxFDNk18Wra+Mq7QzWE5kJcFqLlMoR9/jeKSabPJjROG4g75acz8DRBgYDsupBHA7Xq+aIxcqdQrEIhBTFWamtjb6UYnr0aKRprcSb1dvlVyrn4RxdLv10NnvjRcgJCRkbJznLH1spq8tTMOWnX7svcJBjnNc4CKOnDhzcYnLXOEqrty4R3JgmVx539e4Tp6bTGcr2/D2ruGWm/kLcIvb5LvTRszsEG8IFaOgQZhMoTRKLCO21uZ4r0lQHt8fnAqJkiRLcZdqterUSJUmPVLIkKm/LAMMMthAy9FsJ9t72mmvg/F01MkQwxjO0MZkPr5u3nKA7o5xnMUsoSGNaNz8jGgc5v9ioSf0hYEw5BBf+cZ3zIQ7yVhaY8FGFFaiT32srEAPY21oQJQeegkTwQRTdrKDesLIejZwhKOcZhe72cNeTgljoziMgTBhNHOEKeZ8ZB8qltoyk95WCTOGwlxYYM3IOMYwkQlMYiQ9vSQyqifqiwZM5gn3mEK0BzzmvvJBDM9UUkZVK8W3lzComRZ4WIxwos07R7wMunRhHgO+h/IO4XRWdat3Ubp8kd7LyrK6mnIjbMNovtEnM5mf8/+NNIxIaqoTid77hUDyhXNZg10hpnTeiLeE2Hq+HYOoY3EnPQpO1E2r+UbRLcbihlHa8MQXeZjNzAZmrTJ3Mol6Nh1Wf5jJMH1QMCKwKHAsI3h0mZitTTQuc7COWHVSoR+3O+0/w2EIZS337ei5meHlg+R5O5+Y98y3NFBMnS5CN3qbMnm75Dl7r9cvS0wT) format('woff2');
+}
+</style>
+<style>
+/* ============================================================
+   小丑牌 JOKER'S DECK — 原创视觉系统
+   深绿呢面赌桌 × 霓虹筹码配色 × 像素数字 × 厚底按钮
+   ============================================================ */
+:root{
+  --bg0:#0c1f16; --bg1:#123023; --bg2:#0a1a12;
+  --panel:#10281d; --panel2:#153426; --line:#26543d; --line2:#3a7355;
+  --cream:#f6eed7; --cream2:#e8dcbb; --ink:#20242e;
+  --gold:#ffcf5c; --gold-deep:#c9922f; --gold-ink:#5b3d05;
+  --chip:#4d8dff; --chip-deep:#1d4fb8; --chip-ink:#0a1f4d;
+  --mult:#ff5d5d; --mult-deep:#a01f30; --mult-ink:#4d0a14;
+  --green:#43d17c; --green-deep:#1d7a46; --green-ink:#042e18;
+  --purple:#b06bff; --purple-deep:#6b2fb8;
+  --dim:#8fb5a0; --dim2:#5d8272;
+  --suit-red:#e0455a; --suit-black:#2a3242;
+  --r-common:#4d8dff; --r-uncommon:#43d17c; --r-rare:#ff5d5d; --r-legend:#b06bff;
+  --cw:clamp(46px, 6.4vw, 70px); --ch:calc(var(--cw)*1.42);
+  --jw:clamp(62px, 8.6vw, 96px); --jh:calc(var(--jw)*1.34);
+  --rad:12px;
+  --cjk:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overscroll-behavior:none}
+body{
+  background:
+    radial-gradient(1200px 800px at 50% -10%, #1a4630 0%, #123424 42%, var(--bg2) 100%);
+  color:var(--cream);
+  font-family:var(--cjk);
+  overflow:hidden; user-select:none; -webkit-user-select:none;
+  touch-action:manipulation;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.px{font-family:'PixelNum',ui-monospace,Menlo,monospace;letter-spacing:.5px}
+
+/* ---------- 背景特效层 ---------- */
+#bgfx{position:fixed;inset:0;pointer-events:none;z-index:99;overflow:hidden}
+#bgfx .vig{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.55) 100%)}
+#bgfx .scan{position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px)}
+#bgfx .noise{position:absolute;inset:0;opacity:.045;
+  background-image:radial-gradient(rgba(255,255,255,.6) .5px, transparent .6px);
+  background-size:7px 7px}
+
+/* ---------- 通用屏幕/覆盖层 ---------- */
+#app{height:100%;display:flex;flex-direction:column}
+.screen{position:absolute;inset:0;display:none;flex-direction:column}
+.screen.on{display:flex}
+.overlay{z-index:20;background:rgba(5,14,10,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+
+/* ---------- 厚底按钮 ---------- */
+.bigbtn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;border-radius:12px;color:#fff;
+  font-size:19px;font-weight:800;letter-spacing:2px;
+  border:2px solid rgba(0,0,0,.35);
+  box-shadow:0 5px 0 rgba(0,0,0,.45), inset 0 2px 0 rgba(255,255,255,.28), inset 0 -6px 0 rgba(0,0,0,.22);
+  text-shadow:0 2px 0 rgba(0,0,0,.35);
+  transition:transform .06s, box-shadow .06s, filter .15s;
+}
+.bigbtn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,.45), inset 0 2px 0 rgba(255,255,255,.2), inset 0 -3px 0 rgba(0,0,0,.22)}
+.bigbtn.red{background:linear-gradient(180deg,#ff7468,var(--mult-deep))}
+.bigbtn.blue{background:linear-gradient(180deg,#6ba4ff,var(--chip-deep))}
+.bigbtn.gold{background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink);text-shadow:0 1px 0 rgba(255,255,255,.35)}
+.bigbtn.green{background:linear-gradient(180deg,#5fe393,var(--green-deep))}
+.bigbtn.dark{background:linear-gradient(180deg,#33584a,#1b3a2c)}
+.bigbtn:disabled{filter:grayscale(.8) brightness(.6);cursor:not-allowed}
+.bigbtn .small{font-size:11px;opacity:.9}
+.chipbtn{
+  padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;letter-spacing:1px;
+  background:var(--panel2);border:1.5px solid var(--line2);color:var(--cream);
+  box-shadow:0 3px 0 rgba(0,0,0,.4);transition:transform .06s;
+}
+.chipbtn:active{transform:translateY(2px);box-shadow:none}
+.chipbtn.sel{background:var(--gold);color:var(--gold-ink);border-color:var(--gold-deep)}
+.iconbtn{
+  width:42px;height:42px;border-radius:11px;font-size:19px;line-height:1;
+  background:var(--panel2);border:1.5px solid var(--line2);
+  box-shadow:0 3px 0 rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;
+}
+.iconbtn:active{transform:translateY(2px);box-shadow:none}
+
+/* ============================================================
+   主菜单
+   ============================================================ */
+#scr-menu{align-items:center;justify-content:center;gap:0}
+.menu-box{display:flex;flex-direction:column;align-items:center;gap:26px;padding:20px}
+.logo{text-align:center;position:relative}
+.logo-joker{font-size:74px;filter:drop-shadow(0 6px 0 rgba(0,0,0,.4));animation:jokerBob 3s ease-in-out infinite}
+@keyframes jokerBob{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(6deg) translateY(-8px)}}
+.logo h1{font-size:clamp(26px,5vw,44px);color:var(--gold);text-shadow:0 4px 0 var(--gold-deep),0 8px 18px rgba(0,0,0,.5);margin-top:6px}
+.logo-sub{font-size:clamp(15px,2.4vw,20px);letter-spacing:18px;text-indent:18px;color:var(--cream);opacity:.85;margin-top:10px}
+.menu-btns{display:flex;flex-direction:column;gap:14px;width:min(320px,80vw)}
+.menu-btns .bigbtn{width:100%}
+.menu-foot{font-size:11px;color:var(--dim);letter-spacing:1px}
+
+/* ============================================================
+   游戏主界面布局
+   ============================================================ */
+#scr-game{padding:10px;gap:8px}
+#topbar{display:flex;align-items:center;gap:12px;padding:2px 4px}
+#ante-track{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.ante-dot{
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:800;background:var(--panel);border:2px solid var(--line);color:var(--dim2);
+}
+.ante-dot.done{background:var(--green-deep);border-color:var(--green);color:#eafff3}
+.ante-dot.cur{background:var(--gold);border-color:#fff;color:var(--gold-ink);transform:scale(1.18);box-shadow:0 0 14px rgba(255,207,92,.55)}
+.ante-dot.bossdot{font-size:17px}
+.ante-sep{color:var(--line2);font-weight:900}
+
+#mid{flex:1;display:flex;gap:10px;min-height:0}
+#rail-left{width:238px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;scrollbar-width:none}
+#rail-left::-webkit-scrollbar{display:none}
+#rail-right{width:calc(var(--jw) + 26px);display:flex;flex-direction:column;gap:8px;min-height:0}
+#playarea{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
+
+/* ---------- 左栏信息卡 ---------- */
+.panelcard{
+  background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:2px solid var(--line);border-radius:14px;padding:10px 12px;
+  box-shadow:0 4px 0 rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+}
+.panelcard h4{font-size:11px;letter-spacing:3px;color:var(--dim);font-weight:800;margin-bottom:6px}
+
+/* 盲注卡 */
+#card-blind{padding:0;overflow:hidden;border-color:var(--line2)}
+.bc-top{padding:7px 10px;font-size:13px;font-weight:800;letter-spacing:1px;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.28)}
+.bc-top .px{font-size:10px;color:var(--dim)}
+.bc-art{height:86px;display:flex;align-items:center;justify-content:center;font-size:52px;position:relative;overflow:hidden}
+.bc-art::before{content:"";position:absolute;inset:0;background:radial-gradient(80px 60px at 50% 60%, rgba(255,255,255,.12), transparent 70%)}
+.bc-bottom{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:rgba(0,0,0,.28);font-size:12px}
+.bc-bottom b{color:var(--gold)}
+#card-blind.small .bc-top{color:#9fd0ff}
+#card-blind.big .bc-top{color:#ffd27e}
+#card-blind.boss .bc-top{color:#ff8f8f}
+#card-blind.defeated{filter:saturate(.4) brightness(.75)}
+
+/* 分数卡 */
+#card-score{text-align:center}
+.row-target{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--dim)}
+.row-target b{font-size:15px;color:var(--gold)}
+.score-big{font-size:clamp(26px,3.4vw,36px);line-height:1.25;margin-top:2px;color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.5)}
+.score-big.flash{animation:scoreFlash .5s}
+@keyframes scoreFlash{0%{color:var(--gold);transform:scale(1.12)}100%{color:#fff;transform:scale(1)}}
+
+/* 手牌类型卡 */
+#card-hand .hh-name{font-size:17px;font-weight:900;letter-spacing:2px;text-align:center}
+#card-hand .hh-lv{text-align:center;font-size:11px;color:var(--gold);letter-spacing:2px;margin:2px 0 6px}
+.hh-score{display:flex;align-items:center;justify-content:center;gap:7px}
+.hh-score .times{font-size:20px;font-weight:900;color:var(--dim)}
+.chipbox,.multbox{
+  min-width:64px;text-align:center;padding:5px 10px;border-radius:9px;font-size:17px;font-weight:800;color:#fff;
+}
+.chipbox{background:linear-gradient(180deg,#6ba4ff,var(--chip-deep));border:2px solid var(--chip);text-shadow:0 2px 0 var(--chip-ink)}
+.multbox{background:linear-gradient(180deg,#ff7468,var(--mult-deep));border:2px solid var(--mult);text-shadow:0 2px 0 var(--mult-ink)}
+.chipbox.bump,.multbox.bump{animation:bump .3s}
+@keyframes bump{0%{transform:scale(1.35)}100%{transform:scale(1)}}
+.hh-counts{display:flex;gap:6px;margin-top:8px}
+.hh-counts .hc{flex:1;background:rgba(0,0,0,.3);border-radius:8px;padding:4px 2px;text-align:center}
+.hh-counts .hc i{display:block;font-style:normal;font-size:10px;color:var(--dim)}
+.hh-counts .hc b{font-size:15px}
+.hh-counts .warn b{color:var(--mult)}
+
+/* 钱/盲注/回合小卡 */
+.mini-row{display:flex;gap:8px}
+.mini-row .panelcard{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 4px}
+.mini-row .ico{font-size:17px}
+.mini-row .lab{font-size:10px;color:var(--dim);letter-spacing:1px}
+.mini-row b{font-size:16px}
+#money-val{font-size:18px;color:var(--green)}
+#money-val.up{animation:moneyPop .4s}
+@keyframes moneyPop{0%{transform:scale(1.4);color:#fff}100%{transform:scale(1)}}
+
+/* 牌堆卡 */
+#card-deck{display:flex;align-items:center;gap:10px}
+.dk-back{
+  width:44px;height:60px;border-radius:7px;flex:none;position:relative;
+  background:linear-gradient(145deg,#8f2f3f,#5a1c28);
+  border:2px solid #d8b25e;box-shadow:0 3px 0 rgba(0,0,0,.4);
+}
+.dk-back::after{content:"🃏";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:22px;filter:grayscale(.4) brightness(1.4)}
+#card-deck .dk-info{flex:1;font-size:11px;color:var(--dim);line-height:1.7}
+#card-deck .dk-info b{color:var(--cream);font-size:14px}
+
+/* ---------- 出牌区 ---------- */
+#msgline{
+  min-height:30px;display:flex;align-items:center;justify-content:center;gap:10px;
+  font-size:14px;color:var(--dim);letter-spacing:1px;text-align:center;
+}
+#msgline .prev-chip,#msgline .prev-mult{padding:1px 8px;border-radius:7px;font-weight:800;color:#fff;font-size:13px}
+#msgline .prev-chip{background:var(--chip-deep)}
+#msgline .prev-mult{background:var(--mult-deep)}
+#played-cards{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  min-height:calc(var(--ch) + 26px);padding-top:8px;
+}
+#played-cards .pcard{margin:0 -4px}
+
+/* 飘字层 */
+#fxLayer{position:fixed;inset:0;pointer-events:none;z-index:60}
+.floaty{
+  position:absolute;font-weight:900;font-size:20px;color:#fff;
+  text-shadow:0 2px 0 rgba(0,0,0,.6);animation:floatUp .9s ease-out forwards;
+}
+.floaty.chips{color:#9cc3ff}
+.floaty.mult{color:#ff9b9b}
+.floaty.xmult{color:var(--gold);font-size:26px}
+.floaty.money{color:var(--green)}
+@keyframes floatUp{0%{transform:translateY(6px) scale(.6);opacity:0}18%{transform:translateY(0) scale(1.15);opacity:1}75%{opacity:1}100%{transform:translateY(-46px) scale(1);opacity:0}}
+
+/* ============================================================
+   扑克牌(通用)
+   ============================================================ */
+.pcard{
+  width:var(--cw);height:var(--ch);border-radius:calc(var(--cw)*.14);
+  background:linear-gradient(160deg,#fffdf4,var(--cream2));
+  border:2px solid #b7a97f;position:relative;flex:none;
+  box-shadow:0 4px 0 rgba(0,0,0,.38), inset 0 0 0 2px rgba(255,255,255,.65);
+  color:var(--suit-black);
+  transition:transform .16s cubic-bezier(.34,1.56,.64,1), box-shadow .16s;
+}
+.pcard .corner{position:absolute;top:3px;left:5px;line-height:1;font-weight:900;font-size:calc(var(--cw)*.24);text-align:center}
+.pcard .corner .s{display:block;font-size:calc(var(--cw)*.2);margin-top:1px}
+.pcard .corner.br{top:auto;left:auto;bottom:5px;right:7px;transform:rotate(180deg)}
+.pcard .pip{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:calc(var(--cw)*.62);opacity:.92}
+.pcard .pip .face-letter{font-size:calc(var(--cw)*.42);font-weight:900;font-family:Georgia,serif}
+.pcard .pip .face-crown{position:absolute;top:16%;font-size:calc(var(--cw)*.2);opacity:.85}
+.pcard.red{color:var(--suit-red)}
+.pcard.sel{transform:translateY(-16px) rotate(-1deg);box-shadow:0 10px 0 rgba(0,0,0,.38), 0 0 16px rgba(255,207,92,.4), inset 0 0 0 2px rgba(255,255,255,.65)}
+.pcard.debuff{filter:grayscale(1) brightness(.62)}
+.pcard.facedown{background:linear-gradient(145deg,#8f2f3f,#5a1c28)}
+.pcard.facedown *{visibility:hidden}
+.pcard.facedown::after{content:"★";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,225,160,.5);font-size:calc(var(--cw)*.4)}
+.pcard.stone{background:linear-gradient(160deg,#9aa3ad,#5d6773);border-color:#39424c}
+.pcard.stone .corner,.pcard.stone .pip .s{visibility:hidden}
+.pcard.stone::after{content:"🪨";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:calc(var(--cw)*.4)}
+.pcard.glass{background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(210,235,255,.4));border-color:#9fd0ff;backdrop-filter:blur(1px)}
+.pcard.steel{background:linear-gradient(160deg,#cfd8e2,#8b98a8);border-color:#5c6b7d}
+.pcard.gold{background:linear-gradient(160deg,#ffe9a8,#e0b45c);border-color:#b78a2e}
+.pcard.lucky{background:linear-gradient(160deg,#eafff0,#bdf0cf);border-color:#5fc98a}
+.pcard.wild{background:linear-gradient(135deg,#f6d5ff,#d5e6ff,#d5ffe9);border-color:#b06bff}
+.pcard.bonus{box-shadow:0 4px 0 rgba(0,0,0,.38), inset 0 0 14px rgba(77,141,255,.55)}
+.pcard.multy{box-shadow:0 4px 0 rgba(0,0,0,.38), inset 0 0 14px rgba(255,93,93,.5)}
+.pcard .edbadge{position:absolute;top:-7px;right:-7px;font-size:11px;padding:2px 5px;border-radius:7px;font-weight:900;box-shadow:0 2px 0 rgba(0,0,0,.4)}
+.pcard .edbadge.foil{background:linear-gradient(135deg,#e8f1ff,#9db8d8);color:#25384e}
+.pcard .edbadge.holo{background:linear-gradient(135deg,#b9f6ff,#5cc8e8);color:#0c3b4a}
+.pcard .edbadge.poly{background:linear-gradient(135deg,#ffd1f0,#d1c4ff,#c4f3ff);color:#4a2a66}
+.pcard .edbadge.negative{background:#2a2a33;color:#fff;border:1px solid #777}
+.pcard .seal-dot{position:absolute;bottom:4px;right:6px;width:calc(var(--cw)*.18);height:calc(var(--cw)*.18);border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,.5)}
+.pcard .seal-dot.red{background:#e0455a}.pcard .seal-dot.blue{background:#3f7dff}.pcard .seal-dot.gold{background:#e0b45c}.pcard .seal-dot.purple{background:#a05ce0}
+.pcard.scored{animation:cardScored .34s}
+@keyframes cardScored{0%{transform:translateY(-8px) scale(1.06);box-shadow:0 0 18px rgba(255,255,255,.7)}100%{transform:none}}
+.pcard.shake{animation:cardShake .3s}
+@keyframes cardShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-2deg)}75%{transform:translateX(5px) rotate(2deg)}}
+
+/* 手牌区 */
+#handzone{display:flex;align-items:flex-end;gap:8px;padding:2px 6px 6px}
+.hz-side{display:flex;flex-direction:column;gap:8px;flex:none;padding-bottom:12px}
+.hz-actions{padding-bottom:0}
+#hand-cards{
+  flex:1;display:flex;justify-content:center;align-items:flex-end;
+  min-height:calc(var(--ch) + 18px);padding:12px 4px 0;
+}
+#hand-cards .pcard{margin:0 max(-9px,-1.2vw);cursor:pointer}
+#hand-cards .pcard:hover{transform:translateY(-8px)}
+#hand-cards .pcard.sel{transform:translateY(-18px) rotate(-1deg)}
+#btn-play,#btn-discard{min-width:108px}
+#btn-play.ready{animation:playReady 1s ease-in-out infinite}
+@keyframes playReady{0%,100%{box-shadow:0 5px 0 rgba(0,0,0,.45),0 0 0 rgba(107,164,255,0), inset 0 2px 0 rgba(255,255,255,.28)}50%{box-shadow:0 5px 0 rgba(0,0,0,.45),0 0 18px rgba(107,164,255,.65), inset 0 2px 0 rgba(255,255,255,.28)}}
+.sel-count{font-size:11px;text-align:center;color:var(--dim);margin-top:4px;letter-spacing:1px}
+
+/* ============================================================
+   小丑牌卡(通用卡面:小丑/塔罗/星球/光谱/代金券)
+   ============================================================ */
+.jcard{
+  width:var(--jw);height:var(--jh);border-radius:10px;position:relative;flex:none;
+  background:linear-gradient(160deg,#fffdf4,#e9dfc2);
+  border:2px solid #b7a97f;color:var(--ink);
+  box-shadow:0 4px 0 rgba(0,0,0,.38);
+  overflow:hidden;
+  transition:transform .15s cubic-bezier(.34,1.56,.64,1);
+}
+.jcard .jc-art{
+  position:absolute;inset:0 0 calc(var(--jh)*.3) 0;
+  display:flex;align-items:center;justify-content:center;font-size:calc(var(--jw)*.5);
+  background:linear-gradient(160deg, rgba(255,255,255,.5), transparent);
+}
+.jcard .jc-name{
+  position:absolute;left:0;right:0;bottom:0;height:calc(var(--jh)*.3);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:calc(var(--jw)*.115);font-weight:900;letter-spacing:1px;
+  background:linear-gradient(180deg,#2c3a50,#1a2334);color:#fff;
+  padding:2px 3px;line-height:1.15;
+}
+.jcard .jc-cost{
+  position:absolute;top:-1px;left:-1px;padding:2px 7px;font-size:11px;font-weight:900;
+  background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink);
+  border-radius:10px 0 10px 0;box-shadow:0 2px 0 rgba(0,0,0,.3);
+}
+.jcard .jc-ed{position:absolute;top:2px;right:2px;font-size:10px;padding:1px 4px;border-radius:6px;font-weight:900;box-shadow:0 1px 0 rgba(0,0,0,.3)}
+.jcard .jc-ed.foil{background:linear-gradient(135deg,#e8f1ff,#9db8d8);color:#25384e}
+.jcard .jc-ed.holo{background:linear-gradient(135deg,#b9f6ff,#5cc8e8);color:#0c3b4a}
+.jcard .jc-ed.poly{background:linear-gradient(135deg,#ffd1f0,#d1c4ff,#c4f3ff);color:#4a2a66}
+.jcard .jc-ed.negative{background:#2a2a33;color:#fff}
+.jcard.r-common{border-color:var(--r-common)}
+.jcard.r-uncommon{border-color:var(--r-uncommon)}
+.jcard.r-rare{border-color:var(--r-rare)}
+.jcard.r-legend{border-color:var(--r-legend);box-shadow:0 4px 0 rgba(0,0,0,.38),0 0 14px rgba(176,107,255,.45)}
+.jcard .jc-count{position:absolute;bottom:calc(var(--jh)*.3 + 4px);right:4px;font-size:11px;font-weight:900;background:rgba(0,0,0,.55);color:#fff;padding:1px 6px;border-radius:7px}
+.jcard.debuff{filter:grayscale(1) brightness(.55)}
+.jcard.acting{animation:jokerAct .4s}
+@keyframes jokerAct{0%{transform:translateY(-4px) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg) scale(1.06)}100%{transform:none}}
+
+/* 消耗牌小色条(塔罗紫/星球蓝/光谱灰紫) */
+.jcard.t-tarot .jc-name{background:linear-gradient(180deg,#5b3d8f,#3b2260)}
+.jcard.t-planet .jc-name{background:linear-gradient(180deg,#2d5b8f,#1c3760)}
+.jcard.t-spectral .jc-name{background:linear-gradient(180deg,#4a4a66,#2c2c40)}
+.jcard.t-voucher .jc-name{background:linear-gradient(180deg,#8f6b2d,#60471c)}
+.jcard .jc-art .t-glyph{filter:drop-shadow(0 3px 2px rgba(0,0,0,.35))}
+
+/* 右栏托盘 */
+.tray{
+  background:rgba(0,0,0,.22);border:2px solid var(--line);border-radius:14px;
+  padding:8px;display:flex;flex-direction:column;gap:6px;align-items:center;
+  overflow:hidden auto;scrollbar-width:none;min-height:0;
+}
+.tray::-webkit-scrollbar{display:none}
+.tray .tray-label{font-size:10px;letter-spacing:3px;color:var(--dim2)}
+#joker-tray{flex:1.4}
+#consumable-tray{flex:1}
+.tray .jcard{cursor:pointer}
+.tray .jcard:hover{transform:translateY(-3px)}
+.tray .empty-slot{
+  width:var(--jw);height:var(--jh);border-radius:10px;flex:none;
+  border:2px dashed rgba(143,181,160,.28);display:flex;align-items:center;justify-content:center;
+  color:rgba(143,181,160,.3);font-size:22px;
+}
+.jcard.sale{outline:2px solid var(--red)}
+
+/* ============================================================
+   盲注选择屏
+   ============================================================ */
+#scr-blind{align-items:center;justify-content:center;padding:14px}
+.blind-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:920px}
+.blind-title{font-size:13px;letter-spacing:6px;color:var(--dim)}
+#blind-cards{display:flex;gap:14px;width:100%;justify-content:center;align-items:stretch}
+.bcard{
+  flex:1;max-width:280px;background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:2px solid var(--line2);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;
+  box-shadow:0 6px 0 rgba(0,0,0,.4);cursor:pointer;position:relative;
+  transition:transform .15s, border-color .15s;
+}
+.bcard:hover{transform:translateY(-4px)}
+.bcard.sel{border-color:var(--gold);box-shadow:0 6px 0 rgba(0,0,0,.4), 0 0 18px rgba(255,207,92,.35)}
+.bcard.picked{border-color:var(--green)}
+.bcard .bh{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--dim)}
+.bcard .bh .px{color:var(--gold)}
+.bcard .bname{font-size:19px;font-weight:900;letter-spacing:1px;text-align:center;padding:4px 0 2px}
+.bcard.small .bname{color:#9fd0ff}.bcard.big .bname{color:#ffd27e}.bcard.boss .bname{color:#ff8f8f}
+.bcard .bart{height:92px;display:flex;align-items:center;justify-content:center;font-size:56px;background:rgba(0,0,0,.25);border-radius:10px;position:relative;overflow:hidden}
+.bcard .bdesc{font-size:12px;color:var(--dim);line-height:1.65;min-height:60px;text-align:center}
+.bcard .breward{
+  margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;
+  background:rgba(0,0,0,.3);border-radius:10px;padding:8px;font-size:13px;
+}
+.bcard .breward b{color:var(--gold);font-size:16px}
+.bcard .skipline{font-size:11px;color:var(--dim2);text-align:center;min-height:16px}
+.bcard .skipline b{color:var(--purple)}
+.bcard.locked{opacity:.45;cursor:not-allowed}
+#blind-go{min-width:220px}
+
+/* ============================================================
+   商店
+   ============================================================ */
+#scr-shop{padding:12px clamp(8px,3vw,28px);gap:10px;overflow-y:auto}
+.shop-head{display:flex;align-items:center;justify-content:center;gap:14px;font-size:22px;color:var(--gold);text-shadow:0 3px 0 var(--gold-deep);padding:6px 0 2px;letter-spacing:8px}
+.shop-head .sh-money{font-size:16px;color:var(--green);letter-spacing:0;background:rgba(0,0,0,.35);padding:5px 14px;border-radius:10px;border:1.5px solid var(--green-deep)}
+.shop-grid{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.shop-slot{
+  display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 8px 8px;
+  background:rgba(0,0,0,.25);border:2px solid var(--line);border-radius:14px;min-width:calc(var(--jw) + 20px);
+  transition:border-color .15s;
+}
+.shop-slot:hover{border-color:var(--line2)}
+.shop-slot .buybtn{
+  padding:5px 14px;border-radius:9px;font-weight:900;font-size:13px;
+  background:linear-gradient(180deg,#ffe08a,var(--gold-deep));color:var(--gold-ink);
+  box-shadow:0 3px 0 rgba(0,0,0,.4);
+}
+.shop-slot .buybtn:active{transform:translateY(2px);box-shadow:none}
+.shop-slot .buybtn.free{background:linear-gradient(180deg,#5fe393,var(--green-deep));color:#042e18}
+.shop-slot .buybtn:disabled{filter:grayscale(.9) brightness(.65)}
+.shop-slot .soldout{font-size:12px;color:var(--dim2);padding:6px 0}
+.shop-packs .shop-slot .packface{
+  width:calc(var(--jw) + 6px);height:calc(var(--jh)*.82);border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  font-weight:900;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4);font-size:13px;
+}
+.packface .pf-emoji{font-size:34px}
+.shop-foot{display:flex;gap:14px;justify-content:center;align-items:center;padding:8px 0 14px;flex-wrap:wrap}
+.shop-tip{font-size:11px;color:var(--dim2);text-align:center}
+.pack-arcana{background:linear-gradient(160deg,#7a4fc9,#452b80)}
+.pack-celestial{background:linear-gradient(160deg,#3f6fc9,#24407d)}
+.pack-buffoon{background:linear-gradient(160deg,#c93f5c,#7d2438)}
+.pack-standard{background:linear-gradient(160deg,#3f9fc9,#24607d)}
+.pack-spectral{background:linear-gradient(160deg,#666688,#3a3a52)}
+
+/* ============================================================
+   卡包开启
+   ============================================================ */
+#scr-pack{align-items:center;justify-content:center;padding:14px}
+#pack-box{display:flex;flex-direction:column;align-items:center;gap:16px;max-width:860px;width:100%}
+.pack-head{font-size:15px;font-weight:900;letter-spacing:4px;color:var(--gold)}
+.pack-cards{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.pack-cards .pick{position:relative;cursor:pointer}
+.pack-cards .pick::after{
+  content:"点击选取";position:absolute;left:50%;bottom:-24px;transform:translateX(-50%);
+  font-size:10px;color:var(--dim2);white-space:nowrap;opacity:0;transition:opacity .15s;
+}
+.pack-cards .pick:hover::after{opacity:1}
+.pack-cards .pick:hover .jcard{transform:translateY(-6px)}
+.pack-note{font-size:12px;color:var(--dim)}
+.pack-left{font-size:12px;color:var(--dim2)}
+
+/* ============================================================
+   结算(现金兑付)
+   ============================================================ */
+#scr-cashout{align-items:center;justify-content:center}
+.cash-box{
+  width:min(400px,92vw);background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:2px solid var(--gold-deep);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:10px;
+  box-shadow:0 10px 0 rgba(0,0,0,.45), 0 0 40px rgba(255,207,92,.12);
+}
+.cash-box h3{font-size:15px;letter-spacing:4px;color:var(--gold);text-align:center}
+.cash-list{display:flex;flex-direction:column;gap:7px;min-height:0}
+.cash-item{display:flex;justify-content:space-between;font-size:14px;color:var(--dim);opacity:0;animation:cashIn .4s forwards}
+.cash-item b{color:var(--green)}
+@keyframes cashIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.cash-total{display:flex;justify-content:space-between;align-items:center;border-top:2px dashed var(--line2);padding-top:10px;font-size:17px;font-weight:900}
+.cash-total b{color:var(--gold);font-size:24px}
+.cash-box .bigbtn{margin-top:6px}
+
+/* ============================================================
+   结束 / 胜利
+   ============================================================ */
+#scr-end{align-items:center;justify-content:center}
+.end-box{width:min(440px,94vw);text-align:center;background:linear-gradient(180deg,var(--panel2),var(--panel));border:2px solid var(--line2);border-radius:20px;padding:26px 22px;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 0 rgba(0,0,0,.45)}
+.end-box h2{font-size:30px;letter-spacing:6px}
+.end-box.lose h2{color:var(--mult);text-shadow:0 3px 0 var(--mult-deep)}
+.end-box.win h2{color:var(--gold);text-shadow:0 3px 0 var(--gold-deep)}
+.end-stats{display:flex;flex-direction:column;gap:6px;font-size:14px;color:var(--dim)}
+.end-stats b{color:var(--cream)}
+.end-btns{display:flex;flex-direction:column;gap:10px}
+
+/* ============================================================
+   弹层:详情 / 确认 / 消耗牌选择横幅
+   ============================================================ */
+#infoPop{
+  position:fixed;z-index:70;pointer-events:none;display:none;
+  width:min(300px,84vw);background:#101c14f2;border:2px solid var(--line2);border-radius:12px;
+  padding:12px;font-size:13px;line-height:1.7;color:var(--cream);
+  box-shadow:0 8px 0 rgba(0,0,0,.4);
+}
+#infoPop .ip-name{font-weight:900;font-size:15px;margin-bottom:4px}
+#infoPop .ip-sub{font-size:11px;margin-bottom:6px;letter-spacing:1px}
+#infoPop .ip-desc{color:#cfe6d8}
+#infoPop .ip-desc em{font-style:normal;color:var(--gold)}
+#sel-banner{
+  position:fixed;left:50%;bottom:calc(var(--ch) + 86px);transform:translateX(-50%);
+  z-index:55;display:none;align-items:center;gap:10px;
+  background:rgba(91,61,143,.95);border:2px solid var(--purple);border-radius:12px;
+  padding:10px 16px;font-size:14px;font-weight:800;color:#fff;
+  box-shadow:0 5px 0 rgba(0,0,0,.4);white-space:nowrap;
+}
+#sel-banner.on{display:flex;animation:bump .3s}
+#sel-banner .mini{padding:5px 12px;border-radius:8px;background:#fff3;color:#fff;font-weight:900;font-size:12px}
+#toast{
+  position:fixed;top:16%;left:50%;transform:translateX(-50%) translateY(-8px);z-index:80;
+  background:#101c14f0;border:2px solid var(--gold-deep);color:var(--gold);
+  padding:10px 20px;border-radius:12px;font-weight:800;font-size:14px;letter-spacing:1px;
+  opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;box-shadow:0 6px 0 rgba(0,0,0,.4);
+}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* 确认弹窗 */
+#confirmPop{position:fixed;inset:0;z-index:75;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.5)}
+#confirmPop.on{display:flex}
+.confirm-box{background:var(--panel2);border:2px solid var(--line2);border-radius:16px;padding:20px;width:min(340px,90vw);text-align:center;display:flex;flex-direction:column;gap:14px}
+.confirm-box .cb-title{font-weight:900;font-size:16px}
+.confirm-box .cb-desc{font-size:13px;color:var(--dim);line-height:1.7}
+.confirm-box .cb-btns{display:flex;gap:10px;justify-content:center}
+
+/* ============================================================
+   牌背选择 / 战绩 / 帮助
+   ============================================================ */
+#scr-decks,#scr-stats,#scr-howto{align-items:center;justify-content:center;padding:16px}
+.page-box{width:min(860px,96vw);max-height:92vh;overflow-y:auto;background:linear-gradient(180deg,var(--panel2),var(--panel));border:2px solid var(--line2);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 0 rgba(0,0,0,.45)}
+.page-box h2{text-align:center;font-size:20px;letter-spacing:6px;color:var(--gold)}
+.deck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.deck-item{
+  border:2px solid var(--line2);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:6px;
+  background:rgba(0,0,0,.25);cursor:pointer;transition:transform .15s,border-color .15s;position:relative;
+}
+.deck-item:hover{transform:translateY(-3px)}
+.deck-item.sel{border-color:var(--gold)}
+.deck-item.locked{opacity:.45;cursor:not-allowed}
+.deck-item .di-back{width:64px;height:88px;border-radius:8px;margin:0 auto;position:relative;border:2px solid #d8b25e;box-shadow:0 3px 0 rgba(0,0,0,.4)}
+.deck-item .di-name{text-align:center;font-weight:900;font-size:15px}
+.deck-item .di-desc{font-size:11.5px;color:var(--dim);line-height:1.65;text-align:center;min-height:52px}
+.deck-item .di-lock{position:absolute;top:8px;right:8px;font-size:16px}
+.deck-item .di-unlock{font-size:10px;color:var(--dim2);text-align:center}
+.howto-sec{font-size:13.5px;line-height:2;color:#cfe6d8}
+.howto-sec b{color:var(--gold)}
+.howto-sec .kv{display:flex;gap:8px;align-items:baseline}
+.howto-sec .chipbox,.howto-sec .multbox{font-size:12px;padding:1px 8px;min-width:0}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.stat-item{background:rgba(0,0,0,.25);border-radius:12px;padding:12px;text-align:center}
+.stat-item .si-lab{font-size:11px;color:var(--dim);letter-spacing:1px}
+.stat-item .si-val{font-size:22px;color:var(--gold);margin-top:4px}
+.back-btn-row{display:flex;justify-content:center}
+
+/* ============================================================
+   通用动效
+   ============================================================ */
+.shake{animation:appShake .4s}
+@keyframes appShake{0%,100%{transform:translate(0,0)}20%{transform:translate(-7px,3px)}40%{transform:translate(6px,-4px)}60%{transform:translate(-5px,-3px)}80%{transform:translate(4px,3px)}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:65;overflow:hidden}
+.confetto{position:absolute;font-size:20px;animation:confettiFall linear forwards}
+@keyframes confettiFall{0%{transform:translateY(-6vh) rotate(0)}100%{transform:translateY(106vh) rotate(720deg)}}
+
+/* 屏幕切换过渡 */
+.screen.pop-in > *{animation:popIn .28s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{0%{transform:scale(.92);opacity:0}100%{transform:scale(1);opacity:1}}
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width:1080px){
+  #rail-left{width:196px}
+  .panelcard{padding:8px 10px}
+}
+@media (max-width:860px){
+  :root{--cw:clamp(42px,9.6vw,56px);--jw:clamp(56px,12.5vw,72px)}
+  #mid{flex-direction:column;gap:6px}
+  #rail-left{width:100%;flex-direction:row;order:2;overflow-x:auto;gap:6px;padding-bottom:2px}
+  #rail-left .panelcard{flex:none;min-width:118px}
+  #card-blind{min-width:150px}
+  #card-hand{min-width:172px}
+  .hh-score .chipbox,.hh-score .multbox{min-width:52px;font-size:14px}
+  #playarea{order:1;min-height:150px}
+  #rail-right{width:100%;order:3;flex-direction:row}
+  .tray{flex-direction:row;overflow-x:auto;flex:none;padding:6px}
+  #joker-tray .jcard,#consumable-tray .jcard{flex:none}
+  #handzone{flex-wrap:wrap;gap:6px}
+  .hz-side{flex-direction:row;padding-bottom:0}
+  #hand-cards{order:-1;width:100%}
+  .hz-actions{flex:1;flex-direction:row;justify-content:center;gap:10px}
+  #btn-play,#btn-discard{min-width:96px;padding:10px 14px;font-size:16px}
+  .mini-row{gap:6px}
+  .bcard .bart{height:64px;font-size:40px}
+  .bcard .bdesc{min-height:44px;font-size:11px}
+}
+@media (max-height:620px){
+  .bc-art{height:56px;font-size:38px}
+  .score-big{font-size:24px}
+}
+</style>
+</head>
+<body>
+<div id="bgfx"><div class="scan"></div><div class="noise"></div><div class="vig"></div></div>
+<div id="app">
+  <!-- 主菜单 -->
+  <section id="scr-menu" class="screen">
+    <div class="menu-box">
+      <div class="logo">
+        <div class="logo-joker">🃏</div>
+        <h1 class="px">JOKER'S DECK</h1>
+        <div class="logo-sub">小 丑 牌</div>
+      </div>
+      <div class="menu-btns">
+        <button id="btn-continue" class="bigbtn gold">继续冒险</button>
+        <button id="btn-newrun" class="bigbtn red">新的一局</button>
+        <button id="btn-decks" class="bigbtn blue">牌背图鉴</button>
+        <button id="btn-stats" class="bigbtn dark">战绩统计</button>
+        <button id="btn-howto" class="bigbtn dark">怎么玩</button>
+      </div>
+      <div class="menu-foot px">BEST ANTE <span id="menu-best">1</span> · WINS <span id="menu-wins">0</span></div>
+    </div>
+  </section>
+
+  <!-- 牌背选择 -->
+  <section id="scr-decks" class="screen">
+    <div class="page-box">
+      <h2>选择牌背</h2>
+      <div class="deck-grid" id="deck-grid"></div>
+      <div class="back-btn-row"><button class="bigbtn dark" id="decks-back">返 回</button></div>
+    </div>
+  </section>
+
+  <!-- 战绩 -->
+  <section id="scr-stats" class="screen">
+    <div class="page-box">
+      <h2>战绩统计</h2>
+      <div class="stat-grid" id="stat-grid"></div>
+      <div class="back-btn-row"><button class="bigbtn dark" id="stats-back">返 回</button></div>
+    </div>
+  </section>
+
+  <!-- 怎么玩 -->
+  <section id="scr-howto" class="screen">
+    <div class="page-box">
+      <h2>怎么玩</h2>
+      <div class="howto-sec">
+        <div class="kv"><span class="chipbox px">筹码</span><b>×</b><span class="multbox px">多倍</span><span>= 这手牌的分数,超过右上目标即获胜</span></div>
+        <p>· 每回合有 <b>出牌次数</b> 和 <b>弃牌机会</b>,点选手牌后「出牌」,按扑克牌型计分。<br>
+        · <b>小丑</b>是被动增益(常驻),<b>塔罗</b>强化手牌,<b>星球</b>升级牌型,<b>光谱</b>稀有强力——都在消耗牌栏。<br>
+        · 每个 Ante 有 <b>小盲 → 大盲 → Boss</b> 三关,小盲/大盲可以「跳过」换取标签,Boss 必须打。<br>
+        · 打赢盲注有奖金:剩余出牌、弃牌、手中 <b>黄金卡</b> 都给钱,持钱还有 <b>利息</b>($5 = $1)。<br>
+        · 商店买小丑/消耗牌/卡包/代金券,钱要花在刀刃上——构筑滚雪球,8 个 Ante 通关!<br>
+        · 长按(或悬停)任意卡牌可查看说明;拖动无,点击即选。</p>
+      </div>
+      <div class="back-btn-row"><button class="bigbtn dark" id="howto-back">返 回</button></div>
+    </div>
+  </section>
+
+  <!-- 游戏主界面 -->
+  <section id="scr-game" class="screen">
+    <header id="topbar">
+      <button id="tb-menu" class="iconbtn">☰</button>
+      <div id="ante-track"></div>
+      <button id="tb-sound" class="iconbtn">🔊</button>
+    </header>
+    <main id="mid">
+      <aside id="rail-left">
+        <div id="card-blind" class="panelcard blind">
+          <div class="bc-top"><span id="bc-name">小盲注</span><span class="px" id="bc-mult">1x</span></div>
+          <div class="bc-art" id="bc-art">💵</div>
+          <div class="bc-bottom"><span>奖励</span><b id="bc-reward">$3</b></div>
+        </div>
+        <div id="card-score" class="panelcard">
+          <div class="row-target"><span>目标</span><b class="px" id="sc-target">300</b></div>
+          <div class="score-big px" id="sc-score">0</div>
+        </div>
+        <div id="card-hand" class="panelcard">
+          <div class="hh-name" id="hh-name">高牌</div>
+          <div class="hh-lv px" id="hh-lv">lv.1</div>
+          <div class="hh-score"><span class="chipbox px" id="hh-chips">5</span><span class="times">×</span><span class="multbox px" id="hh-mult">1</span></div>
+          <div class="hh-counts">
+            <div class="hc"><i>出牌</i><b class="px" id="hh-plays">4</b></div>
+            <div class="hc"><i>弃牌</i><b class="px" id="hh-discards">3</b></div>
+            <div class="hc"><i>手牌</i><b class="px" id="hh-handsize">8</b></div>
+          </div>
+        </div>
+        <div class="mini-row">
+          <div class="panelcard"><span class="ico">💰</span><b class="px" id="money-val">$4</b></div>
+          <div class="panelcard"><span class="ico">⏫</span><b class="px" id="ante-val">1/8</b></div>
+          <div class="panelcard"><span class="ico">🎲</span><b class="px" id="round-val">1</b></div>
+        </div>
+        <div id="card-deck" class="panelcard">
+          <div class="dk-back"></div>
+          <div class="dk-info">牌堆<br><b class="px" id="dk-count">52/52</b></div>
+        </div>
+      </aside>
+      <section id="playarea">
+        <div id="msgline">选择手牌,组成牌型出击</div>
+        <div id="played-cards"></div>
+      </section>
+      <aside id="rail-right">
+        <div id="joker-tray" class="tray"><div class="tray-label">小丑</div></div>
+        <div id="consumable-tray" class="tray"><div class="tray-label">消耗牌</div></div>
+      </aside>
+    </main>
+    <footer id="handzone">
+      <div class="hz-side">
+        <button id="btn-sort-rank" class="chipbtn">点数</button>
+        <button id="btn-sort-suit" class="chipbtn">花色</button>
+      </div>
+      <div id="hand-cards"></div>
+      <div class="hz-side hz-actions">
+        <div>
+          <button id="btn-play" class="bigbtn blue">出 牌</button>
+          <div class="sel-count" id="sel-count">未选牌</div>
+        </div>
+        <div>
+          <button id="btn-discard" class="bigbtn red">弃 牌</button>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- 盲注选择 -->
+  <section id="scr-blind" class="screen overlay">
+    <div class="blind-wrap">
+      <div class="blind-title">选 择 盲 注</div>
+      <div id="blind-cards"></div>
+      <button id="blind-go" class="bigbtn red">选 择</button>
+    </div>
+  </section>
+
+  <!-- 商店 -->
+  <section id="scr-shop" class="screen overlay">
+    <header class="shop-head"><span>商 店</span><span class="sh-money px" id="shop-money">$4</span></header>
+    <div class="shop-grid" id="shop-voucher"></div>
+    <div class="shop-grid" id="shop-cards"></div>
+    <div class="shop-grid shop-packs" id="shop-packs"></div>
+    <div class="shop-tip" id="shop-tip">买东西能变强,但别把钱花光——利息 $5 = $1</div>
+    <div class="shop-foot">
+      <button id="shop-reroll" class="bigbtn blue">重 掷 <span class="px" id="reroll-cost">$5</span></button>
+      <button id="shop-next" class="bigbtn red">下一回合</button>
+    </div>
+  </section>
+
+  <!-- 卡包 -->
+  <section id="scr-pack" class="screen overlay">
+    <div id="pack-box">
+      <div class="pack-head" id="pack-head">卡包</div>
+      <div class="pack-cards" id="pack-cards"></div>
+      <div class="pack-note" id="pack-note">点击选取</div>
+    </div>
+  </section>
+
+  <!-- 回合结算 -->
+  <section id="scr-cashout" class="screen overlay">
+    <div class="cash-box">
+      <h3>回 合 结 算</h3>
+      <div class="cash-list" id="cash-list"></div>
+      <div class="cash-total"><span>总计</span><b class="px" id="cash-total">$0</b></div>
+      <button id="cash-go" class="bigbtn gold">收 下</button>
+    </div>
+  </section>
+
+  <!-- 结束/胜利 -->
+  <section id="scr-end" class="screen overlay">
+    <div class="end-box" id="end-box">
+      <h2 id="end-title">游戏结束</h2>
+      <div class="end-stats" id="end-stats"></div>
+      <div class="end-btns" id="end-btns"></div>
+    </div>
+  </section>
+
+  <div id="infoPop"></div>
+  <div id="sel-banner"><span id="sel-banner-txt"></span><button class="mini" id="sel-banner-cancel">取消</button></div>
+  <div id="confirmPop"><div class="confirm-box"><div class="cb-title" id="cb-title"></div><div class="cb-desc" id="cb-desc"></div><div class="cb-btns" id="cb-btns"></div></div></div>
+  <div id="toast"></div>
+  <div id="fxLayer"></div>
+  <div id="confetti"></div>
+</div>
+<script>
+/* ============================================================
+   数据层:所有游戏内容(原创命名与文案)
+   稀有度 r: 1常见 2罕见 3稀有 4传说
+   ============================================================ */
+'use strict';
+
+const SUITS = ['♠','♥','♦','♣'];               // 0黑桃 1红桃 2方块 3梅花
+const SUIT_NAMES = ['黑桃','红桃','方块','梅花'];
+const RANK_STR = {11:'J',12:'Q',13:'K',14:'A'};
+
+const HANDS = {
+  hc:    {n:'高牌',   base:[5,1],    lv:[10,1],  planet:'pluto'},
+  pair:  {n:'对子',   base:[10,2],   lv:[15,1],  planet:'mercury'},
+  two:   {n:'两对',   base:[20,2],   lv:[20,1],  planet:'uranus'},
+  three: {n:'三条',   base:[30,3],   lv:[20,2],  planet:'venus'},
+  straight:{n:'顺子', base:[30,4],   lv:[30,3],  planet:'saturn'},
+  flush: {n:'同花',   base:[35,4],   lv:[15,2],  planet:'jupiter'},
+  full:  {n:'葫芦',   base:[40,4],   lv:[25,2],  planet:'earth'},
+  four:  {n:'四条',   base:[60,7],   lv:[30,3],  planet:'mars'},
+  sflush:{n:'同花顺', base:[100,8],  lv:[40,4],  planet:'neptune'},
+  five:  {n:'五条',   base:[120,12], lv:[35,3],  planet:'planetx', secret:true},
+  fhouse:{n:'同花葫芦',base:[140,14],lv:[40,4],  planet:'ceres',  secret:true},
+  ffive: {n:'同花五条',base:[160,16],lv:[50,3],  planet:'eris',   secret:true},
+};
+const HAND_ORDER = ['ffive','fhouse','five','sflush','four','full','flush','straight','three','two','pair','hc'];
+
+/* 各盲注基础分数(小盲=1x),Boss 倍率在 BOSSES 内定义 */
+const ANTE_BASE = {1:300,2:800,3:2000,4:5000,5:11000,6:20000,7:35000,8:50000,
+  9:110000,10:560000,11:7200000,12:300000000,13:47000000000,14:29000000000000,
+  15:77000000000000000,16:860000000000000000000};
+
+/* ---------- 修改器 / 版本 / 封印 元数据 ---------- */
+const ENH_META = {
+  bonus:{n:'奖励卡', d:'+30 筹码'},
+  mult:{n:'多倍卡', d:'+4 多倍'},
+  wild:{n:'百搭卡', d:'视为任意花色'},
+  glass:{n:'玻璃卡', d:'×2 多倍,计分后 1/4 碎裂'},
+  steel:{n:'钢铁卡', d:'留在手中时 ×1.5 多倍'},
+  gold:{n:'黄金卡', d:'回合结束时留在手中 +$3'},
+  lucky:{n:'幸运卡', d:'1/5 +20 多倍,1/15 +$20'},
+  stone:{n:'石头卡', d:'+50 筹码,无点数花色'},
+};
+const ED_META = {foil:{n:'箔面',d:'+50 筹码'},holo:{n:'全息',d:'+10 多倍'},poly:{n:'彩宝',d:'×1.5 多倍'},negative:{n:'负片',d:'+1 卡槽'}};
+const SEAL_META = {red:{n:'红封印',d:'计分时额外触发一次'},gold:{n:'金封印',d:'打出并计分时 +$3'},blue:{n:'蓝封印',d:'回合结束留在手中时,为最后打出的牌型生成星球'},purple:{n:'紫封印',d:'弃掉时生成一张塔罗牌'}};
+
+/* ============================================================
+   小丑牌 ×74
+   钩子:onCardScore / onHeld / onHandScore / onDiscard / onRoundEnd /
+        passive / perRound(每回合清零的计数键)
+   ctx 提供:addChips/addMult/xMult/addMoney/p(概率)/rand/hand 等
+   ============================================================ */
+const JOKERS = {
+  /* ---------- 常见 ---------- */
+  joker:{n:'小丑',r:1,cost:3,e:'🃏',g:'#3d6fb8',d:'+4 多倍',
+    onHandScore(c){c.addMult(4)}},
+  greedy:{n:'贪婪鬼',r:1,cost:4,e:'♦️',g:'#a03d3d',d:'每张计分的 ♦ +3 多倍',
+    onCardScore(c,cd){if(c.suit(cd)===2)c.addMult(3)}},
+  lusty:{n:'淫欲鬼',r:1,cost:4,e:'♥️',g:'#b8415f',d:'每张计分的 ♥ +3 多倍',
+    onCardScore(c,cd){if(c.suit(cd)===1)c.addMult(3)}},
+  wrath:{n:'暴怒鬼',r:1,cost:4,e:'♠️',g:'#3a3f55',d:'每张计分的 ♠ +3 多倍',
+    onCardScore(c,cd){if(c.suit(cd)===0)c.addMult(3)}},
+  glutton:{n:'暴食鬼',r:1,cost:4,e:'♣️',g:'#2f6b45',d:'每张计分的 ♣ +3 多倍',
+    onCardScore(c,cd){if(c.suit(cd)===3)c.addMult(3)}},
+  crazy:{n:'疯帽子',r:1,cost:4,e:'🎩',g:'#6b4fa0',d:'打出「顺子」时 +12 多倍',
+    onHandScore(c){if(c.handType==='straight')c.addMult(12)}},
+  drunken:{n:'醉汉',r:1,cost:4,e:'🍺',g:'#a07830',d:'打出「同花」时 +12 多倍',
+    onHandScore(c){if(c.handType==='flush')c.addMult(12)}},
+  zany:{n:'怪人',r:1,cost:4,e:'🤡',g:'#b8552f',d:'打出「四条」时 +12 多倍',
+    onHandScore(c){if(c.handType==='four')c.addMult(12)}},
+  mad:{n:'狂人',r:1,cost:3,e:'😤',g:'#8f3d55',d:'打出「两对」时 +10 多倍',
+    onHandScore(c){if(c.handType==='two')c.addMult(10)}},
+  wily:{n:'狡狐',r:1,cost:4,e:'🦊',g:'#b8702f',d:'打出「三条」时 +12 多倍',
+    onHandScore(c){if(c.handType==='three')c.addMult(12)}},
+  clever:{n:'老油条',r:1,cost:3,e:'🧉',g:'#4f7a55',d:'打出「对子」时 +8 多倍',
+    onHandScore(c){if(c.handType==='pair')c.addMult(8)}},
+  half:{n:'半张牌',r:1,cost:4,e:'🌗',g:'#55606b',d:'打出的牌 ≤3 张时 +20 多倍',
+    onHandScore(c){if(c.played.length<=3)c.addMult(20)}},
+  misprint:{n:'印刷事故',r:1,cost:3,e:'🖨️',g:'#6b6b55',d:'+0 到 +23 多倍(随机)',
+    onHandScore(c){c.addMult(c.rand(24))}},
+  scaryface:{n:'凶脸扑克',r:1,cost:4,e:'👹',g:'#8f3d3d',d:'每张计分的人头牌 +30 筹码',
+    onCardScore(c,cd){if(c.isFace(cd))c.addChips(30)}},
+  evensteven:{n:'偶数先生',r:1,cost:4,e:'🪙',g:'#3d6b8f',d:'偶数点数(2/4/6/8/10)计分时 +4 多倍',
+    onCardScore(c,cd){if(c.rank(cd)%2===0&&c.rank(cd)===cd.rank)c.addMult(4)}},
+  oddtodd:{n:'奇数小哥',r:1,cost:4,e:'🧢',g:'#5d558f',d:'奇数点数(A/3/5/7/9)计分时 +31 筹码',
+    onCardScore(c,cd){const r=c.rank(cd);if((r%2===1||r===14)&&c.rank(cd)===cd.rank)c.addChips(31)}},
+  scholar:{n:'学者',r:1,cost:4,e:'🎓',g:'#3d558f',d:'每张计分的 A +20 筹码 +4 多倍',
+    onCardScore(c,cd){if(c.rank(cd)===14&&c.rank(cd)===cd.rank){c.addChips(20);c.addMult(4)}}},
+  photograph:{n:'抓拍',r:1,cost:5,e:'📸',g:'#4f6b55',d:'本手牌第一张计分的人头牌 ×2 多倍',
+    onCardScore(c,cd){if(c.isFace(cd)&&!c.jcount('shot')){c.setj('shot',1);c.xMult(2)}}},
+  grosMichel:{n:'大香蕉',r:1,cost:5,e:'🍌',g:'#b8912f',d:'+15 多倍。回合结束 1/6 概率被吃掉',
+    onHandScore(c){c.addMult(15)},
+    onRoundEnd(c){if(c.p(1,6))return{destroy:true}}},
+  goldenJoker:{n:'黄金小丑',r:1,cost:6,e:'🏆',g:'#b8962f',d:'回合结束时 +$4',
+    onRoundEnd(c){c.addMoney(4)}},
+  businessCard:{n:'名片公司',r:1,cost:4,e:'💼',g:'#4a5560',d:'人头牌计分时 1/2 概率 +$2',
+    onCardScore(c,cd){if(c.isFace(cd)&&c.p(1,2))c.addMoney(2)}},
+  faceless:{n:'无脸男',r:1,cost:4,e:'😶',g:'#555d6b',d:'一次性弃掉 3 张以上人头牌时 +$5',
+    onDiscard(c,cards){if(cards.filter(x=>c.isFace(x)).length>=3)c.addMoney(5)}},
+  rideTheBus:{n:'搭便车',r:1,cost:6,e:'🚌',g:'#4f6b8f',d:'连续不打人头牌,每手 +1 多倍(打人头牌重置)',
+    perRound:[],onHandScore(c){if(!c.scored.some(cd=>c.isFace(cd))){c.jk.c.mult=(c.jk.c.mult||0)+1}else{c.jk.c.mult=0}c.addMult(c.jk.c.mult)}},
+  greenJoker:{n:'绿皮小丑',r:1,cost:4,e:'🤢',g:'#3d6b45',d:'每打一手 +1 多倍,每弃一次 -1 多倍',
+    onHandScore(c){c.jk.c.mult=(c.jk.c.mult||0)+1;c.addMult(c.jk.c.mult)},
+    onDiscard(c){c.jk.c.mult=(c.jk.c.mult||0)-1}},
+  banner:{n:'小推车',r:1,cost:5,e:'🛒',g:'#6b5d4f',d:'每剩余一次弃牌机会 +30 筹码',
+    onHandScore(c){c.addChips(30*c.discardsLeft())}},
+  mysticSummit:{n:'神秘之巅',r:1,cost:5,e:'⛰️',g:'#4f5d6b',d:'弃牌机会为 0 时 +15 多倍',
+    onHandScore(c){if(c.discardsLeft()===0)c.addMult(15)}},
+  iceCream:{n:'冰淇淋',r:1,cost:5,e:'🍦',g:'#c9a3b8',d:'+100 筹码。每打一手 -5 筹码',
+    onHandScore(c){c.addChips(c.jk.c.chips||100)},onHandPlayed(c){c.jk.c.chips=Math.max(0,(c.jk.c.chips||100)-5)}},
+  runner:{n:'短跑健将',r:1,cost:5,e:'🏃',g:'#b86b2f',d:'打出顺子时永久 +15 筹码',
+    onHandScore(c){if(c.handType==='straight'||c.handType==='sflush'){c.jk.c.chips=(c.jk.c.chips||0)+15}c.addChips(c.jk.c.chips||0)}},
+  squareJoker:{n:'方阵教练',r:1,cost:4,e:'🟦',g:'#2f5d8f',d:'打出手牌恰好 4 张时永久 +4 筹码',
+    onHandScore(c){if(c.played.length===4)c.jk.c.chips=(c.jk.c.chips||0)+4;c.addChips(c.jk.c.chips||0)}},
+  supernova:{n:'超新星',r:1,cost:5,e:'💥',g:'#8f4fb8',d:'打出手牌时,+该牌型本局已打出次数等量多倍',
+    onHandScore(c){c.addMult(c.handCount(c.handType))}},
+  bull:{n:'斗牛士',r:1,cost:6,e:'🐂',g:'#8f3d30',d:'每持有 $1 +2 筹码',
+    onHandScore(c){c.addChips(2*Math.max(0,c.money()))}},
+  clock:{n:'时光钟摆',r:1,cost:5,e:'⏰',g:'#6b5540',d:'每回合开始手牌上限临时 +1,打一手 -1(最低为上限)',
+    passive(c){return{handSize:(c.jk.c.hs||1)}},onRoundStart(c){c.jk.c.hs=(c.jk.c.hs||1)+Math.max(0,4-((c.jk.c.hs||1)-1))},onHandPlayed(c){c.jk.c.hs=Math.max(1,(c.jk.c.hs||1)-1)},d:'时钟储存 +N 手牌上限,每打一手消耗 1'},
+
+  /* ---------- 罕见 ---------- */
+  fourFingers:{n:'四指怪',r:2,cost:7,e:'🖖',g:'#6b4f8f',d:'「同花」「顺子」只需 4 张牌',passive:()=>({fourFingers:true})},
+  shortcut:{n:'抄近路',r:2,cost:7,e:'🪝',g:'#4f6b60',d:'「顺子」允许中间断 1 张',passive:()=>({shortcut:true})},
+  smeared:{n:'涂抹派',r:2,cost:7,e:'🎨',g:'#8f4f6b',d:'♥ 视同 ♦,♠ 视同 ♣',passive:()=>({smeared:true})},
+  pareidolia:{n:'幻觉人生',r:2,cost:5,e:'👀',g:'#5d6b4f',d:'所有点数牌都视作人头牌',passive:()=>({allFace:true})},
+  stencil:{n:'模板',r:2,cost:8,e:'⬜',g:'#6b6b6b',d:'×(1+空位小丑槽数) 多倍',
+    onHandScore(c){c.xMult(1+c.emptyJokerSlots())}},
+  fibonacci:{n:'斐波那契',r:2,cost:8,e:'🐚',g:'#8f6b3d',d:'每张计分的 A +8 多倍',
+    onCardScore(c,cd){if(c.rank(cd)===14)c.addMult(8)}},
+  baron:{n:'男爵',r:2,cost:8,e:'🎩',g:'#4f3d6b',d:'手中每张 K ×1.5 多倍',
+    onHeld(c,cd){if(c.rank(cd)===13)c.xMult(1.5)}},
+  vampire:{n:'吸血鬼',r:2,cost:8,e:'🧛',g:'#5d1f3d',d:'每张带强化的牌计分后,永久 +×0.1 多倍(并吸走其强化)',
+    onCardScore(c,cd){if(c.enhOf(cd)){c.jk.c.x=(c.jk.c.x||1)+0.1;c.stealEnh(cd)}c.xMult(c.jk.c.x||1)}},
+  hack:{n:'黑客',r:2,cost:8,e:'💻',g:'#2f5545',d:'点数 2/3/4/5 的计分牌额外触发一次',
+    onCardScore(c,cd){if([2,3,4,5].includes(c.rank(cd)))c.retrigger(cd)}},
+  blackboard:{n:'黑板',r:2,cost:6,e:'🖤',g:'#2a2a33',d:'手中全是 ♠/♣ 时 ×3 多倍',
+    onHandScore(c){if(c.held().every(cd=>c.suit(cd)===0||c.suit(cd)===3))c.xMult(3)}},
+  flowerPot:{n:'花盆',r:2,cost:8,e:'🪴',g:'#6b553d',d:'一手内四种花色都计分时 ×3 多倍',
+    onHandScore(c){const s=new Set(c.scored.map(cd=>c.isSuitG(cd)));if(s.size>=(c.hasSmeared()?2:4))c.xMult(3)}},
+  seeingDouble:{n:'二重奏',r:2,cost:7,e:'🥁',g:'#3d556b',d:'计分牌同时含 ♣ 和其他花色时 ×3 多倍',
+    onHandScore(c){const s=new Set(c.scored.map(cd=>c.suit(cd)));if(s.has(3)&&s.size>=2)c.xMult(3)}},
+  swashbuckler:{n:'侠盗',r:2,cost:4,e:'🗡️',g:'#7a5d3d',d:'+左侧小丑售价等量多倍',
+    onHandScore(c){const v=c.leftSellValue();if(v>0)c.addMult(v)}},
+  turtleBean:{n:'龟龟',r:2,cost:5,e:'🐢',g:'#3d6b55',d:'+5 手牌上限。每回合 -1',
+    passive(c){return{handSize:(c.jk.c.hs===undefined?5:c.jk.c.hs)}},onRoundEnd(c){c.jk.c.hs=Math.max(0,(c.jk.c.hs===undefined?5:c.jk.c.hs)-1)},d:'龟壳储存 +5 手牌上限,每回合消耗 1'},
+  hitTheRoad:{n:'上路吧!',r:2,cost:8,e:'🛣️',g:'#55402a',d:'本回合每弃掉一张 J ×2 多倍',
+    onHandScore(c){const n=c.roundStat('jacksDiscarded');if(n>0)c.xMult(2*n)}},
+  constellation:{n:'星座图',r:2,cost:6,e:'🔭',g:'#2f3d6b',d:'每使用一张星球牌永久 +×0.1 多倍',
+    onHandScore(c){c.xMult(1+(c.jk.c.x||0))},extEvent:'planetUsed'},
+  hologram:{n:'全息卡',r:2,cost:7,e:'🪩',g:'#4f6b8f',d:'每有一张牌加入牌组永久 +×0.25 多倍',
+    onHandScore(c){c.xMult(1+(c.jk.c.x||0))},extEvent:'cardAdded'},
+  glassJoker:{n:'玻璃小丑',r:2,cost:7,e:'🥃',g:'#8fa3b8',d:'每张玻璃牌碎裂时永久 +×0.2 多倍',
+    onHandScore(c){c.xMult(1+(c.jk.c.x||0))},extEvent:'glassBroke'},
+  stuntman:{n:'特技替身',r:2,cost:8,e:'🎬',g:'#6b3d3d',d:'+250 筹码,-2 手牌上限',
+    passive:()=>({handSize:-2}),onHandScore(c){c.addChips(250)}},
+  egg:{n:'蛋',r:2,cost:4,e:'🥚',g:'#c9c3a3',d:'回合结束时售价 +$3',
+    onRoundEnd(c){c.jk.sellBonus=(c.jk.sellBonus||0)+3}},
+  cloud9:{n:'九霄',r:2,cost:7,e:'☁️',g:'#7a8fa3',d:'回合结束时,手中每张 ♠ +$1',
+    onRoundEnd(c){c.addMoney(c.held().filter(cd=>c.suit(cd)===0).length)}},
+  rocket:{n:'火箭',r:2,cost:5,e:'🚀',g:'#8f4f3d',d:'回合结束时获得奖励(初始 $1,每击败一次 Boss +$2)',
+    onRoundEnd(c){c.addMoney(c.jk.c.pay||1)}},extRocket:true,
+  popcorn:{n:'爆米花',r:2,cost:5,e:'🍿',g:'#c9a35d',d:'+20 多倍,每回合 -4(减到 0 自毁)',
+    onHandScore(c){c.addMult(c.jk.c.mult||20)},onRoundEnd(c){c.jk.c.mult=(c.jk.c.mult||20)-4;if(c.jk.c.mult<=0)return{destroy:true}}},
+  loyaltyCard:{n:'忠诚卡',r:2,cost:6,e:'💳',g:'#4f3d6b',d:'每第 6 手牌 ×4 多倍',
+    perRound:['n'],onHandScore(c){c.jk.c.n=(c.jk.c.n||0)+1;if(c.jk.c.n%6===0)c.xMult(4)}},
+  ramen:{n:'拉面',r:2,cost:5,e:'🍜',g:'#b8863d',d:'×2 多倍。每弃一张牌 -×0.01(最低 ×1)',
+    onHandScore(c){c.xMult(Math.max(1,(c.jk.c.x||2)-0.01*(c.runStat('discarded'))))}},
+  sword:{n:'断钢剑',r:2,cost:8,e:'⚔️',g:'#7a8fa3',d:'只打出 1 张牌时 ×3 多倍',
+    onHandScore(c){if(c.played.length===1)c.xMult(3)}},
+
+  /* ---------- 稀有 ---------- */
+  duo:{n:'二人组',r:3,cost:8,e:'👯',g:'#8f2f45',d:'打出的牌含对子以上时 ×2 多倍',
+    onHandScore(c){if(c.handRank()>=HAND_ORDER.indexOf('pair'))c.xMult(2)}},
+  trio:{n:'三重奏',r:3,cost:8,e:'🎺',g:'#7a3d8f',d:'含三条以上时 ×3 多倍',
+    onHandScore(c){if(c.handRank()>=HAND_ORDER.indexOf('three'))c.xMult(3)}},
+  family:{n:'一家亲',r:3,cost:8,e:'👨‍👩‍👧‍👦',g:'#2f5d8f',d:'含四条以上时 ×4 多倍',
+    onHandScore(c){if(c.handRank()>=HAND_ORDER.indexOf('four'))c.xMult(4)}},
+  order:{n:'号令',r:3,cost:8,e:'📜',g:'#4f8f6b',d:'打出顺子类时 ×3 多倍',
+    onHandScore(c){if(['straight','sflush'].includes(c.handType))c.xMult(3)}},
+  tribe:{n:'部落',r:3,cost:8,e:'🪘',g:'#8f6b2f',d:'打出同花类时 ×2 多倍',
+    onHandScore(c){if(['flush','sflush','fhouse','ffive'].includes(c.handType))c.xMult(2)}},
+  blueprint:{n:'蓝图',r:3,cost:10,e:'📐',g:'#3d5d8f',d:'复制左侧小丑的能力',
+    copyOf:'left'},
+  brainstorm:{n:'头脑风暴',r:3,cost:10,e:'🧠',g:'#b05c8f',d:'复制最左侧小丑的能力',
+    copyOf:'first'},
+  bloodstone:{n:'血石',r:3,cost:9,e:'🩸',g:'#8f1f30',d:'每张计分的 ♥ 有 1/2 概率 ×1.5 多倍',
+    onCardScore(c,cd){if(c.suit(cd)===1&&c.p(1,2))c.xMult(1.5)}},
+  arrowhead:{n:'箭头',r:3,cost:9,e:'🏹',g:'#6b552f',d:'每张计分的 ♠ +50 筹码',
+    onCardScore(c,cd){if(c.suit(cd)===0)c.addChips(50)}},
+  cavendish:{n:'卡文迪什',r:3,cost:4,e:'🍌',g:'#a3b82f',d:'×3 多倍。回合结束 1/1000 概率被吃掉',
+    onHandScore(c){c.xMult(3)},onRoundEnd(c){if(c.p(1,1000))return{destroy:true}}},
+  mrBones:{n:'骨先生',r:3,cost:5,e:'💀',g:'#c9c3b8',d:'输掉回合但分数达目标 25% 时,继续本回合(每个盲注一次)',
+    flags:()=>({secondChance:true})},
+  medieval:{n:'中世纪',r:3,cost:8,e:'🤴',g:'#5d4f6b',d:'每张计分的人头牌 ×2 多倍',
+    onCardScore(c,cd){if(c.isFace(cd))c.xMult(2)}},
+  obelisk:{n:'方尖碑',r:3,cost:10,e:'🗿',g:'#4a4a55',d:'×1 多倍。连续每打一手「非最常打出的牌型」+×0.2',
+    onHandScore(c){if(c.handType!==c.mostPlayed())c.jk.c.x=(c.jk.c.x||1)+0.2;else c.jk.c.x=1;c.xMult(c.jk.c.x)}},
+  ritual:{n:'祭祀面具',r:3,cost:9,e:'🎭',g:'#6b3d55',d:'打出的每张人头牌计分时,+12 多倍但 - $1',
+    onCardScore(c,cd){if(c.isFace(cd)){c.addMult(12);c.addMoney(-1)}}},
+  luckyDraw:{n:'幸运抽奖',r:3,cost:7,e:'🎰',g:'#2f6b55',d:'计分牌有 1/4 概率 +20 多倍',
+    onCardScore(c){if(c.p(1,4))c.addMult(20)}},
+
+  /* ---------- 传说(仅「灵魂」光谱牌产出) ---------- */
+  triboulet:{n:'血腥特里波',r:4,cost:20,e:'👑',g:'#8f1f3d',d:'每张计分的 K 或 Q ×2 多倍',
+    onCardScore(c,cd){if(c.rank(cd)===13||c.rank(cd)===12)c.xMult(2)}},
+  yorick:{n:'约里克',r:4,cost:20,e:'⚰️',g:'#4a3d55',d:'×1 多倍。每弃满 10 张牌 +×0.1',
+    onHandScore(c){c.xMult((c.jk.c.x||1))},extEvent:'discardMilestone'},
+  chicot:{n:'奇科特',r:4,cost:20,e:'🎪',g:'#2f3d55',d:'无视 Boss 盲注的效果',flags:()=>({ignoreBoss:true})},
+  perkeo:{n:'佩尔科',r:4,cost:20,e:'🧞',g:'#3d2f55',d:'离开商店时,随机复制一张消耗牌(负片版)',
+    flags:()=>({perkeo:true})},
+  canio:{n:'卡尼奥',r:4,cost:20,e:'🕹️',g:'#2f556b',d:'每有一张人头牌被摧毁,永久 +1 多倍',
+    onHandScore(c){c.addMult(c.jk.c.mult||0)},extEvent:'faceDestroyed'},
+};
+
+/* ============================================================
+   塔罗牌 ×22  sel:需从手牌选取的张数(0=直接用) target:'joker'=选小丑
+   use 的 ctx:mkTarot/mkPlanet/mkJoker/mkSpectral 生成消耗牌/小丑、
+   addToDeck/destroy/enh/setEd/money 等由引擎提供
+   ============================================================ */
+const TAROTS = {
+  fool:{n:'愚者',e:'🃏',d:'复制本次冒险中上一张使用过的塔罗或星球牌',sel:0,
+    use(c){if(!c.G.lastConsumable)return false;c.spawnConsumable(c.G.lastConsumable);return true}},
+  magician:{n:'魔术师',e:'🎩',d:'将 2 张选中的牌强化为「幸运卡」',sel:2,
+    use(c){c.sel.forEach(x=>c.enh(x,'lucky'));return true}},
+  priestess:{n:'女祭司',e:'🌙',d:'生成 2 张随机星球牌',sel:0,
+    use(c){c.mkPlanet();c.mkPlanet();return true}},
+  empress:{n:'皇后',e:'👑',d:'将 2 张选中的牌强化为「多倍卡」',sel:2,
+    use(c){c.sel.forEach(x=>c.enh(x,'mult'));return true}},
+  emperor:{n:'皇帝',e:'🏛️',d:'生成 2 张随机塔罗牌',sel:0,
+    use(c){c.mkTarot();c.mkTarot();return true}},
+  hierophant:{n:'教皇',e:'📕',d:'将 2 张选中的牌强化为「奖励卡」',sel:2,
+    use(c){c.sel.forEach(x=>c.enh(x,'bonus'));return true}},
+  lovers:{n:'恋人',e:'💞',d:'将 1 张选中的牌强化为「百搭卡」',sel:1,
+    use(c){c.enh(c.sel[0],'wild');return true}},
+  chariot:{n:'战车',e:'🛡️',d:'将 1 张选中的牌强化为「钢铁卡」',sel:1,
+    use(c){c.enh(c.sel[0],'steel');return true}},
+  justice:{n:'正义',e:'⚖️',d:'将 1 张选中的牌强化为「玻璃卡」',sel:1,
+    use(c){c.enh(c.sel[0],'glass');return true}},
+  hermit:{n:'隐者',e:'🏮',d:'金钱翻倍(最多 +$20)',sel:0,
+    use(c){const add=Math.min(20,Math.max(0,c.G.money));if(add<=0)return false;c.money(add);return true}},
+  wheel:{n:'命运之轮',e:'☸️',d:'1/4 概率给 1 张小丑加上版本(箔面/全息/彩宝)',sel:0,target:'joker',
+    use(c){if(!c.p(1,4))return 'miss';const ed=c.pick(['foil','holo','poly']);c.edJoker(c.target,ed);return true}},
+  strength:{n:'力量',e:'💪',d:'将 1 张选中的牌点数 +1(A 变 2)',sel:1,
+    use(c){const cd=c.sel[0];cd.rank=cd.rank>=14?2:cd.rank+1;cd.enh=null;cd.seal=null;return true}},
+  hanged:{n:'倒吊人',e:'🪢',d:'摧毁 2 张选中的牌',sel:2,
+    use(c){c.sel.forEach(x=>c.destroy(x));return true}},
+  death:{n:'死神',e:'☠️',d:'把左侧选中的牌复制到右侧选中牌上(点数与花色)',sel:2,
+    use(c){const[a,b]=c.sel;b.rank=a.rank;b.suit=a.suit;b.enh=a.enh;b.seal=a.seal;c.notifyAdd();return true}},
+  temperance:{n:'节欲',e:'🏺',d:'获得等同小丑总售价的金钱(最多 $50)',sel:0,
+    use(c){const v=c.totalSellValue();if(v<=0)return false;c.money(Math.min(50,v));return true}},
+  devil:{n:'恶魔',e:'😈',d:'将 1 张选中的牌强化为「黄金卡」',sel:1,
+    use(c){c.enh(c.sel[0],'gold');return true}},
+  tower:{n:'塔',e:'🗼',d:'将 1 张选中的牌强化为「石头卡」',sel:1,
+    use(c){c.enh(c.sel[0],'stone');return true}},
+  star:{n:'星星',e:'⭐',d:'将 3 张选中的牌花色变为 ♥',sel:3,
+    use(c){c.sel.forEach(x=>c.toSuit(x,1));return true}},
+  moon:{n:'月亮',e:'🌜',d:'将 3 张选中的牌花色变为 ♣',sel:3,
+    use(c){c.sel.forEach(x=>c.toSuit(x,3));return true}},
+  sun:{n:'太阳',e:'☀️',d:'将 3 张选中的牌花色变为 ♦',sel:3,
+    use(c){c.sel.forEach(x=>c.toSuit(x,2));return true}},
+  world:{n:'世界',e:'🌍',d:'将 3 张选中的牌花色变为 ♠',sel:3,
+    use(c){c.sel.forEach(x=>c.toSuit(x,0));return true}},
+  judgement:{n:'审判',e:'📯',d:'生成一张随机小丑(需要空位)',sel:0,
+    use(c){return c.mkJoker()}},
+};
+
+/* ============================================================
+   星球牌 ×12(升牌型等级)
+   ============================================================ */
+const PLANETS = {};
+Object.keys(HANDS).forEach(h=>{const p=HANDS[h].planet;PLANETS[p]={n:{pluto:'冥王星',mercury:'水星',uranus:'天王星',venus:'金星',saturn:'土星',jupiter:'木星',earth:'地球',mars:'火星',neptune:'海王星',planetx:'行星X',ceres:'谷神星',eris:'阋神星'}[p],e:'🪐',hand:h,d:'升级「'+HANDS[h].n+'」:+'+HANDS[h].lv[0]+' 筹码 +'+HANDS[h].lv[1]+' 多倍'};});
+
+/* ============================================================
+   光谱牌 ×9(原创效果,稀有消耗牌)
+   ============================================================ */
+const SPECTRALS = {
+  soul:{n:'灵魂',e:'👻',d:'生成一张传说小丑(需要空位)',sel:0,
+    use(c){return c.mkJoker('legend')}},
+  vision:{n:'灵视',e:'🔮',d:'随机一种牌型升 3 级',sel:0,
+    use(c){c.levelUp(c.pick(Object.keys(HANDS)),3);return true}},
+  devour:{n:'噬魂',e:'🫦',d:'吞噬 1 张随机手牌,随机小丑永久 +50 筹码',sel:0,
+    use(c){if(!c.G.hand.length)return false;const cd=c.pick(c.G.hand);c.destroy(cd);const j=c.pick(c.G.jokers);if(j){j.c.chips=(j.c.chips||0)+50;c.toastJoker(j,'+50筹码')}return true}},
+  purify:{n:'净化',e:'🧿',d:'清除手中所有强化、版本与封印,每张 +$1',sel:0,
+    use(c){let n=0;c.G.hand.forEach(x=>{if(x.enh||x.seal){x.enh=null;x.seal=null;n++}});if(!n)return false;c.money(n);return true}},
+  mirror:{n:'镜像',e:'🪞',d:'将 1 张选中的牌复制并加入牌组',sel:1,
+    use(c){c.addToDeck({...c.sel[0]});return true}},
+  sacrifice:{n:'献祭',e:'🔥',d:'摧毁当前所有手牌,每张 +$2',sel:0,
+    use(c){const n=c.G.hand.length;if(!n)return false;c.G.hand.forEach(x=>c.destroy(x));c.money(n*2);return true}},
+  curse:{n:'诅咒',e:'🕸️',d:'随机 1 张手牌变为「玻璃卡」并获得红封印',sel:0,
+    use(c){if(!c.G.hand.length)return false;const cd=c.pick(c.G.hand);cd.enh='glass';cd.seal='red';return true}},
+  blackhole:{n:'黑洞',e:'🕳️',d:'所有牌型升 1 级',sel:0,
+    use(c){Object.keys(HANDS).forEach(h=>c.levelUp(h,1));return true}},
+  revelation:{n:'显圣',e:'😇',d:'随机 1 张小丑获得随机版本(箔面/全息/彩宝)',sel:0,
+    use(c){const js=c.G.jokers.filter(j=>!j.ed);if(!js.length)return false;c.edJoker(c.pick(js),c.pick(['foil','holo','poly']));return true}},
+};
+
+/* ============================================================
+   代金券 ×32(成对:买基础后解锁进阶版,均 $10)
+   passive 字段在 recalcStats 汇总
+   ============================================================ */
+const VOUCHERS = {
+  overstock:{n:'超量供货',e:'📦',d:'商店卡牌 +1 格',passive:()=>({shopSlots:1}),up:'overstock2'},
+  overstock2:{n:'超量供货+',e:'📦',d:'商店卡牌再 +1 格',passive:()=>({shopSlots:1})},
+  clearance:{n:'清仓大甩卖',e:'🏷️',d:'商店内所有商品 75 折',passive:()=>({discount:.75}),up:'clearance2'},
+  clearance2:{n:'清仓大甩卖+',e:'🏷️',d:'商店内所有商品 5 折',passive:()=>({discount:.5})},
+  hone:{n:'打磨',e:'✨',d:'箔面/全息/彩宝出现率 ×2',passive:()=>({edRate:2}),up:'hone2'},
+  hone2:{n:'打磨+',e:'✨',d:'箔面/全息/彩宝出现率 ×4',passive:()=>({edRate:4})},
+  rerollS:{n:'重掷盈余',e:'🔁',d:'商店重掷起价 -$2',passive:()=>({rerollOff:2}),up:'rerollS2'},
+  rerollS2:{n:'重掷盈余+',e:'🔁',d:'商店重掷起价再 -$2',passive:()=>({rerollOff:2})},
+  crystalBall:{n:'水晶球',e:'🔮',d:'+1 消耗牌槽位',passive:()=>({consumableSlots:1}),up:'omenGlobe'},
+  omenGlobe:{n:'预言之球',e:'🔮',d:'塔罗卡包里也可能出现光谱牌',flags:()=>({omenGlobe:true})},
+  telescope:{n:'望远镜',e:'🔭',d:'星球卡包必含最常打出的牌型',flags:()=>({telescope:true}),up:'observatory'},
+  observatory:{n:'天文台',e:'🔭',d:'手上的每张星球牌为其牌型 +×1.5 多倍',flags:()=>({observatory:true})},
+  grabber:{n:'夺取者',e:'🤲',d:'每回合 +1 出牌机会',passive:()=>({hands:1}),up:'nachoTong'},
+  nachoTong:{n:'玉米脆角',e:'🌽',d:'每回合再 +1 出牌机会',passive:()=>({hands:1})},
+  wasteful:{n:'挥霍者',e:'💸',d:'每回合 +1 弃牌机会',passive:()=>({discards:1}),up:'recyclomancy'},
+  recyclomancy:{n:'回收术',e:'♻️',d:'每回合再 +1 弃牌机会',passive:()=>({discards:1})},
+  tarotM:{n:'塔罗商人',e:'🃏',d:'商店中塔罗牌出现率 ×2',passive:()=>({tarotRate:2}),up:'tarotT'},
+  tarotT:{n:'塔罗大亨',e:'🃏',d:'商店中塔罗牌出现率 ×4',passive:()=>({tarotRate:2})},
+  planetM:{n:'星球商人',e:'🪐',d:'商店中星球牌出现率 ×2',passive:()=>({planetRate:2}),up:'planetT'},
+  planetT:{n:'星球大亨',e:'🪐',d:'商店中星球牌出现率 ×4',passive:()=>({planetRate:2})},
+  seedMoney:{n:'种子基金',e:'🌱',d:'利息上限提升至 $10',passive:()=>({interestCap:10}),up:'moneyTree'},
+  moneyTree:{n:'摇钱树',e:'🌳',d:'利息上限提升至 $20',passive:()=>({interestCap:10})},
+  blank:{n:'空白券',e:'⬜',d:'……什么用都没有(真的)',up:'antimatter'},
+  antimatter:{n:'反物质',e:'⚫',d:'+1 小丑槽位',passive:()=>({jokerSlots:1})},
+  magicTrick:{n:'魔术戏法',e:'🎩',d:'商店出售扑克牌',flags:()=>({magicTrick:true}),up:'illusion'},
+  illusion:{n:'幻术',e:'🐇',d:'商店扑克牌可能自带强化/版本/封印',flags:()=>({illusion:true})},
+  hieroglyph:{n:'象形文字',e:'𓂀',d:'目标盲注 -1,但每回合 -1 出牌机会',passive:()=>({hands:-1,ante:-1}),up:'petroglyph'},
+  petroglyph:{n:'岩刻文字',e:'𓆣',d:'目标盲注再 -1,但每回合 -1 弃牌机会',passive:()=>({discards:-1,ante:-1})},
+  directors:{n:'导演剪辑',e:'🎬',d:'每个盲注可花 $10 重掷 Boss(一次)',flags:()=>({directorsCut:true}),up:'retcon'},
+  retcon:{n:'追溯修改',e:'🎞️',d:'Boss 重掷不限次数',flags:()=>({directorsCut:true})},
+  paintBrush:{n:'画笔',e:'🖌️',d:'+1 手牌上限',passive:()=>({handSize:1}),up:'palette'},
+  palette:{n:'调色盘',e:'🎨',d:'再 +1 手牌上限',passive:()=>({handSize:1})},
+};
+
+/* ============================================================
+   跳过标签 ×24(跳过小盲/大盲获得)
+   now=true 表示领取时立即生效,否则存入 pendingTags 延迟到商店生效
+   ============================================================ */
+const TAGS = {
+  uncommon:{n:'罕见标签',e:'🟢',d:'下一个商店出现一张免费罕见小丑',now:false},
+  rare:{n:'稀有标签',e:'🔴',d:'下一个商店出现一张免费稀有小丑',now:false},
+  negative:{n:'负片标签',e:'🔲',d:'下一个商店的小丑免费且变为负片',now:false},
+  foil:{n:'箔面标签',e:'🥈',d:'下一个商店的小丑免费且变为箔面',now:false},
+  holo:{n:'全息标签',e:'🥉',d:'下一个商店的小丑免费且变为全息',now:false},
+  poly:{n:'彩宝标签',e:'🌈',d:'下一个商店的小丑免费且变为彩宝',now:false},
+  investment:{n:'投资标签',e:'📈',d:'击败 Boss 盲注后 +$25',now:false},
+  voucher:{n:'代金标签',e:'🎟️',d:'下一个商店 +1 张代金券',now:false},
+  boss:{n:'Boss 标签',e:'👺',d:'立即重掷 Boss 盲注',now:true},
+  charm:{n:'魅力标签',e:'🧿',d:'立即免费打开一个超级塔罗卡包',now:false},
+  coupon:{n:'优惠券标签',e:'🎫',d:'下一个商店的卡牌与卡包全部免费',now:false},
+  double:{n:'加倍标签',e:'✖️',d:'复制下一个领取的标签',now:false},
+  juggle:{n:'杂耍标签',e:'🤹',d:'下一回合 +3 手牌上限',now:false},
+  d6:{n:'D6 标签',e:'🎲',d:'下一个商店前 5 次重掷免费',now:false},
+  speed:{n:'速度标签',e:'🏃',d:'获得 $5 ×本局已跳过的盲注数',now:true},
+  standard:{n:'标准标签',e:'🂠',d:'立即免费打开一个超级标准卡包',now:false},
+  meteor:{n:'流星标签',e:'☄️',d:'立即免费打开一个超级星球卡包',now:false},
+  buffoon:{n:'小丑标签',e:'🎪',d:'立即免费打开一个超级小丑卡包',now:false},
+  handy:{n:'顺手标签',e:'✋',d:'获得 $1 ×本局已打出的手牌数',now:true},
+  garbage:{n:'垃圾标签',e:'🗑️',d:'获得 $1 ×本局剩余未用的弃牌数',now:true},
+  ethereal:{n:'幽魂标签',e:'👁️',d:'立即免费打开一个光谱卡包',now:false},
+  topup:{n:'补充标签',e:'➕',d:'生成至多 2 张常见小丑(需要空位)',now:true},
+  orbital:{n:'轨道标签',e:'🛰️',d:'随机一种牌型升 3 级',now:true},
+  ruby:{n:'红宝标签',e:'💎',d:'获得 $10',now:true},
+};
+
+/* ============================================================
+   Boss 盲注 ×23 + 终局演出盲注 ×5
+   mult:目标分数倍率 debuff(card):返true为禁用
+   ============================================================ */
+const BOSSES = {
+  hook:{n:'铁钩',e:'🪝',mult:2,minAnte:1,d:'每打出一手牌,弃掉 2 张随机手牌',
+    onPlayHand(G){G.pendingDiscardRandom=2}},
+  ox:{n:'蛮牛',mult:2,minAnte:6,e:'🐂',d:'打出你最常使用的牌型会把金钱清零',
+    onHandPlayed(G,ht,mph){if(ht===mph&&G.money>0){G.money=0;G.ev.push({t:'moneyZero'})}}},
+  house:{n:'房屋',e:'🏠',mult:2,minAnte:2,d:'第一手抽到的牌全部背面朝上',
+    onRoundStart(G){G.drawFacedownNext=G.handSize}},
+  wall:{n:'高墙',e:'🧱',mult:4,minAnte:4,d:'分数要求特别巨大'},
+  wheel:{n:'转轮',e:'☸️',mult:2,minAnte:2,d:'抽到的牌有 1/7 概率背面朝上',
+    drawFacedown(G,c,r){return r.next()*7<1}},
+  arm:{n:'铁臂',e:'💪',mult:2,minAnte:2,d:'打出的牌型等级永久 -1',
+    onScoreStart(G,ht){levelUpHand(G,ht,-1);G.ev.push({t:'arm',hand:ht})}},
+  club:{n:'梅花',e:'♣️',mult:2,minAnte:1,d:'所有 ♣ 被禁用',debuff:c=>c.suit===3},
+  fish:{n:'渔夫',e:'🎣',mult:2,minAnte:2,d:'每打一手牌,之后抽到的牌背面朝上',
+    onPlayHand(G){G.facedownMode=true}},
+  psychic:{n:'灵媒',e:'🔮',mult:2,minAnte:1,d:'必须一次打出 5 张牌',flags:{mustPlay5:true}},
+  goad:{n:'诱饵',e:'♠️',mult:2,minAnte:1,d:'所有 ♠ 被禁用',debuff:c=>c.suit===0},
+  water:{n:'深水',e:'🌊',mult:2,minAnte:2,d:'本回合没有弃牌机会',flags:{zeroDiscards:true}},
+  window:{n:'窗户',e:'🪟',mult:2,minAnte:1,d:'所有 ♦ 被禁用',debuff:c=>c.suit===2},
+  manacle:{n:'镣铐',e:'⛓️',mult:2,minAnte:1,d:'-1 手牌上限',mod:{handSize:-1}},
+  eye:{n:'眼睛',e:'👁️',mult:3,minAnte:3,d:'本回合不能重复打出相同牌型',flags:{noRepeatHands:true}},
+  mouth:{n:'嘴巴',e:'👄',mult:2,minAnte:2,d:'本回合只能打出一种牌型',flags:{oneHandType:true}},
+  plant:{n:'植物',e:'🪴',mult:2,minAnte:4,d:'所有人头牌被禁用',debuff:c=>c.rank>10},
+  serpent:{n:'巨蟒',e:'🐍',mult:5,minAnte:5,d:'打出或弃牌后只抽 3 张牌',
+    flags:{serpent:true}},
+  pillar:{n:'石柱',e:'🏛️',mult:2,minAnte:1,d:'本盲注内之前打过的牌全部被禁用',
+    debuffDynamic(G,c){return G.playedThisBlind.has(c.uid)}},
+  needle:{n:'细针',e:'🪡',mult:1,minAnte:2,d:'只有 1 次出牌机会',mod:{hands:-9000,absHands:1}},
+  head:{n:'头脑',e:'🧠',mult:2,minAnte:1,d:'所有 ♥ 被禁用',debuff:c=>c.suit===1},
+  tooth:{n:'毒牙',e:'🦷',mult:3,minAnte:3,d:'每打出一张牌 -$1',
+    onPlayHand(G,cards){G.money=Math.max(0,G.money-cards.length);G.ev.push({t:'tooth',n:cards.length})}},
+  flint:{n:'火石',e:'🪨',mult:2,minAnte:2,d:'基础筹码与多倍减半',flags:{halveBase:true}},
+  mark:{n:'标记',e:'📝',mult:2,minAnte:2,d:'人头牌抽到时背面朝上',
+    drawFacedown(G,c){return c.rank>10}},
+  /* --- 终局演出(Ante 8 / 16) --- */
+  acorn:{n:'琥珀橡果',e:'🌰',mult:2,showdown:true,d:'所有小丑被翻面打乱',
+    onRoundStart(G){G.jokersShuffled=true}},
+  leaf:{n:'翠绿树叶',e:'🍃',mult:2,showdown:true,d:'所有牌被禁用,直到卖掉 1 张小丑',
+    flags:{debuffAll:true}},
+  heart:{n:'绯红之心',e:'💗',mult:2,showdown:true,d:'每手随机 1 张小丑被禁用',
+    flags:{crimsonHeart:true}},
+  bell:{n:'蔚蓝铃铛',e:'🔔',mult:2,showdown:true,d:'强制 1 张牌保持选中',
+    flags:{ceruleanBell:true}},
+  vessel:{n:'紫罗兰之船',e:'🚢',mult:6,showdown:true,d:'分数要求极其巨大'},
+};
+const NORMAL_BOSSES = Object.keys(BOSSES).filter(k=>!BOSSES[k].showdown);
+const SHOWDOWN_BOSSES = Object.keys(BOSSES).filter(k=>BOSSES[k].showdown);
+
+/* ============================================================
+   牌背(牌组)×10 — unlock: 解锁条件描述, check(G全局存档)
+   ============================================================ */
+const DECKS = {
+  red:{n:'赤红牌背',e:'🟥',d:'+1 每回合弃牌机会',mod:{discards:1}},
+  blue:{n:'湛蓝牌背',e:'🟦',d:'+1 每回合手牌上限',mod:{handSize:1}},
+  yellow:{n:'鎏金牌背',e:'🟨',d:'开局额外 +$10',mod:{money:10}},
+  white:{n:'素白牌背',e:'⬜',d:'朴实无华,无任何效果',mod:{}},
+  black:{n:'玄墨牌背',e:'⬛',d:'+1 小丑槽,但 -1 手牌上限、-1 弃牌机会',mod:{jokerSlots:1,handSize:-1,discards:-1}},
+  magic:{n:'秘法牌背',e:'🔮',d:'开局自带「水晶球」代金券与一张「愚者」',mod:{startVoucher:'crystalBall',startConsumable:'fool'}},
+  painted:{n:'彩绘画背',e:'🖼️',d:'+2 手牌上限,但 -1 小丑槽',mod:{handSize:2,jokerSlots:-1}},
+  checkered:{n:'棋盘牌背',e:'🏁',d:'牌组只有 ♠ 与 ♥(各 26 张)',mod:{checkeredDeck:true}},
+  anaglyph:{n:'浅浮雕背',e:'🟧',d:'每击败一次 Boss 获得 1 张「加倍标签」',mod:{anaglyph:true}},
+  plasma:{n:'等离子背',e:'🟪',d:'分数要求 ×2;计分时筹码与多倍相加后取平均再平方',mod:{plasma:true,targetMult:2}},
+};
+
+/* ============================================================
+   卡包(选项数/可选取数/价格)
+   ============================================================ */
+const PACKS = {
+  standard:{n:'标准卡包',e:'🂠',cls:'pack-standard',kind:'playing',opts:3,picks:1,cost:4,d:'3 张扑克牌选 1 张'},
+  standardM:{n:'超级标准卡包',e:'🂠',cls:'pack-standard',kind:'playing',opts:7,picks:1,cost:8,d:'7 张扑克牌选 1 张'},
+  buffoon:{n:'小丑卡包',e:'🃏',cls:'pack-buffoon',kind:'joker',opts:2,picks:1,cost:6,d:'2 张小丑选 1 张'},
+  buffoonM:{n:'超级小丑卡包',e:'🃏',cls:'pack-buffoon',kind:'joker',opts:4,picks:2,cost:8,d:'4 张小丑选 2 张'},
+  arcana:{n:'塔罗卡包',e:'🔮',cls:'pack-arcana',kind:'tarot',opts:3,picks:1,cost:4,d:'3 张塔罗牌选 1 张'},
+  arcanaM:{n:'超级塔罗卡包',e:'🔮',cls:'pack-arcana',kind:'tarot',opts:5,picks:1,cost:8,d:'5 张塔罗牌选 1 张'},
+  celestial:{n:'星球卡包',e:'🪐',cls:'pack-celestial',kind:'planet',opts:3,picks:1,cost:4,d:'3 张星球牌选 1 张'},
+  celestialM:{n:'超级星球卡包',e:'🪐',cls:'pack-celestial',kind:'planet',opts:5,picks:1,cost:8,d:'5 张星球牌选 1 张'},
+  spectral:{n:'光谱卡包',e:'👁️',cls:'pack-spectral',kind:'spectral',opts:2,picks:1,cost:4,d:'2 张光谱牌选 1 张'},
+};
+
+/* ---------- 牌背解锁条件(读全局存档) ---------- */
+function deckUnlocked(id,save){
+  const w=save.wins||0,best=save.bestAnte||1;
+  switch(id){
+    case 'red':case 'yellow':case 'white':return true;
+    case 'blue':return best>=2;
+    case 'black':return best>=4;
+    case 'magic':return best>=3;
+    case 'painted':return best>=5;
+    case 'checkered':return w>=1;
+    case 'anaglyph':return w>=2;
+    case 'plasma':return w>=3;
+  }
+  return false;
+}
+function deckUnlockHint(id){
+  switch(id){
+    case 'blue':return '达到 Ante 2 解锁';case 'magic':return '达到 Ante 3 解锁';
+    case 'black':return '达到 Ante 4 解锁';case 'painted':return '达到 Ante 5 解锁';
+    case 'checkered':return '通关一次解锁';case 'anaglyph':return '通关 2 次解锁';
+    case 'plasma':return '通关 3 次解锁';
+  }
+  return '';
+}
+</script>
+<script>
+/* ============================================================
+   音效引擎:WebAudio 程序化合成,无外部素材
+   ============================================================ */
+'use strict';
+const Snd=(()=>{
+  let ctx=null,master=null,muted=false;
+  function ensure(){
+    if(ctx)return true;
+    try{
+      ctx=new (window.AudioContext||window.webkitAudioContext)();
+      master=ctx.createGain();master.gain.value=.5;master.connect(ctx.destination);
+    }catch(e){return false}
+    return true;
+  }
+  function tone({f=440,f2,dur=.1,type='sine',vol=.5,delay=0,attack=.005,slide}={}){
+    if(muted||!ensure())return;
+    const t0=ctx.currentTime+delay;
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.type=type;o.frequency.setValueAtTime(f,t0);
+    if(f2)o.frequency.exponentialRampToValueAtTime(Math.max(1,f2),t0+dur);
+    if(slide)o.frequency.linearRampToValueAtTime(slide,t0+dur);
+    g.gain.setValueAtTime(0,t0);
+    g.gain.linearRampToValueAtTime(vol,t0+attack);
+    g.gain.exponentialRampToValueAtTime(.0001,t0+dur);
+    o.connect(g);g.connect(master);
+    o.start(t0);o.stop(t0+dur+.02);
+  }
+  function noise({dur=.08,vol=.3,delay=0,hp=800,lp=6000}={}){
+    if(muted||!ensure())return;
+    const t0=ctx.currentTime+delay;
+    const len=Math.max(1,Math.floor(ctx.sampleRate*dur));
+    const buf=ctx.createBuffer(1,len,ctx.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*(1-i/len);
+    const src=ctx.createBufferSource();src.buffer=buf;
+    const g=ctx.createGain();g.gain.value=vol;
+    const f1=ctx.createBiquadFilter();f1.type='highpass';f1.frequency.value=hp;
+    const f2=ctx.createBiquadFilter();f2.type='lowpass';f2.frequency.value=lp;
+    src.connect(f1);f1.connect(f2);f2.connect(g);g.connect(master);
+    src.start(t0);
+  }
+  const api={
+    setMuted(m){muted=m;if(master)master.gain.value=m?0:.5},
+    isMuted:()=>muted,
+    unlock(){ensure();if(ctx&&ctx.state==='suspended')ctx.resume()},
+    click(){tone({f:880,f2:660,dur:.05,type:'triangle',vol:.25})},
+    select(){tone({f:520,f2:780,dur:.06,type:'square',vol:.18})},
+    deselect(){tone({f:780,f2:520,dur:.06,type:'square',vol:.15})},
+    deal(){noise({dur:.07,vol:.22,hp:1200,lp:7000});tone({f:300,f2:180,dur:.06,type:'triangle',vol:.15})},
+    flip(){noise({dur:.05,vol:.18,hp:2000,lp:9000})},
+    chips(n=0){tone({f:620+((n*37)%180),f2:900+((n*53)%220),dur:.05,type:'square',vol:.16})},
+    mult(){tone({f:180,f2:120,dur:.12,type:'sawtooth',vol:.28});tone({f:240,dur:.08,type:'square',vol:.14,delay:.02})},
+    xmult(){tone({f:520,f2:1040,dur:.18,type:'sawtooth',vol:.3});tone({f:780,f2:1560,dur:.22,type:'triangle',vol:.22,delay:.05})},
+    money(){tone({f:1046,dur:.09,type:'triangle',vol:.25});tone({f:1568,dur:.14,type:'triangle',vol:.2,delay:.07})},
+    joker(){tone({f:392,f2:523,dur:.12,type:'triangle',vol:.24})},
+    cash(){[523,659,784,1046].forEach((f,i)=>tone({f,dur:.12,type:'triangle',vol:.24,delay:i*.07}))},
+    win(){[523,659,784,1046,1318,1568].forEach((f,i)=>tone({f,dur:.22,type:'triangle',vol:.26,delay:i*.1}));[261,329,392].forEach(f=>tone({f,dur:.5,type:'sine',vol:.16,delay:.6}))},
+    lose(){[392,311,262,196].forEach((f,i)=>tone({f,dur:.3,type:'sawtooth',vol:.2,delay:i*.16}))},
+    error(){tone({f:160,f2:110,dur:.16,type:'square',vol:.25})},
+    reroll(){noise({dur:.12,vol:.25,hp:600,lp:5000});tone({f:700,f2:400,dur:.1,type:'triangle',vol:.18})},
+    boss(){tone({f:110,dur:.4,type:'sawtooth',vol:.3});tone({f:82,dur:.5,type:'sawtooth',vol:.24,delay:.12})},
+    blindWin(){[440,554,659].forEach((f,i)=>tone({f,dur:.18,type:'triangle',vol:.25,delay:i*.08}))},
+    pack(){noise({dur:.15,vol:.2,hp:400,lp:3000});tone({f:660,f2:990,dur:.14,type:'triangle',vol:.2,delay:.05})},
+    destroy(){noise({dur:.2,vol:.3,hp:200,lp:1800});tone({f:200,f2:60,dur:.25,type:'sawtooth',vol:.22})},
+    heart(){tone({f:90,dur:.18,type:'sine',vol:.4});tone({f:70,dur:.22,type:'sine',vol:.3,delay:.14})},
+  };
+  return api;
+})();
+</script>
+<script>
+/* ============================================================
+   引擎层:纯逻辑,无 DOM。测试标记段供 node 提取。
+   ============================================================ */
+/*__ENGINE_BEGIN__*/
+
+/* ---------- 种子随机 ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function makeRng(seed){const f=mulberry32(seed);return{f,next:()=>f(),int:n=>Math.floor(f()*n),pick:arr=>arr[Math.floor(f()*arr.length)],p:a=>f()<a,shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(f()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}}}
+function seedFromStr(s){let h=1779033703^s.length;for(let i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return(h^=h>>>16)>>>0}
+
+/* ---------- 数字格式化 ---------- */
+const SUFFIX=['','K','M','B','T','Qa','Qi','Sx','Sp','Oc','No','Dc'];
+function fmt(n){
+  if(!isFinite(n))return'naneinf';
+  if(n<0)return'-'+fmt(-n);
+  if(n<10000)return String(Math.floor(n));
+  let i=Math.floor(Math.log10(n)/3);
+  if(i<SUFFIX.length){const v=n/Math.pow(10,i*3);return(v>=100?Math.floor(v):v.toFixed(1).replace(/\.0$/,''))+SUFFIX[i]}
+  return n.toExponential(2).replace('+','');
+}
+
+/* ---------- 卡牌 ---------- */
+let UID=1;
+function makeCard(rank,suit){return{uid:UID++,rank,suit,enh:null,ed:null,seal:null,facedown:false,debuff:false}}
+function buildDeck(deckId){
+  UID=1;const d=[];const suits=DECKS[deckId]&&DECKS[deckId].mod.checkeredDeck?[0,1]:[0,1,2,3];
+  for(const s of suits)for(let r=2;r<=14;r++){const n=suits.length===2?2:1;for(let k=0;k<n;k++)d.push(makeCard(r,s))}
+  return d;
+}
+const RANK_NAME=r=>r<=10?String(r):RANK_STR[r];
+
+/* ---------- 新的一局 ---------- */
+function newRun(deckId,seedStr){
+  const seed=seedStr?seedFromStr(seedStr):Date.now()%2**31;
+  const deck=buildDeck(deckId);
+  const G={
+    seed:seedStr||String(seed),rng:seed,uidBase:UID,
+    deckId,deck,pile:[],discards:[],hand:[],
+    jokers:[],consumables:[],vouchers:[],pendingTags:[],
+    money:4,ante:1,blind:'small',phase:'select',
+    handLevels:Object.fromEntries(Object.keys(HANDS).map(h=>[h,1])),
+    handCounts:Object.fromEntries(Object.keys(HANDS).map(h=>[h,0])),
+    round:0,plays:0,playsMax:4,discardsLeft:0,score:0,target:0,
+    bossId:null,bossPool:{},bossRerolled:0,
+    shop:null,pack:null,
+    stats:{handsPlayed:0,cardsPlayed:0,discarded:0,cardAdded:0,jacksDiscarded:0,earnings:0},
+    roundStat:{},playedThisBlind:new Set(),roundHandTypes:[],
+    selected:[],lastConsumable:null,skipCount:0,
+    flags:{},bossDefeated:0,ev:[],
+  };
+  const dm=DECKS[deckId].mod;
+  if(dm.money)G.money+=dm.money;
+  if(dm.startVoucher)G.vouchers.push(dm.startVoucher);
+  if(dm.startConsumable)G.consumables.push({kind:'tarot',id:dm.startConsumable});
+  nextBoss(G);
+  return G;
+}
+function serialize(G){
+  return JSON.stringify({...G,playedThisBlind:[...G.playedThisBlind],rng:G.rng,uidBase:UID});
+}
+function deserialize(str){
+  const o=JSON.parse(str);
+  o.playedThisBlind=new Set(o.playedThisBlind);
+  UID=o.uidBase||5000;
+  return o;
+}
+function rng(G){return makeRng(G.rng)}
+function rand(G){const r=makeRng(G.rng);G.rng=(G.rng+0x6D2B79F5|0)>>>0;return r}
+
+/* ---------- 属性汇总 ---------- */
+function recalcStats(G){
+  let hands=4,discards=3,hs=8,jSlots=5,cSlots=2;
+  const dm=DECKS[G.deckId].mod;
+  hands+=dm.hands||0;discards+=dm.discards||0;hs+=dm.handSize||0;jSlots+=dm.jokerSlots||0;
+  for(const v of G.vouchers){const p=VOUCHERS[v].passive&&VOUCHERS[v].passive();if(!p)continue;
+    if(p.hands)hands+=p.hands;if(p.discards)discards+=p.discards;if(p.handSize)hs+=p.handSize;
+    if(p.jokerSlots)jSlots+=p.jokerSlots;if(p.consumableSlots)cSlots+=p.consumableSlots;}
+  for(const j of G.jokers){const d=JOKERS[j.id];
+    const c={jk:j,c:j.c,G};
+    const p=d.passive&&d.passive(c);if(!p)continue;
+    if(p.handSize)hs+=p.handSize;}
+  const boss=G.bossId&&G.phase!=='select'?BOSSES[G.bossId]:null;
+  const chicot=G.jokers.some(j=>JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  if(boss&&boss.mod&&!chicot){
+    if(boss.mod.handSize)hs+=boss.mod.handSize;
+    if(boss.mod.absHands!==undefined)hands=boss.mod.absHands;
+  }
+  hands=Math.max(1,hands);discards=Math.max(0,discards);hs=Math.max(1,hs);jSlots=Math.max(1,jSlots);
+  return{hands,discards,handSize:hs,jokerSlots:jSlots,consumableSlots:cSlots};
+}
+
+/* ---------- 牌型判定 ---------- */
+function suitGroup(G,s){return JOKERS_active(G,'smeared')?(s===1||s===2?1:0):s}
+function JOKERS_active(G,id){return G.jokers.some(j=>j.id===id&&!j.debuff)}
+function effRank(c){return c.rank}
+function evaluateHand(G,cards){
+  const jk=recalcJokerFlags(G);
+  const live=cards.filter(c=>c.enh!=='stone');
+  const stones=cards.filter(c=>c.enh==='stone');
+  const N=cards.length;
+  const counts={},suitFixed={};
+  for(const c of live){counts[c.rank]=(counts[c.rank]||0)+1;
+    const g=suitGroup(G,c.suit);suitFixed[g]=suitFixed[g]||[];suitFixed[g].push(c)}
+  const wilds=live.filter(c=>c.enh==='wild'&&!c.debuff);
+  const need=jk.fourFingers?4:5;
+  let isFlush=false;
+  if(live.length>=need){
+    for(const g of Object.keys(suitFixed)){
+      const w=wilds.filter(w=>suitGroup(G,w.suit)!=+g);
+      if(suitFixed[g].length>=need||(suitFixed[g].length+w.length>=need&&suitFixed[g].length>0)){isFlush=true;break}
+    }
+  }
+  /* 顺子:A 可作 1 或 14 */
+  const ranks=new Set();for(const c of live)ranks.add(c.rank),c.rank===14&&ranks.add(1);
+  const wildN=wilds.length;
+  let isStraight=false;
+  const gapMax=jk.shortcut?2:1;
+  const rs=[...ranks].sort((a,b)=>a-b);
+  for(let i=0;i+need<=rs.length;i++){
+    let okk=true;
+    for(let k=1;k<need;k++){if(rs[i+k]-rs[i+k-1]>gapMax){okk=false;break}}
+    if(okk){isStraight=true;break}
+  }
+  if(!isStraight&&wildN>0){
+    for(let start=1;start<=14;start++){
+      let miss=0,okk=true,prev=0;
+      for(let k=0;k<need;k++){
+        const r=start+k;
+        if(r>14){okk=false;break}
+        if(!ranks.has(r))miss++;
+        if(prev&&r-prev>gapMax){okk=false;break}
+        prev=r;
+      }
+      if(okk&&miss<=wildN){isStraight=true;break}
+    }
+  }
+  let type='hc';
+  const vals=Object.values(counts);
+  const has=n=>vals.some(x=>x===n);
+  const nPairs=vals.filter(x=>x===2).length;
+  const fullHouse=vals.includes(3)&&vals.filter(x=>x>=2).length>=2;
+  if(N>=5){
+    if(isFlush&&has(5))type='ffive';
+    else if(isFlush&&fullHouse&&vals.reduce((a,b)=>a+b,0)===5)type='fhouse';
+    else if(has(5))type='five';
+    else if(isFlush&&isStraight)type='sflush';
+    else if(has(4))type='four';
+    else if(fullHouse)type='full';
+    else if(isFlush)type='flush';
+    else if(isStraight)type='straight';
+    else if(has(3))type='three';
+    else if(nPairs>=2)type='two';
+    else if(has(2))type='pair';
+  }else{
+    if(isFlush&&isStraight&&live.length>=4)type='sflush';
+    else if(isFlush)type='flush';
+    else if(isStraight)type='straight';
+    else if(has(3))type='three';
+    else if(nPairs>=2)type='two';
+    else if(has(2))type='pair';
+  }
+  return{type,scoreCards:cards};
+}
+function recalcJokerFlags(G){
+  const f={};
+  for(const j of G.jokers){if(j.debuff)continue;const d=JOKERS[j.id];
+    if(d.passive){const p=d.passive({jk:j,c:j.c,G});Object.assign(f,p||{})}}
+  return f;
+}
+function handBase(G,type){
+  const h=HANDS[type],lv=G.handLevels[type];
+  let chips=h.base[0]+h.lv[0]*(lv-1),mult=h.base[1]+h.lv[1]*(lv-1);
+  return{chips,mult};
+}
+function levelUpHand(G,type,n){G.handLevels[type]=Math.max(1,(G.handLevels[type]||1)+n)}
+function mostPlayedHand(G){
+  let best='hc',n=-1;
+  for(const h of HAND_ORDER){if((G.handCounts[h]||0)>n){n=G.handCounts[h];best=h}}
+  return best;
+}
+
+/* ---------- 计分上下文(小丑钩子用) ---------- */
+function makeScoreCtx(G,jk,base){
+  const ctx={
+    G,jk,c:jk.c,handType:base.handType,played:base.played,scored:base.scored,
+    held:()=>G.hand,chips:base.chips,mult:base.mult,handFlags:base.handFlags,
+    addChips(n){if(n>0){base.chips+=n;base.ev.push({t:'chips',n,src:jk.id,uid:jk.uid})}},
+    addMult(n){if(n>0){base.mult+=n;base.ev.push({t:'mult',n,src:jk.id,uid:jk.uid})}},
+    xMult(x){if(x!==1){base.mult*=x;base.ev.push({t:'xmult',x,src:jk.id,uid:jk.uid})}},
+    addMoney(n){G.money=Math.max(0,G.money+n);base.ev.push({t:'money',n})},
+    money:()=>G.money,
+    rank:cd=>cd.rank,suit:cd=>cd.suit,
+    isSuit(cd,s){if(cd.debuff)return cd.suit===s;if(cd.enh==='wild')return true;const a=suitGroup(G,cd.suit),b=suitGroup(G,s);return a===b},
+    isFace(cd){if(cd.debuff)return cd.rank>10;if(JOKERS_active(G,'pareidolia'))return true;return cd.rank>10},
+    enhOf:cd=>cd.debuff?null:cd.enh,
+    p:(a,b)=>{const r=rand(G);return r.next()*b<a?true:(base.ev.push({t:'fail',src:jk.id,uid:jk.uid}),false)},
+    rand:n=>rand(G).int(n),pick:arr=>rand(G).pick(arr),
+    retrigger(cd){base.retrig.push(cd)},
+    stealEnh(cd){cd.enh=null;base.ev.push({t:'steal',uid:cd.uid})},
+    discardsLeft:()=>G.discardsLeft,playsLeft:()=>G.plays,
+    handCount:h=>G.handCounts[h]||0,mostPlayed:()=>mostPlayedHand(G),
+    handRank:()=>HAND_ORDER.indexOf(base.handType),
+    jcount(k){return base.handFlags[jk.uid+':'+k]||0},
+    setj(k,v){base.handFlags[jk.uid+':'+k]=v},
+    roundStat(k){return G.roundStat[k]||0},
+    runStat(k){return G.stats[k]||0},
+    emptyJokerSlots(){return recalcStats(G).jokerSlots-G.jokers.length},
+    leftSellValue(){const i=G.jokers.indexOf(jk);return i>0?sellValueOf(G.jokers[i-1]):0},
+    hasSmeared:()=>JOKERS_active(G,'smeared'),
+    isSuitG(cd){return suitGroup(G,cd.enh==='wild'&&!cd.debuff?Math.max(0,suitGroup(G,cd.suit)):suitGroup(G,cd.suit))},
+  };
+  return ctx;
+}
+function sellValueOf(j){return Math.max(1,Math.floor((JOKERS[j.id].cost+(j.ed?2:0))/2)+(j.sellBonus||0))}
+function notifyExt(G,evt){
+  for(const j of G.jokers){const d=JOKERS[j.id];if(d.extEvent===evt&&!j.debuff){
+    if(evt==='planetUsed')j.c.x=(j.c.x||0)+0.1;
+    if(evt==='cardAdded')j.c.x=(j.c.x||0)+0.25;
+    if(evt==='glassBroke')j.c.x=(j.c.x||0)+0.2;
+    if(evt==='faceDestroyed')j.c.mult=(j.c.mult||0)+1;
+    if(evt==='discardMilestone')j.c.x=(j.c.x||1)+0.1;
+  }}
+}
+
+/* ---------- 打出一手牌(核心流水线) ---------- */
+function playHand(G){
+  const ev=[];
+  G.ev=ev;
+  const sel=G.selected.map(uid=>G.hand.find(c=>c.uid===uid)).filter(Boolean);
+  const st=recalcStats(G);
+  const boss=activeBoss(G);
+  const chicot=G.jokers.some(j=>!j.debuff&&JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  const bFlags=bossFlags(G,boss);
+  if(!sel.length)return{error:'至少选择 1 张牌'};
+  if(sel.length>5)return{error:'最多打出 5 张牌'};
+  if(bFlags.mustPlay5&&sel.length!==5)return{error:'「'+boss.n+'」:必须一次打出 5 张牌'};
+  /* 牌型判定 */
+  const res=evaluateHand(G,sel);
+  const ht=res.type;
+  if(bFlags.oneHandType&&G.roundHandTypes.length&&G.roundHandTypes[0]!==ht)
+    return{error:'「'+boss.n+'」:本回合只能打出「'+HANDS[G.roundHandTypes[0]].n+'」'};
+  if(bFlags.noRepeatHands&&G.roundHandTypes.includes(ht))
+    return{error:'「'+boss.n+'」:「'+HANDS[ht].n+'」已经打过了'};
+  /* 扣次数 */
+  G.plays--;
+  G.roundHandTypes.push(ht);
+  G.handCounts[ht]=(G.handCounts[ht]||0)+1;
+  G.stats.handsPlayed++;
+  /* 从手牌移除 */
+  for(const c of sel){const i=G.hand.indexOf(c);if(i>=0)G.hand.splice(i,1)}
+  /* 绯红之心:每手随机禁用一张小丑 */
+  if(bFlags.crimsonHeart&&G.jokers.length){
+    G.jokers.forEach(j=>j.debuff=false);
+    const victim=rand(G).pick(G.jokers);victim.debuff=true;
+    ev.push({t:'crimson',id:victim.id});
+  }
+  /* 基础分 */
+  let{chips,mult}=handBase(G,ht);
+  if(bFlags.halveBase){chips=Math.floor(chips/2);mult=Math.floor(mult/2)}
+  ev.push({t:'hand',hand:ht,chips,mult});
+  /* Arm:打出的牌型降级(在计分前) */
+  if(boss&&boss.onScoreStart&&!chicot)boss.onScoreStart(G,ht);
+  /* 铁钩等:打出前钩子 */
+  if(boss&&boss.onPlayHand&&!chicot)boss.onPlayHand(G,sel,ht);
+  if(boss&&boss.onHandPlayed&&!chicot)boss.onHandPlayed(G,ht,mostPlayedHand(G));
+  /* 毒牙 */
+  /* 计分上下文 */
+  const base={handType:ht,played:sel,scored:sel.filter(c=>!c.debuff),chips,mult,ev,retrig:[],handFlags:{}};
+  const heldCards=[...G.hand];
+  /* --- 逐张打出的牌 --- */
+  for(const cd of sel){
+    scoreOneCard(G,base,cd,1);
+  }
+  /* 重触发队列 */
+  let guard=0;
+  while(base.retrig.length&&guard++<40){
+    const cd=base.retrig.shift();
+    if(!sel.includes(cd)||cd.debuff)continue;
+    scoreOneCard(G,base,cd,0);
+  }
+  /* --- 手中的牌(钢铁/男爵等) --- */
+  for(const cd of heldCards){
+    if(cd.debuff)continue;
+    const times=cd.seal==='red'&&!cd.debuff?2:1;
+    for(let t=0;t<times;t++){
+      if(cd.enh==='steel'){
+        base.mult*=1.5;ev.push({t:'xmult',x:1.5,uid:cd.uid,card:true});
+      }
+      for(const j of G.jokers){
+        if(j.debuff)continue;
+        const real=resolveJoker(G,j);
+        if(real&&real.onHeld){const ctx=makeScoreCtx(G,j,base);real.onHeld(ctx,cd)}
+      }
+    }
+  }
+  /* --- 小丑 onHandScore --- */
+  for(const j of G.jokers){
+    if(j.debuff)continue;
+    const real=resolveJoker(G,j);
+    if(real&&real.onHandScore){const ctx=makeScoreCtx(G,j,base);real.onHandScore(ctx)}
+  }
+  /* 天文台:手上的星球牌加成 */
+  for(const cs of G.consumables){
+    if(cs.kind==='planet'&&PLANETS[cs.id].hand===ht&&G.vouchers.includes('observatory')){
+      base.mult*=1.5;ev.push({t:'xmult',x:1.5,src:cs.id});
+    }
+  }
+  /* --- 结算 --- */
+  let gained;
+  const dm=DECKS[G.deckId].mod;
+  if(dm.plasma){const s=base.chips+base.mult;gained=Math.floor((s/2)*(s/2))}
+  else gained=Math.floor(base.chips*base.mult);
+  G.score+=gained;
+  ev.push({t:'total',chips:Math.floor(base.chips),mult:Math.round(base.mult*100)/100,gained,score:G.score});
+  /* 牌进弃牌堆,清背面 */
+  for(const c of sel){if(!G.deck.includes(c))continue;c.facedown=false;c.debuff=false;G.discards.push(c);G.stats.cardsPlayed++;G.playedThisBlind.add(c.uid)}
+  /* 幸运/玻璃结算已在 scoreOneCard 内 */
+  /* 抽牌 */
+  if(bFlags.serpent)drawCards(G,3);
+  else drawCards(G,st.handSize-G.hand.length);
+  /* 铁钩:随机弃 2 张 */
+  if(G.pendingDiscardRandom&&!chicot){
+    const n=Math.min(G.pendingDiscardRandom,G.hand.length);
+    for(let i=0;i<n;i++){const idx=rand(G).int(G.hand.length);const[c]=G.hand.splice(idx,1);G.discards.push(c);ev.push({t:'bossDiscard',uid:c.uid})}
+    G.pendingDiscardRandom=0;
+  }
+  G.selected=[];
+  const won=G.score>=G.target;
+  const lost=!won&&G.plays<=0;
+  return{hand:ht,gained,won,lost,ev};
+}
+function scoreOneCard(G,base,cd,first){
+  const ev=base.ev;
+  if(cd.debuff){ev.push({t:'debuffCard',uid:cd.uid});return}
+  cd.facedown=false;
+  const times=cd.seal==='red'?2:1;
+  for(let t=0;t<times;t++){
+    /* 基础筹码 */
+    let ch=0;
+    if(cd.enh==='stone')ch=50;
+    else ch=cd.rank===14?11:cd.rank>=11&&cd.rank<=13?10:cd.rank;
+    base.chips+=ch;
+    ev.push({t:'card',uid:cd.uid,chips:ch,repeat:t>0});
+    /* 版本 */
+    if(cd.ed==='foil'){base.chips+=50;ev.push({t:'chips',n:50,uid:cd.uid})}
+    if(cd.ed==='holo'){base.mult+=10;ev.push({t:'mult',n:10,uid:cd.uid})}
+    if(cd.ed==='poly'){base.mult*=1.5;ev.push({t:'xmult',x:1.5,uid:cd.uid})}
+    /* 强化 */
+    if(cd.enh==='bonus'){base.chips+=30;ev.push({t:'chips',n:30,uid:cd.uid})}
+    if(cd.enh==='mult'){base.mult+=4;ev.push({t:'mult',n:4,uid:cd.uid})}
+    if(cd.enh==='glass'){base.mult*=2;ev.push({t:'xmult',x:2,uid:cd.uid})}
+    if(cd.enh==='lucky'){
+      const r=rand(G);
+      if(r.next()<1/5){base.mult+=20;ev.push({t:'mult',n:20,uid:cd.uid,lucky:true})}
+      if(r.next()<1/15){G.money+=20;ev.push({t:'money',n:20,lucky:true})}
+    }
+    if(cd.seal==='gold'){G.money+=3;ev.push({t:'money',n:3,seal:true})}
+    /* 小丑逐张响应 */
+    for(const j of G.jokers){
+      if(j.debuff)continue;
+      const real=resolveJoker(G,j);
+      if(real&&real.onCardScore){const ctx=makeScoreCtx(G,j,base);real.onCardScore(ctx,cd)}
+    }
+  }
+  /* 玻璃碎裂 */
+  if(cd.enh==='glass'&&rand(G).p(1/4)){
+    const i=G.deck.indexOf(cd);
+    const hd=G.hand.indexOf(cd);if(hd>=0)G.hand.splice(hd,1);
+    const dp=G.discards.indexOf(cd);if(dp>=0)G.discards.splice(dp,1);
+    if(i>=0)G.deck.splice(i,1);
+    notifyExt(G,'glassBroke');
+    if(cd.rank>10)notifyExt(G,'faceDestroyed');
+    ev.push({t:'glassBreak',uid:cd.uid});
+  }
+}
+/* 蓝图/头脑风暴:解析复制目标 */
+function resolveJoker(G,j){
+  const d=JOKERS[j.id];
+  if(!d.copyOf)return d.debuff?null:d;
+  if(j.debuff)return null;
+  const i=G.jokers.indexOf(j);
+  let t=null;
+  if(d.copyOf==='left'&&i>0)t=G.jokers[i-1];
+  if(d.copyOf==='first'&&G.jokers.length)t=G.jokers[0];
+  if(!t||t===j||t.debuff)return null;
+  const td=JOKERS[t.id];
+  if(td.copyOf)return null;
+  return td;
+}
+/*__ENGINE_END__*/
+
+/* ---------- 抽牌 / 弃牌 ---------- */
+function bossFlags(G,boss){
+  if(!boss)return{};
+  const chicot=G.jokers.some(j=>!j.debuff&&JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  if(chicot)return{};
+  const f=boss.flags;
+  return typeof f==='function'?f():(f||{});
+}
+function reshuffleDiscards(G){
+  if(!G.discards.length)return;
+  const r=rand(G);r.shuffle(G.discards);
+  G.pile.push(...G.discards);G.discards=[];
+}
+function activeBoss(G){
+  return G.blind==='boss'&&G.bossId?BOSSES[G.bossId]:null;
+}
+function bossDebuff(G,c){
+  if(G.phase!=='play')return false;
+  const boss=activeBoss(G);
+  if(!boss)return false;
+  const chicot=G.jokers.some(j=>!j.debuff&&JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  if(chicot)return false;
+  if(boss.debuff&&boss.debuff(c))return true;
+  const f=boss.flags,f2=typeof f==='function'?f():(f||{});
+  if(f2.debuffAll&&!G.leafCleared)return true;
+  if(boss.debuffDynamic&&boss.debuffDynamic(G,c))return true;
+  return false;
+}
+function drawCards(G,n,ev){
+  ev=ev||G.ev;
+  const boss=activeBoss(G);
+  const chicot=G.jokers.some(j=>!j.debuff&&JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  for(let i=0;i<n;i++){
+    if(!G.pile.length)reshuffleDiscards(G);
+    if(!G.pile.length)break;
+    const c=G.pile.pop();
+    let fd=false;
+    if(G.drawFacedownNext>0){fd=true;G.drawFacedownNext--}
+    else if(G.facedownMode&&!chicot)fd=true;
+    else if(boss&&boss.drawFacedown&&!chicot)fd=boss.drawFacedown(G,c,rand(G));
+    c.facedown=fd;
+    c.debuff=bossDebuff(G,c);
+    G.hand.push(c);
+    ev&&ev.push({t:'draw',uid:c.uid});
+  }
+}
+function removeCardEverywhere(G,card){
+  let i=G.deck.indexOf(card);if(i>=0)G.deck.splice(i,1);
+  i=G.pile.indexOf(card);if(i>=0)G.pile.splice(i,1);
+  i=G.hand.indexOf(card);if(i>=0)G.hand.splice(i,1);
+  i=G.discards.indexOf(card);if(i>=0)G.discards.splice(i,1);
+}
+function addCardToDeck(G,card){
+  G.deck.push(card);
+  const i=G.pile.length?rand(G).int(G.pile.length+1):0;
+  G.pile.splice(i,0,card);
+  G.stats.cardAdded++;notifyExt(G,'cardAdded');
+}
+function discardSelected(G){
+  const ev=[];G.ev=ev;
+  const st=recalcStats(G);
+  const sel=G.selected.map(uid=>G.hand.find(c=>c.uid===uid)).filter(Boolean);
+  if(!sel.length)return{error:'至少选择 1 张牌'};
+  if(sel.length>G.discardsLeft)return{error:'弃牌机会不足'};
+  if(sel.length>G.hand.length)return{error:'选择无效'};
+  G.discardsLeft-=sel.length;
+  const boss=activeBoss(G);
+  const chicot=G.jokers.some(j=>!j.debuff&&JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  for(const c of sel){
+    const i=G.hand.indexOf(c);G.hand.splice(i,1);
+    c.facedown=false;G.discards.push(c);
+    ev.push({t:'discard',uid:c.uid});
+    G.stats.discarded++;
+    if(c.rank===11){G.roundStat.jacksDiscarded=(G.roundStat.jacksDiscarded||0)+1}
+    if(c.seal==='purple'&&!c.debuff&&G.consumables.length<st.consumableSlots){
+      G.consumables.push({kind:'tarot',id:rand(G).pick(Object.keys(TAROTS))});
+      ev.push({t:'purpleSeal'});
+    }
+  }
+  G.stats.discarded+=0;
+  const milestones=Math.floor(G.stats.discarded/10)-(G.yorickMark||0);
+  for(let k=0;k<milestones;k++)notifyExt(G,'discardMilestone');
+  G.yorickMark=Math.floor(G.stats.discarded/10);
+  /* 小丑弃牌钩子 */
+  for(const j of G.jokers){
+    if(j.debuff)continue;
+    const d=resolveJoker(G,j);
+    if(d&&d.onDiscard){const ctx=makeScoreCtx(G,j,{handType:'hc',played:[],scored:[],chips:0,mult:0,ev,retrig:[],handFlags:{},discardsLeftOverride:G.discardsLeft});ctx.discardsLeft=()=>G.discardsLeft;d.onDiscard(ctx,sel)}
+  }
+  G.selected=[];
+  if(bFlags_serpent(G,chicot))drawCards(G,3,ev);else drawCards(G,st.handSize-G.hand.length,ev);
+  return{ev};
+}
+function bFlags_serpent(G,chicot){
+  const boss=activeBoss(G);
+  if(!boss||chicot)return false;
+  const f=typeof boss.flags==='function'?boss.flags():(boss.flags||{});
+  return !!f.serpent;
+}
+
+/* ---------- Boss 盲注抽取 ---------- */
+function nextBoss(G){
+  const isShowdown=G.ante%8===0;
+  const pool=isShowdown?[...SHOWDOWN_BOSSES]:NORMAL_BOSSES.filter(id=>BOSSES[id].minAnte<=G.ante);
+  let min=Infinity,cands=[];
+  for(const id of pool){const n=(G.bossPool[id]||0);if(n<min){min=n;cands=[id]}else if(n===min)cands.push(id)}
+  G.bossId=rand(G).pick(cands);
+  G.bossPool[G.bossId]=(G.bossPool[G.bossId]||0)+1;
+  G.bossRerolled=0;
+}
+function rerollBoss(G){
+  const can=G.vouchers.includes('retcon')||G.bossRerolled===0;
+  if(!can)return{error:'本盲注已重掷过'};
+  if(G.money<10)return{error:'重掷需要 $10'};
+  G.money-=10;G.bossRerolled++;
+  G.bossPool[G.bossId]--;
+  nextBoss(G);
+  return{ok:true};
+}
+function anteBase(G){return ANTE_BASE[Math.min(G.ante,16)]||ANTE_BASE[16]}
+
+/* ---------- 盲注流程 ---------- */
+function blindTarget(G){
+  const boss=BOSSES[G.bossId];
+  let base=anteBase(G);
+  if(G.blind==='small')base*=1;else if(G.blind==='big')base*=1.5;else base*=boss.mult;
+  if(DECKS[G.deckId].mod.targetMult)base*=DECKS[G.deckId].mod.targetMult;
+  return Math.floor(base);
+}
+function startBlind(G,type){
+  G.blind=type;
+  const st=recalcStats(G);
+  G.phase='play';
+  G.score=0;G.roundStat={};G.playedThisBlind=new Set();G.roundHandTypes=[];
+  G.target=blindTarget(G);
+  const boss=activeBoss(G);
+  const chicot=G.jokers.some(j=>!j.debuff&&JOKERS[j.id].flags&&JOKERS[j.id].flags().ignoreBoss);
+  const bf=bossFlags(G,boss);
+  const dm=DECKS[G.deckId].mod;
+  G.playsMax=st.hands;
+  G.plays=st.hands;
+  G.discardsLeft=bf.zeroDiscards?0:st.discards;
+  /* 杂耍标签:本回合 +3 手牌上限 */
+  G.tempHandSize=0;
+  if(G.pendingTags.includes('juggle')){G.tempHandSize=3;G.pendingTags=G.pendingTags.filter(t=>t!=='juggle')}
+  const handSize=st.handSize+G.tempHandSize;
+  /* 重洗牌堆 */
+  G.pile=rand(G).shuffle([...G.deck]);
+  G.discards=[];G.hand=[];
+  G.facedownMode=false;
+  if(boss&&boss.onRoundStart&&!chicot)boss.onRoundStart(G);
+  if(boss&&boss.n==='房屋'&&!chicot)G.drawFacedownNext=handSize;
+  G.ev=[{t:'blindStart'}];
+  drawCards(G,handSize,G.ev);
+  return{ok:true};
+}
+function skipBlind(G){
+  if(G.blind==='boss')return{error:'Boss 盲注不能跳过'};
+  const tag=G.shownTag||rollTag(G);G.shownTag=null;
+  const dupe=G.nextTagDupe||0;
+  G.nextTagDupe=0;
+  G.skipCount++;
+  const applied=[tag];if(dupe)applied.push(tag);
+  let openPack=null;
+  for(const t of applied){const r=applyTag(G,t);if(r&&r.openPack)openPack=r.openPack}
+  G.ev=[{t:'skip',tag,dup:dupe>0}];
+  advanceBlind(G);
+  return{tag,dup:dupe>0,openPack,ev:G.ev};
+}
+function advanceBlind(G){
+  if(G.blind==='small')G.blind='big';
+  else if(G.blind==='big'){G.blind='boss'}
+  G.phase='select';
+}
+function rollTag(G){
+  const avail=['uncommon','rare','investment','voucher','boss','charm','coupon','double','juggle','d6','speed','standard','meteor','buffoon','handy','garbage','ethereal','topup','orbital','ruby','foil','holo','poly','negative'];
+  return rand(G).pick(avail);
+}
+function applyTag(G,tagId){
+  const t=TAGS[tagId];
+  switch(tagId){
+    case 'boss':{rerollBossFree(G);return{}}
+    case 'speed':addMoneyG(G,5*G.skipCount);return{};
+    case 'handy':addMoneyG(G,G.stats.handsPlayed);return{};
+    case 'garbage':addMoneyG(G,G.stats.discardsUnused||0);return{};
+    case 'ruby':addMoneyG(G,10);return{};
+    case 'orbital':{const h=rand(G).pick(Object.keys(HANDS));levelUpHand(G,h,3);return{levelHand:h}}
+    case 'topup':{let n=0;const st=recalcStats(G);while(n<2&&G.jokers.length<st.jokerSlots){mkJokerG(G,1);n++}return{}}
+    case 'double':{G.nextTagDupe=(G.nextTagDupe||0)+1;return{}}
+    case 'charm':return{openPack:'arcanaM'};
+    case 'standard':return{openPack:'standardM'};
+    case 'meteor':return{openPack:'celestialM'};
+    case 'buffoon':return{openPack:'buffoonM'};
+    case 'ethereal':return{openPack:'spectral'};
+    default:G.pendingTags.push(tagId);return{};
+  }
+}
+function rerollBossFree(G){G.bossPool[G.bossId]--;nextBoss(G)}
+function addMoneyG(G,n){G.money=Math.max(0,G.money+n);G.ev.push({t:'money',n})}
+
+/* ---------- 回合胜利结算 ---------- */
+function cashoutRewards(G){
+  const items=[];
+  const boss=G.bossId?BOSSES[G.bossId]:null;
+  const isShowdown=boss&&boss.showdown;
+  const baseAmt=G.blind==='small'?3:G.blind==='big'?4:isShowdown?8:5;
+  items.push({lab:G.blind==='small'?'小盲注':G.blind==='big'?'大盲注':'Boss 盲注',n:baseAmt});
+  if(G.plays>0)items.push({lab:'剩余出牌 ×'+G.plays,n:G.plays});
+  if(G.discardsLeft>0)items.push({lab:'剩余弃牌 ×'+G.discardsLeft,n:G.discardsLeft});
+  const gold=G.hand.filter(c=>c.enh==='gold'&&!c.debuff).length;
+  if(gold)items.push({lab:'黄金卡 ×'+gold,n:gold*3});
+  const cap=G.vouchers.includes('moneyTree')?20:G.vouchers.includes('seedMoney')?10:5;
+  const interest=Math.min(cap,Math.floor(G.money/5));
+  if(interest>0)items.push({lab:'利息($5 = $1)',n:interest});
+  /* 小丑回合结束钩子 */
+  const destroyed=[];
+  const ev=[];
+  for(const j of [...G.jokers]){
+    if(j.debuff)continue;
+    const d=resolveJoker(G,j);
+    if(d&&d.onRoundEnd){
+      const ctx={G,jk:j,c:j.c,addMoney(n){ev.push({t:'money',n,src:j.id})},held:()=>G.hand,p:(a,b)=>rand(G).next()*b<a,pick:a=>rand(G).pick(a),suit:cd=>cd.suit,rank:cd=>cd.rank,isFace:cd=>cd.rank>10};
+      const r=d.onRoundEnd(ctx);
+      if(r&&r.destroy){destroyed.push(j);ev.push({t:'jokerDestroyed',id:j.id})}
+    }
+  }
+  G.stats.discardsUnused=(G.stats.discardsUnused||0)+G.discardsLeft;
+  /* 浅浮雕牌背:击败 Boss 送加倍标签 */
+  if(DECKS[G.deckId].mod.anaglyph&&G.blind==='boss')G.pendingTags.push('double');
+  if(G.blind==='boss'){
+    if(G.pendingTags.includes('investment')){items.push({lab:'投资标签',n:25});G.pendingTags=G.pendingTags.filter(t=>t!=='investment')}
+    G.bossDefeated++;
+  }
+  return{items,ev,destroyed};
+}
+function finishCashout(G,rewards){
+  let total=0;
+  for(const it of rewards.items)total+=it.n;
+  G.money=Math.max(0,G.money+total);
+  for(const e of rewards.ev){if(e.t==='money')G.money=Math.max(0,G.money+e.n)}
+  for(const j of rewards.destroyed){const i=G.jokers.indexOf(j);if(i>=0)G.jokers.splice(i,1)}
+  if(G.blind==='boss'){
+    G.round=0;
+    if(G.ante===8){G.phase='won';return{won:true}}
+    G.ante++;nextBoss(G);G.blind='small';
+  }else{
+    advanceBlind(G);
+  }
+  G.phase='select';
+  G.bonesUsed=false;
+  return{ok:true};
+}
+function roundLost(G){
+  G.phase='lost';
+  /* 骨先生:≥25% 可续命(每盲注一次) */
+  const mb=G.jokers.find(j=>j.id==='mrBones'&&!j.debuff);
+  if(mb&&!G.bonesUsed){
+    if(G.score>=G.target*0.25){
+      G.bonesUsed=true;
+      return{saved:true};
+    }
+  }
+  return{saved:false};
+}
+
+/* ---------- 商店 ---------- */
+function mkJokerG(G,rarity,ed){
+  const st=recalcStats(G);
+  if(G.jokers.length>=st.jokerSlots)return null;
+  let pool;
+  if(rarity==='legend')pool=Object.keys(JOKERS).filter(k=>JOKERS[k].r===4);
+  else{
+    pool=Object.keys(JOKERS).filter(k=>JOKERS[k].r===rarity);
+    if(!pool.length)return null;
+  }
+  const id=rand(G).pick(pool);
+  const j={id,ed:ed||null,c:{},uid:'j'+(UID++)};
+  G.jokers.push(j);
+  return j;
+}
+function shopPrices(G){
+  const disc=G.vouchers.includes('clearance2')?.5:G.vouchers.includes('clearance')?.75:1;
+  return{disc,free:G.pendingTags.includes('coupon')};
+}
+function priceOf(G,cost){const p=shopPrices(G);return Math.max(1,Math.floor(cost*p.disc))}
+function genShopItem(G){
+  const w=[];
+  const vt=G.vouchers;
+  w.push(['joker',20]);
+  w.push(['tarot',4*(vt.includes('tarotT')?4:vt.includes('tarotM')?2:1)]);
+  w.push(['planet',4*(vt.includes('planetT')?4:vt.includes('planetM')?2:1)]);
+  if(vt.includes('magicTrick'))w.push(['playing',4]);
+  if(G.deckId==='ghost')w.push(['spectral',2]);
+  let total=0;for(const[,n]of w)total+=n;
+  let r=rand(G).next()*total,kind='joker';
+  for(const[k,n]of w){r-=n;if(r<=0){kind=k;break}}
+  const edRate=vt.includes('hone2')?4:vt.includes('hone')?2:1;
+  let ed=null;
+  if(kind==='joker'&&rand(G).next()<0.03*edRate)ed=rand(G).pick(['foil','holo','poly']);
+  if(kind==='joker'){
+    /* 标签注入的免费小丑优先 */
+    for(const special of ['uncommon','rare','negative','foil','holo','poly']){
+      if(G.pendingTags.includes(special)){
+        const rar=special==='uncommon'?2:special==='rare'?3:1;
+        const ped=special==='uncommon'||special==='rare'?null:{negative:'negative',foil:'foil',holo:'holo',poly:'poly'}[special];
+        const j=mkJokerG(G,rar,ped);
+        G.pendingTags=G.pendingTags.filter(t=>t!==special);
+        if(j)return{kind:'joker',joker:j,free:true};
+      }
+    }
+    const r1=rand(G).next();
+    const rar=r1<0.7?1:r1<0.95?2:3;
+    const pool=Object.keys(JOKERS).filter(k=>JOKERS[k].r===rar);
+    const id=rand(G).pick(pool);
+    return{kind:'joker',stock:{id,ed},cost:priceOf(G,JOKERS[id].cost)};
+  }
+  if(kind==='tarot'){const id=rand(G).pick(Object.keys(TAROTS));return{kind:'tarot',stock:{id},cost:priceOf(G,3)}}
+  if(kind==='planet'){const id=rand(G).pick(Object.keys(PLANETS));return{kind:'planet',stock:{id},cost:priceOf(G,3)}}
+  if(kind==='spectral'){const id=rand(G).pick(Object.keys(SPECTRALS).filter(k=>k!=='soul'));return{kind:'spectral',stock:{id},cost:priceOf(G,4)}}
+  const c=makeCard(rand(G).int(13)+2,rand(G).int(4));
+  if(G.vouchers.includes('illusion')){
+    if(rand(G).p(1/4))c.enh=rand(G).pick(Object.keys(ENH_META));
+    if(rand(G).p(1/8))c.ed=rand(G).pick(['foil','holo','poly']);
+    if(rand(G).p(1/10))c.seal=rand(G).pick(['red','gold','blue','purple']);
+  }
+  return{kind:'playing',card:c,cost:priceOf(G,1)};
+}
+function genShopPack(G,forceType){
+  if(forceType)return{id:forceType,cost:PACKS[forceType].cost,free:false};
+  const types=['standard','buffoon','arcana','celestial'];
+  let id=rand(G).pick(types);
+  if(rand(G).p(1/4))id=id+'M';
+  if(G.deckId==='ghost'&&rand(G).p(1/4))id='spectral';
+  return{id,cost:PACKS[id].cost,free:false};
+}
+function startShop(G){
+  G.phase='shop';
+  const st=recalcStats(G);
+  const slots=2+(G.vouchers.includes('overstock2')?2:G.vouchers.includes('overstock')?1:0);
+  const items=[];
+  for(let i=0;i<slots;i++)items.push(genShopItem(G));
+  const packs=[];
+  if(!G.shopSeen){packs.push(genShopPack(G,'buffoon'));G.shopSeen=true}
+  while(packs.length<2)packs.push(genShopPack(G));
+  /* 代金券槽 */
+  let voucher=null;
+  const nV=G.pendingTags.includes('voucher')?2:1;
+  const bought=[];
+  const upgBase=v=>Object.keys(VOUCHERS).find(k=>VOUCHERS[k].up===v);
+  for(let i=0;i<nV;i++){
+    const pool=Object.keys(VOUCHERS).filter(v=>!G.vouchers.includes(v)&&!bought.includes(v)&&(!upgBase(v)||G.vouchers.includes(upgBase(v))));
+    if(pool.length){const v=rand(G).pick(pool);bought.push(v);if(!voucher)voucher=v;else voucher=voucher+','+v}
+  }
+  if(G.pendingTags.includes('voucher'))G.pendingTags=G.pendingTags.filter(t=>t!=='voucher');
+  G.shop={items,packs,voucher:voucher?[voucher]:[],rerollCost:Math.max(0,5-(G.vouchers.includes('rerollS2')?4:G.vouchers.includes('rerollS')?2:0)),rerolls:0,d6Free:0};
+  if(G.pendingTags.includes('d6')){G.shop.d6Free=5;G.pendingTags=G.pendingTags.filter(t=>t!=='d6')}
+  G.ev=[{t:'shop'}];
+  return G.shop;
+}
+function rerollShop(G){
+  const s=G.shop;
+  let cost=s.rerollCost;
+  if(s.d6Free>0){cost=0;s.d6Free--}
+  if(G.money<cost)return{error:'钱不够'};
+  G.money-=cost;
+  s.rerolls++;s.rerollCost++;
+  for(let i=0;i<s.items.length;i++)s.items[i]=genShopItem(G);
+  G.ev=[{t:'reroll',cost}];
+  return{ok:true};
+}
+function buyShopItem(G,i){
+  const s=G.shop,it=s.items[i];
+  if(!it)return{error:'无此商品'};
+  const st=recalcStats(G);
+  const cost=it.free?0:it.cost;
+  if(G.money<cost)return{error:'钱不够'};
+  if(it.kind==='joker'){
+    const j=it.joker?it.joker:{id:it.stock.id,ed:it.stock.ed,c:{},uid:'j'+(UID++)};
+    if(G.jokers.length>=st.jokerSlots)return{error:'小丑槽位已满'};
+    G.money-=cost;G.jokers.push(j);
+  }else if(it.kind==='tarot'||it.kind==='planet'||it.kind==='spectral'){
+    if(G.consumables.length>=st.consumableSlots)return{error:'消耗牌槽位已满'};
+    G.money-=cost;G.consumables.push({kind:it.kind,id:it.stock.id});
+  }else if(it.kind==='playing'){
+    G.money-=cost;addCardToDeck(G,it.card);
+  }
+  s.items[i]=null;
+  G.ev=[{t:'buy',i}];
+  return{ok:true};
+}
+function buyVoucher(G,key){
+  const id=key;
+  if(G.vouchers.includes(id))return{error:'已拥有'};
+  const cost=priceOf(G,10);
+  if(G.money<cost)return{error:'钱不够'};
+  G.money-=cost;
+  G.vouchers.push(id);
+  G.ev=[{t:'voucher',id}];
+  return{ok:true};
+}
+function buyPack(G,i){
+  const s=G.shop,pk=s.packs[i];
+  if(!pk)return{error:'卡包不存在'};
+  const cost=pk.free?0:pk.cost;
+  if(G.money<cost)return{error:'钱不够'};
+  G.money-=cost;
+  G.pack=openPack(G,pk.id);
+  s.packs[i]=null;
+  return{ok:true,pack:G.pack};
+}
+function openPack(G,typeId){
+  const P=PACKS[typeId];
+  const opts=[];
+  for(let i=0;i<P.opts;i++){
+    if(P.kind==='joker'){
+      const pool=Object.keys(JOKERS).filter(k=>JOKERS[k].r<=2);
+      let ed=null;
+      const edRate=G.vouchers.includes('hone2')?4:G.vouchers.includes('hone')?2:1;
+      if(rand(G).next()<0.05*edRate)ed=rand(G).pick(['foil','holo','poly']);
+      opts.push({kind:'joker',id:rand(G).pick(pool),ed});
+    }else if(P.kind==='tarot'){
+      if(G.vouchers.includes('omenGlobe')&&rand(G).p(1/6))opts.push({kind:'spectral',id:rand(G).pick(Object.keys(SPECTRALS).filter(k=>k!=='soul'))});
+      else opts.push({kind:'tarot',id:rand(G).pick(Object.keys(TAROTS))});
+    }else if(P.kind==='planet'){
+      if(G.vouchers.includes('telescope')&&i===0)opts.push({kind:'planet',id:HANDS[mostPlayedHand(G)].planet});
+      else opts.push({kind:'planet',id:rand(G).pick(Object.keys(PLANETS))});
+    }else if(P.kind==='spectral'){
+      opts.push({kind:'spectral',id:rand(G).pick(Object.keys(SPECTRALS))});
+    }else{
+      const c=makeCard(rand(G).int(13)+2,rand(G).int(4));
+      if(rand(G).p(2/7))c.enh=rand(G).pick(Object.keys(ENH_META));
+      if(rand(G).p(1/7))c.ed=rand(G).pick(['foil','holo','poly']);
+      if(rand(G).p(1/12))c.seal=rand(G).pick(['red','gold','blue','purple']);
+      opts.push({kind:'playing',card:c});
+    }
+  }
+  return{typeId,opts,left:P.picks};
+}
+function pickFromPack(G,idx){
+  const P=G.pack;if(!P)return{error:'没有卡包'};
+  const opt=P.opts[idx];
+  if(!opt)return{error:'无此选项'};
+  const st=recalcStats(G);
+  if(opt.kind==='joker'){
+    if(G.jokers.length>=st.jokerSlots)return{error:'小丑槽位已满'};
+    G.jokers.push({id:opt.id,ed:opt.ed,c:{},uid:'j'+(UID++)});
+  }else if(opt.kind==='tarot'||opt.kind==='planet'||opt.kind==='spectral'){
+    if(G.consumables.length>=st.consumableSlots)return{error:'消耗牌槽位已满'};
+    G.consumables.push({kind:opt.kind,id:opt.id});
+  }else{
+    addCardToDeck(G,opt.card);
+  }
+  P.opts[idx]=null;P.left--;
+  G.ev=[{t:'packPick'}];
+  if(P.left<=0){G.pack=null;return{done:true}}
+  return{ok:true};
+}
+function sellJoker(G,i){
+  const j=G.jokers[i];if(!j)return{error:'不存在'};
+  const v=sellValueOf(j);
+  G.money+=v;
+  G.jokers.splice(i,1);
+  G.ev=[{t:'sell',v}];
+  /* 翠绿树叶:卖小丑解除全场禁用 */
+  G.leafCleared=true;
+  for(const c of G.hand)c.debuff=bossDebuff(G,c);
+  return{ok:true,v};
+}
+function reorderJoker(G,from,to){
+  if(to<0||to>=G.jokers.length)return{error:'位置无效'};
+  const[j]=G.jokers.splice(from,1);
+  G.jokers.splice(to,0,j);
+  return{ok:true};
+}
+function sellConsumable(G,i){
+  const c=G.consumables[i];if(!c)return{error:'不存在'};
+  G.consumables.splice(i,1);
+  return{ok:true};
+}
+
+/* ---------- 消耗牌使用 ---------- */
+function useConsumable(G,i,selCards,targetJoker){
+  const cs=G.consumables[i];
+  if(!cs)return{error:'不存在'};
+  const st=recalcStats(G);
+  const ev=[];
+  const ctx={
+    G,sel:selCards||[],target:targetJoker,
+    p:(a,b)=>rand(G).next()*b<a,pick:a=>rand(G).pick(a),rand:n=>rand(G).int(n),
+    money(n){G.money+=n;ev.push({t:'money',n})},
+    enh(cd,t){cd.enh=t;ev.push({t:'enh',uid:cd.uid,enh:t})},
+    toSuit(cd,s){cd.suit=s;ev.push({t:'suit',uid:cd.uid,suit:s})},
+    destroy(cd){removeCardEverywhere(G,cd);if(cd.rank>10)notifyExt(G,'faceDestroyed');ev.push({t:'destroy',uid:cd.uid})},
+    addToDeck(cd){cd.uid=UID++;addCardToDeck(G,cd);ev.push({t:'cardAdded',uid:cd.uid})},
+    notifyAdd(){},
+    mkTarot(id){if(G.consumables.length<st.consumableSlots){G.consumables.push({kind:'tarot',id:id||rand(G).pick(Object.keys(TAROTS))});ev.push({t:'spawn',kind:'tarot'})}},
+    mkPlanet(id){if(G.consumables.length<st.consumableSlots){G.consumables.push({kind:'planet',id:id||rand(G).pick(Object.keys(PLANETS))});ev.push({t:'spawn',kind:'planet'})}},
+    mkSpectral(id){if(G.consumables.length<st.consumableSlots){G.consumables.push({kind:'spectral',id:id||rand(G).pick(Object.keys(SPECTRALS))});ev.push({t:'spawn',kind:'spectral'})}},
+    mkJoker(rar){const j=mkJokerG(G,rar|| (rand(G).p(0.75)?1:rand(G).p(0.85)?2:3));if(!j)return false;ev.push({t:'spawn',kind:'joker',id:j.id});return true},
+    spawnConsumable(spec){const st2=recalcStats(G);if(G.consumables.length<st2.consumableSlots)G.consumables.push(spec)},
+    edJoker(j,ed){if(j){j.ed=ed;ev.push({t:'edJoker',ed})}},
+    levelUp(h,n){levelUpHand(G,h,n);notifyExt(G,'planetUsed');ev.push({t:'levelUp',hand:h,n})},
+    totalSellValue(){return G.jokers.reduce((s,j)=>s+sellValueOf(j),0)},
+    toastJoker(j,msg){ev.push({t:'jokerToast',uid:j.uid,msg})},
+  };
+  let result;
+  if(cs.kind==='planet'){
+    const h=PLANETS[cs.id].hand;
+    levelUpHand(G,h,1);notifyExt(G,'planetUsed');
+    ev.push({t:'levelUp',hand:h,n:1});
+    result=true;
+  }else if(cs.kind==='tarot'){
+    const def=TAROTS[cs.id];
+    if(def.sel>0&&(!selCards||selCards.length!==def.sel))return{error:'需要选择 '+def.sel+' 张手牌'};
+    if(def.target==='joker'&&!targetJoker)return{error:'需要选择一张小丑'};
+    if(!def.sel&&!def.target&&selCards&&selCards.length)return{error:'该牌不需要选牌'};
+    result=def.use(ctx);
+  }else{
+    const def=SPECTRALS[cs.id];
+    if(def.sel>0&&(!selCards||selCards.length!==def.sel))return{error:'需要选择 '+def.sel+' 张手牌'};
+    result=def.use(ctx);
+  }
+  if(result==='miss')return{refund:true,ev};
+  if(result!==true)return{error:'无法使用'};
+  G.consumables.splice(i,1);
+  if(cs.kind!=='spectral')G.lastConsumable={kind:cs.kind,id:cs.id};
+  G.ev=ev;
+  return{ok:true,ev};
+}
+
+/* ---------- 每回合小丑回合开始触发 ---------- */
+function onRoundStartJokers(G){
+  for(const j of G.jokers){
+    if(j.debuff)continue;
+    const d=resolveJoker(G,j);
+    if(d&&d.onRoundStart){d.onRoundStart({G,jk:j,c:j.c})}
+  }
+}
+
+/* ---------- API 出口 ---------- */
+function bellForceSelect(G){const f=G.flags&&G.flags.ceruleanBell;if(!f||!G.hand.length)return;G.selected=[G.hand[0].uid]}
+function peekTag(G){if(!G.shownTag)G.shownTag=rollTag(G);return G.shownTag}
+function startEndless(G){G.phase='select';G.ante++;G.round=0;nextBoss(G);G.blind='small';return{ok:true}}
+const Engine={
+  peekTag,startEndless,bellForceSelect,bossDebuff,newRun,serialize,deserialize,recalcStats,evaluateHand,handBase,playHand,discardSelected,
+  drawCards,startBlind,skipBlind,advanceBlind,nextBoss,rerollBoss,blindTarget,
+  cashoutRewards,finishCashout,roundLost,startShop,rerollShop,buyShopItem,buyVoucher,buyPack,
+  openPack,pickFromPack,sellJoker,reorderJoker,sellConsumable,useConsumable,
+  mkJokerG,addCardToDeck,levelUpHand,mostPlayedHand,fmt,priceOf,shopPrices,sellValueOf,
+  makeCard,buildDeck,rollTag,applyTag,onRoundStartJokers,recalcJokerFlags,
+};
+if(typeof module!=='undefined')module.exports=Engine;
+/*__ENGINE_END__*/
+</script>
+<script>
+/* ============================================================
+   UI 层:渲染 / 动画 / 输入(原创视觉实现)
+   ============================================================ */
+'use strict';
+const $=id=>document.getElementById(id);
+const SAVE_KEY='jokersdeck.save.v1',META_KEY='jokersdeck.meta.v1';
+const UI={G:null,animating:false,selMode:null,sortMode:'rank',deckPick:'red',blindAction:'play'};
+let META={bestAnte:1,wins:0,runs:0,sound:false,handsPlayed:0};
+
+function loadMeta(){try{const m=JSON.parse(localStorage.getItem(META_KEY));if(m)META={...META,...m}}catch(e){}}
+function saveMeta(){try{localStorage.setItem(META_KEY,JSON.stringify(META))}catch(e){}}
+function saveRun(){if(!UI.G)return;try{localStorage.setItem(SAVE_KEY,Engine.serialize(UI.G))}catch(e){}}
+function clearRun(){try{localStorage.removeItem(SAVE_KEY)}catch(e){}}
+function loadRun(){try{const s=localStorage.getItem(SAVE_KEY);return s?Engine.deserialize(s):null}catch(e){return null}}
+function hasSave(){return !!localStorage.getItem(SAVE_KEY)}
+
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const RARITY_NAME={1:'常见',2:'罕见',3:'稀有',4:'传说'};
+const RARITY_CLS={1:'r-common',2:'r-uncommon',3:'r-rare',4:'r-legend'};
+
+/* ---------- 屏幕管理 ---------- */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on','pop-in'));
+  const el=$(id);el.classList.add('on');
+  void el.offsetWidth;el.classList.add('pop-in');
+}
+function toast(msg){
+  const t=$('toast');t.textContent=msg;t.classList.add('on');
+  clearTimeout(t._tm);t._tm=setTimeout(()=>t.classList.remove('on'),1600);
+}
+function confirmPop(title,desc,btns){
+  $('cb-title').textContent=title;$('cb-desc').textContent=desc;
+  const bb=$('cb-btns');bb.innerHTML='';
+  btns.forEach(b=>{const el=document.createElement('button');el.className='bigbtn '+(b.cls||'dark');el.textContent=b.txt;el.onclick=()=>{$('confirmPop').classList.remove('on');b.cb&&b.cb()};bb.appendChild(el)});
+  $('confirmPop').classList.add('on');
+}
+function floaty(x,y,txt,cls){
+  const el=document.createElement('div');
+  el.className='floaty '+(cls||'');el.textContent=txt;
+  el.style.left=x+'px';el.style.top=y+'px';
+  $('fxLayer').appendChild(el);
+  setTimeout(()=>el.remove(),950);
+}
+function floatyAt(el,txt,cls){
+  if(!el)return;
+  const r=el.getBoundingClientRect();
+  floaty(r.left+r.width/2-20,r.top-8,txt,cls);
+}
+function confetti(n=60){
+  const box=$('confetti');
+  const emojis=['🃏','🎉','💰','⭐','🪙','♦️','♥️','♠️','♣️'];
+  for(let i=0;i<n;i++){
+    const e=document.createElement('div');
+    e.className='confetto';e.textContent=emojis[i%emojis.length];
+    e.style.left=Math.random()*100+'%';
+    e.style.animationDuration=(1.6+Math.random()*1.8)+'s';
+    e.style.animationDelay=(Math.random()*.5)+'s';
+    e.style.fontSize=(14+Math.random()*16)+'px';
+    box.appendChild(e);
+    setTimeout(()=>e.remove(),3800);
+  }
+}
+
+/* ---------- 长按/悬停信息 ---------- */
+function attachInfo(el,build){
+  let tm=null;
+  const show=()=>{
+    const pop=$('infoPop');pop.innerHTML=build();pop.style.display='block';
+    const r=el.getBoundingClientRect();
+    const pw=Math.min(300,innerWidth*.84);
+    let x=r.right+8;if(x+pw>innerWidth-8)x=r.left-pw-8;
+    if(x<8)x=8;
+    let y=Math.min(r.top,innerHeight-190);
+    pop.style.left=x+'px';pop.style.top=y+'px';
+  };
+  const hide=()=>{$('infoPop').style.display='none'};
+  el.addEventListener('mouseenter',show);
+  el.addEventListener('mouseleave',hide);
+  el.addEventListener('touchstart',e=>{tm=setTimeout(show,420)},{passive:true});
+  el.addEventListener('touchend',()=>{clearTimeout(tm);hide()},{passive:true});
+  el.addEventListener('touchmove',()=>{clearTimeout(tm)},{passive:true});
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+}
+
+/* ---------- 扑克牌 DOM ---------- */
+function pcardEl(c,small){
+  const el=document.createElement('div');
+  el.className='pcard'+(c.suit===1||c.suit===2?' red':'');
+  el.dataset.uid=c.uid;
+  if(c.enh==='stone')el.classList.add('stone');
+  else{
+    if(c.enh==='glass')el.classList.add('glass');
+    if(c.enh==='steel')el.classList.add('steel');
+    if(c.enh==='gold')el.classList.add('gold');
+    if(c.enh==='lucky')el.classList.add('lucky');
+    if(c.enh==='wild')el.classList.add('wild');
+    if(c.enh==='bonus')el.classList.add('bonus');
+    if(c.enh==='mult')el.classList.add('multy');
+  }
+  const rs=Engine.makeCard?RANK_NAME(c.rank):c.rank;
+  const cornerHtml=`<div class="corner">${rs}<span class="s">${SUITS[c.suit]}</span></div><div class="corner br">${rs}<span class="s">${SUITS[c.suit]}</span></div>`;
+  let pipHtml;
+  if(c.enh==='stone')pipHtml='';
+  else if(c.rank>10&&c.rank<14){
+    pipHtml=`<div class="pip"><span class="face-crown">${c.rank===11?'🗡️':'👑'}</span><span class="face-letter">${rs}</span></div>`;
+  }else pipHtml=`<div class="pip">${SUITS[c.suit]}</div>`;
+  el.innerHTML=cornerHtml+pipHtml;
+  if(c.ed)el.innerHTML+=`<span class="edbadge ${c.ed}">${ED_META[c.ed].n}</span>`;
+  if(c.seal)el.innerHTML+=`<span class="seal-dot ${c.seal}"></span>`;
+  if(c.debuff)el.classList.add('debuff');
+  if(c.facedown)el.classList.add('facedown');
+  return el;
+}
+function cardInfoHtml(c){
+  let s=`<div class="ip-name">${RANK_NAME(c.rank)}${SUITS[c.suit]}${c.enh==='stone'?'(石头)':''}</div>`;
+  if(c.enh)s+=`<div class="ip-sub" style="color:var(--gold)">${ENH_META[c.enh].n}:${ENH_META[c.enh].d}</div>`;
+  if(c.ed)s+=`<div class="ip-sub" style="color:var(--purple)">${ED_META[c.ed].n}:${ED_META[c.ed].d}</div>`;
+  if(c.seal)s+=`<div class="ip-sub" style="color:var(--chip)">${SEAL_META[c.seal].n}:${SEAL_META[c.seal].d}</div>`;
+  if(!c.enh&&!c.ed&&!c.seal)s+=`<div class="ip-desc">基础牌:${c.rank===14?11:c.rank>10?10:c.rank} 筹码</div>`;
+  if(c.debuff)s+=`<div class="ip-sub" style="color:var(--mult)">⛔ 被禁用:不计分、无效果</div>`;
+  return s;
+}
+
+/* ---------- 小丑/消耗牌 DOM ---------- */
+function jcardEl(j){
+  const d=JOKERS[j.id];
+  const el=document.createElement('div');
+  el.className='jcard '+RARITY_CLS[d.r];
+  el.dataset.juid=j.uid;
+  const bg=`background:linear-gradient(150deg,${d.g}55,#ffffff22 55%,transparent)`;
+  el.innerHTML=`<div class="jc-art" style="${bg}"><span>${d.e}</span></div>
+    <div class="jc-name">${d.n}</div>
+    ${j.ed?`<span class="jc-ed ${j.ed}">${ED_META[j.ed].n}</span>`:''}`;
+  if(j.debuff)el.classList.add('debuff');
+  const cnt=[];
+  if(j.c.mult)cnt.push('+'+j.c.mult+'多倍');
+  if(j.c.x)cnt.push('×'+(Math.round(j.c.x*10)/10));
+  if(j.c.chips)cnt.push('+'+j.c.chips+'筹码');
+  if(j.c.pay)cnt.push('$'+j.c.pay);
+  if(j.c.hs!==undefined&&d.n==='龟龟')cnt.push('+'+j.c.hs+'手牌');
+  if(cnt.length){const b=document.createElement('span');b.className='jc-count';b.textContent=cnt[0];el.appendChild(b)}
+  if(j.sellBonus){const b=document.createElement('span');b.className='jc-count';b.style.left='4px';b.style.right='auto';b.textContent='+$'+j.sellBonus;el.appendChild(b)}
+  el._joker=j;
+  return el;
+}
+function jokerInfoHtml(j){
+  const d=JOKERS[j.id];
+  let s=`<div class="ip-name">${d.e} ${d.n}</div><div class="ip-sub" style="color:var(--r-${{1:'common',2:'uncommon',3:'rare',4:'legend'}[d.r]})">${RARITY_NAME[d.r]}小丑${j.ed?' · '+ED_META[j.ed].n+'('+ED_META[j.ed].d+')':''}</div>`;
+  s+=`<div class="ip-desc">${d.d}</div>`;
+  if(j.c.mult)s+=`<div class="ip-sub">当前:+${j.c.mult} 多倍</div>`;
+  if(j.c.x)s+=`<div class="ip-sub">当前:×${Math.round(j.c.x*100)/100} 多倍</div>`;
+  if(j.c.chips)s+=`<div class="ip-sub">当前:+${j.c.chips} 筹码</div>`;
+  if(j.c.pay)s+=`<div class="ip-sub">当前:回合结束 +$${j.c.pay}</div>`;
+  if(j.c.hs!==undefined&&d.n==='龟龟')s+=`<div class="ip-sub">当前:+${j.c.hs} 手牌上限</div>`;
+  s+=`<div class="ip-sub">售价 $${Engine.sellValueOf(j)}</div>`;
+  return s;
+}
+function consumableEl(cs){
+  let d,cls,glyph;
+  if(cs.kind==='tarot'){d=TAROTS[cs.id];cls='t-tarot';glyph='🔮'}
+  else if(cs.kind==='planet'){d=PLANETS[cs.id];cls='t-planet';glyph='🪐'}
+  else{d=SPECTRALS[cs.id];cls='t-spectral';glyph='👁️'}
+  const el=document.createElement('div');
+  el.className='jcard '+cls;
+  el.innerHTML=`<div class="jc-art"><span class="t-glyph">${d.e}</span></div><div class="jc-name">${d.n}</div>`;
+  el._cons=cs;
+  return el;
+}
+function consumableInfoHtml(cs){
+  const kindName={tarot:'塔罗牌',planet:'星球牌',spectral:'光谱牌'}[cs.kind];
+  const d=cs.kind==='tarot'?TAROTS[cs.id]:cs.kind==='planet'?PLANETS[cs.id]:SPECTRALS[cs.id];
+  const selTxt=d.sel?`<div class="ip-sub">使用时需选 ${d.sel} 张手牌</div>`:'';
+  return `<div class="ip-name">${d.e} ${d.n}</div><div class="ip-sub" style="color:var(--purple)">${kindName}</div><div class="ip-desc">${d.d}</div>${selTxt}`;
+}
+function voucherEl(v){
+  const d=VOUCHERS[v];
+  const el=document.createElement('div');
+  el.className='jcard t-voucher';
+  el.innerHTML=`<div class="jc-art"><span class="t-glyph">${d.e}</span></div><div class="jc-name">${d.n}</div>`;
+  return el;
+}
+function voucherInfoHtml(v){
+  const d=VOUCHERS[v];
+  return `<div class="ip-name">${d.e} ${d.n}</div><div class="ip-sub" style="color:var(--gold)">代金券</div><div class="ip-desc">${d.d}</div>`;
+}
+
+/* ---------- 左栏渲染 ---------- */
+function currentBlindInfo(G){
+  if(G.blind==='small')return{n:'小盲注',e:'💵',mult:'1x',reward:3,cls:'small'};
+  if(G.blind==='big')return{n:'大盲注',e:'💰',mult:'1.5x',reward:4,cls:'big'};
+  const b=BOSSES[G.bossId];
+  return{n:b.n,e:b.e,mult:b.mult+'x',reward:b.showdown?8:5,cls:'boss'};
+}
+function renderAnteTrack(){
+  const box=$('ante-track');box.innerHTML='';
+  const G=UI.G;
+  if(G.ante>8){
+    const s=document.createElement('span');s.className='px';s.style.color='var(--gold)';
+    s.textContent='ENDLESS · ANTE '+G.ante;box.appendChild(s);return;
+  }
+  for(let i=1;i<=8;i++){
+    const d=document.createElement('div');
+    d.className='ante-dot'+(i<G.ante?' done':i===G.ante?' cur':'');
+    d.textContent=i;
+    if(i===G.ante&&G.blind==='boss'){d.classList.add('bossdot');d.textContent=BOSSES[G.bossId].e}
+    box.appendChild(d);
+    if(i===4){const sep=document.createElement('span');sep.className='ante-sep';sep.textContent='·';box.appendChild(sep)}
+  }
+}
+function renderRail(){
+  const G=UI.G;
+  renderAnteTrack();
+  const bi=currentBlindInfo(G);
+  const bc=$('card-blind');
+  bc.className='panelcard blind '+bi.cls;
+  $('bc-name').textContent=G.blind==='boss'?('Boss · '+bi.n):bi.n;
+  $('bc-mult').textContent=bi.mult;
+  $('bc-art').textContent=bi.e;
+  $('bc-reward').textContent='$'+bi.reward;
+  $('sc-target').textContent=Engine.fmt(G.target||0);
+  $('sc-score').textContent=Engine.fmt(G.score||0);
+  /* 手牌类型预览 */
+  const st=Engine.recalcStats(G);
+  const selCards=G.selected.map(uid=>G.hand.find(c=>c.uid===uid)).filter(Boolean);
+  let ev=null;
+  if(selCards.length)ev=Engine.evaluateHand(G,selCards);
+  const h=ev?HANDS[ev.type]:HANDS.hc;
+  const base=Engine.handBase(G,ev?ev.type:'hc');
+  $('hh-name').textContent=h.n;
+  $('hh-lv').textContent='lv.'+(ev?G.handLevels[ev.type]:G.handLevels.hc);
+  $('hh-chips').textContent=base.chips;
+  $('hh-mult').textContent=base.mult;
+  $('hh-plays').textContent=G.plays;
+  $('hh-plays').parentElement.classList.toggle('warn',G.plays<=1);
+  $('hh-discards').textContent=G.discardsLeft;
+  $('hh-handsize').textContent=st.handSize+(G.tempHandSize||0);
+  /* 钱/ante/round */
+  $('money-val').textContent='$'+G.money;
+  $('ante-val').textContent=G.ante>8?'∞':G.ante+'/8';
+  $('round-val').textContent=G.round;
+  /* 牌堆 */
+  $('dk-count').textContent=G.pile.length+'/'+G.deck.length;
+  /* 消息行 */
+  const ml=$('msgline');
+  if(UI.selMode){
+    const d=UI.selMode.kind==='consumable'?consDef(UI.selMode.idx):null;
+    ml.innerHTML=`<span style="color:var(--purple)">为「${d?d.n:''}」选择 ${UI.selMode.need} 张手牌${UI.selMode.target?'':'(点满自动使用)'} </span>`;
+  }else if(selCards.length&&ev){
+    ml.innerHTML=`${h.n} · lv.${G.handLevels[ev.type]} <span class="prev-chip px">${base.chips}</span> × <span class="prev-mult px">${base.mult}</span>`;
+  }else{
+    ml.textContent=G.phase==='play'?'选择手牌,出牌或弃牌':'';
+  }
+  /* 按钮 */
+  const canPlay=G.phase==='play'&&!UI.animating;
+  $('btn-play').disabled=!canPlay||!selCards.length;
+  $('btn-discard').disabled=!canPlay||!G.discardsLeft||!selCards.length||UI.selMode;
+  $('btn-play').classList.toggle('ready',canPlay&&selCards.length>0);
+  $('sel-count').textContent=selCards.length?`已选 ${selCards.length}/5`:'未选牌';
+}
+function consDef(idx){
+  const cs=UI.G.consumables[idx];if(!cs)return null;
+  return cs.kind==='tarot'?TAROTS[cs.id]:cs.kind==='planet'?PLANETS[cs.id]:SPECTRALS[cs.id];
+}
+
+/* ---------- 托盘 ---------- */
+function renderTrays(){
+  const G=UI.G;
+  const jt=$('joker-tray'),ct=$('consumable-tray');
+  jt.innerHTML='<div class="tray-label">小丑</div>';
+  ct.innerHTML='<div class="tray-label">消耗牌</div>';
+  const st=Engine.recalcStats(G);
+  for(const j of G.jokers){
+    const el=jcardEl(j);
+    attachInfo(el,()=>jokerInfoHtml(j));
+    el.onclick=()=>onJokerClick(j,el);
+    jt.appendChild(el);
+  }
+  for(let i=G.jokers.length;i<st.jokerSlots;i++){
+    const e=document.createElement('div');e.className='empty-slot';e.textContent='+';jt.appendChild(e);
+  }
+  for(const cs of G.consumables){
+    const el=consumableEl(cs);
+    attachInfo(el,()=>consumableInfoHtml(cs));
+    el.onclick=()=>onConsumableClick(cs,el);
+    ct.appendChild(el);
+  }
+  for(let i=G.consumables.length;i<st.consumableSlots;i++){
+    const e=document.createElement('div');e.className='empty-slot';e.textContent='+';ct.appendChild(e);
+  }
+}
+function onJokerClick(j,el){
+  Snd.click();
+  if(UI.animating)return;
+  const G=UI.G;
+  /* 消耗牌目标选择(命运之轮) */
+  if(UI.selMode&&UI.selMode.target){UI.selMode.targetJoker=j;finishConsumableSel();return}
+  if(G.phase==='shop'){
+    const acts=[
+      {txt:'卖出 $'+Engine.sellValueOf(j),cls:'gold',cb:()=>{
+        const r=Engine.sellJoker(G,G.jokers.indexOf(j));
+        if(r.ok){Snd.money();toast('卖出 +$'+r.v);refreshAll();saveRun()}
+        else{Snd.error();toast(r.error)}
+      }},
+    ];
+    const i=G.jokers.indexOf(j);
+    if(i>0)acts.push({txt:'⬅ 左移',cb:()=>{Engine.reorderJoker(G,i,i-1);refreshAll();saveRun()}});
+    if(i<G.jokers.length-1)acts.push({txt:'右移 ➡',cb:()=>{Engine.reorderJoker(G,i,i+1);refreshAll();saveRun()}});
+    acts.push({txt:'关闭',cls:'dark'});
+    confirmPop(JOKERS[j.id].n,JOKERS[j.id].d+'<br>售价 $'+Engine.sellValueOf(j),acts);
+  }
+}
+function onConsumableClick(cs,el){
+  if(UI.animating)return;
+  Snd.click();
+  const G=UI.G;
+  if(UI.selMode){cancelSelMode();return}
+  if(G.phase==='shop'||G.phase==='select'||G.phase==='play'){
+    if(G.phase==='shop'){confirmPop('使用'+consDef(G.consumables.indexOf(cs)).n,consDef(G.consumables.indexOf(cs)).d,[
+      {txt:'使用',cls:'gold',cb:()=>beginUseConsumable(cs)},
+      {txt:'卖出',cls:'red',cb:()=>{const i=G.consumables.indexOf(cs);Engine.sellConsumable(G,i);Snd.money();toast('已卖出');refreshAll();saveRun()}},
+      {txt:'关闭',cls:'dark'}]);
+      return;
+    }
+    beginUseConsumable(cs);
+  }
+}
+function beginUseConsumable(cs){
+  const G=UI.G;
+  const idx=G.consumables.indexOf(cs);
+  const def=consDef(idx);
+  if(idx<0)return;
+  if(cs.kind==='planet'){
+    const r=Engine.useConsumable(G,idx);
+    if(r.ok){Snd.pack();toast('「'+HANDS[PLANETS[cs.id].hand].n+'」升级!');refreshAll();saveRun()}
+    else{Snd.error();toast(r.error)}
+    return;
+  }
+  const need=def.sel||0;
+  if(need>0){
+    if(G.phase!=='play'&&G.phase!=='select'){Snd.error();toast('打牌时才能选牌使用');return}
+    if(G.hand.length<need){Snd.error();toast('手牌不够');return}
+    UI.selMode={kind:'consumable',idx,need,target:!!def.target,sel:[]};
+    G.selected=[];
+    renderRail();renderHand();
+    $('sel-banner').classList.add('on');
+    $('sel-banner-txt').textContent=def.n+':'+def.d;
+  }else if(def.target==='joker'){
+    if(!G.jokers.length){Snd.error();toast('没有小丑可选');return}
+    UI.selMode={kind:'consumable',idx,need:0,target:true,sel:[]};
+    G.selected=[];
+    $('sel-banner').classList.add('on');
+    $('sel-banner-txt').textContent=def.n+':'+def.d+'(点击一张小丑)';
+    renderRail();
+  }else{
+    const r=Engine.useConsumable(G,idx);
+    handleUseResult(cs,r);
+  }
+}
+function finishConsumableSel(){
+  const G=UI.G,sm=UI.selMode;
+  const r=Engine.useConsumable(G,sm.idx,G.smCards,sm.targetJoker);
+  endSelMode();
+  handleUseResult(null,r);
+}
+function handleUseResult(cs,r){
+  const G=UI.G;
+  if(r.error){Snd.error();toast(r.error);refreshAll();return}
+  if(r.refund){Snd.error();toast('运气不佳,没有效果(已退还)');refreshAll();saveRun();return}
+  if(r.ok){
+    Snd.pack();
+    replayEventsBrief(r.ev);
+    refreshAll();saveRun();
+  }
+}
+function cancelSelMode(){endSelMode();refreshAll()}
+function endSelMode(){
+  UI.selMode=null;
+  if(UI.G)UI.G.selected=[];
+  $('sel-banner').classList.remove('on');
+}
+
+/* ---------- 手牌 ---------- */
+function sortedHand(G){
+  const h=[...G.hand];
+  if(UI.sortMode==='suit')h.sort((a,b)=>suitGroup(G,a.suit)-suitGroup(G,b.suit)||b.rank-a.rank);
+  else h.sort((a,b)=>(a.enh==='stone')-(b.enh==='stone')||b.rank-a.rank||a.suit-b.suit);
+  return h;
+}
+function renderHand(){
+  const G=UI.G,box=$('hand-cards');
+  box.innerHTML='';
+  if(G.phase!=='play'&&G.phase!=='select')return;
+  for(const c of sortedHand(G)){
+    const el=pcardEl(c);
+    if(G.selected.includes(c.uid))el.classList.add('sel');
+    el.onclick=()=>toggleSelect(c);
+    attachInfo(el,()=>cardInfoHtml(c));
+    box.appendChild(el);
+  }
+}
+function toggleSelect(c){
+  const G=UI.G;
+  if(UI.animating||G.phase!=='play'&&!UI.selMode)return;
+  if(UI.selMode){
+    if(UI.selMode.target)return;
+    const i=G.selected.indexOf(c.uid);
+    if(i>=0){G.selected.splice(i,1);Snd.deselect()}
+    else{
+      if(G.selected.length>=UI.selMode.need)G.selected.shift();
+      G.selected.push(c.uid);Snd.select();
+      if(G.selected.length===UI.selMode.need){
+        G.smCards=G.selected.map(uid=>G.hand.find(x=>x.uid===uid));
+        UI._selTimer&&clearTimeout(UI._selTimer);
+        UI._selTimer=setTimeout(()=>{if(UI.selMode&&UI.G.selected.length===UI.selMode.need){UI.smCards2=G.smCards;finishConsumableSel()}},260);
+      }
+    }
+    renderHand();renderRail();
+    return;
+  }
+  const i=G.selected.indexOf(c.uid);
+  if(i>=0){G.selected.splice(i,1);Snd.deselect()}
+  else{
+    if(G.selected.length>=5){Snd.error();return}
+    G.selected.push(c.uid);Snd.select();
+  }
+  renderHand();renderRail();
+}
+$('sel-banner-cancel').onclick=()=>cancelSelMode();
+
+/* ---------- 盲注选择屏 ---------- */
+function tagPreviewHtml(tagId,dup){
+  const t=TAGS[tagId];
+  return `跳过 → <b>${t.e} ${t.n}</b>${dup?' ×2':''}<br><span style="font-size:10px;color:var(--dim2)">${t.d}</span>`;
+}
+function renderBlindSelect(){
+  const G=UI.G;
+  endSelMode();
+  showScreen('scr-blind');
+  const wrap=$('blind-cards');wrap.innerHTML='';
+  const peek=Engine.peekTag(G);
+  const blinds=[
+    {id:'small',cls:'small',name:'小盲注',art:'💵',reward:3,mult:'基础分 ×1',
+     desc:'每个 Ante 的第一关,热身用。'},
+    {id:'big',cls:'big',name:'大盲注',art:'💰',reward:4,mult:'基础分 ×1.5',
+     desc:'第二关,分数要求高一些。',cur:G.blind==='big'},
+    {id:'boss',cls:'boss',name:'Boss · '+BOSSES[G.bossId].n,art:BOSSES[G.bossId].e,reward:BOSSES[G.bossId].showdown?8:5,mult:'基础分 ×'+BOSSES[G.bossId].mult,
+     desc:BOSSES[G.bossId].d,cur:G.blind==='boss'},
+  ];
+  for(const b of blinds){
+    const cur=(b.id===G.blind);
+    const el=document.createElement('div');
+    el.className='bcard '+b.cls+(cur?' sel':'');
+    el.innerHTML=`
+      <div class="bh"><span>${cur?'当前盲注':''}</span><span class="px">${b.mult}</span></div>
+      <div class="bname">${b.name}</div>
+      <div class="bart">${b.art}</div>
+      <div class="bdesc">${b.desc}</div>
+      <div class="breward"><span>奖金</span><b class="px">$${b.reward}</b></div>
+      <div class="skipline">${b.id===G.blind&&b.id!=='boss'?tagPreviewHtml(peek,G.nextTagDupe>0):b.id==='boss'?'Boss 盲注不能跳过':''}</div>`;
+    el.onclick=()=>{
+      Snd.select();
+      document.querySelectorAll('.bcard').forEach(x=>x.classList.remove('picked'));
+      el.classList.add('picked');
+      UI.blindAction=b.id;
+    };
+    wrap.appendChild(el);
+  }
+  UI.blindAction=G.blind;
+  $('blind-go').textContent='出战'+currentBlindInfo(G).n;
+}
+function onBlindGo(){
+  const G=UI.G;
+  Snd.unlock();
+  if(UI.blindAction==='boss'&&G.blind!=='boss'){}
+  if(UI.blindAction===G.blind){
+    const r=Engine.startBlind(G,G.blind);
+    if(r.error){Snd.error();toast(r.error);return}
+    Snd.boss&&G.blind==='boss'?Snd.boss():Snd.deal();
+    startRoundUI();
+  }else{
+    /* 跳过当前盲注拿标签 */
+    const r=Engine.skipBlind(G);
+    if(r.error){Snd.error();toast(r.error);return}
+    Snd.money();
+    toast('跳过!获得 '+TAGS[r.tag].n+(r.dup?' ×2':''));
+    saveRun();
+    if(r.openPack){openTagPack(r.openPack,()=>renderBlindSelect());return}
+    renderBlindSelect();
+  }
+}
+function openTagPack(typeId,after){
+  UI.G.pack=Engine.openPack(UI.G,typeId);
+  showPackOverlay('奖励:'+PACKS[typeId].n,after);
+}
+
+/* ---------- 回合开始 ---------- */
+async function startRoundUI(){
+  const G=UI.G;
+  UI.animating=true;
+  endSelMode();
+  showScreen('scr-game');
+  renderRail();renderTrays();
+  $('hand-cards').innerHTML='';
+  $('played-cards').innerHTML='';
+  await sleep(120);
+  renderHand();
+  /* 发牌音效 */
+  const cards=$('hand-cards').children;
+  for(let i=0;i<cards.length;i++){
+    setTimeout(()=>Snd.deal(),i*40);
+    cards[i].style.animation='popIn .25s backwards';
+    cards[i].style.animationDelay=(i*40)+'ms';
+  }
+  await sleep(cards.length*40+250);
+  Engine.bellForceSelect(G);
+  UI.animating=false;
+  renderRail();renderHand();
+  saveRun();
+}
+
+/* ---------- 出牌动画 ---------- */
+async function doPlay(){
+  const G=UI.G;
+  if(UI.animating)return;
+  const playedUids=[...G.selected];
+  const r=Engine.playHand(G);
+  if(r.error){Snd.error();toast(r.error);return}
+  UI.animating=true;
+  META.handsPlayed++;
+  $('btn-play').disabled=true;$('btn-discard').disabled=true;
+  /* 把选中的牌移动到出牌区 */
+  const played=$('played-cards');played.innerHTML='';
+  const selEls=[];
+  const handBox=$('hand-cards');
+  for(const uid of playedUids){
+    const el=handBox.querySelector(`[data-uid="${uid}"]`);
+    if(el){const cl=el.cloneNode(true);played.appendChild(cl);el.remove();selEls.push(cl)}
+  }
+  renderHand();renderRail();
+  await sleep(200);
+  /* 回放事件 */
+  await replayScoreEvents(r.ev,played,selEls);
+  /* 清场 */
+  await sleep(260);
+  played.innerHTML='';
+  renderRail();renderTrays();renderHand();
+  UI.animating=false;
+  saveRun();
+  if(r.won){await onRoundWon();return}
+  if(r.lost){
+    const lr=Engine.roundLost(G);
+    if(lr.saved){toast('骨先生:分数已达标 25%,续命!');Snd.joker();G.plays=1;renderRail();saveRun();return}
+    onGameOver(false);return;
+  }
+}
+function elForUid(uid){
+  return document.querySelector(`#played-cards [data-uid="${uid}"],#joker-tray [data-juid="${uid}"],#hand-cards [data-uid="${uid}"]`);
+}
+function elForJokerId(uid){
+  return document.querySelector(`#joker-tray [data-juid="${uid}"]`);
+}
+async function replayScoreEvents(ev,playedBox,selEls){
+  const G=UI.G;
+  let scoreShown=G.score-ev.reduce((s,e)=>s+(e.t==='total'?e.gained:0),0);
+  for(const e of ev){
+    if(e.t==='hand'){
+      UI._sc={chips:e.chips,mult:e.mult};
+      $('hh-chips').textContent=Engine.fmt(e.chips);$('hh-mult').textContent=Math.round(e.mult*100)/100;
+      Snd.joker();await sleep(240);
+    }else if(e.t==='card'){
+      const el=elForUid(e.uid);
+      if(el){el.classList.remove('scored');void el.offsetWidth;el.classList.add('scored');floatyAt(el,'+'+e.chips,'chips')}
+      Snd.chips(e.chips);
+      bump('hh-chips');await sleep(190);
+    }else if(e.t==='chips'||e.t==='mult'||e.t==='xmult'){
+      let el=null;
+      if(e.uid&&String(e.uid).startsWith('j'))el=elForJokerId(e.uid);
+      else if(e.uid)el=elForUid(e.uid);
+      const txt=e.t==='chips'?'+'+e.n+'筹码':e.t==='mult'?'+'+e.n+'多倍':'×'+e.x;
+      if(el){el.classList.remove('acting');void el.offsetWidth;el.classList.add('acting');floatyAt(el,txt,e.t==='chips'?'chips':e.t==='mult'?'mult':'xmult')}
+      if(e.t==='chips'){Snd.chips(e.n);bump('hh-chips')}
+      else if(e.t==='mult'){Snd.mult();bump('hh-mult')}
+      else{Snd.xmult();bump('hh-mult')}
+      if(!UI._sc)UI._sc={chips:0,mult:1};
+      if(e.t==='chips')UI._sc.chips+=e.n;
+      else if(e.t==='mult')UI._sc.mult+=e.n;
+      else UI._sc.mult*=e.x;
+      $('hh-chips').textContent=Engine.fmt(UI._sc.chips);
+      $('hh-mult').textContent=Math.round(UI._sc.mult*100)/100;
+      await sleep(230);
+    }else if(e.t==='money'){
+      Snd.money();floaty(innerWidth/2-30,innerHeight*.4,(e.n>0?'+$':'-$')+Math.abs(e.n),'money');
+      renderRailMoney();await sleep(200);
+    }else if(e.t==='glassBreak'){
+      const el=elForUid(e.uid);
+      if(el){el.style.transition='transform .3s,opacity .3s';el.style.transform='scale(.2) rotate(30deg)';el.style.opacity='0'}
+      Snd.destroy();await sleep(280);
+    }else if(e.t==='total'){
+      await countScore(scoreShown,e.score,e.gained);
+      scoreShown=e.score;
+    }else if(e.t==='debuffCard'){
+      const el=elForUid(e.uid);if(el){el.classList.add('shake');Snd.error();floatyAt(el,'被禁用','mult')}
+      await sleep(160);
+    }else if(e.t==='bossDiscard'){
+      renderRail();Snd.error();toast('铁钩弃掉你 2 张牌!');await sleep(240);
+    }
+  }
+}
+function bump(id){const el=$(id);el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+function renderRailMoney(){const G=UI.G;$('money-val').textContent='$'+G.money;$('money-val').classList.remove('up');void $('money-val').offsetWidth;$('money-val').classList.add('up')}
+async function countScore(from,to,gained){
+  const el=$('sc-score');
+  el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');
+  const steps=Math.min(26,Math.max(8,Math.log10(to-from+2)*6|0));
+  for(let i=1;i<=steps;i++){
+    el.textContent=Engine.fmt(from+(to-from)*i/steps);
+    Snd.chips(i);
+    await sleep(26);
+  }
+  el.textContent=Engine.fmt(to);
+  if(gained>=(UI.G.target||1)*.25){$('app').classList.remove('shake');void $('app').offsetWidth;$('app').classList.add('shake')}
+  floaty(innerWidth/2-40,innerHeight*.3,'+'+Engine.fmt(gained),'xmult');
+}
+
+/* ---------- 弃牌 ---------- */
+async function doDiscard(){
+  const G=UI.G;
+  if(UI.animating)return;
+  const r=Engine.discardSelected(G);
+  if(r.error){Snd.error();toast(r.error);return}
+  UI.animating=true;
+  $('btn-play').disabled=true;$('btn-discard').disabled=true;
+  Snd.flip();
+  /* 动画:选中牌淡出 */
+  const handBox=$('hand-cards');
+  for(const uid of r.ev.filter(e=>e.t==='discard').map(e=>e.uid)){
+    const el=handBox.querySelector(`[data-uid="${uid}"]`);
+    if(el){el.style.transition='transform .25s,opacity .25s';el.style.transform='translateY(60px) rotate(10deg)';el.style.opacity='0'}
+  }
+  await sleep(280);
+  replayEventsBrief(r.ev);
+  renderHand();renderRail();
+  UI.animating=false;
+  saveRun();
+}
+function replayEventsBrief(ev){
+  if(!ev)return;
+  for(const e of ev){
+    if(e.t==='money')Snd.money();
+    if(e.t==='levelUp')toast('「'+HANDS[e.hand].n+'」升级!');
+    if(e.t==='destroy')Snd.destroy();
+    if(e.t==='spawn')Snd.pack();
+  }
+}
+
+/* ---------- 回合胜利结算 ---------- */
+async function onRoundWon(){
+  const G=UI.G;
+  const rewards=Engine.cashoutRewards(G);
+  Snd.blindWin();
+  await sleep(300);
+  /* 填充结算列表 */
+  const list=$('cash-list');list.innerHTML='';
+  let total=0;
+  rewards.items.forEach((it,i)=>{
+    total+=it.n;
+    const el=document.createElement('div');
+    el.className='cash-item';el.style.animationDelay=(i*.18)+'s';
+    el.innerHTML=`<span>${it.lab}</span><b class="px">+$${it.n}</b>`;
+    list.appendChild(el);
+  });
+  for(const e of rewards.ev){if(e.t==='money'){total+=e.n;
+    const el=document.createElement('div');el.className='cash-item';el.style.animationDelay='.5s';
+    el.innerHTML=`<span>${JOKERS[e.src]?JOKERS[e.src].n:'小丑'}</span><b class="px">+$${e.n}</b>`;list.appendChild(el)}}
+  rewards.destroyed.forEach((j,i)=>{
+    const el=document.createElement('div');el.className='cash-item';el.style.animationDelay='.6s';
+    el.innerHTML=`<span style="color:var(--mult)">${JOKERS[j.id].n} 被吃掉了…</span><b class="px">💀</b>`;list.appendChild(el);
+  });
+  $('cash-total').textContent='+$'+total;
+  showScreen('scr-cashout');
+  $('cash-go').onclick=async()=>{
+    Snd.cash();
+    const r=Engine.finishCashout(G,rewards);
+    if(r.won){clearRun();onGameOver(true);return}
+    Engine.startShop(G);
+    saveRun();
+    renderShop();
+  };
+}
+
+/* ---------- 商店 ---------- */
+function renderShop(){
+  const G=UI.G;
+  endSelMode();
+  showScreen('scr-shop');
+  $('shop-money').textContent='$'+G.money;
+  /* 代金券槽 */
+  const vs=$('shop-voucher');vs.innerHTML='';
+  for(const vkey of G.shop.voucher||[]){
+    if(!vkey)continue;
+    for(const v of vkey.split(',')){
+      if(!v||G.vouchers.includes(v))continue;
+      const slot=document.createElement('div');slot.className='shop-slot';
+      const el=voucherEl(v);
+      attachInfo(el,()=>voucherInfoHtml(v));
+      const cost=Engine.priceOf(G,10);
+      const btn=document.createElement('button');
+      btn.className='buybtn'+(cost===0?' free':'');
+      btn.textContent=cost===0?'免费领取':'$'+cost;
+      btn.disabled=G.money<cost;
+      btn.onclick=()=>{
+        const r=Engine.buyVoucher(G,v);
+        if(r.ok){Snd.cash();toast(VOUCHERS[v].n+'!');refreshAll();saveRun()}
+        else{Snd.error();toast(r.error)}
+      };
+      slot.appendChild(el);slot.appendChild(btn);vs.appendChild(slot);
+    }
+  }
+  /* 卡牌槽 */
+  const cs=$('shop-cards');cs.innerHTML='';
+  G.shop.items.forEach((it,i)=>{
+    if(!it){const sold=document.createElement('div');sold.className='shop-slot';sold.innerHTML='<div class="soldout">已售出</div>';cs.appendChild(sold);return}
+    const slot=document.createElement('div');slot.className='shop-slot';
+    let el,label;
+    if(it.kind==='joker'){
+      const j=it.joker||{id:it.stock.id,ed:it.stock.ed,c:{}};
+      el=jcardEl(j);
+      attachInfo(el,()=>jokerInfoHtml(j));
+      label=JOKERS[it.stock.id].n;
+    }else if(it.kind==='playing'){
+      el=pcardEl(it.card);
+      attachInfo(el,()=>cardInfoHtml(it.card));
+      label='扑克牌';
+    }else{
+      el=consumableEl({kind:it.kind,id:it.stock.id});
+      attachInfo(el,()=>consumableInfoHtml({kind:it.kind,id:it.stock.id}));
+      label={tarot:'塔罗牌',planet:'星球牌',spectral:'光谱牌'}[it.kind];
+    }
+    const cost=it.free?0:it.cost;
+    const btn=document.createElement('button');
+    btn.className='buybtn'+(cost===0?' free':'');
+    btn.textContent=cost===0?'免费':'$'+cost;
+    btn.disabled=!it.free&&G.money<cost;
+    btn.onclick=()=>{
+      const r=Engine.buyShopItem(G,i);
+      if(r.ok){Snd.cash();toast('买下 '+label+'!');refreshAll();saveRun()}
+      else{Snd.error();toast(r.error)}
+    };
+    slot.appendChild(el);slot.appendChild(btn);cs.appendChild(slot);
+  });
+  /* 卡包槽 */
+  const ps=$('shop-packs');ps.innerHTML='';
+  G.shop.packs.forEach((pk,i)=>{
+    if(!pk){const sold=document.createElement('div');sold.className='shop-slot';sold.innerHTML='<div class="soldout">已卖完</div>';ps.appendChild(sold);return}
+    const P=PACKS[pk.id];
+    const slot=document.createElement('div');slot.className='shop-slot';
+    const el=document.createElement('div');
+    el.className='packface '+P.cls;
+    el.innerHTML=`<span class="pf-emoji">${P.e}</span><span>${P.n}</span><span style="font-size:10px;opacity:.8">${P.d}</span>`;
+    attachInfo(el,()=>`<div class="ip-name">${P.e} ${P.n}</div><div class="ip-desc">${P.d}</div>`);
+    const cost=pk.free?0:pk.cost;
+    const btn=document.createElement('button');
+    btn.className='buybtn'+(cost===0?' free':'');
+    btn.textContent=cost===0?'免费':'$'+cost;
+    btn.disabled=!pk.free&&G.money<cost;
+    btn.onclick=()=>{
+      const r=Engine.buyPack(G,i);
+      if(r.ok){Snd.pack();showPackOverlay(P.n)}
+      else{Snd.error();toast(r.error)}
+    };
+    slot.appendChild(el);slot.appendChild(btn);ps.appendChild(slot);
+  });
+  /* 重掷 */
+  let rc=G.shop.rerollCost;
+  if(G.shop.d6Free>0)rc=0;
+  $('reroll-cost').textContent=rc===0?'免费':'$'+rc;
+  $('shop-reroll').disabled=G.money<rc;
+  $('shop-reroll').onclick=()=>{
+    const r=Engine.rerollShop(G);
+    if(r.ok){Snd.reroll();renderShop();saveRun()}
+    else{Snd.error();toast(r.error)}
+  };
+  $('shop-next').onclick=()=>{
+    leaveShopUI();
+  };
+}
+function leaveShopUI(){
+  const G=UI.G;
+  /* 佩尔科:离开商店复制消耗牌(负片?此处为复制) */
+  for(const j of [...G.jokers]){
+    const d=Engine.recalcJokerFlags?null:null;
+    if(JOKERS[j.id].flags&&JOKERS[j.id].flags().perkeo&&!j.debuff){
+      if(G.consumables.length<Engine.recalcStats(G).consumableSlots&&G.consumables.length){
+        const cs=G.consumables[Math.floor(Math.random()*G.consumables.length)];
+        G.consumables.push({kind:cs.kind,id:cs.id});
+        toast('佩尔科:复制了一张「'+consDef(G.consumables.length-1).n+'」!');
+        Snd.joker();
+      }
+      break;
+    }
+  }
+  saveRun();
+  renderBlindSelect();
+}
+
+/* ---------- 卡包开启 ---------- */
+function showPackOverlay(title,after){
+  const G=UI.G,P=G.pack;
+  if(!P){after&&after();return}
+  showScreen('scr-pack');
+  $('pack-head').textContent=title||PACKS[P.typeId].n;
+  const box=$('pack-cards');box.innerHTML='';
+  $('pack-note').textContent='剩余选取次数:'+P.left;
+  P.opts.forEach((opt,i)=>{
+    if(!opt)return;
+    const pick=document.createElement('div');pick.className='pick';
+    let el;
+    if(opt.kind==='joker'){el=jcardEl({id:opt.id,ed:opt.ed,c:{},uid:'tmp'+i});attachInfo(el,()=>jokerInfoHtml({id:opt.id,ed:opt.ed,c:{}}))}
+    else if(opt.kind==='playing'){el=pcardEl(opt.card);attachInfo(el,()=>cardInfoHtml(opt.card))}
+    else{el=consumableEl({kind:opt.kind,id:opt.id});attachInfo(el,()=>consumableInfoHtml({kind:opt.kind,id:opt.id}))}
+    pick.appendChild(el);
+    pick.onclick=()=>{
+      const r=Engine.pickFromPack(G,i);
+      if(r.error){Snd.error();toast(r.error);return}
+      Snd.pack();
+      if(r.done){G.pack=null;saveRun();after?after():renderShop()}
+      else showPackOverlay(title,after);
+    };
+    box.appendChild(pick);
+  });
+  /* 跳过剩余 */
+  let skip=$('pack-skip');
+  if(!skip){
+    skip=document.createElement('button');
+    skip.id='pack-skip';
+    skip.className='bigbtn dark';skip.textContent='跳过卡包';
+    skip.onclick=()=>{G.pack=null;saveRun();after?after():renderShop()};
+    $('pack-box').appendChild(skip);
+  }
+}
+
+/* ---------- 结束 ---------- */
+function onGameOver(won){
+  const G=UI.G;
+  clearRun();
+  META.runs++;
+  if(won){META.wins++;Snd.win();confetti(90)}
+  else Snd.lose();
+  if(G.ante>META.bestAnte)META.bestAnte=G.ante;
+  saveMeta();
+  const box=$('end-box');
+  box.className='end-box '+(won?'win':'lose');
+  $('end-title').textContent=won?'通关了!':'游戏结束';
+  const st=$('end-stats');
+  st.innerHTML=`
+    <div>到达 <b>Ante ${G.ante}</b>${won?' · 8 个 Ante 全部拿下!':''}</div>
+    <div>本局打出 <b>${G.stats.handsPlayed}</b> 手牌 · 金钱 <b class="px">$${G.money}</b></div>
+    <div>小丑 <b>${G.jokers.length}</b> 张 · 最常打出 <b>${HANDS[Engine.mostPlayedHand(G)].n}</b> ×${G.handCounts[Engine.mostPlayedHand(G)]}</div>`;
+  const btns=$('end-btns');btns.innerHTML='';
+  if(won){
+    const b1=document.createElement('button');b1.className='bigbtn gold';b1.textContent='无尽模式 →';
+    b1.onclick=()=>{Engine.startEndless(G);UI.G=G;saveRun();renderBlindSelect()};
+    btns.appendChild(b1);
+  }
+  const b2=document.createElement('button');b2.className='bigbtn red';b2.textContent='再来一局';
+  b2.onclick=()=>{newRunFlow(UI.deckPick)};
+  btns.appendChild(b2);
+  const b3=document.createElement('button');b3.className='bigbtn dark';b3.textContent='回主菜单';
+  b3.onclick=()=>{UI.G=null;showMenu()};
+  btns.appendChild(b3);
+  showScreen('scr-end');
+}
+
+/* ---------- 全局刷新 ---------- */
+function refreshAll(){
+  const G=UI.G;
+  if(!G)return;
+  if(G.phase==='play'||G.phase==='select'){
+    if($('scr-game').classList.contains('on')){renderRail();renderTrays();renderHand()}
+    else renderBlindSelect();
+  }else if(G.phase==='shop')renderShop();
+}
+
+/* ---------- 菜单/牌背/战绩 ---------- */
+function showMenu(){
+  $('btn-continue').style.display=hasSave()?'':'none';
+  $('menu-best').textContent=META.bestAnte;
+  $('menu-wins').textContent=META.wins;
+  showScreen('scr-menu');
+}
+function renderDeckGrid(pickMode){
+  const grid=$('deck-grid');grid.innerHTML='';
+  for(const[id,D]of Object.entries(DECKS)){
+    const ok=deckUnlocked(id,META);
+    const el=document.createElement('div');
+    el.className='deck-item'+(UI.deckPick===id?' sel':'')+(ok?'':' locked');
+    el.innerHTML=`
+      <div class="di-back" style="background:${{red:'linear-gradient(145deg,#a33446,#5a1c28)',blue:'linear-gradient(145deg,#3459a3,#1c2d5a)',yellow:'linear-gradient(145deg,#c9a334,#8a6a1c)',white:'linear-gradient(145deg,#e8e4d8,#b8b2a0)',black:'linear-gradient(145deg,#2a2a33,#101014)',magic:'linear-gradient(145deg,#6b3da3,#33205a)',painted:'linear-gradient(145deg,#3da36b,#1c5a38)',checkered:'linear-gradient(145deg,#333,#000)',anaglyph:'linear-gradient(145deg,#c97034,#8a431c)',plasma:'linear-gradient(145deg,#8a34a3,#4a1c5a)'}[id]}"></div>
+      <div class="di-name">${D.e} ${D.n}</div>
+      <div class="di-desc">${D.d}</div>
+      <div class="di-unlock">${ok?'':deckUnlockHint(id)}</div>
+      ${ok?'':'<div class="di-lock">🔒</div>'}`;
+    el.onclick=()=>{
+      if(!ok){Snd.error();toast(deckUnlockHint(id));return}
+      Snd.select();UI.deckPick=id;
+      if(pickMode){startNewRun(id)}
+      else renderDeckGrid(false);
+    };
+    grid.appendChild(el);
+  }
+}
+function newRunFlow(){
+  UI.deckPick='red';
+  renderDeckGrid(true);
+  showScreen('scr-decks');
+}
+function startNewRun(deckId){
+  clearRun();
+  UI.G=Engine.newRun(deckId);
+  META.runs++;
+  saveMeta();
+  saveRun();
+  renderBlindSelect();
+}
+function renderStats(){
+  const grid=$('stat-grid');grid.innerHTML='';
+  const items=[
+    ['最高 Ante',META.bestAnte],['通关次数',META.wins],['总局数',META.runs],
+    ['累计手牌',META.handsPlayed],['图鉴进度',Object.keys(JOKERS).length+' 张小丑'],
+    ['音效',(META.sound?'开':'关')],
+  ];
+  for(const[k,v]of items){
+    const el=document.createElement('div');el.className='stat-item';
+    el.innerHTML=`<div class="si-lab">${k}</div><div class="si-val">${v}</div>`;
+    grid.appendChild(el);
+  }
+}
+
+/* ---------- 事件绑定 ---------- */
+function bindGlobal(){
+  $('btn-continue').onclick=()=>{
+    Snd.unlock();Snd.click();
+    const G=loadRun();
+    if(!G){toast('没有进度');return}
+    UI.G=G;
+    routeByPhase();
+  };
+  $('btn-newrun').onclick=()=>{Snd.unlock();Snd.click();newRunFlow()};
+  $('btn-decks').onclick=()=>{Snd.click();renderDeckGrid(false);showScreen('scr-decks')};
+  $('btn-stats').onclick=()=>{Snd.click();renderStats();showScreen('scr-stats')};
+  $('btn-howto').onclick=()=>{Snd.click();showScreen('scr-howto')};
+  $('decks-back').onclick=()=>showMenu();
+  $('stats-back').onclick=()=>showMenu();
+  $('howto-back').onclick=()=>showMenu();
+  $('blind-go').onclick=onBlindGo;
+  $('btn-play').onclick=doPlay;
+  $('btn-discard').onclick=doDiscard;
+  $('btn-sort-rank').onclick=()=>{UI.sortMode='rank';$('btn-sort-rank').classList.add('sel');$('btn-sort-suit').classList.remove('sel');Snd.click();renderHand()};
+  $('btn-sort-suit').onclick=()=>{UI.sortMode='suit';$('btn-sort-suit').classList.add('sel');$('btn-sort-rank').classList.remove('sel');Snd.click();renderHand()};
+  $('tb-sound').onclick=()=>{
+    META.sound=!META.sound;Snd.setMuted(!META.sound);saveMeta();
+    $('tb-sound').textContent=META.sound?'🔊':'🔇';
+    Snd.click();
+  };
+  $('tb-menu').onclick=()=>{
+    confirmPop('暂停','要放弃本局回到主菜单吗?',[
+      {txt:'放弃本局',cls:'red',cb:()=>{clearRun();UI.G=null;showMenu()}},
+      {txt:'继续游戏',cls:'blue'}]);
+  };
+  $('cash-go');
+}
+function routeByPhase(){
+  const G=UI.G;
+  if(!G){showMenu();return}
+  if(G.phase==='play'){showScreen('scr-game');renderRail();renderTrays();renderHand()}
+  else if(G.phase==='select')renderBlindSelect();
+  else if(G.phase==='shop')renderShop();
+  else{clearRun();UI.G=null;showMenu()}
+}
+
+/* ---------- 启动 ---------- */
+function boot(){
+  loadMeta();
+  Snd.setMuted(!META.sound);
+  bindGlobal();
+  if(META.sound)setTimeout(()=>{},0);
+  showMenu();
+  document.addEventListener('pointerdown',()=>Snd.unlock(),{once:true});
+}
+
+document.addEventListener('DOMContentLoaded',boot);
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+/* Press Start 2P — SIL Open Font License 1.1, 仅用于拉丁字符与数字的像素化表现 */
+@font-face{
+  font-family:'PixelNum';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url(data:font/woff2;base64,__FONT_B64__) format('woff2');
+}
