@@ -15,7 +15,7 @@
 
 详见 [Klotski/README.md](Klotski/README.md)。
 
-### [Let's farm](Let's%20farm/) — 番茄钟
+### [Pomodoro](Pomodoro/) — 番茄钟
 
 专注与休息的计时工具：**工作 25 分钟**、**休息 10 分钟**，把一天的时间看得见。
 

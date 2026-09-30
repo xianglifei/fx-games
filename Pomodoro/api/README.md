@@ -29,7 +29,7 @@
 ## 部署 / 更新
 
 ```bash
-cd "Let's farm/api"
+cd Pomodoro/api
 
 # 首次
 wrangler d1 create pomodoro-db          # 把输出的 database_id 填进 wrangler.toml
