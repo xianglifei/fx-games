@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>露营谜题 · Wild Camp 网页版</title>
+<meta name="description" content="露营谜题 Wild Camp：6×6 棋盘上的帐篷逻辑谜题，每关由算法生成并保证唯一解，五个营地风景共 750 关，随时停下、随时续玩。">
+<meta name="theme-color" id="meta-theme" content="#bfe6f7">
+<title>露营谜题 Wild Camp</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛺</text></svg>">
 <style>
 :root{
@@ -21,6 +23,7 @@
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 [hidden]{display:none !important;}
+html{touch-action:manipulation;-webkit-text-size-adjust:100%;}
 html,body{margin:0;padding:0;}
 body{
   font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
@@ -30,7 +33,7 @@ body{
     linear-gradient(180deg, var(--sky1) 0%, var(--sky2) 55%, var(--sky3) 100%);
   min-height:100vh;
   display:flex;flex-direction:column;align-items:center;
-  padding:14px 12px 46px;
+  padding:14px 12px calc(46px + env(safe-area-inset-bottom));
   overflow-x:hidden;
 }
 body::before,body::after{
@@ -89,7 +92,8 @@ h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
 #win-bar.show{display:flex;animation:barup .3s cubic-bezier(.34,1.56,.64,1);}
 @keyframes barup{from{transform:translateY(12px);opacity:0}}
 .grid-wrap{
-  display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:6px;user-select:none;
+  display:grid;grid-template-columns:auto 1fr;grid-template-rows:1fr auto;gap:6px;
+  user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;
 }
 .row-clues{grid-area:1/1;display:grid;grid-template-rows:repeat(6,1fr);}
 .board{grid-area:1/2;position:relative;aspect-ratio:1;
@@ -122,6 +126,16 @@ h1 .en{font-size:12px;color:#8a6a4a;font-weight:500;}
 @keyframes shakeit{20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
 .cell.hintflash{animation:hintf 1s;}
 @keyframes hintf{0%,55%{box-shadow:inset 0 0 0 4px #ffd23f;filter:brightness(1.2)}}
+
+/* ---------- 手感动效（收帐篷 / 数字达标 / 开局入场 / 换营地色幕） ---------- */
+.tent.bye{animation:bye .16s ease-in forwards;pointer-events:none;}
+@keyframes bye{to{transform:scale(.55);opacity:0}}
+.chip.chip-pop{animation:chippop .34s cubic-bezier(.34,1.56,.64,1);}
+@keyframes chippop{45%{transform:scale(1.24)}}
+.frame.enter{animation:framein .42s cubic-bezier(.22,1,.36,1);}
+@keyframes framein{from{transform:scale(.96) translateY(8px);opacity:.3}}
+#veil{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:0;transition:opacity .3s ease;}
+#veil.show{opacity:1;transition:opacity .15s ease;}
 
 /* ---------- 帐篷浮层 ---------- */
 #overlay{position:absolute;inset:0;pointer-events:none;z-index:5;}
@@ -184,7 +198,7 @@ body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:
 
 /* ---------- 提示气泡 ---------- */
 #toast{
-  position:fixed;bottom:104px;left:50%;transform:translateX(-50%) translateY(8px);
+  position:fixed;bottom:calc(104px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(8px);
   background:rgba(40,28,16,.9);color:#fff;padding:8px 16px;border-radius:999px;font-size:13px;
   opacity:0;transition:.25s;pointer-events:none;white-space:nowrap;z-index:60;max-width:92vw;
 }
@@ -206,8 +220,14 @@ body.tut.dim-clues .row-clues, body.tut.dim-clues .col-clues{opacity:.28;filter:
 .card .big{font-size:46px;line-height:1;}
 .card h2{margin:10px 0 2px;font-size:22px;}
 .card .sub{font-size:13px;color:#8a6a4a;margin:0 0 8px;}
-.stars{font-size:24px;letter-spacing:5px;margin:6px 0;}
-.stats{display:flex;gap:14px;justify-content:center;margin:10px 0 16px;font-size:14px;flex-wrap:wrap;}
+.stars{font-size:24px;letter-spacing:5px;margin:6px 0;height:34px;}
+.stars .star{display:inline-block;animation:starpop .5s cubic-bezier(.34,1.56,.64,1) backwards;}
+.stars .star.off{filter:grayscale(1);opacity:.32;}
+@keyframes starpop{from{transform:scale(0) rotate(-24deg)}60%{transform:scale(1.3) rotate(5deg)}}
+.prog{height:10px;max-width:300px;margin:10px auto 5px;background:rgba(60,42,26,.12);border-radius:999px;overflow:hidden;}
+.prog-fill{height:100%;min-width:8px;width:0;border-radius:999px;background:linear-gradient(90deg,var(--orange),#ffb347);transition:width .9s cubic-bezier(.22,1,.36,1);}
+.prog-label{font-size:11.5px;color:#8a6a4a;margin-bottom:4px;}
+.stats{display:flex;gap:14px;justify-content:center;margin:10px 0 4px;font-size:14px;flex-wrap:wrap;}
 .card-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
 .btn.primary{background:var(--orange);color:#fff;font-weight:700;padding:9px 20px;}
 .rules-body{text-align:left;font-size:14px;line-height:1.75;}
@@ -429,7 +449,7 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
 
 <header class="topbar">
   <div class="title-row">
-    <h1>🏕️ 露营谜题 <span class="en">Wild Camp · 网页版</span></h1>
+    <h1>🏕️ 露营谜题 <span class="en">Wild Camp</span></h1>
     <span class="meta-group">
       <span class="lvl-badge">第 <b id="lvl">1</b> 关 <span class="lvl-total">/ 150</span><span class="sep">·</span><span id="time">00:00</span></span>
       <button class="btn icon-btn" id="btn-rules" title="规则" aria-label="规则">📖</button>
@@ -487,7 +507,8 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
   <button class="reset-test" id="btn-reset">重置进度（测试）</button>
 </footer>
 
-<div id="toast"></div>
+<div id="veil" hidden></div>
+<div id="toast" role="status" aria-live="polite"></div>
 <div id="confetti"></div>
 
 <!-- 胜利弹窗 -->
@@ -498,6 +519,8 @@ footer{margin-top:22px;font-size:11px;color:var(--footer-ink);text-align:center;
     <p class="sub" id="win-lvl"></p>
     <div class="stars" id="win-stars"></div>
     <div class="stats" id="win-stats"></div>
+    <div class="prog"><div class="prog-fill" id="win-prog"></div></div>
+    <div class="prog-label" id="win-prog-label"></div>
     <div class="card-btns">
       <button class="btn primary" id="btn-next">下一关 ⛺</button>
       <button class="btn" id="btn-replay">再玩一次</button>
@@ -1067,6 +1090,7 @@ function applySkin(tier){
   rs.setProperty('--chipd-ink', s.chipInk);
   rs.setProperty('--sky1', s.sky[0]); rs.setProperty('--sky2', s.sky[1]); rs.setProperty('--sky3', s.sky[2]);
   rs.setProperty('--glow', s.glow); rs.setProperty('--cloud', s.cloud); rs.setProperty('--footer-ink', s.footerInk);
+  const mt=$('meta-theme'); if (mt) mt.content=s.sky[0];   // 系统状态栏跟随营地配色
   $('icon-single').innerHTML = s.tent.s;
   $('icon-double').innerHTML = s.tent.h;
   state.skin = s;
@@ -1090,22 +1114,41 @@ const Sound = (()=>{
     g.gain.exponentialRampToValueAtTime(.0001,s+dur);
     o.start(s); o.stop(s+dur+.05);
   }
+  function whoosh(){
+    const c=ac(); if(!c||!enabled) return;
+    const o=c.createOscillator(), g=c.createGain();
+    o.type='sine';
+    o.frequency.setValueAtTime(620,c.currentTime);
+    o.frequency.exponentialRampToValueAtTime(150,c.currentTime+.24);
+    g.gain.setValueAtTime(.0001,c.currentTime);
+    g.gain.exponentialRampToValueAtTime(.06,c.currentTime+.03);
+    g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.26);
+    o.connect(g); g.connect(c.destination);
+    o.start(); o.stop(c.currentTime+.3);
+  }
   return {
     get enabled(){ return enabled; },
     set enabled(v){ enabled=v; if(v) ac(); },
-    place(){ if(enabled){ tone(520,0,.09); tone(720,.05,.12);} },
+    place(){ if(enabled){ tone(495+Math.random()*55,0,.09); tone(710+Math.random()*45,.05,.12);} },
     remove(){ if(enabled) tone(330,0,.12,'sine'); },
     error(){ if(enabled){ tone(160,0,.12,'square',.07); tone(120,.09,.14,'square',.07);} },
     hint(){ if(enabled){ tone(880,0,.1); tone(1175,.08,.14);} },
-    win(){ if(enabled) [523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.24,'triangle',.15)); },
+    tick(){ if(enabled) tone(1175,0,.05,'sine',.05); },
+    step(){ if(enabled){ tone(660,0,.08); tone(990,.07,.11);} },
+    star(i){ if(enabled) tone(659+i*164,0,.18,'triangle',.12); },
+    whoosh,
+    win(){ if(enabled){ [523,659,784,1047].forEach((f,i)=>tone(f,i*.11,.24,'triangle',.15)); tone(1568,.44,.35,'triangle',.09); } },
   };
 })();
+
+/* 触感反馈（跟随声音开关；设备不支持时静默忽略） */
+function buzz(p){ if (!Sound.enabled) return; try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
 
 /* ============ 游戏状态 ============ */
 const TIERS = { easy:'入门', normal:'进阶', hard:'挑战', master:'大师', legend:'传奇' };
 const MAX_LEVEL = 150;   // 每个难度 150 关，五个难度共 750 关
 const SAVE_KEY = 'wild-camp-web-v1';
-let save = { v:1, sound:true, tier:'easy', seenRules:false, seenDoubleRules:false, tutorialDone:false, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
+let save = { v:1, sound:true, tier:'easy', seenRules:false, seenDoubleRules:false, tutorialDone:false, live:{}, levels:{easy:1,normal:1,hard:1,master:1,legend:1} };
 try {
   const raw = localStorage.getItem(SAVE_KEY);
   if (raw){ const s=JSON.parse(raw); if(s && s.v===1) save=s; }
@@ -1115,6 +1158,40 @@ save.levels = Object.assign({easy:1,normal:1,hard:1,master:1,legend:1}, save.lev
 // 存档迁移：老玩家（看过文字规则）视为已完成教学，不进教学关
 if (save.tutorialDone===undefined){ save.tutorialDone=!!save.seenRules; persist(); }
 function persist(){ try{ localStorage.setItem(SAVE_KEY, JSON.stringify(save)); }catch(e){} }
+
+/* ---- 中途续玩：进行中的棋盘（题目+已摆帐篷+用时）即时存档，关页/刷新后原样恢复 ---- */
+const inBd=(r,c)=>r>=0&&r<N&&c>=0&&c<N;
+function takeLive(tier, level){
+  try{
+    const L=(save.live||{})[tier];
+    if (!L || L.level!==level || !L.puzzle || !Array.isArray(L.tents)) return null;
+    const p=L.puzzle;
+    if (!Array.isArray(p.trees) || p.trees.length<3 || p.trees.some(t=>!inBd(t[0],t[1]))) return null;
+    if (!Array.isArray(p.rc) || !Array.isArray(p.cc) || p.rc.length!==N || p.cc.length!==N) return null;
+    if (!Array.isArray(p.solution) || p.solution.length!==p.trees.length) return null;
+    if (p.solution.some(o=>!Array.isArray(o) || o.length<1 || o.length>2 || o.some(t=>!inBd(t[0],t[1])))) return null;
+    if (L.tents.some(t=>(t.kind!==1&&t.kind!==2) || !Array.isArray(t.cells) || t.cells.length!==t.kind || t.cells.some(x=>!inBd(x[0],x[1])))) return null;
+    return L;
+  }catch(e){ return null; }
+}
+function persistLive(){
+  if (state.mode!=='normal' || !state.puzzle || state.won) return;
+  try{
+    save.live = save.live || {};
+    save.live[state.tier] = {
+      level: state.level,
+      puzzle: { trees: state.puzzle.trees, solution: state.puzzle.solution, rc: state.puzzle.rc, cc: state.puzzle.cc,
+                singles: state.puzzle.singles, doubles: state.puzzle.doubles },
+      tents: [...state.tents.values()].filter(t=>!t.locked).map(t=>({cells:t.cells, kind:t.kind})),
+      moves: state.moves, hints: state.hints,
+      elapsed: state.startAt ? Math.max(0, Math.floor((Date.now()-state.startAt)/1000)) : 0,
+    };
+    persist();
+  }catch(e){}
+}
+function clearLive(tier){
+  try{ if (save.live){ delete save.live[tier||state.tier]; persist(); } }catch(e){}
+}
 
 const state = {
   tier: save.tier in TIERS ? save.tier : 'easy',
@@ -1179,6 +1256,7 @@ function renderTents(){
     d.style.width =(hCells/N*100)+'%';
     d.style.height=(vCells/N*100)+'%';
     d.innerHTML=tentSvgFor(t);
+    d.dataset.tid=t.id;
     d.addEventListener('click', e=>{ e.stopPropagation(); removeTent(t.id); });
     overlayEl.appendChild(d);
   }
@@ -1188,10 +1266,20 @@ function currentCounts(){
   for (const t of state.tents.values()) for (const [r,c] of t.cells){ rc[r]++; cc[c]++; }
   return {rc, cc};
 }
-function updateClues(){
+function updateClues(silent){
   const {rc,cc}=currentCounts(), p=state.puzzle;
-  rowChipEls.forEach((el,i)=>{ el.textContent=p.rc[i]; el.classList.toggle('done', rc[i]===p.rc[i]); });
-  colChipEls.forEach((el,i)=>{ el.textContent=p.cc[i]; el.classList.toggle('done', cc[i]===p.cc[i]); });
+  rowChipEls.forEach((el,i)=>{
+    el.textContent=p.rc[i];
+    const now=rc[i]===p.rc[i], was=el.classList.contains('done');
+    el.classList.toggle('done', now);
+    if (now && !was && !silent){ el.classList.remove('chip-pop'); void el.offsetWidth; el.classList.add('chip-pop'); Sound.tick(); }
+  });
+  colChipEls.forEach((el,i)=>{
+    el.textContent=p.cc[i];
+    const now=cc[i]===p.cc[i], was=el.classList.contains('done');
+    el.classList.toggle('done', now);
+    if (now && !was && !silent){ el.classList.remove('chip-pop'); void el.offsetWidth; el.classList.add('chip-pop'); Sound.tick(); }
+  });
 }
 function updatePalette(){
   const p=state.puzzle;
@@ -1303,8 +1391,8 @@ function tryPlace(cells, kind){
   state.nextId++;
   state.moves++;
   cancelAnchor();
-  Sound.place();
-  renderTents(); updateClues(); updatePalette();
+  Sound.place(); buzz(12);
+  renderTents(); updateClues(); updatePalette(); persistLive();
   if (state.mode==='tutorial') syncTutorial();
   checkWin();
 }
@@ -1312,11 +1400,14 @@ function removeTent(id){
   if (state.won) return;
   const t=state.tents.get(id);
   if (t && t.locked){ toast('这顶帐篷已经搭好啦'); return; }
+  const el=overlayEl.querySelector(`.tent[data-tid="${id}"]`);
+  if (el) el.classList.add('bye');   // 幽灵动画：逻辑上立即移除，视觉上缩小淡出
   state.tents.delete(id);
   state.moves++;
-  Sound.remove();
-  renderTents(); updateClues(); updatePalette();
+  Sound.remove(); buzz(8);
+  updateClues(); updatePalette(); persistLive();
   if (state.mode==='tutorial') syncTutorial();
+  setTimeout(renderTents, 160);
 }
 function selectPiece(kind){
   state.piece=kind;
@@ -1346,10 +1437,13 @@ function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60
 function doWin(){
   state.won=true;
   clearInterval(state.timerId);
+  clearLive();
   const secs=Math.floor((Date.now()-state.startAt)/1000);
-  Sound.win(); confetti();
+  Sound.win(); confetti(); buzz([15,60,15,60,40]);
   const st=state.hints===0?3:(state.hints<=2?2:1);
-  $('win-stars').textContent='⭐'.repeat(st)+'☆'.repeat(3-st);
+  $('win-stars').innerHTML=Array.from({length:3},(_,i)=>
+    `<span class="star${i<st?'':' off'}" style="animation-delay:${(.7+i*.25).toFixed(2)}s">⭐</span>`).join('');
+  for (let i=0;i<st;i++) setTimeout(()=>Sound.star(i), 700+i*250);
   $('win-stats').innerHTML=`⏱ 用时 <b>${fmt(secs)}</b> · 💡 提示 <b>${state.hints}</b> · 🖐 步数 <b>${state.moves}</b>`;
   const clearedAll = state.level >= MAX_LEVEL;
   if (clearedAll){
@@ -1360,6 +1454,11 @@ function doWin(){
     $('btn-next').style.display='';
   }
   if (!clearedAll && save.levels[state.tier]===state.level){ save.levels[state.tier]++; persist(); }
+  const cleared = clearedAll ? MAX_LEVEL : save.levels[state.tier]-1;
+  $('win-prog-label').textContent=`${TIERS[state.tier]}营地进度 ${cleared}/${MAX_LEVEL}`;
+  const fill=$('win-prog');
+  fill.style.width='0%'; void fill.offsetWidth;
+  fill.style.width=(cleared/MAX_LEVEL*100)+'%';
   setTimeout(()=>{ $('win-mask').classList.add('show'); updateWinBar(); }, 550);
 }
 // 通关后关闭结算弹窗时，在棋盘上保留"下一关"入口
@@ -1406,12 +1505,12 @@ function useHint(){
   state.nextId++;
   state.hints++; state.moves++;
   cancelAnchor();
-  Sound.hint();
+  Sound.hint(); buzz(15);
   target.forEach(([r,c])=>{
     const el=cellAt(r,c);
     el.classList.remove('hintflash'); void el.offsetWidth; el.classList.add('hintflash');
   });
-  renderTents(); updateClues(); updatePalette();
+  renderTents(); updateClues(); updatePalette(); persistLive();
   checkWin();
 }
 
@@ -1426,20 +1525,40 @@ function resetBoard(){
   state.tents.clear(); state.nextId=1;
   state.anchor=null; state.hints=0; state.moves=0; state.won=false;
   selectPiece('single');
-  renderTents(); updateClues(); updatePalette(); startTimer();
+  renderTents(); updateClues(true); updatePalette(); startTimer();
   updateWinBar();
 }
 function loadLevel(animateTrees=true){
   state.mode='normal';
   exitTutorial();
-  const p=paramsFor(state.tier, state.level);
-  let pz=genPuzzle(p);
-  if (!pz) pz=genPuzzle({...p, doubles:0});
-  if (!pz) pz=genPuzzle({trees:Math.max(3,p.trees-1), doubles:0, spacing:1});
+  const live=takeLive(state.tier, state.level);   // 有进行中的存档 → 原样续玩
+  let pz, restored=null;
+  if (live){ pz=live.puzzle; restored=live; }
+  else{
+    const p=paramsFor(state.tier, state.level);
+    pz=genPuzzle(p);
+    if (!pz) pz=genPuzzle({...p, doubles:0});
+    if (!pz) pz=genPuzzle({trees:Math.max(3,p.trees-1), doubles:0, spacing:1});
+    // 过期的续玩存档（关卡号已落后于解锁进度，再也不可能回到）顺手清掉
+    try{ if (save.live && save.live[state.tier]){ delete save.live[state.tier]; persist(); } }catch(e){}
+  }
   state.puzzle=pz;
   state.treeSet=new Set(pz.trees.map(([r,c])=>r*N+c));
   resetBoard();
+  if (restored){
+    for (const t of restored.tents){
+      state.tents.set(state.nextId, {id:state.nextId, cells:t.cells.map(([r,c])=>[r,c]), kind:t.kind});
+      state.nextId++;
+    }
+    state.moves=restored.moves||0;
+    state.hints=restored.hints||0;
+    state.startAt=Date.now()-(restored.elapsed||0)*1000;
+    $('time').textContent=fmt(restored.elapsed||0);
+    renderTents(); updateClues(true); updatePalette();
+  }
   renderTrees(animateTrees);
+  const fr=document.querySelector('.frame');
+  fr.classList.remove('enter'); void fr.offsetWidth; fr.classList.add('enter');
   updateHud();
   // 第一次拿到带双帐篷的关卡时，把 Double 规则二级页弹出来讲一次
   if (pz.doubles>0 && !save.seenDoubleRules){
@@ -1583,6 +1702,7 @@ function syncTutorial(){
   if (i!==state.tutStep){
     state.tutStep=i;
     updateTutCard();
+    Sound.step(); buzz(10);
     T.steps[i].enter();
   }
 }
@@ -1611,13 +1731,21 @@ function exitTutorial(){
 /* ============ 按钮绑定 ============ */
 document.querySelectorAll('.tier-chip').forEach(b=>{
   b.addEventListener('click', ()=>{
-    if (state.tier===b.dataset.tier) return;
-    state.tier=b.dataset.tier;
-    applySkin(state.tier);
-    save.tier=state.tier; persist();
-    state.level=Math.min(save.levels[state.tier], MAX_LEVEL);
-    $('win-mask').classList.remove('show');
-    loadLevel();
+    if (state.tier===b.dataset.tier || state.mode==='tutorial') return;
+    // 换营地 = 换一片风景：色幕盖下完成换肤再揭开，避免整页配色瞬间跳变
+    const veil=$('veil'), s=SKINS[b.dataset.tier];
+    veil.style.background=`linear-gradient(180deg, ${s.sky[0]}, ${s.sky[1]} 55%, ${s.sky[2]})`;
+    veil.hidden=false; void veil.offsetWidth; veil.classList.add('show');
+    Sound.whoosh(); buzz(12);
+    setTimeout(()=>{
+      state.tier=b.dataset.tier;
+      applySkin(state.tier);
+      save.tier=state.tier; persist();
+      state.level=Math.min(save.levels[state.tier], MAX_LEVEL);
+      $('win-mask').classList.remove('show');
+      loadLevel();
+      setTimeout(()=>{ veil.classList.remove('show'); setTimeout(()=>{ veil.hidden=true; }, 320); }, 80);
+    }, 170);
   });
 });
 $('btn-hint').addEventListener('click', useHint);
@@ -1676,6 +1804,9 @@ $('btn-reset').addEventListener('click', ()=>{
   }
 });
 document.addEventListener('keydown', e=>{ if (e.key==='Escape') cancelAnchor(); });
+// 关页/切后台时把进行中的棋盘存下来，回来原样续玩
+window.addEventListener('pagehide', persistLive);
+document.addEventListener('visibilitychange', ()=>{ if (document.visibilityState==='hidden') persistLive(); });
 $('win-mask').addEventListener('click', e=>{ if (e.target===$('win-mask')){ $('win-mask').classList.remove('show'); updateWinBar(); } });
 $('btn-winbar-next').addEventListener('click', ()=>{ $('win-mask').classList.remove('show'); $('btn-next').click(); });
 $('rules-mask').addEventListener('click', e=>{ if (e.target===$('rules-mask')) closeRules(); });
